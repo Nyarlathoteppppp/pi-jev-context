@@ -55,6 +55,32 @@ export function compositePolicy(r: JevReading, t: Thresholds = DEFAULT_THRESHOLD
 	return base;
 }
 
+export interface GuardThresholds {
+	drop: number;
+	confidence: number;
+	needed: number;
+	user: number;
+	durable: number;
+}
+
+/**
+ * Frozen after run-q1 (post-hoc on the dev set), validated on the held-out set without re-tuning.
+ * A DROP must be confident, not needed now, not user-requested; durable facts are truncated, not dropped.
+ * UNCERTAIN → KEEP. Low-confidence DROPs fall back to the better of KEEP / TRUNCATE.
+ */
+export const GUARD: GuardThresholds = { drop: 0.8, confidence: 0.7, needed: 0.5, user: 0.5, durable: 0.8 };
+
+export function guardedPolicy(r: JevReading, t: GuardThresholds = GUARD): Label {
+	const c = r.decision.choice;
+	if (c === "UNCERTAIN") return "KEEP";
+	if (c !== "DROP") return c as Label;
+	const s = r.signals;
+	if ((r.decision.probabilities.DROP ?? 0) < t.drop || r.decision.confidence < t.confidence) return keepOrTruncate(r);
+	if ((s.needed_now ?? 0) >= t.needed || (s.user_requested ?? 0) >= t.user) return keepOrTruncate(r);
+	if ((s.durable ?? 0) >= t.durable) return "TRUNCATE";
+	return "DROP";
+}
+
 // ---------------------------------------------------------------------------------------------
 // Baselines without Jev.
 

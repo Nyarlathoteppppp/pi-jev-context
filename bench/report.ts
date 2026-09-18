@@ -5,11 +5,12 @@ import { readFileSync, writeFileSync } from "node:fs";
 import { estimateTokens } from "../src/extract.ts";
 import type { ChoiceAnswer, JevCall, NoulAnswer } from "../src/jev.ts";
 import { majority, PREDICTIONS, percentile, type Row, type Summary, summarize } from "../src/metrics.ts";
-import { compositePolicy, DEFAULT_THRESHOLDS, type JevReading, rawPolicy, rulePolicy, safePolicy, type Thresholds } from "../src/policy.ts";
+import { compositePolicy, DEFAULT_THRESHOLDS, guardedPolicy, type JevReading, rawPolicy, rulePolicy, safePolicy, type Thresholds } from "../src/policy.ts";
 import { SIGNALS } from "../src/questions.ts";
 import { LABELS, type Label, type Prediction } from "../src/types.ts";
 import type { ItemResult } from "./run.ts";
-import { items } from "./cases.ts";
+import { CASES, items } from "./cases.ts";
+import { HOLDOUT } from "./holdout.ts";
 
 const file = process.argv[2];
 if (!file) {
@@ -17,7 +18,7 @@ if (!file) {
 	process.exit(1);
 }
 const { meta, results } = JSON.parse(readFileSync(file, "utf8")) as { meta: Record<string, unknown>; results: ItemResult[] };
-const byKey = new Map(items().map((i) => [i.key, i]));
+const byKey = new Map(items([...CASES, ...HOLDOUT]).map((i) => [i.key, i]));
 
 const TRUNCATED_BUDGET = 150; // tokens a truncated result keeps (~15 key lines)
 
@@ -48,6 +49,7 @@ const POLICIES: Record<string, Policy> = {
 	"jev raw": rawPolicy,
 	"jev safe": (x) => safePolicy(x),
 	"jev composite": (x) => compositePolicy(x),
+	"jev guarded (frozen)": (x) => guardedPolicy(x),
 };
 
 const baselines: Record<string, Row[]> = {
@@ -115,6 +117,7 @@ out(`## Confusion matrices`);
 out();
 matrix("Jev raw, per call", perCall(rawPolicy));
 matrix("Jev composite, per call", perCall((x) => compositePolicy(x)));
+matrix("Jev guarded (frozen), per call", perCall((x) => guardedPolicy(x)));
 matrix("rules only", baselines["rules only (no Jev)"]!);
 
 // Stability
@@ -127,13 +130,13 @@ out();
 // Per item
 out(`## Per item`);
 out();
-out(`| item | category | truth (acceptable) | crit | Jev raw picks | p(choice) | conf | needed_now | superseded | unique | durable | user_req | noise | composite | ok? |`);
+out(`| item | category | truth (acceptable) | crit | Jev raw picks | p(choice) | conf | needed_now | superseded | unique | durable | user_req | noise | guarded | ok? |`);
 out(`|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|`);
 const mean = (xs: number[]) => (xs.length ? xs.reduce((a, b) => a + b, 0) / xs.length : Number.NaN);
 for (const r of results) {
 	const rs = r.calls.map((c) => reading(r, c)).filter((x): x is JevReading => !!x);
 	const picks = rs.map((x) => x.decision.choice);
-	const comp = majority(rs.map((x) => compositePolicy(x)));
+	const comp = majority(rs.map((x) => guardedPolicy(x)));
 	const sig = (k: string) => f2(mean(rs.map((x) => x.signals[k] ?? Number.NaN)));
 	const good = r.target.acceptable.includes(comp as Label);
 	const fatal = r.target.critical && comp === "DROP";

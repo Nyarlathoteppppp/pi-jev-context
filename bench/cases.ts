@@ -33,7 +33,7 @@ export interface Case {
 	checkpoints: Checkpoint[];
 }
 
-const T = (tag: string, truth: Label, acceptable: Label[], critical: boolean, why: string, keyLines?: string[]): Target => ({
+export const T = (tag: string, truth: Label, acceptable: Label[], critical: boolean, why: string, keyLines?: string[]): Target => ({
 	tag,
 	truth,
 	acceptable: [...new Set<Label>([truth, ...acceptable])],
@@ -42,7 +42,7 @@ const T = (tag: string, truth: Label, acceptable: Label[], critical: boolean, wh
 	keyLines,
 });
 
-const end = (s: Session, targets: Target[], name = "end"): Checkpoint[] => [{ name, at: s.at, targets }];
+export const end = (s: Session, targets: Target[], name = "end"): Checkpoint[] => [{ name, at: s.at, targets }];
 
 // ---------------------------------------------------------------------------------------------
 

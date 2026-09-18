@@ -1,0 +1,9724 @@
+{
+ "meta": {
+  "model": "typesafe/jev-1.13-20260917",
+  "requested": "~typesafe/jev-latest",
+  "endpoint": "https://openrouter.ai/api/alpha/decisions",
+  "questions": "q1",
+  "repeats": 5,
+  "date": "2026-09-18T16:14:56.250Z"
+ },
+ "results": [
+  {
+   "key": "C01:pwd",
+   "caseId": "C01",
+   "category": "stale directory info",
+   "checkpoint": "end",
+   "target": {
+    "tag": "pwd",
+    "truth": "DROP",
+    "acceptable": [
+     "DROP"
+    ],
+    "critical": false,
+    "why": "Working dir is trivially regenerable and never used again."
+   },
+   "targetId": "call_1",
+   "at": 35,
+   "stateTokens": 516,
+   "excerpted": false,
+   "keyLineCandidates": [],
+   "calls": [
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "UNCERTAIN": 0,
+        "TRUNCATE": 0,
+        "DROP": 1,
+        "KEEP": 0
+       },
+       "confidence": 1
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.05
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.1
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.71
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.49
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.06
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.55
+      }
+     },
+     "ms": 338,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1482,
+     "cost": 0.000062244
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "KEEP": 0,
+        "TRUNCATE": 0,
+        "DROP": 1,
+        "UNCERTAIN": 0
+       },
+       "confidence": 1
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.05
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.09
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.7
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.48
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.05
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.59
+      }
+     },
+     "ms": 347,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1482,
+     "cost": 0.000062244
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "UNCERTAIN": 0,
+        "KEEP": 0,
+        "TRUNCATE": 0,
+        "DROP": 1
+       },
+       "confidence": 1
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.08
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.7
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.48
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.05
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.53
+      }
+     },
+     "ms": 308,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1482,
+     "cost": 0.000062244
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "DROP": 1,
+        "TRUNCATE": 0,
+        "KEEP": 0,
+        "UNCERTAIN": 0
+       },
+       "confidence": 1
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.09
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.7
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.45
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.05
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.6
+      }
+     },
+     "ms": 247,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1482,
+     "cost": 0.000062244
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "TRUNCATE": 0,
+        "DROP": 1,
+        "UNCERTAIN": 0,
+        "KEEP": 0
+       },
+       "confidence": 1
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.05
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.09
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.71
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.49
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.06
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.57
+      }
+     },
+     "ms": 399,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1482,
+     "cost": 0.000062244
+    }
+   ]
+  },
+  {
+   "key": "C01:ls",
+   "caseId": "C01",
+   "category": "stale directory info",
+   "checkpoint": "end",
+   "target": {
+    "tag": "ls",
+    "truth": "DROP",
+    "acceptable": [
+     "DROP"
+    ],
+    "critical": false,
+    "why": "Top-level listing no longer drives any decision."
+   },
+   "targetId": "call_2",
+   "at": 35,
+   "stateTokens": 531,
+   "excerpted": false,
+   "keyLineCandidates": [],
+   "calls": [
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "KEEP": 0,
+        "TRUNCATE": 0,
+        "UNCERTAIN": 0,
+        "DROP": 1
+       },
+       "confidence": 1
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.05
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.12
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.44
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.56
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.06
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.44
+      }
+     },
+     "ms": 314,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1495,
+     "cost": 0.00006279
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "TRUNCATE": 0,
+        "UNCERTAIN": 0,
+        "KEEP": 0,
+        "DROP": 1
+       },
+       "confidence": 1
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.12
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.43
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.56
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.05
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.44
+      }
+     },
+     "ms": 293,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1495,
+     "cost": 0.00006279
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "KEEP": 0,
+        "UNCERTAIN": 0,
+        "DROP": 1,
+        "TRUNCATE": 0
+       },
+       "confidence": 1
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.05
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.11
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.41
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.55
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.05
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.42
+      }
+     },
+     "ms": 322,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1495,
+     "cost": 0.00006279
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "TRUNCATE": 0,
+        "KEEP": 0,
+        "UNCERTAIN": 0,
+        "DROP": 1
+       },
+       "confidence": 1
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.12
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.42
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.57
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.05
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.44
+      }
+     },
+     "ms": 336,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1495,
+     "cost": 0.00006279
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "TRUNCATE": 0,
+        "KEEP": 0,
+        "DROP": 1,
+        "UNCERTAIN": 0
+       },
+       "confidence": 1
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.12
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.43
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.58
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.05
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.42
+      }
+     },
+     "ms": 308,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1495,
+     "cost": 0.00006279
+    }
+   ]
+  },
+  {
+   "key": "C01:find",
+   "caseId": "C01",
+   "category": "stale directory info",
+   "checkpoint": "end",
+   "target": {
+    "tag": "find",
+    "truth": "DROP",
+    "acceptable": [
+     "DROP",
+     "TRUNCATE"
+    ],
+    "critical": false,
+    "why": "Directory map is stale orientation; the relevant files were read since."
+   },
+   "targetId": "call_3",
+   "at": 35,
+   "stateTokens": 517,
+   "excerpted": false,
+   "keyLineCandidates": [],
+   "calls": [
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "DROP": 0.97,
+        "UNCERTAIN": 0,
+        "KEEP": 0.03,
+        "TRUNCATE": 0
+       },
+       "confidence": 0.96
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.25
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.57
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.68
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.05
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.44
+      }
+     },
+     "ms": 236,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1479,
+     "cost": 0.000062118
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "UNCERTAIN": 0,
+        "TRUNCATE": 0,
+        "DROP": 0.96,
+        "KEEP": 0.04
+       },
+       "confidence": 0.94
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.26
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.57
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.66
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.06
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.45
+      }
+     },
+     "ms": 281,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1479,
+     "cost": 0.000062118
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "KEEP": 0.03,
+        "DROP": 0.97,
+        "TRUNCATE": 0,
+        "UNCERTAIN": 0
+       },
+       "confidence": 0.95
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.24
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.56
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.67
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.06
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.46
+      }
+     },
+     "ms": 323,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1479,
+     "cost": 0.000062118
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "KEEP": 0.03,
+        "TRUNCATE": 0,
+        "UNCERTAIN": 0,
+        "DROP": 0.97
+       },
+       "confidence": 0.95
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.24
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.56
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.67
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.05
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.44
+      }
+     },
+     "ms": 518,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1479,
+     "cost": 0.000062118
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "UNCERTAIN": 0,
+        "TRUNCATE": 0,
+        "DROP": 0.97,
+        "KEEP": 0.03
+       },
+       "confidence": 0.95
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.24
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.54
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.68
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.06
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.41
+      }
+     },
+     "ms": 257,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1479,
+     "cost": 0.000062118
+    }
+   ]
+  },
+  {
+   "key": "C02:fail",
+   "caseId": "C02",
+   "category": "superseded failure",
+   "checkpoint": "end",
+   "target": {
+    "tag": "fail",
+    "truth": "DROP",
+    "acceptable": [
+     "DROP",
+     "TRUNCATE"
+    ],
+    "critical": false,
+    "why": "The missing-module failure was fixed and a later run of the same command passed."
+   },
+   "targetId": "call_3",
+   "at": 20,
+   "stateTokens": 382,
+   "excerpted": false,
+   "keyLineCandidates": [],
+   "calls": [
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "UNCERTAIN": 0,
+        "KEEP": 0.01,
+        "DROP": 0.97,
+        "TRUNCATE": 0.02
+       },
+       "confidence": 0.96
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.94
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.32
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.79
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.58
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.05
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.82
+      }
+     },
+     "ms": 267,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1349,
+     "cost": 0.000056658
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "UNCERTAIN": 0,
+        "TRUNCATE": 0.02,
+        "DROP": 0.97,
+        "KEEP": 0.01
+       },
+       "confidence": 0.96
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.94
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.33
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.79
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.56
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.06
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.83
+      }
+     },
+     "ms": 472,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1349,
+     "cost": 0.000056658
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "KEEP": 0.01,
+        "TRUNCATE": 0.02,
+        "UNCERTAIN": 0,
+        "DROP": 0.97
+       },
+       "confidence": 0.96
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.95
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.35
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.78
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.56
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.06
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.84
+      }
+     },
+     "ms": 299,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1349,
+     "cost": 0.000056658
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "UNCERTAIN": 0,
+        "TRUNCATE": 0.02,
+        "DROP": 0.97,
+        "KEEP": 0.01
+       },
+       "confidence": 0.97
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.95
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.34
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.77
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.54
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.06
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.83
+      }
+     },
+     "ms": 369,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1349,
+     "cost": 0.000056658
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "DROP": 0.97,
+        "KEEP": 0.01,
+        "UNCERTAIN": 0,
+        "TRUNCATE": 0.02
+       },
+       "confidence": 0.96
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.95
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.37
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.8
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.56
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.05
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.83
+      }
+     },
+     "ms": 322,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1349,
+     "cost": 0.000056658
+    }
+   ]
+  },
+  {
+   "key": "C02:pass",
+   "caseId": "C02",
+   "category": "superseded failure",
+   "checkpoint": "end",
+   "target": {
+    "tag": "pass",
+    "truth": "KEEP",
+    "acceptable": [
+     "KEEP",
+     "TRUNCATE"
+    ],
+    "critical": false,
+    "why": "Latest verification state of the suite."
+   },
+   "targetId": "call_5",
+   "at": 20,
+   "stateTokens": 280,
+   "excerpted": false,
+   "keyLineCandidates": [],
+   "calls": [
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "DROP": 0.91,
+        "UNCERTAIN": 0,
+        "TRUNCATE": 0.01,
+        "KEEP": 0.08
+       },
+       "confidence": 0.88
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.1
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.44
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.25
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.05
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.85
+      }
+     },
+     "ms": 309,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1200,
+     "cost": 0.0000504
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "TRUNCATE": 0.01,
+        "UNCERTAIN": 0,
+        "KEEP": 0.09,
+        "DROP": 0.9
+       },
+       "confidence": 0.86
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.05
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.1
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.48
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.27
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.05
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.83
+      }
+     },
+     "ms": 430,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1200,
+     "cost": 0.0000504
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "DROP": 0.88,
+        "TRUNCATE": 0.02,
+        "UNCERTAIN": 0,
+        "KEEP": 0.1
+       },
+       "confidence": 0.84
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.11
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.46
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.27
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.05
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.83
+      }
+     },
+     "ms": 438,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1200,
+     "cost": 0.0000504
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "DROP": 0.9,
+        "UNCERTAIN": 0,
+        "KEEP": 0.09,
+        "TRUNCATE": 0.01
+       },
+       "confidence": 0.86
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.05
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.09
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.48
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.28
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.05
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.84
+      }
+     },
+     "ms": 296,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1200,
+     "cost": 0.0000504
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "TRUNCATE": 0.01,
+        "UNCERTAIN": 0,
+        "DROP": 0.88,
+        "KEEP": 0.11
+       },
+       "confidence": 0.84
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.05
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.1
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.47
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.25
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.05
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.83
+      }
+     },
+     "ms": 307,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1200,
+     "cost": 0.0000504
+    }
+   ]
+  },
+  {
+   "key": "C03:root",
+   "caseId": "C03",
+   "category": "old but critical",
+   "checkpoint": "end",
+   "target": {
+    "tag": "root",
+    "truth": "KEEP",
+    "acceptable": [
+     "KEEP",
+     "TRUNCATE"
+    ],
+    "critical": true,
+    "why": "The only evidence of the root cause; the fix has not been made."
+   },
+   "targetId": "call_2",
+   "at": 40,
+   "stateTokens": 668,
+   "excerpted": false,
+   "keyLineCandidates": [],
+   "calls": [
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "KEEP",
+       "probabilities": {
+        "KEEP": 0.96,
+        "TRUNCATE": 0.02,
+        "DROP": 0.02,
+        "UNCERTAIN": 0
+       },
+       "confidence": 0.95
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.89
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.9
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.6
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.06
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.43
+      }
+     },
+     "ms": 367,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1689,
+     "cost": 0.000070938
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "KEEP",
+       "probabilities": {
+        "KEEP": 0.96,
+        "UNCERTAIN": 0,
+        "DROP": 0.02,
+        "TRUNCATE": 0.02
+       },
+       "confidence": 0.95
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.03
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.89
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.9
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.58
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.06
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.44
+      }
+     },
+     "ms": 317,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1689,
+     "cost": 0.000070938
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "KEEP",
+       "probabilities": {
+        "KEEP": 0.98,
+        "TRUNCATE": 0.01,
+        "UNCERTAIN": 0,
+        "DROP": 0.01
+       },
+       "confidence": 0.96
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.03
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.9
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.91
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.57
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.07
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.44
+      }
+     },
+     "ms": 341,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1689,
+     "cost": 0.000070938
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "KEEP",
+       "probabilities": {
+        "DROP": 0.01,
+        "TRUNCATE": 0.01,
+        "KEEP": 0.98,
+        "UNCERTAIN": 0
+       },
+       "confidence": 0.96
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.03
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.9
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.92
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.57
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.06
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.43
+      }
+     },
+     "ms": 309,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1689,
+     "cost": 0.000070938
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "KEEP",
+       "probabilities": {
+        "KEEP": 0.97,
+        "DROP": 0.02,
+        "UNCERTAIN": 0,
+        "TRUNCATE": 0.01
+       },
+       "confidence": 0.96
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.03
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.89
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.91
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.61
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.06
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.42
+      }
+     },
+     "ms": 374,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1689,
+     "cost": 0.000070938
+    }
+   ]
+  },
+  {
+   "key": "C03:lsTests",
+   "caseId": "C03",
+   "category": "old but critical",
+   "checkpoint": "end",
+   "target": {
+    "tag": "lsTests",
+    "truth": "DROP",
+    "acceptable": [
+     "DROP"
+    ],
+    "critical": false,
+    "why": "Directory listing that played no role."
+   },
+   "targetId": "call_3",
+   "at": 40,
+   "stateTokens": 523,
+   "excerpted": false,
+   "keyLineCandidates": [],
+   "calls": [
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "KEEP": 0,
+        "TRUNCATE": 0,
+        "DROP": 1,
+        "UNCERTAIN": 0
+       },
+       "confidence": 0.99
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.13
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.52
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.56
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.08
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.45
+      }
+     },
+     "ms": 306,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1516,
+     "cost": 0.000063672
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "KEEP": 0,
+        "TRUNCATE": 0,
+        "DROP": 1,
+        "UNCERTAIN": 0
+       },
+       "confidence": 0.99
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.15
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.47
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.58
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.07
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.47
+      }
+     },
+     "ms": 409,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1516,
+     "cost": 0.000063672
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "TRUNCATE": 0,
+        "UNCERTAIN": 0,
+        "DROP": 1,
+        "KEEP": 0
+       },
+       "confidence": 0.99
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.15
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.49
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.56
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.07
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.44
+      }
+     },
+     "ms": 337,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1516,
+     "cost": 0.000063672
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "KEEP": 0,
+        "DROP": 1,
+        "UNCERTAIN": 0,
+        "TRUNCATE": 0
+       },
+       "confidence": 0.99
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.16
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.49
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.55
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.07
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.48
+      }
+     },
+     "ms": 366,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1516,
+     "cost": 0.000063672
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "TRUNCATE": 0,
+        "UNCERTAIN": 0,
+        "KEEP": 0.01,
+        "DROP": 0.99
+       },
+       "confidence": 0.99
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.16
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.53
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.57
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.06
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.48
+      }
+     },
+     "ms": 269,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1516,
+     "cost": 0.000063672
+    }
+   ]
+  },
+  {
+   "key": "C04:log",
+   "caseId": "C04",
+   "category": "very long log",
+   "checkpoint": "end",
+   "target": {
+    "tag": "log",
+    "truth": "TRUNCATE",
+    "acceptable": [
+     "TRUNCATE"
+    ],
+    "critical": true,
+    "why": "Only the two failures matter; the other ~490 lines are noise.",
+    "keyLines": [
+     "2 failed",
+     "auth.test.ts:42",
+     "expected 401 to be 200",
+     "auth.test.ts:58",
+     "retries the original request after refresh"
+    ]
+   },
+   "targetId": "call_1",
+   "at": 13,
+   "stateTokens": 714,
+   "excerpted": true,
+   "keyLineCandidates": [
+    {
+     "n": 24,
+     "text": "Warning: ReactDOM.render is no longer supported in React 18. Use createRoot instead."
+    },
+    {
+     "n": 72,
+     "text": "Warning: ReactDOM.render is no longer supported in React 18. Use createRoot instead."
+    },
+    {
+     "n": 310,
+     "text": "❯ src/auth/auth.test.ts (6 tests | 2 failed) 88ms"
+    },
+    {
+     "n": 312,
+     "text": "× auth › refreshes an expired session"
+    },
+    {
+     "n": 313,
+     "text": "× auth › retries the original request after refresh"
+    },
+    {
+     "n": 332,
+     "text": "FAIL  src/auth/auth.test.ts > auth > refreshes an expired session"
+    },
+    {
+     "n": 333,
+     "text": "AssertionError: expected 401 to be 200 // Object.is equality"
+    },
+    {
+     "n": 335,
+     "text": "- Expected"
+    },
+    {
+     "n": 336,
+     "text": "+ Received"
+    },
+    {
+     "n": 341,
+     "text": "❯ src/auth/auth.test.ts:42:31"
+    },
+    {
+     "n": 350,
+     "text": "FAIL  src/auth/auth.test.ts > auth > retries the original request after refresh"
+    },
+    {
+     "n": 351,
+     "text": "AssertionError: expected 1 to be 2 // Object.is equality"
+    },
+    {
+     "n": 352,
+     "text": "❯ src/auth/auth.test.ts:58:34"
+    },
+    {
+     "n": 356,
+     "text": "Test Files  1 failed | 38 passed (39)"
+    },
+    {
+     "n": 357,
+     "text": "Tests  2 failed | 402 passed (404)"
+    }
+   ],
+   "calls": [
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "TRUNCATE",
+       "probabilities": {
+        "DROP": 0,
+        "TRUNCATE": 0.99,
+        "UNCERTAIN": 0,
+        "KEEP": 0.01
+       },
+       "confidence": 0.98
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.95
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.89
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.85
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.02
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.88
+      },
+      "line_24": {
+       "type": "noul",
+       "noul": 0.14
+      },
+      "line_72": {
+       "type": "noul",
+       "noul": 0.14
+      },
+      "line_310": {
+       "type": "noul",
+       "noul": 0.79
+      },
+      "line_312": {
+       "type": "noul",
+       "noul": 0.73
+      },
+      "line_313": {
+       "type": "noul",
+       "noul": 0.63
+      },
+      "line_332": {
+       "type": "noul",
+       "noul": 0.83
+      },
+      "line_333": {
+       "type": "noul",
+       "noul": 0.81
+      },
+      "line_335": {
+       "type": "noul",
+       "noul": 0.28
+      },
+      "line_336": {
+       "type": "noul",
+       "noul": 0.39
+      },
+      "line_341": {
+       "type": "noul",
+       "noul": 0.62
+      },
+      "line_350": {
+       "type": "noul",
+       "noul": 0.71
+      },
+      "line_351": {
+       "type": "noul",
+       "noul": 0.67
+      },
+      "line_352": {
+       "type": "noul",
+       "noul": 0.56
+      },
+      "line_356": {
+       "type": "noul",
+       "noul": 0.63
+      },
+      "line_357": {
+       "type": "noul",
+       "noul": 0.71
+      }
+     },
+     "ms": 349,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 2585,
+     "cost": 0.00010857
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "TRUNCATE",
+       "probabilities": {
+        "UNCERTAIN": 0,
+        "TRUNCATE": 0.99,
+        "DROP": 0,
+        "KEEP": 0.01
+       },
+       "confidence": 0.98
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.95
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.88
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.85
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.02
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.89
+      },
+      "line_24": {
+       "type": "noul",
+       "noul": 0.14
+      },
+      "line_72": {
+       "type": "noul",
+       "noul": 0.14
+      },
+      "line_310": {
+       "type": "noul",
+       "noul": 0.78
+      },
+      "line_312": {
+       "type": "noul",
+       "noul": 0.73
+      },
+      "line_313": {
+       "type": "noul",
+       "noul": 0.65
+      },
+      "line_332": {
+       "type": "noul",
+       "noul": 0.83
+      },
+      "line_333": {
+       "type": "noul",
+       "noul": 0.82
+      },
+      "line_335": {
+       "type": "noul",
+       "noul": 0.29
+      },
+      "line_336": {
+       "type": "noul",
+       "noul": 0.35
+      },
+      "line_341": {
+       "type": "noul",
+       "noul": 0.62
+      },
+      "line_350": {
+       "type": "noul",
+       "noul": 0.7
+      },
+      "line_351": {
+       "type": "noul",
+       "noul": 0.67
+      },
+      "line_352": {
+       "type": "noul",
+       "noul": 0.59
+      },
+      "line_356": {
+       "type": "noul",
+       "noul": 0.64
+      },
+      "line_357": {
+       "type": "noul",
+       "noul": 0.72
+      }
+     },
+     "ms": 307,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 2585,
+     "cost": 0.00010857
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "TRUNCATE",
+       "probabilities": {
+        "KEEP": 0.01,
+        "UNCERTAIN": 0,
+        "DROP": 0,
+        "TRUNCATE": 0.99
+       },
+       "confidence": 0.98
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.03
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.95
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.89
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.84
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.02
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.9
+      },
+      "line_24": {
+       "type": "noul",
+       "noul": 0.13
+      },
+      "line_72": {
+       "type": "noul",
+       "noul": 0.14
+      },
+      "line_310": {
+       "type": "noul",
+       "noul": 0.79
+      },
+      "line_312": {
+       "type": "noul",
+       "noul": 0.73
+      },
+      "line_313": {
+       "type": "noul",
+       "noul": 0.65
+      },
+      "line_332": {
+       "type": "noul",
+       "noul": 0.81
+      },
+      "line_333": {
+       "type": "noul",
+       "noul": 0.81
+      },
+      "line_335": {
+       "type": "noul",
+       "noul": 0.3
+      },
+      "line_336": {
+       "type": "noul",
+       "noul": 0.34
+      },
+      "line_341": {
+       "type": "noul",
+       "noul": 0.62
+      },
+      "line_350": {
+       "type": "noul",
+       "noul": 0.72
+      },
+      "line_351": {
+       "type": "noul",
+       "noul": 0.65
+      },
+      "line_352": {
+       "type": "noul",
+       "noul": 0.57
+      },
+      "line_356": {
+       "type": "noul",
+       "noul": 0.62
+      },
+      "line_357": {
+       "type": "noul",
+       "noul": 0.71
+      }
+     },
+     "ms": 333,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 2585,
+     "cost": 0.00010857
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "TRUNCATE",
+       "probabilities": {
+        "DROP": 0,
+        "UNCERTAIN": 0,
+        "TRUNCATE": 0.99,
+        "KEEP": 0.01
+       },
+       "confidence": 0.98
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.03
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.95
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.88
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.85
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.02
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.9
+      },
+      "line_24": {
+       "type": "noul",
+       "noul": 0.14
+      },
+      "line_72": {
+       "type": "noul",
+       "noul": 0.13
+      },
+      "line_310": {
+       "type": "noul",
+       "noul": 0.79
+      },
+      "line_312": {
+       "type": "noul",
+       "noul": 0.76
+      },
+      "line_313": {
+       "type": "noul",
+       "noul": 0.64
+      },
+      "line_332": {
+       "type": "noul",
+       "noul": 0.8
+      },
+      "line_333": {
+       "type": "noul",
+       "noul": 0.81
+      },
+      "line_335": {
+       "type": "noul",
+       "noul": 0.28
+      },
+      "line_336": {
+       "type": "noul",
+       "noul": 0.32
+      },
+      "line_341": {
+       "type": "noul",
+       "noul": 0.59
+      },
+      "line_350": {
+       "type": "noul",
+       "noul": 0.69
+      },
+      "line_351": {
+       "type": "noul",
+       "noul": 0.63
+      },
+      "line_352": {
+       "type": "noul",
+       "noul": 0.55
+      },
+      "line_356": {
+       "type": "noul",
+       "noul": 0.63
+      },
+      "line_357": {
+       "type": "noul",
+       "noul": 0.67
+      }
+     },
+     "ms": 283,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 2585,
+     "cost": 0.00010857
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "TRUNCATE",
+       "probabilities": {
+        "TRUNCATE": 0.99,
+        "UNCERTAIN": 0,
+        "KEEP": 0.01,
+        "DROP": 0
+       },
+       "confidence": 0.98
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.03
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.95
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.88
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.85
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.02
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.89
+      },
+      "line_24": {
+       "type": "noul",
+       "noul": 0.13
+      },
+      "line_72": {
+       "type": "noul",
+       "noul": 0.14
+      },
+      "line_310": {
+       "type": "noul",
+       "noul": 0.78
+      },
+      "line_312": {
+       "type": "noul",
+       "noul": 0.74
+      },
+      "line_313": {
+       "type": "noul",
+       "noul": 0.64
+      },
+      "line_332": {
+       "type": "noul",
+       "noul": 0.82
+      },
+      "line_333": {
+       "type": "noul",
+       "noul": 0.82
+      },
+      "line_335": {
+       "type": "noul",
+       "noul": 0.29
+      },
+      "line_336": {
+       "type": "noul",
+       "noul": 0.33
+      },
+      "line_341": {
+       "type": "noul",
+       "noul": 0.63
+      },
+      "line_350": {
+       "type": "noul",
+       "noul": 0.7
+      },
+      "line_351": {
+       "type": "noul",
+       "noul": 0.66
+      },
+      "line_352": {
+       "type": "noul",
+       "noul": 0.59
+      },
+      "line_356": {
+       "type": "noul",
+       "noul": 0.63
+      },
+      "line_357": {
+       "type": "noul",
+       "noul": 0.72
+      }
+     },
+     "ms": 382,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 2585,
+     "cost": 0.00010857
+    }
+   ]
+  },
+  {
+   "key": "C05.A:pkg",
+   "caseId": "C05",
+   "category": "temporarily irrelevant",
+   "checkpoint": "A: before goal change",
+   "target": {
+    "tag": "pkg",
+    "truth": "TRUNCATE",
+    "acceptable": [
+     "TRUNCATE",
+     "KEEP"
+    ],
+    "critical": true,
+    "why": "Durable project facts (engines, package manager, versions) that the session needs later.",
+    "keyLines": [
+     "\"node\": \">=22\""
+    ]
+   },
+   "targetId": "call_1",
+   "at": 34,
+   "stateTokens": 681,
+   "excerpted": false,
+   "keyLineCandidates": [],
+   "calls": [
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "UNCERTAIN": 0,
+        "KEEP": 0.18,
+        "TRUNCATE": 0.11,
+        "DROP": 0.71
+       },
+       "confidence": 0.62
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.18
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.74
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.91
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.15
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.53
+      }
+     },
+     "ms": 304,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1751,
+     "cost": 0.000073542
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "TRUNCATE": 0.14,
+        "DROP": 0.67,
+        "KEEP": 0.19,
+        "UNCERTAIN": 0
+       },
+       "confidence": 0.56
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.17
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.72
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.91
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.15
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.54
+      }
+     },
+     "ms": 277,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1751,
+     "cost": 0.000073542
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "TRUNCATE": 0.12,
+        "KEEP": 0.14,
+        "UNCERTAIN": 0,
+        "DROP": 0.74
+       },
+       "confidence": 0.66
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.16
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.7
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.91
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.12
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.59
+      }
+     },
+     "ms": 315,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1751,
+     "cost": 0.000073542
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "TRUNCATE": 0.12,
+        "DROP": 0.71,
+        "KEEP": 0.17,
+        "UNCERTAIN": 0
+       },
+       "confidence": 0.61
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.16
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.73
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.91
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.14
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.55
+      }
+     },
+     "ms": 269,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1751,
+     "cost": 0.000073542
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "KEEP": 0.16,
+        "UNCERTAIN": 0,
+        "DROP": 0.73,
+        "TRUNCATE": 0.11
+       },
+       "confidence": 0.63
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.17
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.74
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.9
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.11
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.55
+      }
+     },
+     "ms": 233,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1751,
+     "cost": 0.000073542
+    }
+   ]
+  },
+  {
+   "key": "C05.B:pkg",
+   "caseId": "C05",
+   "category": "temporarily irrelevant",
+   "checkpoint": "B: after goal change",
+   "target": {
+    "tag": "pkg",
+    "truth": "KEEP",
+    "acceptable": [
+     "KEEP",
+     "TRUNCATE"
+    ],
+    "critical": true,
+    "why": "The engines field is the direct evidence for the install failure.",
+    "keyLines": [
+     "\"node\": \">=22\""
+    ]
+   },
+   "targetId": "call_1",
+   "at": 35,
+   "stateTokens": 906,
+   "excerpted": false,
+   "keyLineCandidates": [],
+   "calls": [
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "KEEP",
+       "probabilities": {
+        "DROP": 0.02,
+        "UNCERTAIN": 0,
+        "TRUNCATE": 0.24,
+        "KEEP": 0.74
+       },
+       "confidence": 0.65
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.93
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.83
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.94
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.05
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.57
+      }
+     },
+     "ms": 288,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1991,
+     "cost": 0.000083622
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "KEEP",
+       "probabilities": {
+        "TRUNCATE": 0.21,
+        "DROP": 0.02,
+        "KEEP": 0.77,
+        "UNCERTAIN": 0
+       },
+       "confidence": 0.69
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.94
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.83
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.94
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.05
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.61
+      }
+     },
+     "ms": 306,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1991,
+     "cost": 0.000083622
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "KEEP",
+       "probabilities": {
+        "KEEP": 0.76,
+        "DROP": 0.02,
+        "TRUNCATE": 0.22,
+        "UNCERTAIN": 0
+       },
+       "confidence": 0.69
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.03
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.94
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.85
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.94
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.05
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.58
+      }
+     },
+     "ms": 368,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1991,
+     "cost": 0.000083622
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "KEEP",
+       "probabilities": {
+        "DROP": 0.02,
+        "TRUNCATE": 0.22,
+        "KEEP": 0.76,
+        "UNCERTAIN": 0
+       },
+       "confidence": 0.68
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.03
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.93
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.84
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.95
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.05
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.62
+      }
+     },
+     "ms": 242,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1991,
+     "cost": 0.000083622
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "KEEP",
+       "probabilities": {
+        "TRUNCATE": 0.27,
+        "UNCERTAIN": 0,
+        "DROP": 0.02,
+        "KEEP": 0.71
+       },
+       "confidence": 0.62
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.03
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.93
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.86
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.94
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.05
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.59
+      }
+     },
+     "ms": 280,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1991,
+     "cost": 0.000083622
+    }
+   ]
+  },
+  {
+   "key": "C06:g",
+   "caseId": "C06",
+   "category": "empty grep (stale)",
+   "checkpoint": "end",
+   "target": {
+    "tag": "g",
+    "truth": "DROP",
+    "acceptable": [
+     "DROP"
+    ],
+    "critical": false,
+    "why": "A no-match search for a name that plays no further role."
+   },
+   "targetId": "call_1",
+   "at": 24,
+   "stateTokens": 370,
+   "excerpted": false,
+   "keyLineCandidates": [],
+   "calls": [
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "KEEP": 0.02,
+        "UNCERTAIN": 0,
+        "DROP": 0.98,
+        "TRUNCATE": 0
+       },
+       "confidence": 0.97
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.06
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.1
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.28
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.23
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.05
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.47
+      }
+     },
+     "ms": 279,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1308,
+     "cost": 0.000054936
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "TRUNCATE": 0,
+        "UNCERTAIN": 0,
+        "KEEP": 0.02,
+        "DROP": 0.98
+       },
+       "confidence": 0.97
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.05
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.09
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.28
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.22
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.06
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.43
+      }
+     },
+     "ms": 297,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1308,
+     "cost": 0.000054936
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "DROP": 0.98,
+        "UNCERTAIN": 0,
+        "TRUNCATE": 0,
+        "KEEP": 0.02
+       },
+       "confidence": 0.97
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.05
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.1
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.31
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.22
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.05
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.41
+      }
+     },
+     "ms": 300,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1308,
+     "cost": 0.000054936
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "TRUNCATE": 0,
+        "KEEP": 0.02,
+        "DROP": 0.98,
+        "UNCERTAIN": 0
+       },
+       "confidence": 0.97
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.05
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.09
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.25
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.22
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.05
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.49
+      }
+     },
+     "ms": 229,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1308,
+     "cost": 0.000054936
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "KEEP": 0.02,
+        "DROP": 0.98,
+        "TRUNCATE": 0,
+        "UNCERTAIN": 0
+       },
+       "confidence": 0.98
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.05
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.1
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.27
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.23
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.05
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.45
+      }
+     },
+     "ms": 322,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1308,
+     "cost": 0.000054936
+    }
+   ]
+  },
+  {
+   "key": "C07:g",
+   "caseId": "C07",
+   "category": "empty grep (evidence)",
+   "checkpoint": "end",
+   "target": {
+    "tag": "g",
+    "truth": "KEEP",
+    "acceptable": [
+     "KEEP",
+     "TRUNCATE"
+    ],
+    "critical": true,
+    "why": "The empty git grep across the repo is the evidence the user is asking for."
+   },
+   "targetId": "call_1",
+   "at": 18,
+   "stateTokens": 316,
+   "excerpted": false,
+   "keyLineCandidates": [],
+   "calls": [
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "KEEP",
+       "probabilities": {
+        "TRUNCATE": 0,
+        "UNCERTAIN": 0,
+        "DROP": 0.32,
+        "KEEP": 0.68
+       },
+       "confidence": 0.56
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.77
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.27
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.16
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.11
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.23
+      }
+     },
+     "ms": 307,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1230,
+     "cost": 0.00005166
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "KEEP",
+       "probabilities": {
+        "UNCERTAIN": 0,
+        "TRUNCATE": 0,
+        "DROP": 0.32,
+        "KEEP": 0.68
+       },
+       "confidence": 0.57
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.78
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.32
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.15
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.09
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.21
+      }
+     },
+     "ms": 350,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1230,
+     "cost": 0.00005166
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "KEEP",
+       "probabilities": {
+        "KEEP": 0.69,
+        "UNCERTAIN": 0,
+        "DROP": 0.31,
+        "TRUNCATE": 0
+       },
+       "confidence": 0.58
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.77
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.29
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.15
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.09
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.2
+      }
+     },
+     "ms": 255,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1230,
+     "cost": 0.00005166
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "KEEP",
+       "probabilities": {
+        "TRUNCATE": 0,
+        "KEEP": 0.64,
+        "UNCERTAIN": 0,
+        "DROP": 0.36
+       },
+       "confidence": 0.51
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.76
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.26
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.14
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.11
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.19
+      }
+     },
+     "ms": 275,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1230,
+     "cost": 0.00005166
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "KEEP",
+       "probabilities": {
+        "DROP": 0.35,
+        "UNCERTAIN": 0,
+        "TRUNCATE": 0,
+        "KEEP": 0.65
+       },
+       "confidence": 0.53
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.75
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.26
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.14
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.1
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.21
+      }
+     },
+     "ms": 283,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1230,
+     "cost": 0.00005166
+    }
+   ]
+  },
+  {
+   "key": "C07:g2",
+   "caseId": "C07",
+   "category": "empty grep (evidence)",
+   "checkpoint": "end",
+   "target": {
+    "tag": "g2",
+    "truth": "KEEP",
+    "acceptable": [
+     "KEEP",
+     "TRUNCATE"
+    ],
+    "critical": true,
+    "why": "The empty search in tests is part of the same evidence."
+   },
+   "targetId": "call_2",
+   "at": 18,
+   "stateTokens": 301,
+   "excerpted": false,
+   "keyLineCandidates": [],
+   "calls": [
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "KEEP",
+       "probabilities": {
+        "KEEP": 0.81,
+        "UNCERTAIN": 0,
+        "DROP": 0.19,
+        "TRUNCATE": 0
+       },
+       "confidence": 0.75
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.73
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.61
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.26
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.1
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.32
+      }
+     },
+     "ms": 342,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1206,
+     "cost": 0.000050652
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "KEEP",
+       "probabilities": {
+        "DROP": 0.17,
+        "UNCERTAIN": 0,
+        "TRUNCATE": 0,
+        "KEEP": 0.83
+       },
+       "confidence": 0.77
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.75
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.57
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.26
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.1
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.34
+      }
+     },
+     "ms": 238,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1206,
+     "cost": 0.000050652
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "KEEP",
+       "probabilities": {
+        "TRUNCATE": 0,
+        "DROP": 0.21,
+        "KEEP": 0.79,
+        "UNCERTAIN": 0
+       },
+       "confidence": 0.72
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.73
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.59
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.24
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.09
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.38
+      }
+     },
+     "ms": 253,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1206,
+     "cost": 0.000050652
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "KEEP",
+       "probabilities": {
+        "KEEP": 0.78,
+        "DROP": 0.22,
+        "TRUNCATE": 0,
+        "UNCERTAIN": 0
+       },
+       "confidence": 0.7
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.71
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.54
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.23
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.09
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.37
+      }
+     },
+     "ms": 232,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1206,
+     "cost": 0.000050652
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "KEEP",
+       "probabilities": {
+        "KEEP": 0.8,
+        "DROP": 0.2,
+        "UNCERTAIN": 0,
+        "TRUNCATE": 0
+       },
+       "confidence": 0.73
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.74
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.57
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.25
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.09
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.36
+      }
+     },
+     "ms": 263,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1206,
+     "cost": 0.000050652
+    }
+   ]
+  },
+  {
+   "key": "C08:gs1",
+   "caseId": "C08",
+   "category": "repeated git status",
+   "checkpoint": "end",
+   "target": {
+    "tag": "gs1",
+    "truth": "DROP",
+    "acceptable": [
+     "DROP"
+    ],
+    "critical": false,
+    "why": "Superseded by later status calls; the commits record what happened."
+   },
+   "targetId": "call_1",
+   "at": 12,
+   "stateTokens": 418,
+   "excerpted": false,
+   "keyLineCandidates": [],
+   "calls": [
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "UNCERTAIN": 0,
+        "KEEP": 0.02,
+        "TRUNCATE": 0,
+        "DROP": 0.98
+       },
+       "confidence": 0.97
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.9
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.28
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.59
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.45
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.1
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.76
+      }
+     },
+     "ms": 239,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1351,
+     "cost": 0.000056742
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "TRUNCATE": 0,
+        "UNCERTAIN": 0,
+        "DROP": 0.98,
+        "KEEP": 0.02
+       },
+       "confidence": 0.97
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.9
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.28
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.59
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.45
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.1
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.77
+      }
+     },
+     "ms": 337,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1351,
+     "cost": 0.000056742
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "KEEP": 0.02,
+        "DROP": 0.98,
+        "TRUNCATE": 0,
+        "UNCERTAIN": 0
+       },
+       "confidence": 0.97
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.89
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.28
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.6
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.46
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.1
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.8
+      }
+     },
+     "ms": 234,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1351,
+     "cost": 0.000056742
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "TRUNCATE": 0,
+        "UNCERTAIN": 0,
+        "DROP": 0.98,
+        "KEEP": 0.02
+       },
+       "confidence": 0.96
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.9
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.27
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.59
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.44
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.1
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.78
+      }
+     },
+     "ms": 294,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1351,
+     "cost": 0.000056742
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "DROP": 0.98,
+        "TRUNCATE": 0,
+        "KEEP": 0.02,
+        "UNCERTAIN": 0
+       },
+       "confidence": 0.97
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.9
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.27
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.59
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.43
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.09
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.78
+      }
+     },
+     "ms": 318,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1351,
+     "cost": 0.000056742
+    }
+   ]
+  },
+  {
+   "key": "C08:gs2",
+   "caseId": "C08",
+   "category": "repeated git status",
+   "checkpoint": "end",
+   "target": {
+    "tag": "gs2",
+    "truth": "DROP",
+    "acceptable": [
+     "DROP"
+    ],
+    "critical": false,
+    "why": "Superseded by the final clean status."
+   },
+   "targetId": "call_3",
+   "at": 12,
+   "stateTokens": 322,
+   "excerpted": false,
+   "keyLineCandidates": [],
+   "calls": [
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "KEEP": 0.04,
+        "TRUNCATE": 0,
+        "DROP": 0.96,
+        "UNCERTAIN": 0
+       },
+       "confidence": 0.94
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.74
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.28
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.67
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.43
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.1
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.78
+      }
+     },
+     "ms": 373,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1219,
+     "cost": 0.000051198
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "TRUNCATE": 0,
+        "UNCERTAIN": 0,
+        "KEEP": 0.05,
+        "DROP": 0.95
+       },
+       "confidence": 0.93
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.79
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.29
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.66
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.46
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.1
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.78
+      }
+     },
+     "ms": 340,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1219,
+     "cost": 0.000051198
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "UNCERTAIN": 0,
+        "DROP": 0.95,
+        "KEEP": 0.05,
+        "TRUNCATE": 0
+       },
+       "confidence": 0.93
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.71
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.29
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.69
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.46
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.1
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.79
+      }
+     },
+     "ms": 453,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1219,
+     "cost": 0.000051198
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "UNCERTAIN": 0,
+        "DROP": 0.95,
+        "KEEP": 0.05,
+        "TRUNCATE": 0
+       },
+       "confidence": 0.92
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.77
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.27
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.71
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.41
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.09
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.79
+      }
+     },
+     "ms": 336,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1219,
+     "cost": 0.000051198
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "KEEP": 0.05,
+        "DROP": 0.95,
+        "TRUNCATE": 0,
+        "UNCERTAIN": 0
+       },
+       "confidence": 0.92
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.75
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.3
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.67
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.43
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.1
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.78
+      }
+     },
+     "ms": 336,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1219,
+     "cost": 0.000051198
+    }
+   ]
+  },
+  {
+   "key": "C09:f1",
+   "caseId": "C09",
+   "category": "repeated test failure",
+   "checkpoint": "end",
+   "target": {
+    "tag": "f1",
+    "truth": "DROP",
+    "acceptable": [
+     "DROP",
+     "TRUNCATE"
+    ],
+    "critical": false,
+    "why": "Identical to the latest failure, which is kept."
+   },
+   "targetId": "call_1",
+   "at": 14,
+   "stateTokens": 413,
+   "excerpted": false,
+   "keyLineCandidates": [],
+   "calls": [
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "KEEP",
+       "probabilities": {
+        "TRUNCATE": 0.08,
+        "UNCERTAIN": 0,
+        "DROP": 0.45,
+        "KEEP": 0.47000000000000003
+       },
+       "confidence": 0.29
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.16
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.87
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.46
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.57
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.03
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.81
+      }
+     },
+     "ms": 345,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1384,
+     "cost": 0.000058128
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "KEEP",
+       "probabilities": {
+        "UNCERTAIN": 0,
+        "DROP": 0.4,
+        "KEEP": 0.51,
+        "TRUNCATE": 0.09
+       },
+       "confidence": 0.34
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.16
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.88
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.49
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.55
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.8
+      }
+     },
+     "ms": 290,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1384,
+     "cost": 0.000058128
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "KEEP",
+       "probabilities": {
+        "TRUNCATE": 0.09,
+        "UNCERTAIN": 0,
+        "DROP": 0.41,
+        "KEEP": 0.5
+       },
+       "confidence": 0.34
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.15
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.89
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.5
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.57
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.81
+      }
+     },
+     "ms": 315,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1384,
+     "cost": 0.000058128
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "TRUNCATE": 0.08,
+        "UNCERTAIN": 0,
+        "KEEP": 0.45,
+        "DROP": 0.47000000000000003
+       },
+       "confidence": 0.29
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.16
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.87
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.49
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.58
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.81
+      }
+     },
+     "ms": 433,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1384,
+     "cost": 0.000058128
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "KEEP",
+       "probabilities": {
+        "KEEP": 0.51,
+        "UNCERTAIN": 0,
+        "DROP": 0.39,
+        "TRUNCATE": 0.1
+       },
+       "confidence": 0.34
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.16
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.88
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.5
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.56
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.8
+      }
+     },
+     "ms": 333,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1384,
+     "cost": 0.000058128
+    }
+   ]
+  },
+  {
+   "key": "C09:f2",
+   "caseId": "C09",
+   "category": "repeated test failure",
+   "checkpoint": "end",
+   "target": {
+    "tag": "f2",
+    "truth": "DROP",
+    "acceptable": [
+     "DROP",
+     "TRUNCATE"
+    ],
+    "critical": false,
+    "why": "Identical to the latest failure, which is kept."
+   },
+   "targetId": "call_4",
+   "at": 14,
+   "stateTokens": 296,
+   "excerpted": false,
+   "keyLineCandidates": [],
+   "calls": [
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "KEEP",
+       "probabilities": {
+        "UNCERTAIN": 0,
+        "TRUNCATE": 0.1,
+        "DROP": 0.29,
+        "KEEP": 0.61
+       },
+       "confidence": 0.48
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.14
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.91
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.76
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.62
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.03
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.78
+      }
+     },
+     "ms": 417,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1234,
+     "cost": 0.000051828
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "KEEP",
+       "probabilities": {
+        "DROP": 0.31,
+        "UNCERTAIN": 0,
+        "TRUNCATE": 0.09,
+        "KEEP": 0.6
+       },
+       "confidence": 0.46
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.13
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.91
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.76
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.6
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.79
+      }
+     },
+     "ms": 295,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1234,
+     "cost": 0.000051828
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "KEEP",
+       "probabilities": {
+        "TRUNCATE": 0.07,
+        "UNCERTAIN": 0,
+        "DROP": 0.31,
+        "KEEP": 0.62
+       },
+       "confidence": 0.49
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.14
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.9
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.77
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.61
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.8
+      }
+     },
+     "ms": 245,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1234,
+     "cost": 0.000051828
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "KEEP",
+       "probabilities": {
+        "UNCERTAIN": 0,
+        "TRUNCATE": 0.08,
+        "DROP": 0.37,
+        "KEEP": 0.55
+       },
+       "confidence": 0.41
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.13
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.9
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.74
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.61
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.79
+      }
+     },
+     "ms": 307,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1234,
+     "cost": 0.000051828
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "KEEP",
+       "probabilities": {
+        "KEEP": 0.6,
+        "TRUNCATE": 0.09,
+        "DROP": 0.31,
+        "UNCERTAIN": 0
+       },
+       "confidence": 0.46
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.14
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.91
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.77
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.6
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.8
+      }
+     },
+     "ms": 243,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1234,
+     "cost": 0.000051828
+    }
+   ]
+  },
+  {
+   "key": "C09:f3",
+   "caseId": "C09",
+   "category": "repeated test failure",
+   "checkpoint": "end",
+   "target": {
+    "tag": "f3",
+    "truth": "KEEP",
+    "acceptable": [
+     "KEEP",
+     "TRUNCATE"
+    ],
+    "critical": true,
+    "why": "Current, unresolved failure."
+   },
+   "targetId": "call_6",
+   "at": 14,
+   "stateTokens": 200,
+   "excerpted": false,
+   "keyLineCandidates": [],
+   "calls": [
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "KEEP",
+       "probabilities": {
+        "UNCERTAIN": 0,
+        "TRUNCATE": 0.04,
+        "DROP": 0.01,
+        "KEEP": 0.95
+       },
+       "confidence": 0.93
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.03
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.92
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.92
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.63
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.03
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.78
+      }
+     },
+     "ms": 279,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1114,
+     "cost": 0.000046788
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "KEEP",
+       "probabilities": {
+        "KEEP": 0.95,
+        "TRUNCATE": 0.04,
+        "DROP": 0.01,
+        "UNCERTAIN": 0
+       },
+       "confidence": 0.93
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.03
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.92
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.92
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.6
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.03
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.79
+      }
+     },
+     "ms": 330,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1114,
+     "cost": 0.000046788
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "KEEP",
+       "probabilities": {
+        "UNCERTAIN": 0,
+        "TRUNCATE": 0.04,
+        "DROP": 0.01,
+        "KEEP": 0.95
+       },
+       "confidence": 0.93
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.92
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.93
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.63
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.03
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.8
+      }
+     },
+     "ms": 305,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1114,
+     "cost": 0.000046788
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "KEEP",
+       "probabilities": {
+        "UNCERTAIN": 0,
+        "DROP": 0.01,
+        "TRUNCATE": 0.04,
+        "KEEP": 0.95
+       },
+       "confidence": 0.93
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.03
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.93
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.93
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.62
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.03
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.78
+      }
+     },
+     "ms": 411,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1114,
+     "cost": 0.000046788
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "KEEP",
+       "probabilities": {
+        "KEEP": 0.94,
+        "TRUNCATE": 0.04,
+        "UNCERTAIN": 0,
+        "DROP": 0.02
+       },
+       "confidence": 0.92
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.03
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.92
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.92
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.64
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.03
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.78
+      }
+     },
+     "ms": 314,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1114,
+     "cost": 0.000046788
+    }
+   ]
+  },
+  {
+   "key": "C10:trace",
+   "caseId": "C10",
+   "category": "old stack trace (resolved)",
+   "checkpoint": "end",
+   "target": {
+    "tag": "trace",
+    "truth": "DROP",
+    "acceptable": [
+     "DROP",
+     "TRUNCATE"
+    ],
+    "critical": false,
+    "why": "The crash was fixed and verified; the task changed."
+   },
+   "targetId": "call_1",
+   "at": 26,
+   "stateTokens": 545,
+   "excerpted": false,
+   "keyLineCandidates": [],
+   "calls": [
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "DROP": 0.91,
+        "KEEP": 0.07,
+        "UNCERTAIN": 0,
+        "TRUNCATE": 0.02
+       },
+       "confidence": 0.88
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.05
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.07
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.71
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.57
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.59
+      }
+     },
+     "ms": 259,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1559,
+     "cost": 0.000065478
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "DROP": 0.92,
+        "UNCERTAIN": 0,
+        "TRUNCATE": 0.02,
+        "KEEP": 0.06
+       },
+       "confidence": 0.9
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.05
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.08
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.74
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.59
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.55
+      }
+     },
+     "ms": 446,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1559,
+     "cost": 0.000065478
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "DROP": 0.91,
+        "UNCERTAIN": 0,
+        "TRUNCATE": 0.02,
+        "KEEP": 0.07
+       },
+       "confidence": 0.87
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.05
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.08
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.75
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.6
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.05
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.52
+      }
+     },
+     "ms": 283,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1559,
+     "cost": 0.000065478
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "TRUNCATE": 0.02,
+        "KEEP": 0.06,
+        "DROP": 0.92,
+        "UNCERTAIN": 0
+       },
+       "confidence": 0.9
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.05
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.09
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.71
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.59
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.05
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.51
+      }
+     },
+     "ms": 309,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1559,
+     "cost": 0.000065478
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "KEEP": 0.06,
+        "TRUNCATE": 0.03,
+        "UNCERTAIN": 0,
+        "DROP": 0.91
+       },
+       "confidence": 0.88
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.06
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.08
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.73
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.6
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.05
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.58
+      }
+     },
+     "ms": 249,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1559,
+     "cost": 0.000065478
+    }
+   ]
+  },
+  {
+   "key": "C11:trace",
+   "caseId": "C11",
+   "category": "old stack trace (unresolved)",
+   "checkpoint": "end",
+   "target": {
+    "tag": "trace",
+    "truth": "KEEP",
+    "acceptable": [
+     "KEEP",
+     "TRUNCATE"
+    ],
+    "critical": true,
+    "why": "The only concrete evidence for the open production bug."
+   },
+   "targetId": "call_1",
+   "at": 32,
+   "stateTokens": 577,
+   "excerpted": false,
+   "keyLineCandidates": [],
+   "calls": [
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "KEEP",
+       "probabilities": {
+        "UNCERTAIN": 0,
+        "TRUNCATE": 0,
+        "DROP": 0.1,
+        "KEEP": 0.9
+       },
+       "confidence": 0.85
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.87
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.93
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.63
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.54
+      }
+     },
+     "ms": 268,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1661,
+     "cost": 0.000069762
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "KEEP",
+       "probabilities": {
+        "TRUNCATE": 0,
+        "DROP": 0.1,
+        "UNCERTAIN": 0,
+        "KEEP": 0.9
+       },
+       "confidence": 0.85
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.03
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.87
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.92
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.62
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.03
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.54
+      }
+     },
+     "ms": 314,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1661,
+     "cost": 0.000069762
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "KEEP",
+       "probabilities": {
+        "TRUNCATE": 0,
+        "DROP": 0.1,
+        "KEEP": 0.9,
+        "UNCERTAIN": 0
+       },
+       "confidence": 0.86
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.03
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.89
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.92
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.62
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.03
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.55
+      }
+     },
+     "ms": 317,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1661,
+     "cost": 0.000069762
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "KEEP",
+       "probabilities": {
+        "KEEP": 0.87,
+        "UNCERTAIN": 0,
+        "DROP": 0.13,
+        "TRUNCATE": 0
+       },
+       "confidence": 0.82
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.88
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.92
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.59
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.03
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.52
+      }
+     },
+     "ms": 342,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1661,
+     "cost": 0.000069762
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "KEEP",
+       "probabilities": {
+        "UNCERTAIN": 0,
+        "DROP": 0.14,
+        "KEEP": 0.86,
+        "TRUNCATE": 0
+       },
+       "confidence": 0.81
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.03
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.87
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.92
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.62
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.03
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.53
+      }
+     },
+     "ms": 571,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1661,
+     "cost": 0.000069762
+    }
+   ]
+  },
+  {
+   "key": "C12:diff",
+   "caseId": "C12",
+   "category": "old git diff",
+   "checkpoint": "end",
+   "target": {
+    "tag": "diff",
+    "truth": "DROP",
+    "acceptable": [
+     "DROP",
+     "TRUNCATE"
+    ],
+    "critical": false,
+    "why": "Committed and recoverable with git show; the task moved on."
+   },
+   "targetId": "call_1",
+   "at": 19,
+   "stateTokens": 498,
+   "excerpted": false,
+   "keyLineCandidates": [],
+   "calls": [
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "DROP": 0.8,
+        "UNCERTAIN": 0,
+        "KEEP": 0.01,
+        "TRUNCATE": 0.19
+       },
+       "confidence": 0.73
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.06
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.07
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.61
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.47
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.06
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.92
+      }
+     },
+     "ms": 250,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1503,
+     "cost": 0.000063126
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "DROP": 0.83,
+        "TRUNCATE": 0.16,
+        "KEEP": 0.01,
+        "UNCERTAIN": 0
+       },
+       "confidence": 0.76
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.06
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.07
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.63
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.46
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.06
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.91
+      }
+     },
+     "ms": 315,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1503,
+     "cost": 0.000063126
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "TRUNCATE": 0.16,
+        "DROP": 0.83,
+        "KEEP": 0.01,
+        "UNCERTAIN": 0
+       },
+       "confidence": 0.77
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.06
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.08
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.63
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.49
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.06
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.91
+      }
+     },
+     "ms": 280,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1503,
+     "cost": 0.000063126
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "UNCERTAIN": 0,
+        "DROP": 0.79,
+        "KEEP": 0.02,
+        "TRUNCATE": 0.19
+       },
+       "confidence": 0.72
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.06
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.07
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.61
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.5
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.06
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.9
+      }
+     },
+     "ms": 321,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1503,
+     "cost": 0.000063126
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "TRUNCATE": 0.17,
+        "KEEP": 0.01,
+        "DROP": 0.82,
+        "UNCERTAIN": 0
+       },
+       "confidence": 0.76
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.06
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.07
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.63
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.49
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.06
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.89
+      }
+     },
+     "ms": 235,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1503,
+     "cost": 0.000063126
+    }
+   ]
+  },
+  {
+   "key": "C13:lint",
+   "caseId": "C13",
+   "category": "fixed lint error",
+   "checkpoint": "end",
+   "target": {
+    "tag": "lint",
+    "truth": "DROP",
+    "acceptable": [
+     "DROP",
+     "TRUNCATE"
+    ],
+    "critical": false,
+    "why": "All errors fixed; lint re-run is clean."
+   },
+   "targetId": "call_1",
+   "at": 22,
+   "stateTokens": 442,
+   "excerpted": false,
+   "keyLineCandidates": [],
+   "calls": [
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "TRUNCATE": 0,
+        "KEEP": 0.02,
+        "UNCERTAIN": 0,
+        "DROP": 0.98
+       },
+       "confidence": 0.96
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.8
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.16
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.76
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.62
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.05
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.76
+      }
+     },
+     "ms": 297,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1414,
+     "cost": 0.000059388
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "DROP": 0.98,
+        "UNCERTAIN": 0,
+        "KEEP": 0.02,
+        "TRUNCATE": 0
+       },
+       "confidence": 0.97
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.79
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.19
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.78
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.61
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.05
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.74
+      }
+     },
+     "ms": 346,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1414,
+     "cost": 0.000059388
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "DROP": 0.98,
+        "TRUNCATE": 0,
+        "UNCERTAIN": 0,
+        "KEEP": 0.02
+       },
+       "confidence": 0.97
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.81
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.16
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.78
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.59
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.05
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.71
+      }
+     },
+     "ms": 331,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1414,
+     "cost": 0.000059388
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "UNCERTAIN": 0,
+        "TRUNCATE": 0,
+        "DROP": 0.98,
+        "KEEP": 0.02
+       },
+       "confidence": 0.97
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.79
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.19
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.76
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.6
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.05
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.73
+      }
+     },
+     "ms": 243,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1414,
+     "cost": 0.000059388
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "UNCERTAIN": 0,
+        "TRUNCATE": 0,
+        "DROP": 0.98,
+        "KEEP": 0.02
+       },
+       "confidence": 0.97
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.79
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.17
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.77
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.61
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.05
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.71
+      }
+     },
+     "ms": 276,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1414,
+     "cost": 0.000059388
+    }
+   ]
+  },
+  {
+   "key": "C14:adr",
+   "caseId": "C14",
+   "category": "architecture decision",
+   "checkpoint": "end",
+   "target": {
+    "tag": "adr",
+    "truth": "KEEP",
+    "acceptable": [
+     "KEEP",
+     "TRUNCATE"
+    ],
+    "critical": true,
+    "why": "The handler about to be written must follow this rule (new invoiceRepo, no direct db import)."
+   },
+   "targetId": "call_1",
+   "at": 20,
+   "stateTokens": 436,
+   "excerpted": false,
+   "keyLineCandidates": [],
+   "calls": [
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "KEEP",
+       "probabilities": {
+        "DROP": 0.02,
+        "TRUNCATE": 0,
+        "KEEP": 0.98,
+        "UNCERTAIN": 0
+       },
+       "confidence": 0.97
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.03
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.88
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.82
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.92
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.06
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.35
+      }
+     },
+     "ms": 266,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1379,
+     "cost": 0.000057918
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "KEEP",
+       "probabilities": {
+        "TRUNCATE": 0,
+        "KEEP": 0.98,
+        "DROP": 0.02,
+        "UNCERTAIN": 0
+       },
+       "confidence": 0.96
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.03
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.88
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.85
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.92
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.06
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.3
+      }
+     },
+     "ms": 231,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1379,
+     "cost": 0.000057918
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "KEEP",
+       "probabilities": {
+        "DROP": 0.02,
+        "TRUNCATE": 0,
+        "KEEP": 0.98,
+        "UNCERTAIN": 0
+       },
+       "confidence": 0.96
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.88
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.84
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.93
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.05
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.32
+      }
+     },
+     "ms": 340,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1379,
+     "cost": 0.000057918
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "KEEP",
+       "probabilities": {
+        "KEEP": 0.97,
+        "TRUNCATE": 0,
+        "UNCERTAIN": 0,
+        "DROP": 0.03
+       },
+       "confidence": 0.96
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.03
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.88
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.84
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.92
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.05
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.33
+      }
+     },
+     "ms": 401,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1379,
+     "cost": 0.000057918
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "KEEP",
+       "probabilities": {
+        "TRUNCATE": 0,
+        "KEEP": 0.97,
+        "UNCERTAIN": 0,
+        "DROP": 0.03
+       },
+       "confidence": 0.96
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.03
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.88
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.84
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.92
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.05
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.34
+      }
+     },
+     "ms": 259,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1379,
+     "cost": 0.000057918
+    }
+   ]
+  },
+  {
+   "key": "C15:find",
+   "caseId": "C15",
+   "category": "file path",
+   "checkpoint": "end",
+   "target": {
+    "tag": "find",
+    "truth": "KEEP",
+    "acceptable": [
+     "KEEP",
+     "TRUNCATE"
+    ],
+    "critical": true,
+    "why": "The exact schema path and gen script are needed for the next step."
+   },
+   "targetId": "call_1",
+   "at": 22,
+   "stateTokens": 432,
+   "excerpted": false,
+   "keyLineCandidates": [],
+   "calls": [
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "KEEP",
+       "probabilities": {
+        "TRUNCATE": 0.02,
+        "DROP": 0.17,
+        "UNCERTAIN": 0,
+        "KEEP": 0.8
+       },
+       "confidence": 0.74
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.92
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.8
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.77
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.05
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.22
+      }
+     },
+     "ms": 336,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1388,
+     "cost": 0.000058296
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "KEEP",
+       "probabilities": {
+        "DROP": 0.16,
+        "UNCERTAIN": 0,
+        "TRUNCATE": 0.02,
+        "KEEP": 0.81
+       },
+       "confidence": 0.75
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.93
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.82
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.78
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.05
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.21
+      }
+     },
+     "ms": 263,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1388,
+     "cost": 0.000058296
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "KEEP",
+       "probabilities": {
+        "KEEP": 0.83,
+        "DROP": 0.15,
+        "UNCERTAIN": 0,
+        "TRUNCATE": 0.02
+       },
+       "confidence": 0.76
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.03
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.93
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.81
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.79
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.05
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.22
+      }
+     },
+     "ms": 304,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1388,
+     "cost": 0.000058296
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "KEEP",
+       "probabilities": {
+        "DROP": 0.16,
+        "UNCERTAIN": 0,
+        "TRUNCATE": 0.02,
+        "KEEP": 0.81
+       },
+       "confidence": 0.75
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.03
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.93
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.8
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.78
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.05
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.2
+      }
+     },
+     "ms": 408,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1388,
+     "cost": 0.000058296
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "KEEP",
+       "probabilities": {
+        "UNCERTAIN": 0,
+        "DROP": 0.15,
+        "TRUNCATE": 0.02,
+        "KEEP": 0.83
+       },
+       "confidence": 0.76
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.93
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.84
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.78
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.05
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.2
+      }
+     },
+     "ms": 354,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1388,
+     "cost": 0.000058296
+    }
+   ]
+  },
+  {
+   "key": "C16:ver",
+   "caseId": "C16",
+   "category": "version number",
+   "checkpoint": "end",
+   "target": {
+    "tag": "ver",
+    "truth": "KEEP",
+    "acceptable": [
+     "KEEP",
+     "TRUNCATE"
+    ],
+    "critical": true,
+    "why": "`omit` does not exist in Prisma 4.16; the version decides what is possible."
+   },
+   "targetId": "call_1",
+   "at": 20,
+   "stateTokens": 438,
+   "excerpted": false,
+   "keyLineCandidates": [],
+   "calls": [
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "KEEP": 0.06,
+        "DROP": 0.65,
+        "TRUNCATE": 0.29,
+        "UNCERTAIN": 0
+       },
+       "confidence": 0.54
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.18
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.8
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.86
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.05
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.83
+      }
+     },
+     "ms": 233,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1447,
+     "cost": 0.000060774
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "DROP": 0.61,
+        "TRUNCATE": 0.33,
+        "KEEP": 0.06,
+        "UNCERTAIN": 0
+       },
+       "confidence": 0.48
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.19
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.81
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.85
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.06
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.83
+      }
+     },
+     "ms": 283,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1447,
+     "cost": 0.000060774
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "KEEP": 0.05,
+        "TRUNCATE": 0.33,
+        "UNCERTAIN": 0,
+        "DROP": 0.62
+       },
+       "confidence": 0.49
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.03
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.19
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.82
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.85
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.06
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.82
+      }
+     },
+     "ms": 246,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1447,
+     "cost": 0.000060774
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "DROP": 0.58,
+        "UNCERTAIN": 0,
+        "KEEP": 0.07,
+        "TRUNCATE": 0.35
+       },
+       "confidence": 0.44
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.19
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.81
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.84
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.06
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.83
+      }
+     },
+     "ms": 315,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1447,
+     "cost": 0.000060774
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "TRUNCATE": 0.33,
+        "KEEP": 0.04,
+        "UNCERTAIN": 0,
+        "DROP": 0.63
+       },
+       "confidence": 0.5
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.03
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.21
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.81
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.85
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.06
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.84
+      }
+     },
+     "ms": 230,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1447,
+     "cost": 0.000060774
+    }
+   ]
+  },
+  {
+   "key": "C17:api",
+   "caseId": "C17",
+   "category": "API name",
+   "checkpoint": "end",
+   "target": {
+    "tag": "api",
+    "truth": "KEEP",
+    "acceptable": [
+     "KEEP",
+     "TRUNCATE"
+    ],
+    "critical": true,
+    "why": "The call to write depends on intents.createV2 and its required idempotencyKey."
+   },
+   "targetId": "call_1",
+   "at": 22,
+   "stateTokens": 442,
+   "excerpted": false,
+   "keyLineCandidates": [],
+   "calls": [
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "KEEP",
+       "probabilities": {
+        "DROP": 0.01,
+        "TRUNCATE": 0,
+        "KEEP": 0.99,
+        "UNCERTAIN": 0
+       },
+       "confidence": 0.98
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.03
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.96
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.92
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.87
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.05
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.33
+      }
+     },
+     "ms": 326,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1376,
+     "cost": 0.000057792
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "KEEP",
+       "probabilities": {
+        "TRUNCATE": 0,
+        "DROP": 0.01,
+        "KEEP": 0.99,
+        "UNCERTAIN": 0
+       },
+       "confidence": 0.98
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.03
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.96
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.92
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.87
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.05
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.33
+      }
+     },
+     "ms": 358,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1376,
+     "cost": 0.000057792
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "KEEP",
+       "probabilities": {
+        "KEEP": 0.99,
+        "TRUNCATE": 0,
+        "UNCERTAIN": 0,
+        "DROP": 0.01
+       },
+       "confidence": 0.99
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.96
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.92
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.87
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.05
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.34
+      }
+     },
+     "ms": 256,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1376,
+     "cost": 0.000057792
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "KEEP",
+       "probabilities": {
+        "TRUNCATE": 0,
+        "UNCERTAIN": 0,
+        "KEEP": 0.99,
+        "DROP": 0.01
+       },
+       "confidence": 0.99
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.03
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.96
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.92
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.88
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.05
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.34
+      }
+     },
+     "ms": 234,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1376,
+     "cost": 0.000057792
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "KEEP",
+       "probabilities": {
+        "DROP": 0.01,
+        "UNCERTAIN": 0,
+        "TRUNCATE": 0,
+        "KEEP": 0.99
+       },
+       "confidence": 0.98
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.03
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.96
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.93
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.87
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.05
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.31
+      }
+     },
+     "ms": 303,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1376,
+     "cost": 0.000057792
+    }
+   ]
+  },
+  {
+   "key": "C18:log",
+   "caseId": "C18",
+   "category": "user-requested evidence",
+   "checkpoint": "end",
+   "target": {
+    "tag": "log",
+    "truth": "KEEP",
+    "acceptable": [
+     "KEEP"
+    ],
+    "critical": true,
+    "why": "The user asked for the exact output verbatim; truncating or dropping breaks that."
+   },
+   "targetId": "call_1",
+   "at": 22,
+   "stateTokens": 492,
+   "excerpted": false,
+   "keyLineCandidates": [],
+   "calls": [
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "KEEP",
+       "probabilities": {
+        "DROP": 0.17,
+        "KEEP": 0.8,
+        "TRUNCATE": 0.03,
+        "UNCERTAIN": 0
+       },
+       "confidence": 0.72
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.44
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.78
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.39
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.91
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.6
+      }
+     },
+     "ms": 309,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1461,
+     "cost": 0.000061362
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "KEEP",
+       "probabilities": {
+        "UNCERTAIN": 0,
+        "KEEP": 0.77,
+        "DROP": 0.19,
+        "TRUNCATE": 0.04
+       },
+       "confidence": 0.7
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.41
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.79
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.37
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.92
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.6
+      }
+     },
+     "ms": 306,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1461,
+     "cost": 0.000061362
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "KEEP",
+       "probabilities": {
+        "TRUNCATE": 0.04,
+        "UNCERTAIN": 0,
+        "DROP": 0.15,
+        "KEEP": 0.81
+       },
+       "confidence": 0.74
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.46
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.79
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.37
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.92
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.59
+      }
+     },
+     "ms": 433,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1461,
+     "cost": 0.000061362
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "KEEP",
+       "probabilities": {
+        "KEEP": 0.82,
+        "TRUNCATE": 0.04,
+        "DROP": 0.14,
+        "UNCERTAIN": 0
+       },
+       "confidence": 0.76
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.5
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.79
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.36
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.92
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.63
+      }
+     },
+     "ms": 282,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1461,
+     "cost": 0.000061362
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "KEEP",
+       "probabilities": {
+        "KEEP": 0.79,
+        "UNCERTAIN": 0,
+        "DROP": 0.17,
+        "TRUNCATE": 0.04
+       },
+       "confidence": 0.71
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.45
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.79
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.37
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.92
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.63
+      }
+     },
+     "ms": 235,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1461,
+     "cost": 0.000061362
+    }
+   ]
+  },
+  {
+   "key": "C19:old",
+   "caseId": "C19",
+   "category": "superseded config value",
+   "checkpoint": "end",
+   "target": {
+    "tag": "old",
+    "truth": "DROP",
+    "acceptable": [
+     "DROP",
+     "TRUNCATE"
+    ],
+    "critical": false,
+    "why": "Pre-edit content; the file was read again after the change."
+   },
+   "targetId": "call_1",
+   "at": 18,
+   "stateTokens": 440,
+   "excerpted": false,
+   "keyLineCandidates": [],
+   "calls": [
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "KEEP": 0.18,
+        "TRUNCATE": 0.01,
+        "DROP": 0.81,
+        "UNCERTAIN": 0
+       },
+       "confidence": 0.74
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.93
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.91
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.64
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.66
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.06
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.28
+      }
+     },
+     "ms": 422,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1357,
+     "cost": 0.000056994
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "KEEP": 0.18,
+        "TRUNCATE": 0.01,
+        "DROP": 0.81,
+        "UNCERTAIN": 0
+       },
+       "confidence": 0.74
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.94
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.9
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.64
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.67
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.05
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.27
+      }
+     },
+     "ms": 283,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1357,
+     "cost": 0.000056994
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "UNCERTAIN": 0,
+        "KEEP": 0.18,
+        "TRUNCATE": 0.01,
+        "DROP": 0.81
+       },
+       "confidence": 0.75
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.93
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.89
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.65
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.69
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.06
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.28
+      }
+     },
+     "ms": 334,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1357,
+     "cost": 0.000056994
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "TRUNCATE": 0.01,
+        "DROP": 0.8,
+        "KEEP": 0.19,
+        "UNCERTAIN": 0
+       },
+       "confidence": 0.73
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.94
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.9
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.63
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.67
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.05
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.26
+      }
+     },
+     "ms": 282,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1357,
+     "cost": 0.000056994
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "KEEP": 0.18,
+        "DROP": 0.8,
+        "TRUNCATE": 0.02,
+        "UNCERTAIN": 0
+       },
+       "confidence": 0.73
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.93
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.89
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.64
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.67
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.05
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.29
+      }
+     },
+     "ms": 415,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1357,
+     "cost": 0.000056994
+    }
+   ]
+  },
+  {
+   "key": "C19:new",
+   "caseId": "C19",
+   "category": "superseded config value",
+   "checkpoint": "end",
+   "target": {
+    "tag": "new",
+    "truth": "KEEP",
+    "acceptable": [
+     "KEEP",
+     "TRUNCATE"
+    ],
+    "critical": false,
+    "why": "Current content of the file the next change goes into (retries: 0)."
+   },
+   "targetId": "call_3",
+   "at": 18,
+   "stateTokens": 342,
+   "excerpted": false,
+   "keyLineCandidates": [],
+   "calls": [
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "KEEP",
+       "probabilities": {
+        "KEEP": 0.9,
+        "UNCERTAIN": 0,
+        "DROP": 0.09,
+        "TRUNCATE": 0.01
+       },
+       "confidence": 0.87
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.91
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.83
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.68
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.06
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.24
+      }
+     },
+     "ms": 350,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1246,
+     "cost": 0.000052332
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "KEEP",
+       "probabilities": {
+        "TRUNCATE": 0.01,
+        "UNCERTAIN": 0,
+        "KEEP": 0.93,
+        "DROP": 0.06
+       },
+       "confidence": 0.91
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.92
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.83
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.67
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.06
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.25
+      }
+     },
+     "ms": 317,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1246,
+     "cost": 0.000052332
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "KEEP",
+       "probabilities": {
+        "UNCERTAIN": 0,
+        "KEEP": 0.91,
+        "TRUNCATE": 0.01,
+        "DROP": 0.08
+       },
+       "confidence": 0.88
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.9
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.81
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.69
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.06
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.25
+      }
+     },
+     "ms": 330,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1246,
+     "cost": 0.000052332
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "KEEP",
+       "probabilities": {
+        "KEEP": 0.91,
+        "DROP": 0.08,
+        "TRUNCATE": 0.01,
+        "UNCERTAIN": 0
+       },
+       "confidence": 0.87
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.91
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.82
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.69
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.06
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.21
+      }
+     },
+     "ms": 266,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1246,
+     "cost": 0.000052332
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "KEEP",
+       "probabilities": {
+        "TRUNCATE": 0.01,
+        "KEEP": 0.91,
+        "UNCERTAIN": 0,
+        "DROP": 0.08
+       },
+       "confidence": 0.88
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.91
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.82
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.69
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.06
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.24
+      }
+     },
+     "ms": 308,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1246,
+     "cost": 0.000052332
+    }
+   ]
+  },
+  {
+   "key": "C20:v1",
+   "caseId": "C20",
+   "category": "same file old/new read",
+   "checkpoint": "end",
+   "target": {
+    "tag": "v1",
+    "truth": "DROP",
+    "acceptable": [
+     "DROP",
+     "TRUNCATE"
+    ],
+    "critical": false,
+    "why": "Pre-refactor content, superseded by the later read."
+   },
+   "targetId": "call_1",
+   "at": 12,
+   "stateTokens": 426,
+   "excerpted": false,
+   "keyLineCandidates": [],
+   "calls": [
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "DROP": 0.93,
+        "UNCERTAIN": 0,
+        "KEEP": 0.07,
+        "TRUNCATE": 0
+       },
+       "confidence": 0.9
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.93
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.58
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.58
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.58
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.05
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.23
+      }
+     },
+     "ms": 238,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1373,
+     "cost": 0.000057666
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "TRUNCATE": 0,
+        "UNCERTAIN": 0,
+        "DROP": 0.93,
+        "KEEP": 0.07
+       },
+       "confidence": 0.9
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.92
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.58
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.57
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.59
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.06
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.23
+      }
+     },
+     "ms": 283,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1373,
+     "cost": 0.000057666
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "TRUNCATE": 0,
+        "KEEP": 0.07,
+        "UNCERTAIN": 0,
+        "DROP": 0.93
+       },
+       "confidence": 0.9
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.93
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.57
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.55
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.59
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.05
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.21
+      }
+     },
+     "ms": 349,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1373,
+     "cost": 0.000057666
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "TRUNCATE": 0,
+        "UNCERTAIN": 0,
+        "DROP": 0.92,
+        "KEEP": 0.08
+       },
+       "confidence": 0.89
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.93
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.56
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.58
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.6
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.05
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.22
+      }
+     },
+     "ms": 277,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1373,
+     "cost": 0.000057666
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "TRUNCATE": 0,
+        "DROP": 0.93,
+        "UNCERTAIN": 0,
+        "KEEP": 0.07
+       },
+       "confidence": 0.9
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.93
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.59
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.57
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.59
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.05
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.22
+      }
+     },
+     "ms": 317,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1373,
+     "cost": 0.000057666
+    }
+   ]
+  },
+  {
+   "key": "C20:v2",
+   "caseId": "C20",
+   "category": "same file old/new read",
+   "checkpoint": "end",
+   "target": {
+    "tag": "v2",
+    "truth": "KEEP",
+    "acceptable": [
+     "KEEP"
+    ],
+    "critical": true,
+    "why": "Current content; the tests to write target these exact functions and constants."
+   },
+   "targetId": "call_4",
+   "at": 12,
+   "stateTokens": 328,
+   "excerpted": false,
+   "keyLineCandidates": [],
+   "calls": [
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "KEEP",
+       "probabilities": {
+        "UNCERTAIN": 0,
+        "TRUNCATE": 0,
+        "DROP": 0.03,
+        "KEEP": 0.97
+       },
+       "confidence": 0.96
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.03
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.92
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.84
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.72
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.06
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.15
+      }
+     },
+     "ms": 343,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1236,
+     "cost": 0.000051912
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "KEEP",
+       "probabilities": {
+        "UNCERTAIN": 0,
+        "TRUNCATE": 0,
+        "KEEP": 0.97,
+        "DROP": 0.03
+       },
+       "confidence": 0.96
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.03
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.91
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.82
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.72
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.05
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.14
+      }
+     },
+     "ms": 260,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1236,
+     "cost": 0.000051912
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "KEEP",
+       "probabilities": {
+        "UNCERTAIN": 0,
+        "TRUNCATE": 0,
+        "KEEP": 0.98,
+        "DROP": 0.02
+       },
+       "confidence": 0.97
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.03
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.91
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.85
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.7
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.05
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.15
+      }
+     },
+     "ms": 429,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1236,
+     "cost": 0.000051912
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "KEEP",
+       "probabilities": {
+        "TRUNCATE": 0,
+        "DROP": 0.02,
+        "KEEP": 0.98,
+        "UNCERTAIN": 0
+       },
+       "confidence": 0.97
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.03
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.91
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.84
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.71
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.06
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.14
+      }
+     },
+     "ms": 242,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1236,
+     "cost": 0.000051912
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "KEEP",
+       "probabilities": {
+        "TRUNCATE": 0,
+        "KEEP": 0.97,
+        "UNCERTAIN": 0,
+        "DROP": 0.03
+       },
+       "confidence": 0.96
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.03
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.9
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.84
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.72
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.05
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.15
+      }
+     },
+     "ms": 271,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1236,
+     "cost": 0.000051912
+    }
+   ]
+  },
+  {
+   "key": "C21:css",
+   "caseId": "C21",
+   "category": "goal changed",
+   "checkpoint": "end",
+   "target": {
+    "tag": "css",
+    "truth": "DROP",
+    "acceptable": [
+     "DROP",
+     "TRUNCATE"
+    ],
+    "critical": false,
+    "why": "Belongs to the finished layout task; irrelevant to CI setup."
+   },
+   "targetId": "call_2",
+   "at": 18,
+   "stateTokens": 312,
+   "excerpted": false,
+   "keyLineCandidates": [],
+   "calls": [
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "TRUNCATE": 0,
+        "UNCERTAIN": 0,
+        "KEEP": 0.04,
+        "DROP": 0.96
+       },
+       "confidence": 0.94
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.7
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.05
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.72
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.49
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.05
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.18
+      }
+     },
+     "ms": 235,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1326,
+     "cost": 0.000055692
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "KEEP": 0.05,
+        "TRUNCATE": 0,
+        "DROP": 0.95,
+        "UNCERTAIN": 0
+       },
+       "confidence": 0.93
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.73
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.74
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.49
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.18
+      }
+     },
+     "ms": 325,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1326,
+     "cost": 0.000055692
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "KEEP": 0.04,
+        "DROP": 0.96,
+        "TRUNCATE": 0,
+        "UNCERTAIN": 0
+       },
+       "confidence": 0.94
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.69
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.74
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.51
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.05
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.2
+      }
+     },
+     "ms": 343,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1326,
+     "cost": 0.000055692
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "DROP": 0.95,
+        "TRUNCATE": 0,
+        "KEEP": 0.05,
+        "UNCERTAIN": 0
+       },
+       "confidence": 0.93
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.72
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.73
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.48
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.05
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.2
+      }
+     },
+     "ms": 235,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1326,
+     "cost": 0.000055692
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "KEEP": 0.04,
+        "TRUNCATE": 0,
+        "UNCERTAIN": 0,
+        "DROP": 0.96
+       },
+       "confidence": 0.94
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.69
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.73
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.48
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.05
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.19
+      }
+     },
+     "ms": 385,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1326,
+     "cost": 0.000055692
+    }
+   ]
+  },
+  {
+   "key": "C22:build",
+   "caseId": "C22",
+   "category": "irrelevant big build log",
+   "checkpoint": "end",
+   "target": {
+    "tag": "build",
+    "truth": "DROP",
+    "acceptable": [
+     "DROP",
+     "TRUNCATE"
+    ],
+    "critical": false,
+    "why": "Successful build; nothing in it bears on README wording."
+   },
+   "targetId": "call_1",
+   "at": 17,
+   "stateTokens": 656,
+   "excerpted": true,
+   "keyLineCandidates": [
+    {
+     "n": 6,
+     "text": "(!) src/ui/icons/Icon0.tsx: Module level directives cause errors when bundled, \"use client\" was ignored."
+    },
+    {
+     "n": 52,
+     "text": "(!) src/ui/icons/Icon45.tsx: Module level directives cause errors when bundled, \"use client\" was ignored."
+    }
+   ],
+   "calls": [
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "TRUNCATE": 0.39,
+        "UNCERTAIN": 0,
+        "DROP": 0.6,
+        "KEEP": 0.01
+       },
+       "confidence": 0.47
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.06
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.87
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.76
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.92
+      },
+      "line_6": {
+       "type": "noul",
+       "noul": 0.27
+      },
+      "line_52": {
+       "type": "noul",
+       "noul": 0.21
+      }
+     },
+     "ms": 313,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 2010,
+     "cost": 0.00008442
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "DROP": 0.62,
+        "TRUNCATE": 0.37,
+        "KEEP": 0.01,
+        "UNCERTAIN": 0
+       },
+       "confidence": 0.49
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.06
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.86
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.75
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.91
+      },
+      "line_6": {
+       "type": "noul",
+       "noul": 0.26
+      },
+      "line_52": {
+       "type": "noul",
+       "noul": 0.21
+      }
+     },
+     "ms": 244,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 2010,
+     "cost": 0.00008442
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "DROP": 0.64,
+        "TRUNCATE": 0.35,
+        "UNCERTAIN": 0,
+        "KEEP": 0.01
+       },
+       "confidence": 0.52
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.06
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.86
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.74
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.92
+      },
+      "line_6": {
+       "type": "noul",
+       "noul": 0.29
+      },
+      "line_52": {
+       "type": "noul",
+       "noul": 0.21
+      }
+     },
+     "ms": 301,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 2010,
+     "cost": 0.00008442
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "KEEP": 0.01,
+        "TRUNCATE": 0.34,
+        "DROP": 0.65,
+        "UNCERTAIN": 0
+       },
+       "confidence": 0.53
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.06
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.88
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.74
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.92
+      },
+      "line_6": {
+       "type": "noul",
+       "noul": 0.24
+      },
+      "line_52": {
+       "type": "noul",
+       "noul": 0.21
+      }
+     },
+     "ms": 328,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 2010,
+     "cost": 0.00008442
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "KEEP": 0.01,
+        "UNCERTAIN": 0,
+        "DROP": 0.63,
+        "TRUNCATE": 0.36
+       },
+       "confidence": 0.51
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.07
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.86
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.73
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.92
+      },
+      "line_6": {
+       "type": "noul",
+       "noul": 0.28
+      },
+      "line_52": {
+       "type": "noul",
+       "noul": 0.22
+      }
+     },
+     "ms": 383,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 2010,
+     "cost": 0.00008442
+    }
+   ]
+  },
+  {
+   "key": "C23:root",
+   "caseId": "C23",
+   "category": "old but critical (Chinese)",
+   "checkpoint": "end",
+   "target": {
+    "tag": "root",
+    "truth": "KEEP",
+    "acceptable": [
+     "KEEP",
+     "TRUNCATE"
+    ],
+    "critical": true,
+    "why": "Direct evidence of the root cause; investigation continues."
+   },
+   "targetId": "call_1",
+   "at": 32,
+   "stateTokens": 527,
+   "excerpted": false,
+   "keyLineCandidates": [],
+   "calls": [
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "KEEP",
+       "probabilities": {
+        "UNCERTAIN": 0,
+        "DROP": 0.09,
+        "KEEP": 0.9,
+        "TRUNCATE": 0.01
+       },
+       "confidence": 0.87
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.03
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.78
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.92
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.46
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.11
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.4
+      }
+     },
+     "ms": 275,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1676,
+     "cost": 0.000070392
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "KEEP",
+       "probabilities": {
+        "TRUNCATE": 0.01,
+        "UNCERTAIN": 0,
+        "DROP": 0.09,
+        "KEEP": 0.9
+       },
+       "confidence": 0.87
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.03
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.81
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.91
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.49
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.12
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.41
+      }
+     },
+     "ms": 245,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1676,
+     "cost": 0.000070392
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "KEEP",
+       "probabilities": {
+        "KEEP": 0.89,
+        "DROP": 0.1,
+        "TRUNCATE": 0.01,
+        "UNCERTAIN": 0
+       },
+       "confidence": 0.84
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.03
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.78
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.92
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.45
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.12
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.39
+      }
+     },
+     "ms": 319,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1676,
+     "cost": 0.000070392
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "KEEP",
+       "probabilities": {
+        "UNCERTAIN": 0,
+        "DROP": 0.08,
+        "KEEP": 0.91,
+        "TRUNCATE": 0.01
+       },
+       "confidence": 0.89
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.03
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.78
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.91
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.47
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.1
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.4
+      }
+     },
+     "ms": 306,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1676,
+     "cost": 0.000070392
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "KEEP",
+       "probabilities": {
+        "DROP": 0.06,
+        "UNCERTAIN": 0,
+        "KEEP": 0.93,
+        "TRUNCATE": 0.01
+       },
+       "confidence": 0.9
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.03
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.79
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.92
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.5
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.12
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.41
+      }
+     },
+     "ms": 267,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1676,
+     "cost": 0.000070392
+    }
+   ]
+  },
+  {
+   "key": "C24:tsc",
+   "caseId": "C24",
+   "category": "very long log (repetitive)",
+   "checkpoint": "end",
+   "target": {
+    "tag": "tsc",
+    "truth": "TRUNCATE",
+    "acceptable": [
+     "TRUNCATE"
+    ],
+    "critical": true,
+    "why": "The error kind and the six files matter; 90 near-identical lines do not.",
+    "keyLines": [
+     "TS2322",
+     "Found 90 errors in 6 files",
+     "src/api/customers.ts"
+    ]
+   },
+   "targetId": "call_1",
+   "at": 13,
+   "stateTokens": 1023,
+   "excerpted": true,
+   "keyLineCandidates": [
+    {
+     "n": 1,
+     "text": "src/api/orders.ts(10,5): error TS2322: Type 'string | undefined' is not assignable to type 'string'."
+    },
+    {
+     "n": 3,
+     "text": "src/api/customers.ts(11,6): error TS2322: Type 'string | undefined' is not assignable to type 'string'."
+    },
+    {
+     "n": 5,
+     "text": "src/cart/CartRow.tsx(12,7): error TS2322: Type 'string | undefined' is not assignable to type 'string'."
+    },
+    {
+     "n": 7,
+     "text": "src/profile/ProfilePage.tsx(13,8): error TS2322: Type 'string | undefined' is not assignable to type 'string'."
+    },
+    {
+     "n": 9,
+     "text": "src/billing/invoiceMapper.ts(14,9): error TS2322: Type 'string | undefined' is not assignable to type 'string'."
+    },
+    {
+     "n": 11,
+     "text": "src/lib/money.ts(15,10): error TS2322: Type 'string | undefined' is not assignable to type 'string'."
+    },
+    {
+     "n": 13,
+     "text": "src/api/orders.ts(16,11): error TS2322: Type 'string | undefined' is not assignable to type 'string'."
+    },
+    {
+     "n": 15,
+     "text": "src/api/customers.ts(17,12): error TS2322: Type 'string | undefined' is not assignable to type 'string'."
+    },
+    {
+     "n": 17,
+     "text": "src/cart/CartRow.tsx(18,13): error TS2322: Type 'string | undefined' is not assignable to type 'string'."
+    },
+    {
+     "n": 19,
+     "text": "src/profile/ProfilePage.tsx(19,14): error TS2322: Type 'string | undefined' is not assignable to type 'string'."
+    },
+    {
+     "n": 21,
+     "text": "src/billing/invoiceMapper.ts(20,15): error TS2322: Type 'string | undefined' is not assignable to type 'string'."
+    },
+    {
+     "n": 23,
+     "text": "src/lib/money.ts(21,16): error TS2322: Type 'string | undefined' is not assignable to type 'string'."
+    },
+    {
+     "n": 182,
+     "text": "Found 90 errors in 6 files."
+    },
+    {
+     "n": 185,
+     "text": "15  src/api/orders.ts:10"
+    },
+    {
+     "n": 187,
+     "text": "15  src/api/customers.ts:11"
+    },
+    {
+     "n": 189,
+     "text": "15  src/cart/CartRow.tsx:12"
+    }
+   ],
+   "calls": [
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "TRUNCATE",
+       "probabilities": {
+        "UNCERTAIN": 0,
+        "DROP": 0.09,
+        "TRUNCATE": 0.77,
+        "KEEP": 0.14
+       },
+       "confidence": 0.68
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.07
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.93
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.77
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.75
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.03
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.8
+      },
+      "line_1": {
+       "type": "noul",
+       "noul": 0.69
+      },
+      "line_3": {
+       "type": "noul",
+       "noul": 0.51
+      },
+      "line_5": {
+       "type": "noul",
+       "noul": 0.5
+      },
+      "line_7": {
+       "type": "noul",
+       "noul": 0.45
+      },
+      "line_9": {
+       "type": "noul",
+       "noul": 0.5
+      },
+      "line_11": {
+       "type": "noul",
+       "noul": 0.51
+      },
+      "line_13": {
+       "type": "noul",
+       "noul": 0.42
+      },
+      "line_15": {
+       "type": "noul",
+       "noul": 0.4
+      },
+      "line_17": {
+       "type": "noul",
+       "noul": 0.41
+      },
+      "line_19": {
+       "type": "noul",
+       "noul": 0.41
+      },
+      "line_21": {
+       "type": "noul",
+       "noul": 0.43
+      },
+      "line_23": {
+       "type": "noul",
+       "noul": 0.44
+      },
+      "line_182": {
+       "type": "noul",
+       "noul": 0.68
+      },
+      "line_185": {
+       "type": "noul",
+       "noul": 0.51
+      },
+      "line_187": {
+       "type": "noul",
+       "noul": 0.44
+      },
+      "line_189": {
+       "type": "noul",
+       "noul": 0.47
+      }
+     },
+     "ms": 275,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 3339,
+     "cost": 0.000140238
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "TRUNCATE",
+       "probabilities": {
+        "DROP": 0.11,
+        "UNCERTAIN": 0,
+        "KEEP": 0.14,
+        "TRUNCATE": 0.75
+       },
+       "confidence": 0.67
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.08
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.93
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.73
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.75
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.03
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.8
+      },
+      "line_1": {
+       "type": "noul",
+       "noul": 0.67
+      },
+      "line_3": {
+       "type": "noul",
+       "noul": 0.51
+      },
+      "line_5": {
+       "type": "noul",
+       "noul": 0.49
+      },
+      "line_7": {
+       "type": "noul",
+       "noul": 0.46
+      },
+      "line_9": {
+       "type": "noul",
+       "noul": 0.5
+      },
+      "line_11": {
+       "type": "noul",
+       "noul": 0.52
+      },
+      "line_13": {
+       "type": "noul",
+       "noul": 0.45
+      },
+      "line_15": {
+       "type": "noul",
+       "noul": 0.4
+      },
+      "line_17": {
+       "type": "noul",
+       "noul": 0.41
+      },
+      "line_19": {
+       "type": "noul",
+       "noul": 0.41
+      },
+      "line_21": {
+       "type": "noul",
+       "noul": 0.43
+      },
+      "line_23": {
+       "type": "noul",
+       "noul": 0.44
+      },
+      "line_182": {
+       "type": "noul",
+       "noul": 0.66
+      },
+      "line_185": {
+       "type": "noul",
+       "noul": 0.53
+      },
+      "line_187": {
+       "type": "noul",
+       "noul": 0.47
+      },
+      "line_189": {
+       "type": "noul",
+       "noul": 0.47
+      }
+     },
+     "ms": 434,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 3339,
+     "cost": 0.000140238
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "TRUNCATE",
+       "probabilities": {
+        "KEEP": 0.16,
+        "DROP": 0.12,
+        "TRUNCATE": 0.72,
+        "UNCERTAIN": 0
+       },
+       "confidence": 0.62
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.06
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.93
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.73
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.75
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.03
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.79
+      },
+      "line_1": {
+       "type": "noul",
+       "noul": 0.68
+      },
+      "line_3": {
+       "type": "noul",
+       "noul": 0.5
+      },
+      "line_5": {
+       "type": "noul",
+       "noul": 0.51
+      },
+      "line_7": {
+       "type": "noul",
+       "noul": 0.46
+      },
+      "line_9": {
+       "type": "noul",
+       "noul": 0.49
+      },
+      "line_11": {
+       "type": "noul",
+       "noul": 0.51
+      },
+      "line_13": {
+       "type": "noul",
+       "noul": 0.43
+      },
+      "line_15": {
+       "type": "noul",
+       "noul": 0.39
+      },
+      "line_17": {
+       "type": "noul",
+       "noul": 0.42
+      },
+      "line_19": {
+       "type": "noul",
+       "noul": 0.41
+      },
+      "line_21": {
+       "type": "noul",
+       "noul": 0.42
+      },
+      "line_23": {
+       "type": "noul",
+       "noul": 0.43
+      },
+      "line_182": {
+       "type": "noul",
+       "noul": 0.66
+      },
+      "line_185": {
+       "type": "noul",
+       "noul": 0.53
+      },
+      "line_187": {
+       "type": "noul",
+       "noul": 0.47
+      },
+      "line_189": {
+       "type": "noul",
+       "noul": 0.46
+      }
+     },
+     "ms": 342,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 3339,
+     "cost": 0.000140238
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "TRUNCATE",
+       "probabilities": {
+        "KEEP": 0.13,
+        "TRUNCATE": 0.74,
+        "DROP": 0.13,
+        "UNCERTAIN": 0
+       },
+       "confidence": 0.64
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.07
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.93
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.74
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.74
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.03
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.79
+      },
+      "line_1": {
+       "type": "noul",
+       "noul": 0.68
+      },
+      "line_3": {
+       "type": "noul",
+       "noul": 0.52
+      },
+      "line_5": {
+       "type": "noul",
+       "noul": 0.51
+      },
+      "line_7": {
+       "type": "noul",
+       "noul": 0.46
+      },
+      "line_9": {
+       "type": "noul",
+       "noul": 0.49
+      },
+      "line_11": {
+       "type": "noul",
+       "noul": 0.53
+      },
+      "line_13": {
+       "type": "noul",
+       "noul": 0.45
+      },
+      "line_15": {
+       "type": "noul",
+       "noul": 0.37
+      },
+      "line_17": {
+       "type": "noul",
+       "noul": 0.42
+      },
+      "line_19": {
+       "type": "noul",
+       "noul": 0.41
+      },
+      "line_21": {
+       "type": "noul",
+       "noul": 0.43
+      },
+      "line_23": {
+       "type": "noul",
+       "noul": 0.43
+      },
+      "line_182": {
+       "type": "noul",
+       "noul": 0.68
+      },
+      "line_185": {
+       "type": "noul",
+       "noul": 0.52
+      },
+      "line_187": {
+       "type": "noul",
+       "noul": 0.43
+      },
+      "line_189": {
+       "type": "noul",
+       "noul": 0.46
+      }
+     },
+     "ms": 336,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 3339,
+     "cost": 0.000140238
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "TRUNCATE",
+       "probabilities": {
+        "TRUNCATE": 0.73,
+        "UNCERTAIN": 0,
+        "KEEP": 0.15,
+        "DROP": 0.12
+       },
+       "confidence": 0.64
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.05
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.93
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.76
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.74
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.03
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.79
+      },
+      "line_1": {
+       "type": "noul",
+       "noul": 0.68
+      },
+      "line_3": {
+       "type": "noul",
+       "noul": 0.53
+      },
+      "line_5": {
+       "type": "noul",
+       "noul": 0.51
+      },
+      "line_7": {
+       "type": "noul",
+       "noul": 0.48
+      },
+      "line_9": {
+       "type": "noul",
+       "noul": 0.5
+      },
+      "line_11": {
+       "type": "noul",
+       "noul": 0.52
+      },
+      "line_13": {
+       "type": "noul",
+       "noul": 0.44
+      },
+      "line_15": {
+       "type": "noul",
+       "noul": 0.4
+      },
+      "line_17": {
+       "type": "noul",
+       "noul": 0.4
+      },
+      "line_19": {
+       "type": "noul",
+       "noul": 0.39
+      },
+      "line_21": {
+       "type": "noul",
+       "noul": 0.43
+      },
+      "line_23": {
+       "type": "noul",
+       "noul": 0.42
+      },
+      "line_182": {
+       "type": "noul",
+       "noul": 0.65
+      },
+      "line_185": {
+       "type": "noul",
+       "noul": 0.53
+      },
+      "line_187": {
+       "type": "noul",
+       "noul": 0.45
+      },
+      "line_189": {
+       "type": "noul",
+       "noul": 0.46
+      }
+     },
+     "ms": 337,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 3339,
+     "cost": 0.000140238
+    }
+   ]
+  },
+  {
+   "key": "C25:vite",
+   "caseId": "C25",
+   "category": "config value in long file",
+   "checkpoint": "end",
+   "target": {
+    "tag": "vite",
+    "truth": "TRUNCATE",
+    "acceptable": [
+     "TRUNCATE",
+     "KEEP"
+    ],
+    "critical": true,
+    "why": "The proxy target localhost:8080 vs backend 3000 is the bug; the rest is comments.",
+    "keyLines": [
+     "localhost:8080"
+    ]
+   },
+   "targetId": "call_1",
+   "at": 14,
+   "stateTokens": 1694,
+   "excerpted": false,
+   "keyLineCandidates": [],
+   "calls": [
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "TRUNCATE",
+       "probabilities": {
+        "UNCERTAIN": 0,
+        "KEEP": 0.19,
+        "TRUNCATE": 0.79,
+        "DROP": 0.02
+       },
+       "confidence": 0.72
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.79
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.87
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.84
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.28
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.95
+      }
+     },
+     "ms": 426,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 2801,
+     "cost": 0.000117642
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "TRUNCATE",
+       "probabilities": {
+        "TRUNCATE": 0.77,
+        "DROP": 0.03,
+        "KEEP": 0.2,
+        "UNCERTAIN": 0
+       },
+       "confidence": 0.7
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.79
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.88
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.84
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.3
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.95
+      }
+     },
+     "ms": 450,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 2801,
+     "cost": 0.000117642
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "TRUNCATE",
+       "probabilities": {
+        "KEEP": 0.21,
+        "DROP": 0.02,
+        "TRUNCATE": 0.77,
+        "UNCERTAIN": 0
+       },
+       "confidence": 0.69
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.03
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.78
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.88
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.84
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.31
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.95
+      }
+     },
+     "ms": 250,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 2801,
+     "cost": 0.000117642
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "TRUNCATE",
+       "probabilities": {
+        "DROP": 0.02,
+        "TRUNCATE": 0.79,
+        "UNCERTAIN": 0,
+        "KEEP": 0.19
+       },
+       "confidence": 0.71
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.8
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.88
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.82
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.3
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.95
+      }
+     },
+     "ms": 317,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 2801,
+     "cost": 0.000117642
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "TRUNCATE",
+       "probabilities": {
+        "UNCERTAIN": 0,
+        "TRUNCATE": 0.79,
+        "DROP": 0.02,
+        "KEEP": 0.19
+       },
+       "confidence": 0.72
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.76
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.88
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.84
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.33
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.95
+      }
+     },
+     "ms": 266,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 2801,
+     "cost": 0.000117642
+    }
+   ]
+  },
+  {
+   "key": "C26:logs",
+   "caseId": "C26",
+   "category": "very long log (one key line)",
+   "checkpoint": "end",
+   "target": {
+    "tag": "logs",
+    "truth": "TRUNCATE",
+    "acceptable": [
+     "TRUNCATE"
+    ],
+    "critical": true,
+    "why": "Only the auth-failure lines matter; the rest is idle chatter.",
+    "keyLines": [
+     "password authentication failed",
+     "28P01"
+    ]
+   },
+   "targetId": "call_1",
+   "at": 11,
+   "stateTokens": 704,
+   "excerpted": true,
+   "keyLineCandidates": [
+    {
+     "n": 41,
+     "text": "db-1   | 2026-09-18 10:00:12.4 UTC [100] FATAL:  password authentication failed for user \"acme\""
+    },
+    {
+     "n": 42,
+     "text": "api-1  | Error: connect: password authentication failed for user \"acme\" (SQLSTATE 28P01) at Pool.connect (node_modules/pg-pool/index.js:45:11)"
+    },
+    {
+     "n": 111,
+     "text": "db-1   | 2026-09-18 10:00:12.4 UTC [170] FATAL:  password authentication failed for user \"acme\""
+    },
+    {
+     "n": 112,
+     "text": "api-1  | Error: connect: password authentication failed for user \"acme\" (SQLSTATE 28P01) at Pool.connect (node_modules/pg-pool/index.js:45:11)"
+    }
+   ],
+   "calls": [
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "TRUNCATE",
+       "probabilities": {
+        "UNCERTAIN": 0,
+        "TRUNCATE": 0.81,
+        "KEEP": 0.15,
+        "DROP": 0.04
+       },
+       "confidence": 0.74
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.03
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.91
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.86
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.48
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.03
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.94
+      },
+      "line_41": {
+       "type": "noul",
+       "noul": 0.89
+      },
+      "line_42": {
+       "type": "noul",
+       "noul": 0.88
+      },
+      "line_111": {
+       "type": "noul",
+       "noul": 0.78
+      },
+      "line_112": {
+       "type": "noul",
+       "noul": 0.87
+      }
+     },
+     "ms": 380,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 2491,
+     "cost": 0.000104622
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "TRUNCATE",
+       "probabilities": {
+        "TRUNCATE": 0.8,
+        "DROP": 0.03,
+        "KEEP": 0.17,
+        "UNCERTAIN": 0
+       },
+       "confidence": 0.74
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.03
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.92
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.85
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.46
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.03
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.93
+      },
+      "line_41": {
+       "type": "noul",
+       "noul": 0.89
+      },
+      "line_42": {
+       "type": "noul",
+       "noul": 0.89
+      },
+      "line_111": {
+       "type": "noul",
+       "noul": 0.8
+      },
+      "line_112": {
+       "type": "noul",
+       "noul": 0.86
+      }
+     },
+     "ms": 317,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 2491,
+     "cost": 0.000104622
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "TRUNCATE",
+       "probabilities": {
+        "UNCERTAIN": 0,
+        "DROP": 0.04,
+        "KEEP": 0.17,
+        "TRUNCATE": 0.79
+       },
+       "confidence": 0.72
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.92
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.85
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.48
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.02
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.93
+      },
+      "line_41": {
+       "type": "noul",
+       "noul": 0.88
+      },
+      "line_42": {
+       "type": "noul",
+       "noul": 0.89
+      },
+      "line_111": {
+       "type": "noul",
+       "noul": 0.8
+      },
+      "line_112": {
+       "type": "noul",
+       "noul": 0.88
+      }
+     },
+     "ms": 278,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 2491,
+     "cost": 0.000104622
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "TRUNCATE",
+       "probabilities": {
+        "TRUNCATE": 0.8099999999999999,
+        "UNCERTAIN": 0,
+        "DROP": 0.03,
+        "KEEP": 0.16
+       },
+       "confidence": 0.75
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.03
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.91
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.85
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.51
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.03
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.93
+      },
+      "line_41": {
+       "type": "noul",
+       "noul": 0.89
+      },
+      "line_42": {
+       "type": "noul",
+       "noul": 0.89
+      },
+      "line_111": {
+       "type": "noul",
+       "noul": 0.82
+      },
+      "line_112": {
+       "type": "noul",
+       "noul": 0.88
+      }
+     },
+     "ms": 266,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 2491,
+     "cost": 0.000104622
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "TRUNCATE",
+       "probabilities": {
+        "DROP": 0.02,
+        "UNCERTAIN": 0,
+        "KEEP": 0.11,
+        "TRUNCATE": 0.87
+       },
+       "confidence": 0.82
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.03
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.91
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.86
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.43
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.03
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.93
+      },
+      "line_41": {
+       "type": "noul",
+       "noul": 0.88
+      },
+      "line_42": {
+       "type": "noul",
+       "noul": 0.89
+      },
+      "line_111": {
+       "type": "noul",
+       "noul": 0.82
+      },
+      "line_112": {
+       "type": "noul",
+       "noul": 0.87
+      }
+     },
+     "ms": 264,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 2491,
+     "cost": 0.000104622
+    }
+   ]
+  }
+ ]
+}

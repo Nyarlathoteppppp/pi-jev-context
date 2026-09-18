@@ -1,7 +1,7 @@
 // Shadow evaluation runner. Builds a bounded state for every labelled old tool result, asks Jev,
 // and stores the raw answers. Never touches a real pi session or context.
 //
-//   node bench/run.ts [--repeats 5] [--only C04,C05] [--dry-run]
+//   node bench/run.ts [--set dev|holdout|all] [--repeats 5] [--only C04,C05] [--dry-run]
 //
 // Key: OPENROUTER_API_KEY / TYPESAFE_API_KEY, or a dotenv file named by PI_JEV_ENV_FILE / PI_HEED_ENV_FILE.
 
@@ -10,12 +10,14 @@ import { parseArgs } from "node:util";
 import { Jev, type JevCall, resolveTransport } from "../src/jev.ts";
 import { QUESTIONS_VERSION, questionsFor } from "../src/questions.ts";
 import { buildState } from "../src/state.ts";
-import { items } from "./cases.ts";
+import { CASES, items } from "./cases.ts";
+import { HOLDOUT } from "./holdout.ts";
 
 const { values } = parseArgs({
 	options: {
 		repeats: { type: "string", default: "5" },
 		only: { type: "string" },
+		set: { type: "string", default: "dev" },
 		"dry-run": { type: "boolean", default: false },
 		out: { type: "string" },
 	},
@@ -23,7 +25,8 @@ const { values } = parseArgs({
 
 const repeats = Math.max(1, Number(values.repeats));
 const only = values.only?.split(",");
-const selected = items().filter((i) => !only || only.includes(i.caseId));
+const set = values.set === "holdout" ? HOLDOUT : values.set === "all" ? [...CASES, ...HOLDOUT] : CASES;
+const selected = items(set).filter((i) => !only || only.includes(i.caseId));
 
 export interface ItemResult {
 	key: string;
@@ -89,5 +92,5 @@ for (const it of selected) {
 
 mkdirSync("results", { recursive: true });
 const file = values.out ?? `results/run-${new Date().toISOString().replace(/[:.]/g, "-")}.json`;
-writeFileSync(file, JSON.stringify({ meta: { model, requested: transport.model, endpoint: transport.url, questions: QUESTIONS_VERSION, repeats, date: new Date().toISOString() }, results }, null, 1));
+writeFileSync(file, JSON.stringify({ meta: { model, requested: transport.model, endpoint: transport.url, questions: QUESTIONS_VERSION, set: values.set, repeats, date: new Date().toISOString() }, results }, null, 1));
 console.log(`\nwrote ${file}\nnext: node bench/report.ts ${file}`);

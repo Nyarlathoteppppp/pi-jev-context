@@ -1,11 +1,13 @@
 {
 	"name": "pi-jev-context",
-	"version": "0.0.1",
-	"private": true,
-	"description": "Shadow evaluation: can Jev decide whether an old pi tool result should be KEPT, TRUNCATED or DROPPED? Never modifies any real context.",
+	"version": "0.1.0",
+	"private": false,
+	"description": "Cache-neutral context trimming for the pi coding agent, powered by TypeSafe Jev: shortens long bash logs to their key lines before they enter context, with lossless recall. Old-context pruning runs in shadow mode only.",
 	"type": "module",
 	"license": "MIT",
-	"engines": { "node": ">=22.18" },
+	"engines": {
+		"node": ">=22.18"
+	},
 	"scripts": {
 		"test": "node --test test/*.test.ts",
 		"typecheck": "tsc --noEmit",
@@ -14,7 +16,36 @@
 		"report": "node bench/report.ts"
 	},
 	"devDependencies": {
+		"@earendil-works/pi-coding-agent": "^0.85.1",
 		"@types/node": "^24.0.0",
+		"typebox": "^1.3.7",
 		"typescript": "^5.9.0"
-	}
+	},
+	"keywords": [
+		"pi-package",
+		"pi",
+		"pi-coding-agent",
+		"extension",
+		"jev",
+		"typesafe",
+		"context"
+	],
+	"pi": {
+		"extensions": [
+			"./src/index.ts"
+		]
+	},
+	"files": [
+		"src",
+		"README.md",
+		"LICENSE"
+	],
+	"peerDependencies": {
+		"@earendil-works/pi-coding-agent": ">=0.85.1"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/Nyarlathoteppppp/pi-jev-context.git"
+	},
+	"author": "Nyarlathoteppppp"
 }

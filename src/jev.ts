@@ -76,20 +76,35 @@ function validAnswer(q: Question, a: any): boolean {
 	return typeof a.choice === "string" && a.choice in q.criteria && typeof a.confidence === "number" && !!a.probabilities;
 }
 
-export class Jev {
+/** Anything that answers Jev questions: the real client, or a fake in tests. */
+export interface Judge {
+	decide(state: unknown, questions: Record<string, Question>, timeoutMs?: number, signal?: AbortSignal): Promise<JevCall>;
+	warm?(): void;
+}
+
+export class Jev implements Judge {
 	readonly transport: Transport;
 	constructor(transport: Transport) {
 		this.transport = transport;
 	}
 
-	async decide(state: unknown, questions: Record<string, Question>, timeoutMs = 15000): Promise<JevCall> {
+	/** Opens DNS + TLS ahead of the first decision. Never throws. */
+	warm(): void {
+		fetch(new URL(this.transport.url).origin, { method: "HEAD", signal: AbortSignal.timeout(3000) }).then(
+			(r) => r.body?.cancel(),
+			() => {},
+		);
+	}
+
+	/** Never throws: failures come back as `error` (callers fail open). */
+	async decide(state: unknown, questions: Record<string, Question>, timeoutMs = 15000, signal?: AbortSignal): Promise<JevCall> {
 		const started = performance.now();
 		try {
 			const res = await fetch(this.transport.url, {
 				method: "POST",
 				headers: { Authorization: `Bearer ${this.transport.key}`, "Content-Type": "application/json", "X-Title": "pi-jev-context" },
 				body: JSON.stringify({ model: this.transport.model, state, questions }),
-				signal: AbortSignal.timeout(timeoutMs),
+				signal: signal ? AbortSignal.any([signal, AbortSignal.timeout(timeoutMs)]) : AbortSignal.timeout(timeoutMs),
 			});
 			const ms = Math.round(performance.now() - started);
 			if (!res.ok) return { error: `http ${res.status}: ${(await res.text()).slice(0, 200)}`, ms };

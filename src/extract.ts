@@ -78,7 +78,7 @@ export function summarizeCall(name: string, args: Record<string, any>): string {
 }
 
 const NOTABLE =
-	/\b(?:errors?|Errors?|ERRORS?|ERR!|FAIL|FAILED|failed|Exception|Traceback|panic|fatal|warning|Warning|WARN|Expected|Received|expected|Tests?:|passed|Caused by)\b|✗|×|\.(?:ts|tsx|js|py|go|rs):\d+/;
+	/\b(?:errors?|Errors?|ERRORS?|ERR!|FAIL|FAILED|failed|Exception|Traceback|panic|fatal|warning|Warning|WARN|Expected|Received|expected|Tests?:|passed|Caused by|unmet)\b|[✗×✕✖✘❌⚠]|\.(?:ts|tsx|js|py|go|rs):\d+/;
 
 /** First line that says what happened: an error-looking line, else the first non-empty line. */
 export function outcomeLine(output: string, isError: boolean): string {
@@ -134,7 +134,7 @@ export function relatedKey(e: Pick<ToolEvent, "name" | "args">): string | undefi
 /** Ranks notable lines for "keep when truncating" candidates: failures and locations before warnings and chatter. */
 export function linePriority(text: string): number {
 	if (/^(?:Found \d+ errors?|Test Files|Tests?:)|\b\d+ (?:failed|errors?)\b/.test(text)) return 4;
-	if (/\b(?:FAIL|FAILED|failed|Error|ERROR|error|ERR!|Exception|Traceback|panic|fatal|FATAL|Expected|Received|Caused by)\b|✗|×/.test(text)) return 3;
+	if (/\b(?:FAIL|FAILED|failed|Error|ERROR|error|ERR!|Exception|Traceback|panic|fatal|FATAL|Expected|Received|Caused by|unmet)\b|[✗×✕✖✘❌]/.test(text)) return 3;
 	if (/\.(?:ts|tsx|js|py|go|rs):\d+/.test(text) || /\bTests?:/.test(text)) return 2;
 	return 1;
 }

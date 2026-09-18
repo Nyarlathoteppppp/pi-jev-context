@@ -141,14 +141,8 @@ function blocks(text: string, toolName: string, max: number): Unit[] {
 }
 
 export function unitQuestion(mode: UnitMode, u: Unit): NoulQuestion {
-	if (mode === "lines") {
-		// Same wording as the pre-registered q1 key-line question.
-		return { type: "noul", instructions: `Line L${u.from} of item's result ("${u.text}") is key evidence that must be kept if the result is shortened.` };
-	}
-	return {
-		type: "noul",
-		instructions: `Lines L${u.from}-L${u.to} of item's result ("${u.text}") contain information the agent needs for current_goal and must be kept if the result is shortened.`,
-	};
+	if (mode === "lines") return { type: "noul", instructions: `Line L${u.from} of \`output\` ("${u.text}") is needed to handle \`latest_user_request\`.` };
+	return { type: "noul", instructions: `Lines L${u.from}-L${u.to} of \`output\` ("${u.text}") are needed to handle \`latest_user_request\`.` };
 }
 
 export interface TrimDecision {

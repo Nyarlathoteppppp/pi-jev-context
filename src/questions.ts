@@ -65,12 +65,14 @@ export function questionsFor(keyLines: Array<{ n: number; text: string }>): Reco
 // ---------------------------------------------------------------------------------------------
 // Write-time (w2). Designed after writetime-q1: ask what the agent needs this fresh output FOR,
 // with concrete options, instead of the abstract KEEP/TRUNCATE/DROP category.
-export const WRITE_QUESTIONS_VERSION = "w2";
+export const WRITE_QUESTIONS_VERSION = "w3";
+// w3 (after TypeSafe's guidance): every question names the exact state field in backticks
+// (`output`, `latest_user_request`, `tool_call`) and asks one snap judgment, with no "and"/"but".
 
 export const WRITE_NEED: ChoiceQuestion = {
 	type: "choice",
 	instructions:
-		"The agent just ran `tool_call` and got `output`. For the user's latest request, what does the agent need from this output?",
+		"`output` is the result of `tool_call`. What does the agent need from `output` to handle `latest_user_request`?",
 	criteria: {
 		every_line:
 			"Nearly every line: the request needs the complete output, for example every match to edit or rename, every row or field to convert or review, or a complete list or inventory the user asked for.",
@@ -84,5 +86,5 @@ export const WRITE_NEED: ChoiceQuestion = {
 
 export const WRITE_USER_ASKED: NoulQuestion = {
 	type: "noul",
-	instructions: "The user explicitly asked to see, keep, or review this output in full.",
+	instructions: "`latest_user_request` explicitly asks to see the complete `output`.",
 };

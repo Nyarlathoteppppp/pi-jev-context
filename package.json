@@ -1,0 +1,20 @@
+{
+	"name": "pi-jev-context",
+	"version": "0.0.1",
+	"private": true,
+	"description": "Shadow evaluation: can Jev decide whether an old pi tool result should be KEPT, TRUNCATED or DROPPED? Never modifies any real context.",
+	"type": "module",
+	"license": "MIT",
+	"engines": { "node": ">=22.18" },
+	"scripts": {
+		"test": "node --test test/*.test.ts",
+		"typecheck": "tsc --noEmit",
+		"bench": "node bench/run.ts",
+		"bench:dry": "node bench/run.ts --dry-run",
+		"report": "node bench/report.ts"
+	},
+	"devDependencies": {
+		"@types/node": "^24.0.0",
+		"typescript": "^5.9.0"
+	}
+}

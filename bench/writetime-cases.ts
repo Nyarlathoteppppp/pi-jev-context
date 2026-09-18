@@ -218,3 +218,53 @@ export const WRITE_HOLDOUT: WriteCase[] = [
 	wc("W24", "SQL rows to export", "KEEP", "Export these customer rows to customers.csv exactly as returned.", "sql_query", { sql: "select id, email, country from customers where created_at > '2026-01-01'" }, rows(170, (i) => `{"id":"c_${i}","email":"user${i}@example.com","country":"${["NZ", "AU", "US", "DE"][i % 4]}"}`)),
 	wc("W25", "docker build fails at one step", "TRIM", "The docker build fails. Fix it.", "bash", { command: "docker build -t acme-api ." }, dockerBuild(), { isError: true, keyLines: ["ERR_PNPM_OUTDATED_LOCKFILE", "[6/9] RUN pnpm install --frozen-lockfile"] }),
 ];
+
+// ---------------------------------------------------------------------------------------------
+// WRITE-TIME HELD-OUT 2 (sieve). Written after the sieve's first runs exposed the "needle inside an
+// unrelated block" failure (W08) and before the guards that address it were run. Committed before any
+// Jev call on them.
+
+function jsonBlob(): string {
+	const out = ["{"];
+	for (let i = 0; i < 170; i++) out.push(`  "service_${i}": { "replicas": ${1 + (i % 4)}, "cpu": "${100 + i}m", "image": "acme/svc-${i}:1.${i % 9}.0" },`);
+	out.splice(121, 0, `  "checkout": { "replicas": 0, "cpu": "250m", "image": "acme/checkout:2.4.1", "note": "scaled to zero by autoscaler at 03:12" },`);
+	out.push("}");
+	return out.join("\n");
+}
+
+function releaseNotesPage(): string {
+	const out: string[] = ["# Vite 6 migration guide", ""];
+	const sections = ["Environment API", "Resolve conditions", "JSON stringify", "Extended asset references", "PostCSS config", "Sass modern API", "CSS output file name", "Library mode", "Dev server", "Build", "Advanced"];
+	for (const s of sections) {
+		out.push(`## ${s}`, "");
+		for (let i = 0; i < 14; i++) out.push(`${s}: explanation of behaviour change ${i + 1}, with migration notes for plugin authors and frameworks.`);
+		if (s === "Library mode") out.push("In library mode, `build.lib.fileName` now defaults to the package name, and CSS output is named `style.css` only if `build.lib.cssFileName` is set.");
+		out.push("");
+	}
+	return out.join("\n");
+}
+
+function mixedTestLog(): string {
+	const out: string[] = [];
+	for (let i = 0; i < 190; i++) out.push(`PASS  packages/${["core", "ui", "cli", "server"][i % 4]}/test/case-${i}.spec.ts (${10 + (i % 50)} ms)`);
+	out.splice(140, 0, "FAIL  packages/cli/test/config-loader.spec.ts", "  ● loadConfig › resolves extends chain", "    Expected: \"./base.json\"", "    Received: undefined", "      at Object.<anonymous> (packages/cli/test/config-loader.spec.ts:77:25)");
+	out.push("Tests:       1 failed, 189 passed, 190 total");
+	return out.join("\n");
+}
+
+function dependencyTree(): string {
+	const out = ["acme-app@1.4.0 /home/dev/acme-app"];
+	for (let i = 0; i < 175; i++) out.push(`${i % 5 ? "│ " : ""}├── ${["lodash", "zod", "react", "express", "vite", "dayjs", "axios"][i % 7]}-plugin-${i}@${1 + (i % 3)}.${i % 10}.0`);
+	out.splice(88, 0, "├─┬ jsonwebtoken@8.5.1", "│ └── jws@3.2.2  (deprecated: CVE-2022-23540, upgrade to jsonwebtoken@9)");
+	return out.join("\n");
+}
+
+export const WRITE_HOLDOUT2: WriteCase[] = [
+	wc("W26", "k8s config JSON, one service scaled to zero", "TRIM", "Checkout requests return 503 since this morning. Find out why.", "bash", { command: "kubectl get deploy -o json | node scripts/summarize-deploys.js" }, jsonBlob(), { keyLines: ["\"checkout\": { \"replicas\": 0"] }),
+	wc("W27", "migration guide page, one relevant paragraph inside a long section", "TRIM", "After upgrading to Vite 6 our library build no longer emits style.css. Check the migration guide.", "fetch_url", { url: "https://vite.dev/guide/migration" }, releaseNotesPage(), { keyLines: ["build.lib.cssFileName"] }),
+	wc("W28", "190 passing tests, one failure in the middle", "TRIM", "Run the test suite and fix what fails.", "bash", { command: "npx jest" }, mixedTestLog(), { isError: true, keyLines: ["config-loader.spec.ts:77", "resolves extends chain", "Received: undefined"] }),
+	wc("W29", "dependency tree, one vulnerable package", "TRIM", "Is anything in our dependency tree flagged as vulnerable or deprecated?", "bash", { command: "npm ls --all" }, dependencyTree(), { keyLines: ["CVE-2022-23540", "jsonwebtoken@8.5.1"] }),
+	wc("W30", "same JSON, but the user wants every service's replica count", "KEEP", "List the replica count of every service in a table.", "bash", { command: "kubectl get deploy -o json | node scripts/summarize-deploys.js" }, jsonBlob()),
+	wc("W31", "migration guide, user asks for a full summary", "KEEP", "Summarise every section of the Vite 6 migration guide for the team wiki.", "fetch_url", { url: "https://vite.dev/guide/migration" }, releaseNotesPage()),
+	wc("W32", "dependency tree, user wants the full tree pasted", "KEEP", "Paste the complete dependency tree into docs/deps.md, unchanged.", "bash", { command: "npm ls --all" }, dependencyTree()),
+];

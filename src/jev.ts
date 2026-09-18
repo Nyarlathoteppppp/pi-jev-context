@@ -11,6 +11,8 @@ export interface ChoiceQuestion {
 export interface NoulQuestion {
 	type: "noul";
 	instructions: string;
+	/** Optional { true, false } descriptions of what a yes and a no mean. */
+	criteria?: { true: string; false: string };
 }
 
 export type Question = ChoiceQuestion | NoulQuestion;
@@ -60,8 +62,8 @@ function fromEnvFile(path: string | undefined, name: string): string | undefined
 }
 
 /** Same key lookup as pi-heed: env vars first, then the dotenv file named by PI_JEV_ENV_FILE / PI_HEED_ENV_FILE. */
-export function resolveTransport(env: NodeJS.ProcessEnv = process.env): Transport | undefined {
-	const envFile = env.PI_JEV_ENV_FILE ?? env.PI_HEED_ENV_FILE;
+export function resolveTransport(env: NodeJS.ProcessEnv = process.env, fileEnvFile?: string): Transport | undefined {
+	const envFile = env.PI_JEV_ENV_FILE ?? env.PI_HEED_ENV_FILE ?? fileEnvFile;
 	const model = env.PI_JEV_MODEL;
 	const openrouter = env.OPENROUTER_API_KEY ?? fromEnvFile(envFile, "OPENROUTER_API_KEY");
 	if (openrouter) return { url: OPENROUTER_URL, model: model ?? "~typesafe/jev-latest", key: openrouter };

@@ -1,4 +1,7 @@
 import type { ExtensionAPI, ExtensionContext } from "@earendil-works/pi-coding-agent";
+import { readFileSync } from "node:fs";
+import { homedir } from "node:os";
+import { join } from "node:path";
 import { Type } from "typebox";
 import { estimateTokens, summarizeCall, textOf, toolEvents, truncate } from "./extract.ts";
 import { Jev, type Judge, type NoulAnswer, resolveTransport } from "./jev.ts";
@@ -54,6 +57,8 @@ export interface JevContextOptions {
 	judge?: Judge | null;
 	config?: Partial<JevContextConfig>;
 	env?: NodeJS.ProcessEnv;
+	/** Settings file path (tests); defaults to ~/.pi/agent/pi-jev-context.json. */
+	settingsPath?: string;
 }
 
 export const ORIGINAL = "jev-context-original";
@@ -106,11 +111,27 @@ const recallParams = () =>
 
 type RecallDetails = { alias?: string; from?: number; to?: number; total?: number };
 
+/**
+ * Optional global settings file, for pi started without the shell environment (GUI, pi-web):
+ *   ~/.pi/agent/pi-jev-context.json  { "mode": "on", "envFile": "/path/to/.env" }
+ * Precedence: session /context mode > PI_JEV_CONTEXT_MODE > file > default (shadow).
+ */
+export function readSettingsFile(path: string): { mode?: Mode; envFile?: string } {
+	try {
+		const raw = JSON.parse(readFileSync(path, "utf8")) as { mode?: string; envFile?: string };
+		return { mode: MODES.includes(raw.mode as Mode) ? (raw.mode as Mode) : undefined, envFile: typeof raw.envFile === "string" ? raw.envFile.replace(/^~(?=\/)/, homedir()) : undefined };
+	} catch {
+		return {};
+	}
+}
+
 export function createJevContext(pi: ExtensionAPI, options: JevContextOptions = {}) {
 	const env = options.env ?? process.env;
+	const file = readSettingsFile(options.settingsPath ?? join(homedir(), ".pi", "agent", "pi-jev-context.json"));
 	const envMode = env.PI_JEV_CONTEXT_MODE as Mode | undefined;
-	const config: JevContextConfig = { ...DEFAULT_CONFIG, ...(envMode && MODES.includes(envMode) ? { mode: envMode } : {}), ...options.config };
-	const transport = options.judge === undefined ? resolveTransport(env) : undefined;
+	const baseMode = envMode && MODES.includes(envMode) ? envMode : (file.mode ?? DEFAULT_CONFIG.mode);
+	const config: JevContextConfig = { ...DEFAULT_CONFIG, mode: baseMode, ...options.config };
+	const transport = options.judge === undefined ? resolveTransport(env, file.envFile) : undefined;
 	const judge: Judge | undefined = options.judge === undefined ? (transport ? new Jev(transport) : undefined) : (options.judge ?? undefined);
 
 	const originals = new Map<string, Original>();
@@ -390,6 +411,7 @@ export function createJevContext(pi: ExtensionAPI, options: JevContextOptions = 
 
 	return {
 		config,
+		hasJudge: !!judge,
 		originals,
 		decisions,
 		/** Resolves when the latest shadow pruning pass is done (tests). */

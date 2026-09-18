@@ -186,3 +186,33 @@ describe("old-context pruning (shadow)", () => {
 		assert.match(pi.notes.at(-1)!, /mode: shadow/);
 	});
 });
+
+describe("v0.2 write-time guards", () => {
+	it("keeps every failure line even when Jev says only the outcome matters and selects nothing", async () => {
+		const outcome = fakeJudge((k) => (k === "need" ? choice("outcome_only", 0.94, 0.9) : k === "user_asked" ? noul(0.02) : noul(0.05)));
+		const { pi } = track(setup({ judge: outcome, config: { mode: "on" } }));
+		pi.user("run the tests then say DONE");
+		const r = await pi.tool("bash", { command: "./run-tests.sh" }, LOG, { isError: true });
+		assert.ok(r.patch);
+		for (const k of ["refreshes an expired session", "retries the original request after refresh", "auth.test.ts:42", "auth.test.ts:58", "expected 1 to be 2"]) assert.ok(r.text.includes(k), k);
+		assert.match(r.text.split("\n")[0]!, /You cannot see the omitted lines; before relying on anything not shown here, call context_recall with id "t1"/);
+	});
+
+	it("reads mode and key file from the settings file; env overrides the file", async () => {
+		const { writeFileSync, mkdtempSync } = await import("node:fs");
+		const { tmpdir } = await import("node:os");
+		const { createJevContext } = await import("../src/index.ts");
+		const { FakePi } = await import("./harness.ts");
+		const dir = mkdtempSync(`${tmpdir()}/jctx-`);
+		writeFileSync(`${dir}/s.json`, JSON.stringify({ mode: "on", envFile: `${dir}/.env` }));
+		writeFileSync(`${dir}/.env`, "OPENROUTER_API_KEY=sk-test\n");
+		const a = createJevContext(new FakePi().api(), { env: {}, settingsPath: `${dir}/s.json` });
+		assert.equal(a.config.mode, "on");
+		assert.equal(a.hasJudge, true);
+		const b = createJevContext(new FakePi().api(), { env: { PI_JEV_CONTEXT_MODE: "off" }, settingsPath: `${dir}/s.json` });
+		assert.equal(b.config.mode, "off");
+		const c = createJevContext(new FakePi().api(), { env: {}, settingsPath: `${dir}/missing.json` });
+		assert.equal(c.config.mode, "shadow");
+		assert.equal(c.hasJudge, false);
+	});
+});

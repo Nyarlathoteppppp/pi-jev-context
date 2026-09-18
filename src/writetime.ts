@@ -90,7 +90,7 @@ export async function planTrim(
 	for (const u of offered) unitAnswers[u.id] = (call.answers[u.id] as NoulAnswer).noul;
 	const decision = decideTrim(reading, offered, unitAnswers, cfg);
 	if (!decision.trim) return { mode, units: offered, call, reading, decision, skip: decision.reason };
-	const trimmed = renderTrimmed(r.text, mode, decision.selected, alias, cfg);
+	const trimmed = renderTrimmed(r.text, mode, decision.selected, alias, cfg, offered);
 	if (!worthTrimming(trimmed, cfg)) return { mode, units: offered, call, reading, decision, skip: `would keep ${trimmed.keptTokens}/${trimmed.originalTokens} tokens` };
 	return { mode, units: offered, call, reading, decision, trimmed };
 }

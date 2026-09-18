@@ -126,6 +126,6 @@ export const noul = (v: number): Answer => ({ type: "noul", noul: v });
 
 export function setup(options: JevContextOptions = {}) {
 	const pi = new FakePi();
-	const ext = createJevContext(pi.api(), { env: {}, ...options });
+	const ext = createJevContext(pi.api(), { env: {}, settingsPath: "/nonexistent", ...options });
 	return { pi, ext };
 }

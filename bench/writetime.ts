@@ -8,11 +8,12 @@ import { Jev, resolveTransport } from "../src/jev.ts";
 import { percentile } from "../src/metrics.ts";
 import { shouldConsider, units } from "../src/trim.ts";
 import { planTrim, type TrimPlan } from "../src/writetime.ts";
-import { WRITE_CASES as DEV, WRITE_HOLDOUT } from "./writetime-cases.ts";
+import { planSieve } from "../src/sieve.ts";
+import { WRITE_CASES as DEV, WRITE_HOLDOUT, WRITE_HOLDOUT2 } from "./writetime-cases.ts";
 
-const { values } = parseArgs({ options: { repeats: { type: "string", default: "5" }, "dry-run": { type: "boolean", default: false }, set: { type: "string", default: "dev" }, out: { type: "string" } } });
+const { values } = parseArgs({ options: { repeats: { type: "string", default: "5" }, "dry-run": { type: "boolean", default: false }, set: { type: "string", default: "dev" }, out: { type: "string" }, engine: { type: "string", default: "select" } } });
 const repeats = Math.max(1, Number(values.repeats));
-const WRITE_CASES = values.set === "holdout" ? WRITE_HOLDOUT : values.set === "all" ? [...DEV, ...WRITE_HOLDOUT] : DEV;
+const WRITE_CASES = values.set === "holdout" ? WRITE_HOLDOUT : values.set === "holdout2" ? WRITE_HOLDOUT2 : values.set === "all" ? [...DEV, ...WRITE_HOLDOUT, ...WRITE_HOLDOUT2] : DEV;
 
 if (values["dry-run"]) {
 	for (const c of WRITE_CASES) {
@@ -33,8 +34,13 @@ const results: Out[] = [];
 for (const c of WRITE_CASES) {
 	const plans: Out["plans"] = [];
 	for (let r = 0; r < repeats; r++) {
-		const p = await planTrim(jev, c.context, c.result, "t1", { timeoutMs: 15000 });
-		plans.push({ mode: p.mode, call: p.call, reading: p.reading, decision: p.decision && { ...p.decision, selected: p.decision.selected }, trimmed: p.trimmed, skip: p.skip, keptText: p.trimmed?.text });
+		if (values.engine === "sieve") {
+			const p = await planSieve(jev, c.context, c.result, "t1", { timeoutMs: 15000 });
+			plans.push({ mode: "blocks", call: p.call, trimmed: p.trimmed, skip: p.skip, keptText: p.trimmed?.text, decision: { trim: !!p.trimmed, reason: `${p.need?.choice ?? "-"} hidden ${p.hidden.length}/${p.blocks.length}`, selected: [] } } as any);
+		} else {
+			const p = await planTrim(jev, c.context, c.result, "t1", { timeoutMs: 15000 });
+			plans.push({ mode: p.mode, call: p.call, reading: p.reading, decision: p.decision && { ...p.decision, selected: p.decision.selected }, trimmed: p.trimmed, skip: p.skip, keptText: p.trimmed?.text });
+		}
 	}
 	const verdicts = plans.map((p) => (p.trimmed ? "TRIM" : "KEEP"));
 	const keyOk = plans.map((p) => (p.trimmed ? (c.keyLines ?? []).filter((k) => p.trimmed!.text.includes(k)).length : Number.NaN));

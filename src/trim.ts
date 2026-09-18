@@ -25,6 +25,8 @@ export interface TrimConfig {
 	unitThreshold: number;
 	/** If no unit reaches the threshold, units within this of the best one are kept. */
 	nearTie: number;
+	/** Upper bound on lines kept by the always-keep-failures rule. */
+	maxFailureLines: number;
 }
 
 export const DEFAULT_TRIM: TrimConfig = {
@@ -39,25 +41,43 @@ export const DEFAULT_TRIM: TrimConfig = {
 	userRequestedVeto: 0.5,
 	unitThreshold: 0.5,
 	nearTie: 0.1,
+	maxFailureLines: 120,
 };
 
 /** Tools whose output the agent needs verbatim on first use (file content, edits): never trimmed. */
 const NEVER = new Set(["read", "edit", "write", "context_recall"]);
-/** Shell commands that print file or diff content. */
-const VIEWER = /^(?:\S+=\S+\s+)*(?:cat|bat|less|more|nl|sed|awk|jq|yq|xxd|od|git\s+(?:diff|show|blame|log\s+-p)|diff|head|tail)\b/;
-/** head/tail of a log file is a log excerpt, which is fine to trim. */
-const LOG_TAIL = /^(?:head|tail)\b.*\.(?:log|out|txt)\b/;
+/**
+ * Shell commands that print file or diff content, anywhere in the command (real sessions wrap them:
+ * `cd x && sed -n 1,200p f`, `ssh host 'sed -n … f'`, `git show … | head`).
+ */
+const VIEWER = /(?:^|[\s;&|'"(`])(?:cat|bat|less|more|nl|sed|awk|jq|yq|xxd|od|diff|head|tail|git\s+(?:diff|show|blame|log\s+(?:-\S+\s+)*-p))(?=\s|$)/;
+/** Log sources: head/tail of a log file, container and system logs. Fine to trim. */
+const LOG_SOURCE = /(?:\.(?:log|out)\b|\b(?:docker|kubectl|podman)\s+(?:compose\s+)?logs\b|\bjournalctl\b)/;
+const VIEWER_OK_FOR_LOGS = /^(?:head|tail)$/;
 
 export function isCandidateCommand(command: string): boolean {
 	const c = command.trim();
-	if (LOG_TAIL.test(c)) return true;
-	return !VIEWER.test(c);
+	const viewers = [...c.matchAll(new RegExp(VIEWER.source, "g"))].map((m) => m[0].trim().replace(/^[;&|'"(`]+/, "").split(/\s+/)[0]!);
+	if (!viewers.length) return true;
+	// Only head/tail, and on a log source: a log excerpt.
+	return LOG_SOURCE.test(c) && viewers.every((v) => VIEWER_OK_FOR_LOGS.test(v));
+}
+
+const CODE_LINE = /^\s*(?:\d+[\s:|]+)?(?:(?:def|class|import|from|return|const|let|var|function|export|async|await|if|elif|else|for|while|try|except|catch|public|private|func|struct|impl|fn|use|package|#include)\b|[})\]];?\s*$|.*[{;]\s*$|@\w+)/;
+
+/** True when most lines look like source code: the agent is reading code, whatever the command. */
+export function looksLikeCode(text: string): boolean {
+	const lines = text.split("\n").filter((l) => l.trim());
+	if (lines.length < 20) return false;
+	return lines.filter((l) => CODE_LINE.test(l)).length / lines.length >= 0.3;
 }
 
 export function shouldConsider(toolName: string, input: Record<string, unknown>, text: string, cfg: TrimConfig = DEFAULT_TRIM): boolean {
 	if (NEVER.has(toolName)) return false;
 	if (toolName === "bash" && !isCandidateCommand(String(input.command ?? ""))) return false;
-	return text.split("\n").length >= cfg.minLines;
+	if (text.split("\n").length < cfg.minLines) return false;
+	// grep output is a list of matches (handled as blocks); anything else that is mostly code is file content.
+	return toolName === "grep" || !looksLikeCode(text);
 }
 
 /** A piece of the output Jev can keep: one line (logs) or a block of lines (listings, search hits, prose). */
@@ -180,7 +200,7 @@ export interface Trimmed {
  * Deterministic rendering: the same output and selection always give the same text, so a replayed or
  * rebuilt session produces byte-identical context. Kept lines are the original lines, never rewritten.
  */
-export function renderTrimmed(text: string, mode: UnitMode, selected: Unit[], alias: string, cfg: TrimConfig = DEFAULT_TRIM): Trimmed {
+export function renderTrimmed(text: string, mode: UnitMode, selected: Unit[], alias: string, cfg: TrimConfig = DEFAULT_TRIM, allUnits?: Unit[]): Trimmed {
 	const lines = text.split("\n");
 	const total = lines.length;
 	const keep = new Set<number>();
@@ -189,6 +209,29 @@ export function renderTrimmed(text: string, mode: UnitMode, selected: Unit[], al
 	for (let n = Math.max(1, total - cfg.tailLines + 1); n <= total; n++) add(n);
 	const pad = mode === "lines" ? cfg.around : 0;
 	for (const u of selected) for (let n = u.from - pad; n <= u.to + pad; n++) add(n);
+	// Code, not Jev, guarantees failures survive: every failure-level line (and its context) is kept,
+	// whatever was selected. Found in real use: an "outcome only" trim hid the second of two failures.
+	// Locations (file:line) are kept when they sit next to a failure.
+	{
+		const prio = lines.map((l) => linePriority(l.trim()));
+		const failures = prio.flatMap((p, i) => (p === 3 ? [i] : []));
+		const nearFailure = (i: number) => failures.some((f) => Math.abs(f - i) <= 6);
+		for (const [i, p] of prio.entries()) {
+			if (keep.size >= cfg.maxFailureLines) break;
+			if (p === 3 || (p === 2 && nearFailure(i))) [-1, 0, 1].forEach((d) => add(i + 1 + d));
+		}
+	}
+	// Blocks mode keeps a skeleton of what was omitted: each block's first line (title, file path, heading)
+	// and up to two URL lines. Search results and listings are menus the agent picks from later.
+	if (mode === "blocks") {
+		const chosen = new Set(selected.map((u) => u.id));
+		for (const u of allUnits ?? []) {
+			if (chosen.has(u.id)) continue;
+			add(u.from);
+			let urls = 0;
+			for (let n = u.from + 1; n <= u.to && urls < 2; n++) if (/https?:\/\//.test(lines[n - 1]!)) (add(n), urls++);
+		}
+	}
 	// Summary lines ("Tests: 2 failed", "Found 90 errors") are always kept.
 	lines.forEach((l, i) => linePriority(l.trim()) === 4 && add(i + 1));
 
@@ -201,7 +244,7 @@ export function renderTrimmed(text: string, mode: UnitMode, selected: Unit[], al
 		prev = n;
 	}
 	if (prev < total) body.push(`… [${total - prev} lines omitted] …`);
-	const header = `[pi-jev-context] Output shortened: ${sorted.length} of ${total} lines kept (chosen by Jev for the current task; kept lines are verbatim). Full output: context_recall with id "${alias}".`;
+	const header = `[pi-jev-context] Output shortened: ${sorted.length} of ${total} lines kept verbatim. You cannot see the omitted lines; before relying on anything not shown here, call context_recall with id "${alias}".`;
 	const out = `${header}\n${body.join("\n")}`;
 	return { text: out, keptLines: sorted.length, totalLines: total, originalTokens: estimateTokens(text), keptTokens: estimateTokens(out) };
 }

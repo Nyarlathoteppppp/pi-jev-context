@@ -1,7 +1,7 @@
 import type { ChoiceAnswer, JevCall, Judge, NoulAnswer, Question } from "./jev.ts";
-import type { JevReading } from "./policy.ts";
-import { DECISION, SIGNALS } from "./questions.ts";
-import { buildState } from "./state.ts";
+import { WRITE_NEED, WRITE_USER_ASKED } from "./questions.ts";
+import { conversationText, LIMITS } from "./state.ts";
+import { lineCount, notableLines, sizeClass, summarizeCall, textOf, truncate } from "./extract.ts";
 import { DEFAULT_TRIM, decideTrim, renderTrimmed, type TrimConfig, type TrimDecision, type Trimmed, type Unit, type UnitMode, unitQuestion, units, worthTrimming } from "./trim.ts";
 import type { Message } from "./types.ts";
 
@@ -17,7 +17,7 @@ export interface TrimPlan {
 	mode: UnitMode;
 	units: Unit[];
 	call: JevCall;
-	reading?: JevReading;
+	reading?: WriteReading;
 	decision?: TrimDecision;
 	/** Present only when the output should be replaced. */
 	trimmed?: Trimmed;
@@ -34,7 +34,43 @@ export function withFresh(context: Message[], r: FreshResult): Message[] {
 	return msgs;
 }
 
-/** One Jev call: the q1 decision + signals, plus one noul per offered line/block. Fails open. */
+/**
+ * Write-time state. Field order matters for Jev (it weighs what it reads first): the fresh call and the
+ * user's latest request come first, the output next, older conversation last.
+ */
+export function writeState(context: Message[], r: FreshResult): Record<string, unknown> {
+	const users = context.filter((m) => m.role === "user");
+	const latest = users.at(-1);
+	const lines = r.text.split("\n");
+	const full = lines.length <= LIMITS.fullResultLines && r.text.length <= LIMITS.fullResultChars;
+	const convo = context
+		.map((m) => ({ role: m.role, text: conversationText(m) }))
+		.filter((x): x is { role: "user" | "assistant"; text: string } => !!x.text)
+		.slice(-LIMITS.recentConversation, -1)
+		.map((x) => `${x.role}: ${truncate(x.text, LIMITS.messageChars)}`);
+	return {
+		tool_call: summarizeCall(r.toolName, r.input),
+		latest_user_request: truncate(latest ? textOf(latest.content) : "", 800),
+		output: full
+			? r.text
+			: {
+					note: `Excerpt of a ${lines.length}-line output: first lines, notable lines and last lines.`,
+					first_lines: lines.slice(0, LIMITS.headLines).map((l) => truncate(l, 200)),
+					notable_lines: notableLines(r.text, LIMITS.notable).map((l) => `L${l.n}: ${l.text}`),
+					last_lines: lines.slice(-LIMITS.tailLines).map((l) => truncate(l, 200)),
+				},
+		output_size: `${sizeClass(lineCount(r.text))} (${lineCount(r.text)} lines)`,
+		status: r.isError ? "error" : "ok",
+		earlier_conversation: convo,
+	};
+}
+
+export interface WriteReading {
+	need: ChoiceAnswer;
+	userAsked: number;
+}
+
+/** One Jev call: what the output is needed for, whether the user asked for it, and one noul per line/block. Fails open. */
 export async function planTrim(
 	judge: Judge,
 	context: Message[],
@@ -44,17 +80,14 @@ export async function planTrim(
 ): Promise<TrimPlan> {
 	const cfg = opts.cfg ?? DEFAULT_TRIM;
 	const { mode, units: offered } = units(r.text, r.toolName, cfg);
-	const { state } = buildState(withFresh(context, r), r.toolCallId);
-	const questions: Record<string, Question> = { decision: DECISION, ...SIGNALS };
+	const questions: Record<string, Question> = { need: WRITE_NEED, user_asked: WRITE_USER_ASKED };
 	for (const u of offered) questions[u.id] = unitQuestion(mode, u);
-	const call = await judge.decide(state, questions, opts.timeoutMs ?? 2500, opts.signal);
+	const call = await judge.decide(writeState(context, r), questions, opts.timeoutMs ?? 2500, opts.signal);
 	if (!call.answers) return { mode, units: offered, call, skip: `jev unavailable: ${call.error}` };
 
-	const signals: Record<string, number> = {};
-	for (const k of Object.keys(SIGNALS)) signals[k] = (call.answers[k] as NoulAnswer).noul;
+	const reading: WriteReading = { need: call.answers.need as ChoiceAnswer, userAsked: (call.answers.user_asked as NoulAnswer).noul };
 	const unitAnswers: Record<string, number> = {};
 	for (const u of offered) unitAnswers[u.id] = (call.answers[u.id] as NoulAnswer).noul;
-	const reading: JevReading = { decision: call.answers.decision as ChoiceAnswer, signals, lines: {}, excerpted: true };
 	const decision = decideTrim(reading, offered, unitAnswers, cfg);
 	if (!decision.trim) return { mode, units: offered, call, reading, decision, skip: decision.reason };
 	const trimmed = renderTrimmed(r.text, mode, decision.selected, alias, cfg);

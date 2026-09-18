@@ -138,3 +138,83 @@ export const WRITE_CASES: WriteCase[] = [
 	wc("W12", "list every test name", "KEEP", "List every test name in the auth suite so I can check which scenarios are covered.", "bash", { command: "npx vitest run src/auth --reporter=verbose" }, authTests()),
 	wc("W13", "full file inventory for a migration plan", "KEEP", "Give me a complete inventory of every file under src; I'm planning the monorepo migration file by file.", "bash", { command: "find src -type f | sort" }, lsR()),
 ];
+
+// ---------------------------------------------------------------------------------------------
+// WRITE-TIME HELD-OUT. Written after writetime-q1 and after designing w2, committed before any Jev call
+// on them. Other tools and ecosystems than the dev set, some Chinese requests.
+
+const rows = (n: number, f: (i: number) => string) => Array.from({ length: n }, (_, i) => f(i)).join("\n");
+
+function lintWarnings(): string {
+	const out = ["> acme-app@1.4.0 lint", "> eslint .", ""];
+	for (let i = 0; i < 95; i++) out.push(`/home/dev/acme-app/src/${DIRS[i % 12]!.slice(4)}/Comp${i}.tsx`, `  ${20 + i}:6  warning  React Hook useEffect has a missing dependency: 'props.id'  react-hooks/exhaustive-deps`);
+	out.splice(101, 0, "/home/dev/acme-app/src/cart/CartRow.tsx", "  14:7  error  'unused' is assigned a value but never used  @typescript-eslint/no-unused-vars");
+	out.push("", "✖ 96 problems (1 error, 95 warnings)");
+	return out.join("\n");
+}
+
+function pytestLog(): string {
+	const out = ["============================= test session starts ==============================", "platform linux -- Python 3.12.4, pytest-8.3.2", "collected 412 items", ""];
+	for (let i = 0; i < 40; i++) out.push(`tests/test_${["orders", "billing", "users", "search"][i % 4]}_${i}.py ${".".repeat(10)}${i === 17 ? "F" : "."} [${Math.round((i / 40) * 100)}%]`);
+	out.push("", "=================================== FAILURES ===================================", "____________________________ test_refund_rounding ______________________________", "");
+	for (let i = 0; i < 12; i++) out.push(`    ${["def test_refund_rounding():", "    order = make_order(total=1999)", "    refund = refund_amount(order, 0.5)", ">   assert refund == 1000"][i % 4]}`);
+	out.push("E   assert 999 == 1000", "tests/test_billing_17.py:23: AssertionError");
+	for (let i = 0; i < 180; i++) out.push(`  /usr/lib/python3.12/site-packages/sqlalchemy/orm/session.py:${1200 + i}: SAWarning: relationship 'Order.items' will copy column orders.id`);
+	out.push("=========================== short test summary info ============================", "FAILED tests/test_billing_17.py::test_refund_rounding - assert 999 == 1000", "================== 1 failed, 411 passed, 180 warnings in 9.81s ==================");
+	return out.join("\n");
+}
+
+function kubectlPods(): string {
+	const out = ["NAMESPACE     NAME                                   READY   STATUS             RESTARTS        AGE"];
+	for (let i = 0; i < 180; i++) out.push(`${["default", "web", "search", "kube-system", "monitoring"][i % 5]!.padEnd(13)} ${`${["web", "search", "worker", "metrics", "cron"][i % 5]}-${(i * 7919).toString(16).slice(0, 5)}-x${i}`.padEnd(38)} 1/1     Running            0               ${1 + (i % 9)}d`);
+	out.splice(97, 0, "payments      payments-api-7d9f8c6b5-qx2lp           0/1     CrashLoopBackOff   42 (2m ago)     3h");
+	return out.join("\n");
+}
+
+function npmCi(): string {
+	const out: string[] = [];
+	for (let i = 0; i < 190; i++) out.push(`npm http fetch GET 200 https://registry.npmjs.org/pkg-${i} ${10 + (i % 90)}ms (cache ${i % 3 ? "hit" : "miss"})`);
+	out.push("", "added 612 packages, and audited 613 packages in 14s", "", "118 packages are looking for funding", "  run `npm fund` for details", "", "found 0 vulnerabilities");
+	return out.join("\n");
+}
+
+function fetchedPage(): string {
+	const out = ["# REST API endpoints for search - GitHub Docs", ""];
+	const sections = ["About search", "Ranking search results", "Considerations for code search", "Search commits", "Search issues and pull requests", "Search labels", "Search repositories", "Search topics", "Search users"];
+	for (const s of sections) {
+		out.push(`## ${s}`, "");
+		for (let i = 0; i < 18; i++) out.push(`${s}: parameter and behaviour notes, line ${i + 1}. See the query syntax reference for qualifiers.`);
+		out.push("");
+		if (s === "About search") out.push("## Rate limit", "", "The REST API has a custom rate limit for searching. For authenticated requests, you can make up to 30 requests per minute for all search endpoints except for the \"Search code\" endpoint. The \"Search code\" endpoint requires you to authenticate and limits you to 10 requests per minute.", "");
+	}
+	return out.join("\n");
+}
+
+function grepUseEffect(): string {
+	const out: string[] = [];
+	for (let i = 0; i < 200; i++) out.push(`${DIRS[i % 11]}/Comp${i % 13}.tsx:${12 + i}:  useEffect(() => { setOpen(false); }, [${["id", "open", "props.value"][i % 3]}]);`);
+	out.push("src/realtime/socket.ts:31:  useEffect(() => { const ws = new WebSocket(url); ws.onmessage = onMessage; return () => ws.close(); }, [url]);");
+	return out.sort().join("\n");
+}
+
+function dockerBuild(): string {
+	const out = ["#0 building with \"desktop-linux\" instance using docker driver", "#1 [internal] load build definition from Dockerfile"];
+	for (let i = 0; i < 220; i++) out.push(`#5 ${(i * 0.13).toFixed(2)} Progress: resolved ${i * 3}, reused ${i * 3}, downloaded 0, added 0`);
+	out.push("#6 [6/9] RUN pnpm install --frozen-lockfile", "#6 1.204  ERR_PNPM_OUTDATED_LOCKFILE  Cannot install with \"frozen-lockfile\" because pnpm-lock.yaml is not up to date with package.json", "#6 1.205 Note that in CI environments this setting is true by default.", "#6 ERROR: process \"/bin/sh -c pnpm install --frozen-lockfile\" did not complete successfully: exit code: 1", "------", " > [6/9] RUN pnpm install --frozen-lockfile:", "------", "ERROR: failed to solve: process \"/bin/sh -c pnpm install --frozen-lockfile\" did not complete successfully: exit code: 1");
+	return out.join("\n");
+}
+
+export const WRITE_HOLDOUT: WriteCase[] = [
+	wc("W14", "95 lint warnings + 1 error, fix errors only", "TRIM", "Make npm run lint pass. Warnings are fine, only fix errors.", "bash", { command: "npm run lint" }, lintWarnings(), { isError: true, keyLines: ["'unused' is assigned a value but never used", "src/cart/CartRow.tsx"] }),
+	wc("W15", "pytest: 1 failure among warnings (Chinese)", "TRIM", "修复失败的测试。", "bash", { command: "pytest -q" }, pytestLog(), { isError: true, keyLines: ["test_refund_rounding", "assert 999 == 1000", "tests/test_billing_17.py:23"] }),
+	wc("W16", "kubectl pods, one crashlooping", "TRIM", "Why is the payments service down?", "bash", { command: "kubectl get pods -A" }, kubectlPods(), { keyLines: ["payments-api-7d9f8c6b5-qx2lp", "CrashLoopBackOff"] }),
+	wc("W17", "npm ci success chatter", "TRIM", "Install the dependencies, then start the dev server.", "bash", { command: "npm ci --loglevel=http" }, npmCi(), { keyLines: ["added 612 packages", "found 0 vulnerabilities"] }),
+	wc("W18", "fetched docs page, one relevant section", "TRIM", "What's the rate limit for the GitHub search API? I need it for the crawler config.", "fetch_url", { url: "https://docs.github.com/en/rest/search/search" }, fetchedPage(), { keyLines: ["30 requests per minute"] }),
+	wc("W19", "grep useEffect while hunting the websocket", "TRIM", "Find where we subscribe to the websocket; messages are being handled twice.", "grep", { pattern: "useEffect", path: "src" }, grepUseEffect(), { keyLines: ["src/realtime/socket.ts:31"] }),
+	wc("W20", "all TODOs into a checklist", "KEEP", "Compile every TODO in src into a markdown checklist grouped by file.", "grep", { pattern: "TODO", path: "src" }, grepTodo()),
+	wc("W21", "git log for full release notes", "KEEP", "Write release notes that cover every commit since v1.3.", "bash", { command: "git log --oneline v1.3..HEAD" }, rows(190, (i) => `${(i * 2654435761 >>> 0).toString(16).slice(0, 7)} ${["feat", "fix", "chore", "docs"][i % 4]}(${["cart", "auth", "ui", "api"][i % 4]}): change number ${190 - i}`)),
+	wc("W22", "every feature flag row, check each (Chinese)", "KEEP", "把 feature_flags 表的每一行都列出来，我要逐行核对所有值。", "bash", { command: "psql -c 'select * from feature_flags'" }, rows(165, (i) => ` flag_${i} | ${i % 3 === 0 ? "t" : "f"} | team-${i % 7} | 2026-0${(i % 9) + 1}-1${i % 9}`)),
+	wc("W23", "rename every test file", "KEEP", "Rename all test files from .test.ts to .spec.ts.", "bash", { command: "find . -name '*.test.ts' -not -path './node_modules/*'" }, rows(180, (i) => `./${DIRS[i % 12]}/${["index", "types", "utils", "api", "view"][i % 5]}${Math.floor(i / 12)}.test.ts`)),
+	wc("W24", "SQL rows to export", "KEEP", "Export these customer rows to customers.csv exactly as returned.", "sql_query", { sql: "select id, email, country from customers where created_at > '2026-01-01'" }, rows(170, (i) => `{"id":"c_${i}","email":"user${i}@example.com","country":"${["NZ", "AU", "US", "DE"][i % 4]}"}`)),
+	wc("W25", "docker build fails at one step", "TRIM", "The docker build fails. Fix it.", "bash", { command: "docker build -t acme-api ." }, dockerBuild(), { isError: true, keyLines: ["ERR_PNPM_OUTDATED_LOCKFILE", "[6/9] RUN pnpm install --frozen-lockfile"] }),
+];

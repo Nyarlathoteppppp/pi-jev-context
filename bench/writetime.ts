@@ -8,10 +8,11 @@ import { Jev, resolveTransport } from "../src/jev.ts";
 import { percentile } from "../src/metrics.ts";
 import { shouldConsider, units } from "../src/trim.ts";
 import { planTrim, type TrimPlan } from "../src/writetime.ts";
-import { WRITE_CASES } from "./writetime-cases.ts";
+import { WRITE_CASES as DEV, WRITE_HOLDOUT } from "./writetime-cases.ts";
 
-const { values } = parseArgs({ options: { repeats: { type: "string", default: "5" }, "dry-run": { type: "boolean", default: false } } });
+const { values } = parseArgs({ options: { repeats: { type: "string", default: "5" }, "dry-run": { type: "boolean", default: false }, set: { type: "string", default: "dev" }, out: { type: "string" } } });
 const repeats = Math.max(1, Number(values.repeats));
+const WRITE_CASES = values.set === "holdout" ? WRITE_HOLDOUT : values.set === "all" ? [...DEV, ...WRITE_HOLDOUT] : DEV;
 
 if (values["dry-run"]) {
 	for (const c of WRITE_CASES) {
@@ -62,4 +63,6 @@ const summary = [
 ];
 console.log(`\n${summary.join("\n")}`);
 mkdirSync("results", { recursive: true });
-writeFileSync("results/writetime.json", JSON.stringify({ summary, results }, null, 1));
+const outFile = values.out ?? `results/writetime-${values.set}.json`;
+writeFileSync(outFile, JSON.stringify({ summary, results }, null, 1));
+console.log(`wrote ${outFile}`);

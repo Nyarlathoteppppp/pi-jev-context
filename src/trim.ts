@@ -1,6 +1,5 @@
 import { estimateTokens, linePriority, notableLines, truncate } from "./extract.ts";
 import type { ChoiceAnswer, NoulQuestion } from "./jev.ts";
-import type { JevReading } from "./policy.ts";
 
 // Write-time trimming of long tool output. Runs in tool_result, before the result ever enters the
 // model's context, so it never invalidates a cached prompt prefix. The original is stored losslessly
@@ -17,13 +16,15 @@ export interface TrimConfig {
 	units: number;
 	/** Trim only if the result keeps at most this share of the original tokens. */
 	maxKeptShare: number;
-	/** Jev must pick TRUNCATE/DROP with at least this probability and confidence. */
+	/** Jev must pick specific_parts/outcome_only with at least this probability and confidence. */
 	minProbability: number;
 	minConfidence: number;
 	/** A user_requested signal at or above this keeps the output whole. */
 	userRequestedVeto: number;
 	/** A unit is kept when its noul reaches this. */
 	unitThreshold: number;
+	/** If no unit reaches the threshold, units within this of the best one are kept. */
+	nearTie: number;
 }
 
 export const DEFAULT_TRIM: TrimConfig = {
@@ -37,6 +38,7 @@ export const DEFAULT_TRIM: TrimConfig = {
 	minConfidence: 0.6,
 	userRequestedVeto: 0.5,
 	unitThreshold: 0.5,
+	nearTie: 0.1,
 };
 
 /** Tools whose output the agent needs verbatim on first use (file content, edits): never trimmed. */
@@ -82,8 +84,23 @@ export function units(text: string, toolName: string, cfg: TrimConfig = DEFAULT_
 
 function groupKey(line: string, toolName: string): string | undefined {
 	if (toolName === "grep" || /^[\w./-]+:\d+:/.test(line)) return /^([^:]+):\d+:/.exec(line)?.[1];
-	if (toolName === "find" || toolName === "ls") return line.includes("/") ? line.slice(0, line.lastIndexOf("/")) : ".";
+	if (toolName === "find" || toolName === "ls" || /^\.?\/?[\w.-]+(?:\/[\w.-]+)+$/.test(line.trim())) return line.trim();
 	return undefined;
+}
+
+/** Drops `level` trailing path segments: file → dir → parent dir. */
+const coarsen = (key: string, level: number) => key.split("/").slice(0, Math.max(1, key.split("/").length - level)).join("/");
+
+function runs(keys: Array<string | undefined>): Array<[number, number]> {
+	const out: Array<[number, number]> = [];
+	let start = 1;
+	for (let n = 2; n <= keys.length + 1; n++) {
+		if (n > keys.length || keys[n - 1] !== keys[start - 1]) {
+			out.push([start, n - 1]);
+			start = n;
+		}
+	}
+	return out;
 }
 
 function blocks(text: string, toolName: string, max: number): Unit[] {
@@ -92,12 +109,10 @@ function blocks(text: string, toolName: string, max: number): Unit[] {
 	// Group by file (grep) or directory (find/ls) when the output has that shape.
 	const keys = lines.map((l) => groupKey(l, toolName));
 	if (keys.filter(Boolean).length >= lines.length * 0.6) {
-		let start = 1;
-		for (let n = 2; n <= lines.length + 1; n++) {
-			if (n > lines.length || keys[n - 1] !== keys[start - 1]) {
-				ranges.push([start, n - 1]);
-				start = n;
-			}
+		// Path-shaped output: group by file, and coarsen to directories until the groups fit.
+		for (let level = 0; level < 6; level++) {
+			ranges = runs(keys.map((k) => (k === undefined ? k : level ? coarsen(k, level) : k)));
+			if (ranges.length <= max) break;
 		}
 	} else if (lines.filter((l) => !l.trim()).length >= 3) {
 		// Prose, markdown, search results: paragraphs / sections separated by blank lines.
@@ -143,16 +158,20 @@ export interface TrimDecision {
 	selected: Unit[];
 }
 
-/** Turns one Jev reading into a trim decision. Anything short of a confident TRUNCATE/DROP keeps the output whole. */
-export function decideTrim(r: JevReading, offered: Unit[], unitAnswers: Record<string, number>, cfg: TrimConfig = DEFAULT_TRIM): TrimDecision {
-	const d: ChoiceAnswer = r.decision;
+/** Turns one Jev reading into a trim decision. Anything short of a confident "only parts / only outcome" keeps the output whole. */
+export function decideTrim(r: { need: ChoiceAnswer; userAsked: number }, offered: Unit[], unitAnswers: Record<string, number>, cfg: TrimConfig = DEFAULT_TRIM): TrimDecision {
+	const d = r.need;
 	const p = d.probabilities[d.choice] ?? 0;
 	const selected = offered.filter((u) => (unitAnswers[u.id] ?? 0) >= cfg.unitThreshold);
-	if (d.choice !== "TRUNCATE" && d.choice !== "DROP") return { trim: false, reason: `jev ${d.choice}`, selected };
+	if (d.choice !== "specific_parts" && d.choice !== "outcome_only") return { trim: false, reason: `jev ${d.choice}`, selected };
 	if (p < cfg.minProbability || d.confidence < cfg.minConfidence) return { trim: false, reason: `jev ${d.choice} not confident (p=${p.toFixed(2)}, c=${d.confidence.toFixed(2)})`, selected };
-	if ((r.signals.user_requested ?? 0) >= cfg.userRequestedVeto) return { trim: false, reason: "user asked for this output", selected };
-	// Jev marked nothing: keep every offered unit rather than guess.
-	return { trim: true, reason: `jev ${d.choice} (p=${p.toFixed(2)}, c=${d.confidence.toFixed(2)})`, selected: selected.length ? selected : offered };
+	if (r.userAsked >= cfg.userRequestedVeto) return { trim: false, reason: "user asked for this output", selected };
+	// Nothing clears the absolute bar: fall back to Jev's ranking (the top unit and near-ties, at most 3).
+	const reason = `jev ${d.choice} (p=${p.toFixed(2)}, c=${d.confidence.toFixed(2)})`;
+	if (selected.length) return { trim: true, reason, selected };
+	const top = Math.max(0, ...offered.map((u) => unitAnswers[u.id] ?? 0));
+	const ranked = offered.filter((u) => (unitAnswers[u.id] ?? 0) >= top - cfg.nearTie).sort((a, b) => (unitAnswers[b.id] ?? 0) - (unitAnswers[a.id] ?? 0)).slice(0, 3);
+	return { trim: true, reason: `${reason}, by rank`, selected: ranked };
 }
 
 export interface Trimmed {

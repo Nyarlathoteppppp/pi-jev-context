@@ -61,3 +61,28 @@ export function questionsFor(keyLines: Array<{ n: number; text: string }>): Reco
 	for (const l of keyLines) q[`line_${l.n}`] = keyLineQuestion(l.n, l.text);
 	return q;
 }
+
+// ---------------------------------------------------------------------------------------------
+// Write-time (w2). Designed after writetime-q1: ask what the agent needs this fresh output FOR,
+// with concrete options, instead of the abstract KEEP/TRUNCATE/DROP category.
+export const WRITE_QUESTIONS_VERSION = "w2";
+
+export const WRITE_NEED: ChoiceQuestion = {
+	type: "choice",
+	instructions:
+		"The agent just ran `tool_call` and got `output`. For the user's latest request, what does the agent need from this output?",
+	criteria: {
+		every_line:
+			"Nearly every line: the request needs the complete output, for example every match to edit or rename, every row or field to convert or review, or a complete list or inventory the user asked for.",
+		specific_parts:
+			"Only specific parts: some lines matter (failures, errors, warnings, the matches or sections related to the request) and the rest is repetitive, routine or unrelated.",
+		outcome_only:
+			"Only the overall outcome: whether it succeeded or finished; the details do not matter for the request.",
+		unclear: "It is not clear from the request what the agent needs from this output.",
+	},
+};
+
+export const WRITE_USER_ASKED: NoulQuestion = {
+	type: "noul",
+	instructions: "The user explicitly asked to see, keep, or review this output in full.",
+};

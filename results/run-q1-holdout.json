@@ -1,0 +1,3847 @@
+{
+ "meta": {
+  "model": "typesafe/jev-1.13-20260917",
+  "requested": "~typesafe/jev-latest",
+  "endpoint": "https://openrouter.ai/api/alpha/decisions",
+  "questions": "q1",
+  "set": "holdout",
+  "repeats": 5,
+  "date": "2026-09-18T16:17:44.665Z"
+ },
+ "results": [
+  {
+   "key": "H01:old",
+   "caseId": "H01",
+   "category": "durable-looking but superseded",
+   "checkpoint": "end",
+   "target": {
+    "tag": "old",
+    "truth": "DROP",
+    "acceptable": [
+     "DROP",
+     "TRUNCATE"
+    ],
+    "critical": false,
+    "why": "The Node version changed; the later node -v is the current fact."
+   },
+   "targetId": "call_1",
+   "at": 19,
+   "stateTokens": 287,
+   "excerpted": false,
+   "keyLineCandidates": [],
+   "calls": [
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "TRUNCATE": 0,
+        "DROP": 1,
+        "KEEP": 0,
+        "UNCERTAIN": 0
+       },
+       "confidence": 1
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.93
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.19
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.41
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.51
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.03
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.58
+      }
+     },
+     "ms": 416,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1261,
+     "cost": 0.000052962
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "UNCERTAIN": 0,
+        "DROP": 1,
+        "TRUNCATE": 0,
+        "KEEP": 0
+       },
+       "confidence": 1
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.93
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.19
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.5
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.52
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.03
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.57
+      }
+     },
+     "ms": 327,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1261,
+     "cost": 0.000052962
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "DROP": 1,
+        "UNCERTAIN": 0,
+        "KEEP": 0,
+        "TRUNCATE": 0
+       },
+       "confidence": 1
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.93
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.2
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.44
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.54
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.03
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.61
+      }
+     },
+     "ms": 248,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1261,
+     "cost": 0.000052962
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "TRUNCATE": 0,
+        "UNCERTAIN": 0,
+        "DROP": 1,
+        "KEEP": 0
+       },
+       "confidence": 1
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.92
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.19
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.48
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.5
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.03
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.59
+      }
+     },
+     "ms": 288,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1261,
+     "cost": 0.000052962
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "TRUNCATE": 0,
+        "DROP": 1,
+        "KEEP": 0,
+        "UNCERTAIN": 0
+       },
+       "confidence": 1
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.93
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.19
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.44
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.52
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.03
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.58
+      }
+     },
+     "ms": 291,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1261,
+     "cost": 0.000052962
+    }
+   ]
+  },
+  {
+   "key": "H02.A:schema",
+   "caseId": "H02",
+   "category": "temporarily irrelevant",
+   "checkpoint": "A: before goal change",
+   "target": {
+    "tag": "schema",
+    "truth": "TRUNCATE",
+    "acceptable": [
+     "TRUNCATE",
+     "KEEP"
+    ],
+    "critical": true,
+    "why": "Data model facts (status values, refundedAt) are durable and needed later."
+   },
+   "targetId": "call_1",
+   "at": 30,
+   "stateTokens": 506,
+   "excerpted": false,
+   "keyLineCandidates": [],
+   "calls": [
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "TRUNCATE": 0.01,
+        "DROP": 0.77,
+        "KEEP": 0.22,
+        "UNCERTAIN": 0
+       },
+       "confidence": 0.7
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.07
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.58
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.72
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.34
+      }
+     },
+     "ms": 390,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1483,
+     "cost": 0.000062286
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "DROP": 0.78,
+        "UNCERTAIN": 0,
+        "TRUNCATE": 0.01,
+        "KEEP": 0.21
+       },
+       "confidence": 0.71
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.07
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.59
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.71
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.38
+      }
+     },
+     "ms": 315,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1483,
+     "cost": 0.000062286
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "TRUNCATE": 0.01,
+        "UNCERTAIN": 0,
+        "DROP": 0.81,
+        "KEEP": 0.18
+       },
+       "confidence": 0.74
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.07
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.57
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.71
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.36
+      }
+     },
+     "ms": 247,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1483,
+     "cost": 0.000062286
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "DROP": 0.81,
+        "KEEP": 0.18,
+        "UNCERTAIN": 0,
+        "TRUNCATE": 0.01
+       },
+       "confidence": 0.75
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.07
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.59
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.72
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.37
+      }
+     },
+     "ms": 250,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1483,
+     "cost": 0.000062286
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "TRUNCATE": 0,
+        "DROP": 0.81,
+        "UNCERTAIN": 0,
+        "KEEP": 0.19
+       },
+       "confidence": 0.73
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.08
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.54
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.69
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.35
+      }
+     },
+     "ms": 253,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1483,
+     "cost": 0.000062286
+    }
+   ]
+  },
+  {
+   "key": "H02.B:schema",
+   "caseId": "H02",
+   "category": "temporarily irrelevant",
+   "checkpoint": "B: after goal change",
+   "target": {
+    "tag": "schema",
+    "truth": "KEEP",
+    "acceptable": [
+     "KEEP",
+     "TRUNCATE"
+    ],
+    "critical": true,
+    "why": "The refund button must set status=\"refunded\" and refundedAt."
+   },
+   "targetId": "call_1",
+   "at": 31,
+   "stateTokens": 569,
+   "excerpted": false,
+   "keyLineCandidates": [],
+   "calls": [
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "KEEP",
+       "probabilities": {
+        "KEEP": 0.97,
+        "UNCERTAIN": 0,
+        "DROP": 0.02,
+        "TRUNCATE": 0.01
+       },
+       "confidence": 0.96
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.85
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.7
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.71
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.05
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.3
+      }
+     },
+     "ms": 327,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1544,
+     "cost": 0.000064848
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "KEEP",
+       "probabilities": {
+        "DROP": 0.01,
+        "UNCERTAIN": 0,
+        "TRUNCATE": 0.01,
+        "KEEP": 0.98
+       },
+       "confidence": 0.97
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.87
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.72
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.7
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.05
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.33
+      }
+     },
+     "ms": 339,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1544,
+     "cost": 0.000064848
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "KEEP",
+       "probabilities": {
+        "KEEP": 0.97,
+        "DROP": 0.02,
+        "TRUNCATE": 0.01,
+        "UNCERTAIN": 0
+       },
+       "confidence": 0.96
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.86
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.73
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.7
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.05
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.31
+      }
+     },
+     "ms": 296,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1544,
+     "cost": 0.000064848
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "KEEP",
+       "probabilities": {
+        "KEEP": 0.97,
+        "UNCERTAIN": 0,
+        "DROP": 0.02,
+        "TRUNCATE": 0.01
+       },
+       "confidence": 0.97
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.87
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.71
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.71
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.05
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.3
+      }
+     },
+     "ms": 254,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1544,
+     "cost": 0.000064848
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "KEEP",
+       "probabilities": {
+        "DROP": 0.02,
+        "KEEP": 0.97,
+        "TRUNCATE": 0.01,
+        "UNCERTAIN": 0
+       },
+       "confidence": 0.96
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.87
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.72
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.68
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.05
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.3
+      }
+     },
+     "ms": 305,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1544,
+     "cost": 0.000064848
+    }
+   ]
+  },
+  {
+   "key": "H03:cfg",
+   "caseId": "H03",
+   "category": "temporarily irrelevant",
+   "checkpoint": "end",
+   "target": {
+    "tag": "cfg",
+    "truth": "KEEP",
+    "acceptable": [
+     "KEEP",
+     "TRUNCATE"
+    ],
+    "critical": true,
+    "why": "allowedOrigins lacks the staging origin: the answer."
+   },
+   "targetId": "call_1",
+   "at": 22,
+   "stateTokens": 444,
+   "excerpted": false,
+   "keyLineCandidates": [],
+   "calls": [
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "KEEP",
+       "probabilities": {
+        "TRUNCATE": 0.01,
+        "KEEP": 0.94,
+        "UNCERTAIN": 0,
+        "DROP": 0.05
+       },
+       "confidence": 0.92
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.03
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.89
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.85
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.69
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.28
+      }
+     },
+     "ms": 269,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1388,
+     "cost": 0.000058296
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "KEEP",
+       "probabilities": {
+        "TRUNCATE": 0.01,
+        "DROP": 0.06,
+        "KEEP": 0.93,
+        "UNCERTAIN": 0
+       },
+       "confidence": 0.91
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.9
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.88
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.69
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.28
+      }
+     },
+     "ms": 571,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1388,
+     "cost": 0.000058296
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "KEEP",
+       "probabilities": {
+        "UNCERTAIN": 0,
+        "KEEP": 0.95,
+        "TRUNCATE": 0.01,
+        "DROP": 0.04
+       },
+       "confidence": 0.93
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.9
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.87
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.69
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.26
+      }
+     },
+     "ms": 351,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1388,
+     "cost": 0.000058296
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "KEEP",
+       "probabilities": {
+        "UNCERTAIN": 0,
+        "DROP": 0.05,
+        "TRUNCATE": 0.01,
+        "KEEP": 0.94
+       },
+       "confidence": 0.92
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.9
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.85
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.7
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.29
+      }
+     },
+     "ms": 250,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1388,
+     "cost": 0.000058296
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "KEEP",
+       "probabilities": {
+        "UNCERTAIN": 0,
+        "TRUNCATE": 0.01,
+        "KEEP": 0.94,
+        "DROP": 0.05
+       },
+       "confidence": 0.92
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.9
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.86
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.71
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.29
+      }
+     },
+     "ms": 414,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1388,
+     "cost": 0.000058296
+    }
+   ]
+  },
+  {
+   "key": "H04:ls",
+   "caseId": "H04",
+   "category": "durable-looking but superseded",
+   "checkpoint": "end",
+   "target": {
+    "tag": "ls",
+    "truth": "DROP",
+    "acceptable": [
+     "DROP",
+     "TRUNCATE"
+    ],
+    "critical": false,
+    "why": "Problem fixed; a newer npm ls shows the current tree."
+   },
+   "targetId": "call_1",
+   "at": 20,
+   "stateTokens": 379,
+   "excerpted": false,
+   "keyLineCandidates": [],
+   "calls": [
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "UNCERTAIN": 0,
+        "KEEP": 0.04,
+        "TRUNCATE": 0.01,
+        "DROP": 0.95
+       },
+       "confidence": 0.94
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.2
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.08
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.63
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.83
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.07
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.71
+      }
+     },
+     "ms": 265,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1362,
+     "cost": 0.000057204
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "DROP": 0.94,
+        "TRUNCATE": 0.01,
+        "KEEP": 0.05,
+        "UNCERTAIN": 0
+       },
+       "confidence": 0.92
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.21
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.08
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.6
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.82
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.08
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.73
+      }
+     },
+     "ms": 270,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1362,
+     "cost": 0.000057204
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "TRUNCATE": 0.01,
+        "KEEP": 0.06,
+        "DROP": 0.93,
+        "UNCERTAIN": 0
+       },
+       "confidence": 0.91
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.21
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.08
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.65
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.81
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.07
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.73
+      }
+     },
+     "ms": 283,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1362,
+     "cost": 0.000057204
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "TRUNCATE": 0.01,
+        "UNCERTAIN": 0,
+        "DROP": 0.93,
+        "KEEP": 0.06
+       },
+       "confidence": 0.91
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.23
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.08
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.65
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.83
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.08
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.71
+      }
+     },
+     "ms": 236,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1362,
+     "cost": 0.000057204
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "KEEP": 0.04,
+        "DROP": 0.95,
+        "TRUNCATE": 0.01,
+        "UNCERTAIN": 0
+       },
+       "confidence": 0.93
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.21
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.08
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.59
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.82
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.07
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.72
+      }
+     },
+     "ms": 247,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1362,
+     "cost": 0.000057204
+    }
+   ]
+  },
+  {
+   "key": "H05:log",
+   "caseId": "H05",
+   "category": "stale orientation",
+   "checkpoint": "end",
+   "target": {
+    "tag": "log",
+    "truth": "DROP",
+    "acceptable": [
+     "DROP",
+     "TRUNCATE"
+    ],
+    "critical": false,
+    "why": "Orientation only; nothing in it bears on the rounding work."
+   },
+   "targetId": "call_1",
+   "at": 22,
+   "stateTokens": 397,
+   "excerpted": false,
+   "keyLineCandidates": [],
+   "calls": [
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "KEEP": 0,
+        "TRUNCATE": 0,
+        "UNCERTAIN": 0,
+        "DROP": 1
+       },
+       "confidence": 0.99
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.05
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.1
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.37
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.2
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.07
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.39
+      }
+     },
+     "ms": 253,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1389,
+     "cost": 0.000058338
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "TRUNCATE": 0,
+        "UNCERTAIN": 0,
+        "DROP": 0.99,
+        "KEEP": 0.01
+       },
+       "confidence": 0.99
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.05
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.1
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.37
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.21
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.07
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.46
+      }
+     },
+     "ms": 393,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1389,
+     "cost": 0.000058338
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "DROP": 1,
+        "KEEP": 0,
+        "TRUNCATE": 0,
+        "UNCERTAIN": 0
+       },
+       "confidence": 0.99
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.05
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.1
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.42
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.21
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.07
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.44
+      }
+     },
+     "ms": 341,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1389,
+     "cost": 0.000058338
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "UNCERTAIN": 0,
+        "TRUNCATE": 0,
+        "DROP": 1,
+        "KEEP": 0
+       },
+       "confidence": 0.99
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.06
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.09
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.4
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.2
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.08
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.44
+      }
+     },
+     "ms": 299,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1389,
+     "cost": 0.000058338
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "DROP": 1,
+        "KEEP": 0,
+        "TRUNCATE": 0,
+        "UNCERTAIN": 0
+       },
+       "confidence": 0.99
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.05
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.1
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.4
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.22
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.07
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.41
+      }
+     },
+     "ms": 410,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1389,
+     "cost": 0.000058338
+    }
+   ]
+  },
+  {
+   "key": "H06:root",
+   "caseId": "H06",
+   "category": "old but critical",
+   "checkpoint": "end",
+   "target": {
+    "tag": "root",
+    "truth": "KEEP",
+    "acceptable": [
+     "KEEP",
+     "TRUNCATE"
+    ],
+    "critical": true,
+    "why": "The user asks for the evidence; the raw output is it."
+   },
+   "targetId": "call_1",
+   "at": 29,
+   "stateTokens": 470,
+   "excerpted": false,
+   "keyLineCandidates": [],
+   "calls": [
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "KEEP",
+       "probabilities": {
+        "DROP": 0.07,
+        "KEEP": 0.92,
+        "UNCERTAIN": 0,
+        "TRUNCATE": 0.01
+       },
+       "confidence": 0.89
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.03
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.94
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.8
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.64
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.16
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.67
+      }
+     },
+     "ms": 337,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1409,
+     "cost": 0.000059178
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "KEEP",
+       "probabilities": {
+        "TRUNCATE": 0.01,
+        "DROP": 0.07,
+        "KEEP": 0.92,
+        "UNCERTAIN": 0
+       },
+       "confidence": 0.9
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.03
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.94
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.82
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.65
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.16
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.66
+      }
+     },
+     "ms": 302,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1409,
+     "cost": 0.000059178
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "KEEP",
+       "probabilities": {
+        "DROP": 0.05,
+        "KEEP": 0.94,
+        "TRUNCATE": 0.01,
+        "UNCERTAIN": 0
+       },
+       "confidence": 0.92
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.03
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.94
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.83
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.64
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.16
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.68
+      }
+     },
+     "ms": 351,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1409,
+     "cost": 0.000059178
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "KEEP",
+       "probabilities": {
+        "TRUNCATE": 0.01,
+        "KEEP": 0.94,
+        "UNCERTAIN": 0,
+        "DROP": 0.05
+       },
+       "confidence": 0.91
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.03
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.94
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.79
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.64
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.15
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.68
+      }
+     },
+     "ms": 395,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1409,
+     "cost": 0.000059178
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "KEEP",
+       "probabilities": {
+        "TRUNCATE": 0.01,
+        "KEEP": 0.92,
+        "DROP": 0.07,
+        "UNCERTAIN": 0
+       },
+       "confidence": 0.9
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.93
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.81
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.64
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.15
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.65
+      }
+     },
+     "ms": 295,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1409,
+     "cost": 0.000059178
+    }
+   ]
+  },
+  {
+   "key": "H07:l1",
+   "caseId": "H07",
+   "category": "repeated failure",
+   "checkpoint": "end",
+   "target": {
+    "tag": "l1",
+    "truth": "DROP",
+    "acceptable": [
+     "DROP",
+     "TRUNCATE"
+    ],
+    "critical": false,
+    "why": "Identical to the newer failure."
+   },
+   "targetId": "call_1",
+   "at": 10,
+   "stateTokens": 271,
+   "excerpted": false,
+   "keyLineCandidates": [],
+   "calls": [
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "DROP": 0.51,
+        "KEEP": 0.44,
+        "TRUNCATE": 0.05,
+        "UNCERTAIN": 0
+       },
+       "confidence": 0.34
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.19
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.93
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.48
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.56
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.05
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.89
+      }
+     },
+     "ms": 383,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1180,
+     "cost": 0.00004956
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "DROP": 0.52,
+        "KEEP": 0.41,
+        "TRUNCATE": 0.07,
+        "UNCERTAIN": 0
+       },
+       "confidence": 0.36
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.2
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.92
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.51
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.58
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.05
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.89
+      }
+     },
+     "ms": 430,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1180,
+     "cost": 0.00004956
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "UNCERTAIN": 0,
+        "TRUNCATE": 0.06,
+        "DROP": 0.55,
+        "KEEP": 0.39
+       },
+       "confidence": 0.4
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.19
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.92
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.51
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.58
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.05
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.89
+      }
+     },
+     "ms": 252,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1180,
+     "cost": 0.00004956
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "KEEP": 0.44,
+        "UNCERTAIN": 0,
+        "DROP": 0.5,
+        "TRUNCATE": 0.06
+       },
+       "confidence": 0.33
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.2
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.92
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.49
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.58
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.05
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.89
+      }
+     },
+     "ms": 294,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1180,
+     "cost": 0.00004956
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "DROP": 0.49,
+        "TRUNCATE": 0.05,
+        "KEEP": 0.46,
+        "UNCERTAIN": 0
+       },
+       "confidence": 0.32
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.2
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.93
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.49
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.58
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.05
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.89
+      }
+     },
+     "ms": 243,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1180,
+     "cost": 0.00004956
+    }
+   ]
+  },
+  {
+   "key": "H07:l2",
+   "caseId": "H07",
+   "category": "repeated failure",
+   "checkpoint": "end",
+   "target": {
+    "tag": "l2",
+    "truth": "KEEP",
+    "acceptable": [
+     "KEEP",
+     "TRUNCATE"
+    ],
+    "critical": true,
+    "why": "Current unresolved error."
+   },
+   "targetId": "call_3",
+   "at": 10,
+   "stateTokens": 189,
+   "excerpted": false,
+   "keyLineCandidates": [],
+   "calls": [
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "KEEP",
+       "probabilities": {
+        "KEEP": 0.8,
+        "TRUNCATE": 0.03,
+        "DROP": 0.17,
+        "UNCERTAIN": 0
+       },
+       "confidence": 0.72
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.93
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.91
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.62
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.05
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.89
+      }
+     },
+     "ms": 425,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1081,
+     "cost": 0.000045402
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "KEEP",
+       "probabilities": {
+        "KEEP": 0.8,
+        "DROP": 0.16,
+        "TRUNCATE": 0.04,
+        "UNCERTAIN": 0
+       },
+       "confidence": 0.72
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.92
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.91
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.63
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.05
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.9
+      }
+     },
+     "ms": 326,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1081,
+     "cost": 0.000045402
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "KEEP",
+       "probabilities": {
+        "KEEP": 0.78,
+        "UNCERTAIN": 0,
+        "DROP": 0.16,
+        "TRUNCATE": 0.06
+       },
+       "confidence": 0.71
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.03
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.93
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.92
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.64
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.05
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.89
+      }
+     },
+     "ms": 316,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1081,
+     "cost": 0.000045402
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "KEEP",
+       "probabilities": {
+        "KEEP": 0.76,
+        "DROP": 0.19,
+        "TRUNCATE": 0.05,
+        "UNCERTAIN": 0
+       },
+       "confidence": 0.67
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.93
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.91
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.61
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.05
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.9
+      }
+     },
+     "ms": 428,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1081,
+     "cost": 0.000045402
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "KEEP",
+       "probabilities": {
+        "KEEP": 0.78,
+        "TRUNCATE": 0.04,
+        "UNCERTAIN": 0,
+        "DROP": 0.18
+       },
+       "confidence": 0.69
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.03
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.92
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.91
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.62
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.89
+      }
+     },
+     "ms": 264,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1081,
+     "cost": 0.000045402
+    }
+   ]
+  },
+  {
+   "key": "H08:log",
+   "caseId": "H08",
+   "category": "very long log (one key line)",
+   "checkpoint": "end",
+   "target": {
+    "tag": "log",
+    "truth": "TRUNCATE",
+    "acceptable": [
+     "TRUNCATE"
+    ],
+    "critical": true,
+    "why": "Only the peer warning lines matter.",
+    "keyLines": [
+     "unmet peer",
+     "legacy-modal"
+    ]
+   },
+   "targetId": "call_1",
+   "at": 9,
+   "stateTokens": 471,
+   "excerpted": true,
+   "keyLineCandidates": [
+    {
+     "n": 233,
+     "text": "WARN  Issues with peer dependencies found"
+    }
+   ],
+   "calls": [
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "TRUNCATE",
+       "probabilities": {
+        "DROP": 0.01,
+        "KEEP": 0.12,
+        "TRUNCATE": 0.87,
+        "UNCERTAIN": 0
+       },
+       "confidence": 0.82
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.03
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.94
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.92
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.82
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.03
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.93
+      },
+      "line_233": {
+       "type": "noul",
+       "noul": 0.76
+      }
+     },
+     "ms": 423,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1573,
+     "cost": 0.000066066
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "TRUNCATE",
+       "probabilities": {
+        "KEEP": 0.14,
+        "DROP": 0.01,
+        "TRUNCATE": 0.85,
+        "UNCERTAIN": 0
+       },
+       "confidence": 0.8
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.03
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.94
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.91
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.82
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.03
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.93
+      },
+      "line_233": {
+       "type": "noul",
+       "noul": 0.77
+      }
+     },
+     "ms": 426,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1573,
+     "cost": 0.000066066
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "TRUNCATE",
+       "probabilities": {
+        "KEEP": 0.13,
+        "TRUNCATE": 0.86,
+        "DROP": 0.01,
+        "UNCERTAIN": 0
+       },
+       "confidence": 0.81
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.03
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.93
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.91
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.81
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.93
+      },
+      "line_233": {
+       "type": "noul",
+       "noul": 0.77
+      }
+     },
+     "ms": 434,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1573,
+     "cost": 0.000066066
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "TRUNCATE",
+       "probabilities": {
+        "KEEP": 0.12,
+        "DROP": 0.01,
+        "TRUNCATE": 0.87,
+        "UNCERTAIN": 0
+       },
+       "confidence": 0.82
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.03
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.93
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.91
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.83
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.03
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.94
+      },
+      "line_233": {
+       "type": "noul",
+       "noul": 0.76
+      }
+     },
+     "ms": 279,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1573,
+     "cost": 0.000066066
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "TRUNCATE",
+       "probabilities": {
+        "DROP": 0.01,
+        "KEEP": 0.12,
+        "TRUNCATE": 0.87,
+        "UNCERTAIN": 0
+       },
+       "confidence": 0.82
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.03
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.94
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.92
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.82
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.03
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.94
+      },
+      "line_233": {
+       "type": "noul",
+       "noul": 0.78
+      }
+     },
+     "ms": 250,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1573,
+     "cost": 0.000066066
+    }
+   ]
+  },
+  {
+   "key": "H09:pass",
+   "caseId": "H09",
+   "category": "old passing result",
+   "checkpoint": "end",
+   "target": {
+    "tag": "pass",
+    "truth": "DROP",
+    "acceptable": [
+     "DROP"
+    ],
+    "critical": false,
+    "why": "Superseded by a later identical run; unrelated to the new task."
+   },
+   "targetId": "call_1",
+   "at": 20,
+   "stateTokens": 381,
+   "excerpted": false,
+   "keyLineCandidates": [],
+   "calls": [
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "KEEP": 0.02,
+        "DROP": 0.98,
+        "TRUNCATE": 0,
+        "UNCERTAIN": 0
+       },
+       "confidence": 0.97
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.23
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.42
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.19
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.85
+      }
+     },
+     "ms": 297,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1345,
+     "cost": 0.00005649
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "KEEP": 0.02,
+        "TRUNCATE": 0,
+        "DROP": 0.98,
+        "UNCERTAIN": 0
+       },
+       "confidence": 0.97
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.23
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.41
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.2
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.83
+      }
+     },
+     "ms": 261,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1345,
+     "cost": 0.00005649
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "UNCERTAIN": 0,
+        "KEEP": 0.02,
+        "DROP": 0.98,
+        "TRUNCATE": 0
+       },
+       "confidence": 0.97
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.25
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.45
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.2
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.84
+      }
+     },
+     "ms": 248,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1345,
+     "cost": 0.00005649
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "TRUNCATE": 0,
+        "KEEP": 0.02,
+        "UNCERTAIN": 0,
+        "DROP": 0.98
+       },
+       "confidence": 0.97
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.21
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.42
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.19
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.85
+      }
+     },
+     "ms": 268,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1345,
+     "cost": 0.00005649
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "TRUNCATE": 0,
+        "DROP": 0.99,
+        "KEEP": 0.01,
+        "UNCERTAIN": 0
+       },
+       "confidence": 0.98
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.26
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.45
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.2
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.85
+      }
+     },
+     "ms": 435,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1345,
+     "cost": 0.00005649
+    }
+   ]
+  },
+  {
+   "key": "H10:ps",
+   "caseId": "H10",
+   "category": "user-requested evidence",
+   "checkpoint": "end",
+   "target": {
+    "tag": "ps",
+    "truth": "KEEP",
+    "acceptable": [
+     "KEEP",
+     "TRUNCATE"
+    ],
+    "critical": true,
+    "why": "Non-default host ports (55432, 6380, 3001) go into the README."
+   },
+   "targetId": "call_1",
+   "at": 24,
+   "stateTokens": 481,
+   "excerpted": false,
+   "keyLineCandidates": [],
+   "calls": [
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "KEEP",
+       "probabilities": {
+        "TRUNCATE": 0,
+        "DROP": 0.06,
+        "UNCERTAIN": 0,
+        "KEEP": 0.94
+       },
+       "confidence": 0.92
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.03
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.93
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.87
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.61
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.68
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.52
+      }
+     },
+     "ms": 343,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1474,
+     "cost": 0.000061908
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "KEEP",
+       "probabilities": {
+        "TRUNCATE": 0,
+        "DROP": 0.06,
+        "KEEP": 0.94,
+        "UNCERTAIN": 0
+       },
+       "confidence": 0.91
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.03
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.91
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.86
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.65
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.69
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.49
+      }
+     },
+     "ms": 267,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1474,
+     "cost": 0.000061908
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "KEEP",
+       "probabilities": {
+        "DROP": 0.05,
+        "KEEP": 0.95,
+        "TRUNCATE": 0,
+        "UNCERTAIN": 0
+       },
+       "confidence": 0.93
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.92
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.86
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.61
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.67
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.49
+      }
+     },
+     "ms": 281,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1474,
+     "cost": 0.000061908
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "KEEP",
+       "probabilities": {
+        "KEEP": 0.9400000000000001,
+        "DROP": 0.06,
+        "TRUNCATE": 0,
+        "UNCERTAIN": 0
+       },
+       "confidence": 0.91
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.92
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.86
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.6
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.66
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.48
+      }
+     },
+     "ms": 299,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1474,
+     "cost": 0.000061908
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "KEEP",
+       "probabilities": {
+        "TRUNCATE": 0.01,
+        "UNCERTAIN": 0,
+        "DROP": 0.06,
+        "KEEP": 0.93
+       },
+       "confidence": 0.91
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.93
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.84
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.59
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.66
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.48
+      }
+     },
+     "ms": 374,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1474,
+     "cost": 0.000061908
+    }
+   ]
+  },
+  {
+   "key": "H11:env",
+   "caseId": "H11",
+   "category": "temporarily irrelevant (Chinese)",
+   "checkpoint": "end",
+   "target": {
+    "tag": "env",
+    "truth": "KEEP",
+    "acceptable": [
+     "KEEP",
+     "TRUNCATE"
+    ],
+    "critical": true,
+    "why": "REDIS_URL uses 6380, the error shows 6379: the answer."
+   },
+   "targetId": "call_1",
+   "at": 20,
+   "stateTokens": 338,
+   "excerpted": false,
+   "keyLineCandidates": [],
+   "calls": [
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "KEEP",
+       "probabilities": {
+        "KEEP": 0.93,
+        "TRUNCATE": 0.02,
+        "DROP": 0.05,
+        "UNCERTAIN": 0
+       },
+       "confidence": 0.9
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.74
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.9
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.85
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.05
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.4
+      }
+     },
+     "ms": 352,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1389,
+     "cost": 0.000058338
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "KEEP",
+       "probabilities": {
+        "DROP": 0.07,
+        "TRUNCATE": 0.02,
+        "KEEP": 0.91,
+        "UNCERTAIN": 0
+       },
+       "confidence": 0.88
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.7
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.9
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.85
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.43
+      }
+     },
+     "ms": 310,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1389,
+     "cost": 0.000058338
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "KEEP",
+       "probabilities": {
+        "DROP": 0.06,
+        "TRUNCATE": 0.03,
+        "KEEP": 0.91,
+        "UNCERTAIN": 0
+       },
+       "confidence": 0.88
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.03
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.7
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.89
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.86
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.41
+      }
+     },
+     "ms": 412,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1389,
+     "cost": 0.000058338
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "KEEP",
+       "probabilities": {
+        "UNCERTAIN": 0,
+        "TRUNCATE": 0.03,
+        "DROP": 0.07,
+        "KEEP": 0.9
+       },
+       "confidence": 0.87
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.68
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.89
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.85
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.4
+      }
+     },
+     "ms": 292,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1389,
+     "cost": 0.000058338
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "KEEP",
+       "probabilities": {
+        "DROP": 0.07,
+        "TRUNCATE": 0.04,
+        "UNCERTAIN": 0,
+        "KEEP": 0.89
+       },
+       "confidence": 0.85
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.71
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.88
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.86
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.05
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.42
+      }
+     },
+     "ms": 253,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1389,
+     "cost": 0.000058338
+    }
+   ]
+  },
+  {
+   "key": "H12:read",
+   "caseId": "H12",
+   "category": "deleted file",
+   "checkpoint": "end",
+   "target": {
+    "tag": "read",
+    "truth": "DROP",
+    "acceptable": [
+     "DROP"
+    ],
+    "critical": false,
+    "why": "The file no longer exists and the task moved on."
+   },
+   "targetId": "call_1",
+   "at": 20,
+   "stateTokens": 360,
+   "excerpted": false,
+   "keyLineCandidates": [],
+   "calls": [
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "KEEP": 0.01,
+        "UNCERTAIN": 0,
+        "DROP": 0.99,
+        "TRUNCATE": 0
+       },
+       "confidence": 0.98
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.05
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.13
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.57
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.63
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.06
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.27
+      }
+     },
+     "ms": 316,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1313,
+     "cost": 0.000055146
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "DROP": 0.98,
+        "KEEP": 0.02,
+        "TRUNCATE": 0,
+        "UNCERTAIN": 0
+       },
+       "confidence": 0.98
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.05
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.14
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.56
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.65
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.05
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.27
+      }
+     },
+     "ms": 320,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1313,
+     "cost": 0.000055146
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "KEEP": 0.02,
+        "TRUNCATE": 0,
+        "DROP": 0.98,
+        "UNCERTAIN": 0
+       },
+       "confidence": 0.98
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.13
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.56
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.66
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.06
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.27
+      }
+     },
+     "ms": 349,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1313,
+     "cost": 0.000055146
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "KEEP": 0.02,
+        "UNCERTAIN": 0,
+        "DROP": 0.98,
+        "TRUNCATE": 0
+       },
+       "confidence": 0.98
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.05
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.14
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.57
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.64
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.06
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.24
+      }
+     },
+     "ms": 328,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1313,
+     "cost": 0.000055146
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "KEEP": 0.02,
+        "DROP": 0.98,
+        "TRUNCATE": 0,
+        "UNCERTAIN": 0
+       },
+       "confidence": 0.98
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.05
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.11
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.54
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.63
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.06
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.25
+      }
+     },
+     "ms": 294,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1313,
+     "cost": 0.000055146
+    }
+   ]
+  },
+  {
+   "key": "H13:grep",
+   "caseId": "H13",
+   "category": "superseded search",
+   "checkpoint": "end",
+   "target": {
+    "tag": "grep",
+    "truth": "DROP",
+    "acceptable": [
+     "DROP",
+     "TRUNCATE"
+    ],
+    "critical": false,
+    "why": "Rename done and type-checked; loadUser lives in src/api/users.ts which the edits show."
+   },
+   "targetId": "call_1",
+   "at": 12,
+   "stateTokens": 271,
+   "excerpted": false,
+   "keyLineCandidates": [],
+   "calls": [
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "KEEP": 0.02,
+        "UNCERTAIN": 0,
+        "DROP": 0.98,
+        "TRUNCATE": 0
+       },
+       "confidence": 0.97
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.07
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.62
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.56
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.7
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.05
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.24
+      }
+     },
+     "ms": 420,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1194,
+     "cost": 0.000050148
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "DROP": 0.98,
+        "KEEP": 0.02,
+        "TRUNCATE": 0,
+        "UNCERTAIN": 0
+       },
+       "confidence": 0.97
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.07
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.65
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.57
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.71
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.05
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.26
+      }
+     },
+     "ms": 351,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1194,
+     "cost": 0.000050148
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "TRUNCATE": 0,
+        "UNCERTAIN": 0,
+        "DROP": 0.97,
+        "KEEP": 0.03
+       },
+       "confidence": 0.96
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.06
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.65
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.58
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.7
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.05
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.27
+      }
+     },
+     "ms": 503,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1194,
+     "cost": 0.000050148
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "KEEP": 0.02,
+        "TRUNCATE": 0,
+        "UNCERTAIN": 0,
+        "DROP": 0.98
+       },
+       "confidence": 0.97
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.06
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.64
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.57
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.73
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.05
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.23
+      }
+     },
+     "ms": 356,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1194,
+     "cost": 0.000050148
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "TRUNCATE": 0,
+        "DROP": 0.98,
+        "UNCERTAIN": 0,
+        "KEEP": 0.02
+       },
+       "confidence": 0.97
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.08
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.59
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.56
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.7
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.05
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.28
+      }
+     },
+     "ms": 361,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1194,
+     "cost": 0.000050148
+    }
+   ]
+  },
+  {
+   "key": "H14:flaky",
+   "caseId": "H14",
+   "category": "user-dismissed evidence",
+   "checkpoint": "end",
+   "target": {
+    "tag": "flaky",
+    "truth": "DROP",
+    "acceptable": [
+     "DROP",
+     "TRUNCATE"
+    ],
+    "critical": false,
+    "why": "User ruled it out of scope."
+   },
+   "targetId": "call_1",
+   "at": 18,
+   "stateTokens": 354,
+   "excerpted": false,
+   "keyLineCandidates": [],
+   "calls": [
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "TRUNCATE": 0.04,
+        "UNCERTAIN": 0,
+        "DROP": 0.91,
+        "KEEP": 0.05
+       },
+       "confidence": 0.87
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.07
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.23
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.76
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.33
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.65
+      }
+     },
+     "ms": 326,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1301,
+     "cost": 0.000054642
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "UNCERTAIN": 0,
+        "TRUNCATE": 0.04,
+        "DROP": 0.91,
+        "KEEP": 0.05
+       },
+       "confidence": 0.88
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.08
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.25
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.75
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.32
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.67
+      }
+     },
+     "ms": 269,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1301,
+     "cost": 0.000054642
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "TRUNCATE": 0.04,
+        "UNCERTAIN": 0,
+        "DROP": 0.91,
+        "KEEP": 0.05
+       },
+       "confidence": 0.88
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.07
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.26
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.77
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.34
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.66
+      }
+     },
+     "ms": 323,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1301,
+     "cost": 0.000054642
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "KEEP": 0.05,
+        "TRUNCATE": 0.04,
+        "DROP": 0.91,
+        "UNCERTAIN": 0
+       },
+       "confidence": 0.88
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.07
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.23
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.77
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.34
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.66
+      }
+     },
+     "ms": 346,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1301,
+     "cost": 0.000054642
+    },
+    {
+     "answers": {
+      "decision": {
+       "type": "choice",
+       "choice": "DROP",
+       "probabilities": {
+        "DROP": 0.89,
+        "KEEP": 0.06,
+        "UNCERTAIN": 0,
+        "TRUNCATE": 0.05
+       },
+       "confidence": 0.86
+      },
+      "superseded": {
+       "type": "noul",
+       "noul": 0.08
+      },
+      "needed_now": {
+       "type": "noul",
+       "noul": 0.27
+      },
+      "unique_fact": {
+       "type": "noul",
+       "noul": 0.73
+      },
+      "durable": {
+       "type": "noul",
+       "noul": 0.35
+      },
+      "user_requested": {
+       "type": "noul",
+       "noul": 0.04
+      },
+      "mostly_noise": {
+       "type": "noul",
+       "noul": 0.64
+      }
+     },
+     "ms": 302,
+     "model": "typesafe/jev-1.13-20260917",
+     "inputTokens": 1301,
+     "cost": 0.000054642
+    }
+   ]
+  }
+ ]
+}

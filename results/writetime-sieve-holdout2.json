@@ -1,0 +1,1698 @@
+{
+ "summary": [
+  "calls: 21, model typesafe/jev-1.13-20260917",
+  "trim recall (TRIM cases trimmed): 100.0% (12/12)",
+  "false trim (KEEP cases trimmed): 0.0% (0/9)",
+  "key lines surviving a trim: 100.0% (21/21)",
+  "tokens: 60948 → 41863 (31.3% saved over all cases)",
+  "latency p50 366 ms, p95 435 ms; cost $0.005688"
+ ],
+ "results": [
+  {
+   "id": "W26",
+   "truth": "TRIM",
+   "plans": [
+    {
+     "mode": "blocks",
+     "call": {
+      "answers": {
+       "need": {
+        "type": "choice",
+        "choice": "specific_parts",
+        "probabilities": {
+         "unclear": 0,
+         "specific_parts": 1,
+         "every_line": 0,
+         "outcome_only": 0
+        },
+        "confidence": 1
+       },
+       "user_asked": {
+        "type": "noul",
+        "noul": 0.03
+       },
+       "b1": {
+        "type": "noul",
+        "noul": 0.1
+       },
+       "b2": {
+        "type": "noul",
+        "noul": 0.08
+       },
+       "b3": {
+        "type": "noul",
+        "noul": 0.08
+       },
+       "b4": {
+        "type": "noul",
+        "noul": 0.07
+       },
+       "b5": {
+        "type": "noul",
+        "noul": 0.07
+       },
+       "b6": {
+        "type": "noul",
+        "noul": 0.11
+       },
+       "b7": {
+        "type": "noul",
+        "noul": 0.96
+       },
+       "b8": {
+        "type": "noul",
+        "noul": 0.1
+       },
+       "b9": {
+        "type": "noul",
+        "noul": 0.07
+       },
+       "b10": {
+        "type": "noul",
+        "noul": 0.07
+       }
+      },
+      "ms": 412,
+      "model": "typesafe/jev-1.13-20260917",
+      "inputTokens": 9457,
+      "cost": 0.000397194
+     },
+     "trimmed": {
+      "text": "[pi-jev-context] Output shortened: 69 of 173 lines kept verbatim. You cannot see the omitted lines; before relying on anything not shown here, call context_recall with id \"t1\".\n{\n  \"service_0\": { \"replicas\": 1, \"cpu\": \"100m\", \"image\": \"acme/svc-0:1.0.0\" },\n  \"service_1\": { \"replicas\": 2, \"cpu\": \"101m\", \"image\": \"acme/svc-1:1.1.0\" },\n  \"service_2\": { \"replicas\": 3, \"cpu\": \"102m\", \"image\": \"acme/svc-2:1.2.0\" },\n  \"service_3\": { \"replicas\": 4, \"cpu\": \"103m\", \"image\": \"acme/svc-3:1.3.0\" },\n  \"service_4\": { \"replicas\": 1, \"cpu\": \"104m\", \"image\": \"acme/svc-4:1.4.0\" },\n  \"service_5\": { \"replicas\": 2, \"cpu\": \"105m\", \"image\": \"acme/svc-5:1.5.0\" },\n  \"service_6\": { \"replicas\": 3, \"cpu\": \"106m\", \"image\": \"acme/svc-6:1.6.0\" },\n  \"service_7\": { \"replicas\": 4, \"cpu\": \"107m\", \"image\": \"acme/svc-7:1.7.0\" },\n  \"service_8\": { \"replicas\": 1, \"cpu\": \"108m\", \"image\": \"acme/svc-8:1.8.0\" },\n  \"service_9\": { \"replicas\": 2, \"cpu\": \"109m\", \"image\": \"acme/svc-9:1.0.0\" },\n  \"service_10\": { \"replicas\": 3, \"cpu\": \"110m\", \"image\": \"acme/svc-10:1.1.0\" },\n  \"service_11\": { \"replicas\": 4, \"cpu\": \"111m\", \"image\": \"acme/svc-11:1.2.0\" },\n  \"service_12\": { \"replicas\": 1, \"cpu\": \"112m\", \"image\": \"acme/svc-12:1.3.0\" },\n  \"service_13\": { \"replicas\": 2, \"cpu\": \"113m\", \"image\": \"acme/svc-13:1.4.0\" },\n  \"service_14\": { \"replicas\": 3, \"cpu\": \"114m\", \"image\": \"acme/svc-14:1.5.0\" },\n  \"service_15\": { \"replicas\": 4, \"cpu\": \"115m\", \"image\": \"acme/svc-15:1.6.0\" },\n  \"service_16\": { \"replicas\": 1, \"cpu\": \"116m\", \"image\": \"acme/svc-16:1.7.0\" },\n  \"service_17\": { \"replicas\": 2, \"cpu\": \"117m\", \"image\": \"acme/svc-17:1.8.0\" },\n  \"service_18\": { \"replicas\": 3, \"cpu\": \"118m\", \"image\": \"acme/svc-18:1.0.0\" },\n… [17 lines omitted] …\n  \"service_36\": { \"replicas\": 1, \"cpu\": \"136m\", \"image\": \"acme/svc-36:1.0.0\" },\n… [17 lines omitted] …\n  \"service_54\": { \"replicas\": 3, \"cpu\": \"154m\", \"image\": \"acme/svc-54:1.0.0\" },\n… [17 lines omitted] …\n  \"service_72\": { \"replicas\": 1, \"cpu\": \"172m\", \"image\": \"acme/svc-72:1.0.0\" },\n… [17 lines omitted] …\n  \"service_90\": { \"replicas\": 3, \"cpu\": \"190m\", \"image\": \"acme/svc-90:1.0.0\" },\n  \"service_91\": { \"replicas\": 4, \"cpu\": \"191m\", \"image\": \"acme/svc-91:1.1.0\" },\n  \"service_92\": { \"replicas\": 1, \"cpu\": \"192m\", \"image\": \"acme/svc-92:1.2.0\" },\n  \"service_93\": { \"replicas\": 2, \"cpu\": \"193m\", \"image\": \"acme/svc-93:1.3.0\" },\n  \"service_94\": { \"replicas\": 3, \"cpu\": \"194m\", \"image\": \"acme/svc-94:1.4.0\" },\n  \"service_95\": { \"replicas\": 4, \"cpu\": \"195m\", \"image\": \"acme/svc-95:1.5.0\" },\n  \"service_96\": { \"replicas\": 1, \"cpu\": \"196m\", \"image\": \"acme/svc-96:1.6.0\" },\n  \"service_97\": { \"replicas\": 2, \"cpu\": \"197m\", \"image\": \"acme/svc-97:1.7.0\" },\n  \"service_98\": { \"replicas\": 3, \"cpu\": \"198m\", \"image\": \"acme/svc-98:1.8.0\" },\n  \"service_99\": { \"replicas\": 4, \"cpu\": \"199m\", \"image\": \"acme/svc-99:1.0.0\" },\n  \"service_100\": { \"replicas\": 1, \"cpu\": \"200m\", \"image\": \"acme/svc-100:1.1.0\" },\n  \"service_101\": { \"replicas\": 2, \"cpu\": \"201m\", \"image\": \"acme/svc-101:1.2.0\" },\n  \"service_102\": { \"replicas\": 3, \"cpu\": \"202m\", \"image\": \"acme/svc-102:1.3.0\" },\n  \"service_103\": { \"replicas\": 4, \"cpu\": \"203m\", \"image\": \"acme/svc-103:1.4.0\" },\n  \"service_104\": { \"replicas\": 1, \"cpu\": \"204m\", \"image\": \"acme/svc-104:1.5.0\" },\n  \"service_105\": { \"replicas\": 2, \"cpu\": \"205m\", \"image\": \"acme/svc-105:1.6.0\" },\n  \"service_106\": { \"replicas\": 3, \"cpu\": \"206m\", \"image\": \"acme/svc-106:1.7.0\" },\n  \"service_107\": { \"replicas\": 4, \"cpu\": \"207m\", \"image\": \"acme/svc-107:1.8.0\" },\n  \"service_108\": { \"replicas\": 1, \"cpu\": \"208m\", \"image\": \"acme/svc-108:1.0.0\" },\n  \"service_109\": { \"replicas\": 2, \"cpu\": \"209m\", \"image\": \"acme/svc-109:1.1.0\" },\n  \"service_110\": { \"replicas\": 3, \"cpu\": \"210m\", \"image\": \"acme/svc-110:1.2.0\" },\n  \"service_111\": { \"replicas\": 4, \"cpu\": \"211m\", \"image\": \"acme/svc-111:1.3.0\" },\n  \"service_112\": { \"replicas\": 1, \"cpu\": \"212m\", \"image\": \"acme/svc-112:1.4.0\" },\n  \"service_113\": { \"replicas\": 2, \"cpu\": \"213m\", \"image\": \"acme/svc-113:1.5.0\" },\n  \"service_114\": { \"replicas\": 3, \"cpu\": \"214m\", \"image\": \"acme/svc-114:1.6.0\" },\n  \"service_115\": { \"replicas\": 4, \"cpu\": \"215m\", \"image\": \"acme/svc-115:1.7.0\" },\n  \"service_116\": { \"replicas\": 1, \"cpu\": \"216m\", \"image\": \"acme/svc-116:1.8.0\" },\n  \"service_117\": { \"replicas\": 2, \"cpu\": \"217m\", \"image\": \"acme/svc-117:1.0.0\" },\n  \"service_118\": { \"replicas\": 3, \"cpu\": \"218m\", \"image\": \"acme/svc-118:1.1.0\" },\n  \"service_119\": { \"replicas\": 4, \"cpu\": \"219m\", \"image\": \"acme/svc-119:1.2.0\" },\n  \"checkout\": { \"replicas\": 0, \"cpu\": \"250m\", \"image\": \"acme/checkout:2.4.1\", \"note\": \"scaled to zero by autoscaler at 03:12\" },\n  \"service_120\": { \"replicas\": 1, \"cpu\": \"220m\", \"image\": \"acme/svc-120:1.3.0\" },\n  \"service_121\": { \"replicas\": 2, \"cpu\": \"221m\", \"image\": \"acme/svc-121:1.4.0\" },\n  \"service_122\": { \"replicas\": 3, \"cpu\": \"222m\", \"image\": \"acme/svc-122:1.5.0\" },\n  \"service_123\": { \"replicas\": 4, \"cpu\": \"223m\", \"image\": \"acme/svc-123:1.6.0\" },\n  \"service_124\": { \"replicas\": 1, \"cpu\": \"224m\", \"image\": \"acme/svc-124:1.7.0\" },\n… [17 lines omitted] …\n  \"service_142\": { \"replicas\": 3, \"cpu\": \"242m\", \"image\": \"acme/svc-142:1.7.0\" },\n… [17 lines omitted] …\n  \"service_160\": { \"replicas\": 1, \"cpu\": \"260m\", \"image\": \"acme/svc-160:1.7.0\" },\n… [2 lines omitted] …\n  \"service_163\": { \"replicas\": 4, \"cpu\": \"263m\", \"image\": \"acme/svc-163:1.1.0\" },\n  \"service_164\": { \"replicas\": 1, \"cpu\": \"264m\", \"image\": \"acme/svc-164:1.2.0\" },\n  \"service_165\": { \"replicas\": 2, \"cpu\": \"265m\", \"image\": \"acme/svc-165:1.3.0\" },\n  \"service_166\": { \"replicas\": 3, \"cpu\": \"266m\", \"image\": \"acme/svc-166:1.4.0\" },\n  \"service_167\": { \"replicas\": 4, \"cpu\": \"267m\", \"image\": \"acme/svc-167:1.5.0\" },\n  \"service_168\": { \"replicas\": 1, \"cpu\": \"268m\", \"image\": \"acme/svc-168:1.6.0\" },\n  \"service_169\": { \"replicas\": 2, \"cpu\": \"269m\", \"image\": \"acme/svc-169:1.7.0\" },\n}",
+      "keptLines": 69,
+      "totalLines": 173,
+      "originalTokens": 3463,
+      "keptTokens": 1450
+     },
+     "keptText": "[pi-jev-context] Output shortened: 69 of 173 lines kept verbatim. You cannot see the omitted lines; before relying on anything not shown here, call context_recall with id \"t1\".\n{\n  \"service_0\": { \"replicas\": 1, \"cpu\": \"100m\", \"image\": \"acme/svc-0:1.0.0\" },\n  \"service_1\": { \"replicas\": 2, \"cpu\": \"101m\", \"image\": \"acme/svc-1:1.1.0\" },\n  \"service_2\": { \"replicas\": 3, \"cpu\": \"102m\", \"image\": \"acme/svc-2:1.2.0\" },\n  \"service_3\": { \"replicas\": 4, \"cpu\": \"103m\", \"image\": \"acme/svc-3:1.3.0\" },\n  \"service_4\": { \"replicas\": 1, \"cpu\": \"104m\", \"image\": \"acme/svc-4:1.4.0\" },\n  \"service_5\": { \"replicas\": 2, \"cpu\": \"105m\", \"image\": \"acme/svc-5:1.5.0\" },\n  \"service_6\": { \"replicas\": 3, \"cpu\": \"106m\", \"image\": \"acme/svc-6:1.6.0\" },\n  \"service_7\": { \"replicas\": 4, \"cpu\": \"107m\", \"image\": \"acme/svc-7:1.7.0\" },\n  \"service_8\": { \"replicas\": 1, \"cpu\": \"108m\", \"image\": \"acme/svc-8:1.8.0\" },\n  \"service_9\": { \"replicas\": 2, \"cpu\": \"109m\", \"image\": \"acme/svc-9:1.0.0\" },\n  \"service_10\": { \"replicas\": 3, \"cpu\": \"110m\", \"image\": \"acme/svc-10:1.1.0\" },\n  \"service_11\": { \"replicas\": 4, \"cpu\": \"111m\", \"image\": \"acme/svc-11:1.2.0\" },\n  \"service_12\": { \"replicas\": 1, \"cpu\": \"112m\", \"image\": \"acme/svc-12:1.3.0\" },\n  \"service_13\": { \"replicas\": 2, \"cpu\": \"113m\", \"image\": \"acme/svc-13:1.4.0\" },\n  \"service_14\": { \"replicas\": 3, \"cpu\": \"114m\", \"image\": \"acme/svc-14:1.5.0\" },\n  \"service_15\": { \"replicas\": 4, \"cpu\": \"115m\", \"image\": \"acme/svc-15:1.6.0\" },\n  \"service_16\": { \"replicas\": 1, \"cpu\": \"116m\", \"image\": \"acme/svc-16:1.7.0\" },\n  \"service_17\": { \"replicas\": 2, \"cpu\": \"117m\", \"image\": \"acme/svc-17:1.8.0\" },\n  \"service_18\": { \"replicas\": 3, \"cpu\": \"118m\", \"image\": \"acme/svc-18:1.0.0\" },\n… [17 lines omitted] …\n  \"service_36\": { \"replicas\": 1, \"cpu\": \"136m\", \"image\": \"acme/svc-36:1.0.0\" },\n… [17 lines omitted] …\n  \"service_54\": { \"replicas\": 3, \"cpu\": \"154m\", \"image\": \"acme/svc-54:1.0.0\" },\n… [17 lines omitted] …\n  \"service_72\": { \"replicas\": 1, \"cpu\": \"172m\", \"image\": \"acme/svc-72:1.0.0\" },\n… [17 lines omitted] …\n  \"service_90\": { \"replicas\": 3, \"cpu\": \"190m\", \"image\": \"acme/svc-90:1.0.0\" },\n  \"service_91\": { \"replicas\": 4, \"cpu\": \"191m\", \"image\": \"acme/svc-91:1.1.0\" },\n  \"service_92\": { \"replicas\": 1, \"cpu\": \"192m\", \"image\": \"acme/svc-92:1.2.0\" },\n  \"service_93\": { \"replicas\": 2, \"cpu\": \"193m\", \"image\": \"acme/svc-93:1.3.0\" },\n  \"service_94\": { \"replicas\": 3, \"cpu\": \"194m\", \"image\": \"acme/svc-94:1.4.0\" },\n  \"service_95\": { \"replicas\": 4, \"cpu\": \"195m\", \"image\": \"acme/svc-95:1.5.0\" },\n  \"service_96\": { \"replicas\": 1, \"cpu\": \"196m\", \"image\": \"acme/svc-96:1.6.0\" },\n  \"service_97\": { \"replicas\": 2, \"cpu\": \"197m\", \"image\": \"acme/svc-97:1.7.0\" },\n  \"service_98\": { \"replicas\": 3, \"cpu\": \"198m\", \"image\": \"acme/svc-98:1.8.0\" },\n  \"service_99\": { \"replicas\": 4, \"cpu\": \"199m\", \"image\": \"acme/svc-99:1.0.0\" },\n  \"service_100\": { \"replicas\": 1, \"cpu\": \"200m\", \"image\": \"acme/svc-100:1.1.0\" },\n  \"service_101\": { \"replicas\": 2, \"cpu\": \"201m\", \"image\": \"acme/svc-101:1.2.0\" },\n  \"service_102\": { \"replicas\": 3, \"cpu\": \"202m\", \"image\": \"acme/svc-102:1.3.0\" },\n  \"service_103\": { \"replicas\": 4, \"cpu\": \"203m\", \"image\": \"acme/svc-103:1.4.0\" },\n  \"service_104\": { \"replicas\": 1, \"cpu\": \"204m\", \"image\": \"acme/svc-104:1.5.0\" },\n  \"service_105\": { \"replicas\": 2, \"cpu\": \"205m\", \"image\": \"acme/svc-105:1.6.0\" },\n  \"service_106\": { \"replicas\": 3, \"cpu\": \"206m\", \"image\": \"acme/svc-106:1.7.0\" },\n  \"service_107\": { \"replicas\": 4, \"cpu\": \"207m\", \"image\": \"acme/svc-107:1.8.0\" },\n  \"service_108\": { \"replicas\": 1, \"cpu\": \"208m\", \"image\": \"acme/svc-108:1.0.0\" },\n  \"service_109\": { \"replicas\": 2, \"cpu\": \"209m\", \"image\": \"acme/svc-109:1.1.0\" },\n  \"service_110\": { \"replicas\": 3, \"cpu\": \"210m\", \"image\": \"acme/svc-110:1.2.0\" },\n  \"service_111\": { \"replicas\": 4, \"cpu\": \"211m\", \"image\": \"acme/svc-111:1.3.0\" },\n  \"service_112\": { \"replicas\": 1, \"cpu\": \"212m\", \"image\": \"acme/svc-112:1.4.0\" },\n  \"service_113\": { \"replicas\": 2, \"cpu\": \"213m\", \"image\": \"acme/svc-113:1.5.0\" },\n  \"service_114\": { \"replicas\": 3, \"cpu\": \"214m\", \"image\": \"acme/svc-114:1.6.0\" },\n  \"service_115\": { \"replicas\": 4, \"cpu\": \"215m\", \"image\": \"acme/svc-115:1.7.0\" },\n  \"service_116\": { \"replicas\": 1, \"cpu\": \"216m\", \"image\": \"acme/svc-116:1.8.0\" },\n  \"service_117\": { \"replicas\": 2, \"cpu\": \"217m\", \"image\": \"acme/svc-117:1.0.0\" },\n  \"service_118\": { \"replicas\": 3, \"cpu\": \"218m\", \"image\": \"acme/svc-118:1.1.0\" },\n  \"service_119\": { \"replicas\": 4, \"cpu\": \"219m\", \"image\": \"acme/svc-119:1.2.0\" },\n  \"checkout\": { \"replicas\": 0, \"cpu\": \"250m\", \"image\": \"acme/checkout:2.4.1\", \"note\": \"scaled to zero by autoscaler at 03:12\" },\n  \"service_120\": { \"replicas\": 1, \"cpu\": \"220m\", \"image\": \"acme/svc-120:1.3.0\" },\n  \"service_121\": { \"replicas\": 2, \"cpu\": \"221m\", \"image\": \"acme/svc-121:1.4.0\" },\n  \"service_122\": { \"replicas\": 3, \"cpu\": \"222m\", \"image\": \"acme/svc-122:1.5.0\" },\n  \"service_123\": { \"replicas\": 4, \"cpu\": \"223m\", \"image\": \"acme/svc-123:1.6.0\" },\n  \"service_124\": { \"replicas\": 1, \"cpu\": \"224m\", \"image\": \"acme/svc-124:1.7.0\" },\n… [17 lines omitted] …\n  \"service_142\": { \"replicas\": 3, \"cpu\": \"242m\", \"image\": \"acme/svc-142:1.7.0\" },\n… [17 lines omitted] …\n  \"service_160\": { \"replicas\": 1, \"cpu\": \"260m\", \"image\": \"acme/svc-160:1.7.0\" },\n… [2 lines omitted] …\n  \"service_163\": { \"replicas\": 4, \"cpu\": \"263m\", \"image\": \"acme/svc-163:1.1.0\" },\n  \"service_164\": { \"replicas\": 1, \"cpu\": \"264m\", \"image\": \"acme/svc-164:1.2.0\" },\n  \"service_165\": { \"replicas\": 2, \"cpu\": \"265m\", \"image\": \"acme/svc-165:1.3.0\" },\n  \"service_166\": { \"replicas\": 3, \"cpu\": \"266m\", \"image\": \"acme/svc-166:1.4.0\" },\n  \"service_167\": { \"replicas\": 4, \"cpu\": \"267m\", \"image\": \"acme/svc-167:1.5.0\" },\n  \"service_168\": { \"replicas\": 1, \"cpu\": \"268m\", \"image\": \"acme/svc-168:1.6.0\" },\n  \"service_169\": { \"replicas\": 2, \"cpu\": \"269m\", \"image\": \"acme/svc-169:1.7.0\" },\n}",
+     "decision": {
+      "trim": true,
+      "reason": "specific_parts hidden 7/10",
+      "selected": []
+     }
+    },
+    {
+     "mode": "blocks",
+     "call": {
+      "answers": {
+       "need": {
+        "type": "choice",
+        "choice": "specific_parts",
+        "probabilities": {
+         "unclear": 0,
+         "every_line": 0,
+         "specific_parts": 1,
+         "outcome_only": 0
+        },
+        "confidence": 1
+       },
+       "user_asked": {
+        "type": "noul",
+        "noul": 0.03
+       },
+       "b1": {
+        "type": "noul",
+        "noul": 0.11
+       },
+       "b2": {
+        "type": "noul",
+        "noul": 0.08
+       },
+       "b3": {
+        "type": "noul",
+        "noul": 0.07
+       },
+       "b4": {
+        "type": "noul",
+        "noul": 0.08
+       },
+       "b5": {
+        "type": "noul",
+        "noul": 0.07
+       },
+       "b6": {
+        "type": "noul",
+        "noul": 0.11
+       },
+       "b7": {
+        "type": "noul",
+        "noul": 0.96
+       },
+       "b8": {
+        "type": "noul",
+        "noul": 0.09
+       },
+       "b9": {
+        "type": "noul",
+        "noul": 0.07
+       },
+       "b10": {
+        "type": "noul",
+        "noul": 0.07
+       }
+      },
+      "ms": 410,
+      "model": "typesafe/jev-1.13-20260917",
+      "inputTokens": 9457,
+      "cost": 0.000397194
+     },
+     "trimmed": {
+      "text": "[pi-jev-context] Output shortened: 69 of 173 lines kept verbatim. You cannot see the omitted lines; before relying on anything not shown here, call context_recall with id \"t1\".\n{\n  \"service_0\": { \"replicas\": 1, \"cpu\": \"100m\", \"image\": \"acme/svc-0:1.0.0\" },\n  \"service_1\": { \"replicas\": 2, \"cpu\": \"101m\", \"image\": \"acme/svc-1:1.1.0\" },\n  \"service_2\": { \"replicas\": 3, \"cpu\": \"102m\", \"image\": \"acme/svc-2:1.2.0\" },\n  \"service_3\": { \"replicas\": 4, \"cpu\": \"103m\", \"image\": \"acme/svc-3:1.3.0\" },\n  \"service_4\": { \"replicas\": 1, \"cpu\": \"104m\", \"image\": \"acme/svc-4:1.4.0\" },\n  \"service_5\": { \"replicas\": 2, \"cpu\": \"105m\", \"image\": \"acme/svc-5:1.5.0\" },\n  \"service_6\": { \"replicas\": 3, \"cpu\": \"106m\", \"image\": \"acme/svc-6:1.6.0\" },\n  \"service_7\": { \"replicas\": 4, \"cpu\": \"107m\", \"image\": \"acme/svc-7:1.7.0\" },\n  \"service_8\": { \"replicas\": 1, \"cpu\": \"108m\", \"image\": \"acme/svc-8:1.8.0\" },\n  \"service_9\": { \"replicas\": 2, \"cpu\": \"109m\", \"image\": \"acme/svc-9:1.0.0\" },\n  \"service_10\": { \"replicas\": 3, \"cpu\": \"110m\", \"image\": \"acme/svc-10:1.1.0\" },\n  \"service_11\": { \"replicas\": 4, \"cpu\": \"111m\", \"image\": \"acme/svc-11:1.2.0\" },\n  \"service_12\": { \"replicas\": 1, \"cpu\": \"112m\", \"image\": \"acme/svc-12:1.3.0\" },\n  \"service_13\": { \"replicas\": 2, \"cpu\": \"113m\", \"image\": \"acme/svc-13:1.4.0\" },\n  \"service_14\": { \"replicas\": 3, \"cpu\": \"114m\", \"image\": \"acme/svc-14:1.5.0\" },\n  \"service_15\": { \"replicas\": 4, \"cpu\": \"115m\", \"image\": \"acme/svc-15:1.6.0\" },\n  \"service_16\": { \"replicas\": 1, \"cpu\": \"116m\", \"image\": \"acme/svc-16:1.7.0\" },\n  \"service_17\": { \"replicas\": 2, \"cpu\": \"117m\", \"image\": \"acme/svc-17:1.8.0\" },\n  \"service_18\": { \"replicas\": 3, \"cpu\": \"118m\", \"image\": \"acme/svc-18:1.0.0\" },\n… [17 lines omitted] …\n  \"service_36\": { \"replicas\": 1, \"cpu\": \"136m\", \"image\": \"acme/svc-36:1.0.0\" },\n… [17 lines omitted] …\n  \"service_54\": { \"replicas\": 3, \"cpu\": \"154m\", \"image\": \"acme/svc-54:1.0.0\" },\n… [17 lines omitted] …\n  \"service_72\": { \"replicas\": 1, \"cpu\": \"172m\", \"image\": \"acme/svc-72:1.0.0\" },\n… [17 lines omitted] …\n  \"service_90\": { \"replicas\": 3, \"cpu\": \"190m\", \"image\": \"acme/svc-90:1.0.0\" },\n  \"service_91\": { \"replicas\": 4, \"cpu\": \"191m\", \"image\": \"acme/svc-91:1.1.0\" },\n  \"service_92\": { \"replicas\": 1, \"cpu\": \"192m\", \"image\": \"acme/svc-92:1.2.0\" },\n  \"service_93\": { \"replicas\": 2, \"cpu\": \"193m\", \"image\": \"acme/svc-93:1.3.0\" },\n  \"service_94\": { \"replicas\": 3, \"cpu\": \"194m\", \"image\": \"acme/svc-94:1.4.0\" },\n  \"service_95\": { \"replicas\": 4, \"cpu\": \"195m\", \"image\": \"acme/svc-95:1.5.0\" },\n  \"service_96\": { \"replicas\": 1, \"cpu\": \"196m\", \"image\": \"acme/svc-96:1.6.0\" },\n  \"service_97\": { \"replicas\": 2, \"cpu\": \"197m\", \"image\": \"acme/svc-97:1.7.0\" },\n  \"service_98\": { \"replicas\": 3, \"cpu\": \"198m\", \"image\": \"acme/svc-98:1.8.0\" },\n  \"service_99\": { \"replicas\": 4, \"cpu\": \"199m\", \"image\": \"acme/svc-99:1.0.0\" },\n  \"service_100\": { \"replicas\": 1, \"cpu\": \"200m\", \"image\": \"acme/svc-100:1.1.0\" },\n  \"service_101\": { \"replicas\": 2, \"cpu\": \"201m\", \"image\": \"acme/svc-101:1.2.0\" },\n  \"service_102\": { \"replicas\": 3, \"cpu\": \"202m\", \"image\": \"acme/svc-102:1.3.0\" },\n  \"service_103\": { \"replicas\": 4, \"cpu\": \"203m\", \"image\": \"acme/svc-103:1.4.0\" },\n  \"service_104\": { \"replicas\": 1, \"cpu\": \"204m\", \"image\": \"acme/svc-104:1.5.0\" },\n  \"service_105\": { \"replicas\": 2, \"cpu\": \"205m\", \"image\": \"acme/svc-105:1.6.0\" },\n  \"service_106\": { \"replicas\": 3, \"cpu\": \"206m\", \"image\": \"acme/svc-106:1.7.0\" },\n  \"service_107\": { \"replicas\": 4, \"cpu\": \"207m\", \"image\": \"acme/svc-107:1.8.0\" },\n  \"service_108\": { \"replicas\": 1, \"cpu\": \"208m\", \"image\": \"acme/svc-108:1.0.0\" },\n  \"service_109\": { \"replicas\": 2, \"cpu\": \"209m\", \"image\": \"acme/svc-109:1.1.0\" },\n  \"service_110\": { \"replicas\": 3, \"cpu\": \"210m\", \"image\": \"acme/svc-110:1.2.0\" },\n  \"service_111\": { \"replicas\": 4, \"cpu\": \"211m\", \"image\": \"acme/svc-111:1.3.0\" },\n  \"service_112\": { \"replicas\": 1, \"cpu\": \"212m\", \"image\": \"acme/svc-112:1.4.0\" },\n  \"service_113\": { \"replicas\": 2, \"cpu\": \"213m\", \"image\": \"acme/svc-113:1.5.0\" },\n  \"service_114\": { \"replicas\": 3, \"cpu\": \"214m\", \"image\": \"acme/svc-114:1.6.0\" },\n  \"service_115\": { \"replicas\": 4, \"cpu\": \"215m\", \"image\": \"acme/svc-115:1.7.0\" },\n  \"service_116\": { \"replicas\": 1, \"cpu\": \"216m\", \"image\": \"acme/svc-116:1.8.0\" },\n  \"service_117\": { \"replicas\": 2, \"cpu\": \"217m\", \"image\": \"acme/svc-117:1.0.0\" },\n  \"service_118\": { \"replicas\": 3, \"cpu\": \"218m\", \"image\": \"acme/svc-118:1.1.0\" },\n  \"service_119\": { \"replicas\": 4, \"cpu\": \"219m\", \"image\": \"acme/svc-119:1.2.0\" },\n  \"checkout\": { \"replicas\": 0, \"cpu\": \"250m\", \"image\": \"acme/checkout:2.4.1\", \"note\": \"scaled to zero by autoscaler at 03:12\" },\n  \"service_120\": { \"replicas\": 1, \"cpu\": \"220m\", \"image\": \"acme/svc-120:1.3.0\" },\n  \"service_121\": { \"replicas\": 2, \"cpu\": \"221m\", \"image\": \"acme/svc-121:1.4.0\" },\n  \"service_122\": { \"replicas\": 3, \"cpu\": \"222m\", \"image\": \"acme/svc-122:1.5.0\" },\n  \"service_123\": { \"replicas\": 4, \"cpu\": \"223m\", \"image\": \"acme/svc-123:1.6.0\" },\n  \"service_124\": { \"replicas\": 1, \"cpu\": \"224m\", \"image\": \"acme/svc-124:1.7.0\" },\n… [17 lines omitted] …\n  \"service_142\": { \"replicas\": 3, \"cpu\": \"242m\", \"image\": \"acme/svc-142:1.7.0\" },\n… [17 lines omitted] …\n  \"service_160\": { \"replicas\": 1, \"cpu\": \"260m\", \"image\": \"acme/svc-160:1.7.0\" },\n… [2 lines omitted] …\n  \"service_163\": { \"replicas\": 4, \"cpu\": \"263m\", \"image\": \"acme/svc-163:1.1.0\" },\n  \"service_164\": { \"replicas\": 1, \"cpu\": \"264m\", \"image\": \"acme/svc-164:1.2.0\" },\n  \"service_165\": { \"replicas\": 2, \"cpu\": \"265m\", \"image\": \"acme/svc-165:1.3.0\" },\n  \"service_166\": { \"replicas\": 3, \"cpu\": \"266m\", \"image\": \"acme/svc-166:1.4.0\" },\n  \"service_167\": { \"replicas\": 4, \"cpu\": \"267m\", \"image\": \"acme/svc-167:1.5.0\" },\n  \"service_168\": { \"replicas\": 1, \"cpu\": \"268m\", \"image\": \"acme/svc-168:1.6.0\" },\n  \"service_169\": { \"replicas\": 2, \"cpu\": \"269m\", \"image\": \"acme/svc-169:1.7.0\" },\n}",
+      "keptLines": 69,
+      "totalLines": 173,
+      "originalTokens": 3463,
+      "keptTokens": 1450
+     },
+     "keptText": "[pi-jev-context] Output shortened: 69 of 173 lines kept verbatim. You cannot see the omitted lines; before relying on anything not shown here, call context_recall with id \"t1\".\n{\n  \"service_0\": { \"replicas\": 1, \"cpu\": \"100m\", \"image\": \"acme/svc-0:1.0.0\" },\n  \"service_1\": { \"replicas\": 2, \"cpu\": \"101m\", \"image\": \"acme/svc-1:1.1.0\" },\n  \"service_2\": { \"replicas\": 3, \"cpu\": \"102m\", \"image\": \"acme/svc-2:1.2.0\" },\n  \"service_3\": { \"replicas\": 4, \"cpu\": \"103m\", \"image\": \"acme/svc-3:1.3.0\" },\n  \"service_4\": { \"replicas\": 1, \"cpu\": \"104m\", \"image\": \"acme/svc-4:1.4.0\" },\n  \"service_5\": { \"replicas\": 2, \"cpu\": \"105m\", \"image\": \"acme/svc-5:1.5.0\" },\n  \"service_6\": { \"replicas\": 3, \"cpu\": \"106m\", \"image\": \"acme/svc-6:1.6.0\" },\n  \"service_7\": { \"replicas\": 4, \"cpu\": \"107m\", \"image\": \"acme/svc-7:1.7.0\" },\n  \"service_8\": { \"replicas\": 1, \"cpu\": \"108m\", \"image\": \"acme/svc-8:1.8.0\" },\n  \"service_9\": { \"replicas\": 2, \"cpu\": \"109m\", \"image\": \"acme/svc-9:1.0.0\" },\n  \"service_10\": { \"replicas\": 3, \"cpu\": \"110m\", \"image\": \"acme/svc-10:1.1.0\" },\n  \"service_11\": { \"replicas\": 4, \"cpu\": \"111m\", \"image\": \"acme/svc-11:1.2.0\" },\n  \"service_12\": { \"replicas\": 1, \"cpu\": \"112m\", \"image\": \"acme/svc-12:1.3.0\" },\n  \"service_13\": { \"replicas\": 2, \"cpu\": \"113m\", \"image\": \"acme/svc-13:1.4.0\" },\n  \"service_14\": { \"replicas\": 3, \"cpu\": \"114m\", \"image\": \"acme/svc-14:1.5.0\" },\n  \"service_15\": { \"replicas\": 4, \"cpu\": \"115m\", \"image\": \"acme/svc-15:1.6.0\" },\n  \"service_16\": { \"replicas\": 1, \"cpu\": \"116m\", \"image\": \"acme/svc-16:1.7.0\" },\n  \"service_17\": { \"replicas\": 2, \"cpu\": \"117m\", \"image\": \"acme/svc-17:1.8.0\" },\n  \"service_18\": { \"replicas\": 3, \"cpu\": \"118m\", \"image\": \"acme/svc-18:1.0.0\" },\n… [17 lines omitted] …\n  \"service_36\": { \"replicas\": 1, \"cpu\": \"136m\", \"image\": \"acme/svc-36:1.0.0\" },\n… [17 lines omitted] …\n  \"service_54\": { \"replicas\": 3, \"cpu\": \"154m\", \"image\": \"acme/svc-54:1.0.0\" },\n… [17 lines omitted] …\n  \"service_72\": { \"replicas\": 1, \"cpu\": \"172m\", \"image\": \"acme/svc-72:1.0.0\" },\n… [17 lines omitted] …\n  \"service_90\": { \"replicas\": 3, \"cpu\": \"190m\", \"image\": \"acme/svc-90:1.0.0\" },\n  \"service_91\": { \"replicas\": 4, \"cpu\": \"191m\", \"image\": \"acme/svc-91:1.1.0\" },\n  \"service_92\": { \"replicas\": 1, \"cpu\": \"192m\", \"image\": \"acme/svc-92:1.2.0\" },\n  \"service_93\": { \"replicas\": 2, \"cpu\": \"193m\", \"image\": \"acme/svc-93:1.3.0\" },\n  \"service_94\": { \"replicas\": 3, \"cpu\": \"194m\", \"image\": \"acme/svc-94:1.4.0\" },\n  \"service_95\": { \"replicas\": 4, \"cpu\": \"195m\", \"image\": \"acme/svc-95:1.5.0\" },\n  \"service_96\": { \"replicas\": 1, \"cpu\": \"196m\", \"image\": \"acme/svc-96:1.6.0\" },\n  \"service_97\": { \"replicas\": 2, \"cpu\": \"197m\", \"image\": \"acme/svc-97:1.7.0\" },\n  \"service_98\": { \"replicas\": 3, \"cpu\": \"198m\", \"image\": \"acme/svc-98:1.8.0\" },\n  \"service_99\": { \"replicas\": 4, \"cpu\": \"199m\", \"image\": \"acme/svc-99:1.0.0\" },\n  \"service_100\": { \"replicas\": 1, \"cpu\": \"200m\", \"image\": \"acme/svc-100:1.1.0\" },\n  \"service_101\": { \"replicas\": 2, \"cpu\": \"201m\", \"image\": \"acme/svc-101:1.2.0\" },\n  \"service_102\": { \"replicas\": 3, \"cpu\": \"202m\", \"image\": \"acme/svc-102:1.3.0\" },\n  \"service_103\": { \"replicas\": 4, \"cpu\": \"203m\", \"image\": \"acme/svc-103:1.4.0\" },\n  \"service_104\": { \"replicas\": 1, \"cpu\": \"204m\", \"image\": \"acme/svc-104:1.5.0\" },\n  \"service_105\": { \"replicas\": 2, \"cpu\": \"205m\", \"image\": \"acme/svc-105:1.6.0\" },\n  \"service_106\": { \"replicas\": 3, \"cpu\": \"206m\", \"image\": \"acme/svc-106:1.7.0\" },\n  \"service_107\": { \"replicas\": 4, \"cpu\": \"207m\", \"image\": \"acme/svc-107:1.8.0\" },\n  \"service_108\": { \"replicas\": 1, \"cpu\": \"208m\", \"image\": \"acme/svc-108:1.0.0\" },\n  \"service_109\": { \"replicas\": 2, \"cpu\": \"209m\", \"image\": \"acme/svc-109:1.1.0\" },\n  \"service_110\": { \"replicas\": 3, \"cpu\": \"210m\", \"image\": \"acme/svc-110:1.2.0\" },\n  \"service_111\": { \"replicas\": 4, \"cpu\": \"211m\", \"image\": \"acme/svc-111:1.3.0\" },\n  \"service_112\": { \"replicas\": 1, \"cpu\": \"212m\", \"image\": \"acme/svc-112:1.4.0\" },\n  \"service_113\": { \"replicas\": 2, \"cpu\": \"213m\", \"image\": \"acme/svc-113:1.5.0\" },\n  \"service_114\": { \"replicas\": 3, \"cpu\": \"214m\", \"image\": \"acme/svc-114:1.6.0\" },\n  \"service_115\": { \"replicas\": 4, \"cpu\": \"215m\", \"image\": \"acme/svc-115:1.7.0\" },\n  \"service_116\": { \"replicas\": 1, \"cpu\": \"216m\", \"image\": \"acme/svc-116:1.8.0\" },\n  \"service_117\": { \"replicas\": 2, \"cpu\": \"217m\", \"image\": \"acme/svc-117:1.0.0\" },\n  \"service_118\": { \"replicas\": 3, \"cpu\": \"218m\", \"image\": \"acme/svc-118:1.1.0\" },\n  \"service_119\": { \"replicas\": 4, \"cpu\": \"219m\", \"image\": \"acme/svc-119:1.2.0\" },\n  \"checkout\": { \"replicas\": 0, \"cpu\": \"250m\", \"image\": \"acme/checkout:2.4.1\", \"note\": \"scaled to zero by autoscaler at 03:12\" },\n  \"service_120\": { \"replicas\": 1, \"cpu\": \"220m\", \"image\": \"acme/svc-120:1.3.0\" },\n  \"service_121\": { \"replicas\": 2, \"cpu\": \"221m\", \"image\": \"acme/svc-121:1.4.0\" },\n  \"service_122\": { \"replicas\": 3, \"cpu\": \"222m\", \"image\": \"acme/svc-122:1.5.0\" },\n  \"service_123\": { \"replicas\": 4, \"cpu\": \"223m\", \"image\": \"acme/svc-123:1.6.0\" },\n  \"service_124\": { \"replicas\": 1, \"cpu\": \"224m\", \"image\": \"acme/svc-124:1.7.0\" },\n… [17 lines omitted] …\n  \"service_142\": { \"replicas\": 3, \"cpu\": \"242m\", \"image\": \"acme/svc-142:1.7.0\" },\n… [17 lines omitted] …\n  \"service_160\": { \"replicas\": 1, \"cpu\": \"260m\", \"image\": \"acme/svc-160:1.7.0\" },\n… [2 lines omitted] …\n  \"service_163\": { \"replicas\": 4, \"cpu\": \"263m\", \"image\": \"acme/svc-163:1.1.0\" },\n  \"service_164\": { \"replicas\": 1, \"cpu\": \"264m\", \"image\": \"acme/svc-164:1.2.0\" },\n  \"service_165\": { \"replicas\": 2, \"cpu\": \"265m\", \"image\": \"acme/svc-165:1.3.0\" },\n  \"service_166\": { \"replicas\": 3, \"cpu\": \"266m\", \"image\": \"acme/svc-166:1.4.0\" },\n  \"service_167\": { \"replicas\": 4, \"cpu\": \"267m\", \"image\": \"acme/svc-167:1.5.0\" },\n  \"service_168\": { \"replicas\": 1, \"cpu\": \"268m\", \"image\": \"acme/svc-168:1.6.0\" },\n  \"service_169\": { \"replicas\": 2, \"cpu\": \"269m\", \"image\": \"acme/svc-169:1.7.0\" },\n}",
+     "decision": {
+      "trim": true,
+      "reason": "specific_parts hidden 7/10",
+      "selected": []
+     }
+    },
+    {
+     "mode": "blocks",
+     "call": {
+      "answers": {
+       "need": {
+        "type": "choice",
+        "choice": "specific_parts",
+        "probabilities": {
+         "unclear": 0,
+         "outcome_only": 0,
+         "specific_parts": 1,
+         "every_line": 0
+        },
+        "confidence": 1
+       },
+       "user_asked": {
+        "type": "noul",
+        "noul": 0.03
+       },
+       "b1": {
+        "type": "noul",
+        "noul": 0.1
+       },
+       "b2": {
+        "type": "noul",
+        "noul": 0.08
+       },
+       "b3": {
+        "type": "noul",
+        "noul": 0.07
+       },
+       "b4": {
+        "type": "noul",
+        "noul": 0.07
+       },
+       "b5": {
+        "type": "noul",
+        "noul": 0.07
+       },
+       "b6": {
+        "type": "noul",
+        "noul": 0.1
+       },
+       "b7": {
+        "type": "noul",
+        "noul": 0.96
+       },
+       "b8": {
+        "type": "noul",
+        "noul": 0.09
+       },
+       "b9": {
+        "type": "noul",
+        "noul": 0.07
+       },
+       "b10": {
+        "type": "noul",
+        "noul": 0.07
+       }
+      },
+      "ms": 437,
+      "model": "typesafe/jev-1.13-20260917",
+      "inputTokens": 9457,
+      "cost": 0.000397194
+     },
+     "trimmed": {
+      "text": "[pi-jev-context] Output shortened: 69 of 173 lines kept verbatim. You cannot see the omitted lines; before relying on anything not shown here, call context_recall with id \"t1\".\n{\n  \"service_0\": { \"replicas\": 1, \"cpu\": \"100m\", \"image\": \"acme/svc-0:1.0.0\" },\n  \"service_1\": { \"replicas\": 2, \"cpu\": \"101m\", \"image\": \"acme/svc-1:1.1.0\" },\n  \"service_2\": { \"replicas\": 3, \"cpu\": \"102m\", \"image\": \"acme/svc-2:1.2.0\" },\n  \"service_3\": { \"replicas\": 4, \"cpu\": \"103m\", \"image\": \"acme/svc-3:1.3.0\" },\n  \"service_4\": { \"replicas\": 1, \"cpu\": \"104m\", \"image\": \"acme/svc-4:1.4.0\" },\n  \"service_5\": { \"replicas\": 2, \"cpu\": \"105m\", \"image\": \"acme/svc-5:1.5.0\" },\n  \"service_6\": { \"replicas\": 3, \"cpu\": \"106m\", \"image\": \"acme/svc-6:1.6.0\" },\n  \"service_7\": { \"replicas\": 4, \"cpu\": \"107m\", \"image\": \"acme/svc-7:1.7.0\" },\n  \"service_8\": { \"replicas\": 1, \"cpu\": \"108m\", \"image\": \"acme/svc-8:1.8.0\" },\n  \"service_9\": { \"replicas\": 2, \"cpu\": \"109m\", \"image\": \"acme/svc-9:1.0.0\" },\n  \"service_10\": { \"replicas\": 3, \"cpu\": \"110m\", \"image\": \"acme/svc-10:1.1.0\" },\n  \"service_11\": { \"replicas\": 4, \"cpu\": \"111m\", \"image\": \"acme/svc-11:1.2.0\" },\n  \"service_12\": { \"replicas\": 1, \"cpu\": \"112m\", \"image\": \"acme/svc-12:1.3.0\" },\n  \"service_13\": { \"replicas\": 2, \"cpu\": \"113m\", \"image\": \"acme/svc-13:1.4.0\" },\n  \"service_14\": { \"replicas\": 3, \"cpu\": \"114m\", \"image\": \"acme/svc-14:1.5.0\" },\n  \"service_15\": { \"replicas\": 4, \"cpu\": \"115m\", \"image\": \"acme/svc-15:1.6.0\" },\n  \"service_16\": { \"replicas\": 1, \"cpu\": \"116m\", \"image\": \"acme/svc-16:1.7.0\" },\n  \"service_17\": { \"replicas\": 2, \"cpu\": \"117m\", \"image\": \"acme/svc-17:1.8.0\" },\n  \"service_18\": { \"replicas\": 3, \"cpu\": \"118m\", \"image\": \"acme/svc-18:1.0.0\" },\n… [17 lines omitted] …\n  \"service_36\": { \"replicas\": 1, \"cpu\": \"136m\", \"image\": \"acme/svc-36:1.0.0\" },\n… [17 lines omitted] …\n  \"service_54\": { \"replicas\": 3, \"cpu\": \"154m\", \"image\": \"acme/svc-54:1.0.0\" },\n… [17 lines omitted] …\n  \"service_72\": { \"replicas\": 1, \"cpu\": \"172m\", \"image\": \"acme/svc-72:1.0.0\" },\n… [17 lines omitted] …\n  \"service_90\": { \"replicas\": 3, \"cpu\": \"190m\", \"image\": \"acme/svc-90:1.0.0\" },\n  \"service_91\": { \"replicas\": 4, \"cpu\": \"191m\", \"image\": \"acme/svc-91:1.1.0\" },\n  \"service_92\": { \"replicas\": 1, \"cpu\": \"192m\", \"image\": \"acme/svc-92:1.2.0\" },\n  \"service_93\": { \"replicas\": 2, \"cpu\": \"193m\", \"image\": \"acme/svc-93:1.3.0\" },\n  \"service_94\": { \"replicas\": 3, \"cpu\": \"194m\", \"image\": \"acme/svc-94:1.4.0\" },\n  \"service_95\": { \"replicas\": 4, \"cpu\": \"195m\", \"image\": \"acme/svc-95:1.5.0\" },\n  \"service_96\": { \"replicas\": 1, \"cpu\": \"196m\", \"image\": \"acme/svc-96:1.6.0\" },\n  \"service_97\": { \"replicas\": 2, \"cpu\": \"197m\", \"image\": \"acme/svc-97:1.7.0\" },\n  \"service_98\": { \"replicas\": 3, \"cpu\": \"198m\", \"image\": \"acme/svc-98:1.8.0\" },\n  \"service_99\": { \"replicas\": 4, \"cpu\": \"199m\", \"image\": \"acme/svc-99:1.0.0\" },\n  \"service_100\": { \"replicas\": 1, \"cpu\": \"200m\", \"image\": \"acme/svc-100:1.1.0\" },\n  \"service_101\": { \"replicas\": 2, \"cpu\": \"201m\", \"image\": \"acme/svc-101:1.2.0\" },\n  \"service_102\": { \"replicas\": 3, \"cpu\": \"202m\", \"image\": \"acme/svc-102:1.3.0\" },\n  \"service_103\": { \"replicas\": 4, \"cpu\": \"203m\", \"image\": \"acme/svc-103:1.4.0\" },\n  \"service_104\": { \"replicas\": 1, \"cpu\": \"204m\", \"image\": \"acme/svc-104:1.5.0\" },\n  \"service_105\": { \"replicas\": 2, \"cpu\": \"205m\", \"image\": \"acme/svc-105:1.6.0\" },\n  \"service_106\": { \"replicas\": 3, \"cpu\": \"206m\", \"image\": \"acme/svc-106:1.7.0\" },\n  \"service_107\": { \"replicas\": 4, \"cpu\": \"207m\", \"image\": \"acme/svc-107:1.8.0\" },\n  \"service_108\": { \"replicas\": 1, \"cpu\": \"208m\", \"image\": \"acme/svc-108:1.0.0\" },\n  \"service_109\": { \"replicas\": 2, \"cpu\": \"209m\", \"image\": \"acme/svc-109:1.1.0\" },\n  \"service_110\": { \"replicas\": 3, \"cpu\": \"210m\", \"image\": \"acme/svc-110:1.2.0\" },\n  \"service_111\": { \"replicas\": 4, \"cpu\": \"211m\", \"image\": \"acme/svc-111:1.3.0\" },\n  \"service_112\": { \"replicas\": 1, \"cpu\": \"212m\", \"image\": \"acme/svc-112:1.4.0\" },\n  \"service_113\": { \"replicas\": 2, \"cpu\": \"213m\", \"image\": \"acme/svc-113:1.5.0\" },\n  \"service_114\": { \"replicas\": 3, \"cpu\": \"214m\", \"image\": \"acme/svc-114:1.6.0\" },\n  \"service_115\": { \"replicas\": 4, \"cpu\": \"215m\", \"image\": \"acme/svc-115:1.7.0\" },\n  \"service_116\": { \"replicas\": 1, \"cpu\": \"216m\", \"image\": \"acme/svc-116:1.8.0\" },\n  \"service_117\": { \"replicas\": 2, \"cpu\": \"217m\", \"image\": \"acme/svc-117:1.0.0\" },\n  \"service_118\": { \"replicas\": 3, \"cpu\": \"218m\", \"image\": \"acme/svc-118:1.1.0\" },\n  \"service_119\": { \"replicas\": 4, \"cpu\": \"219m\", \"image\": \"acme/svc-119:1.2.0\" },\n  \"checkout\": { \"replicas\": 0, \"cpu\": \"250m\", \"image\": \"acme/checkout:2.4.1\", \"note\": \"scaled to zero by autoscaler at 03:12\" },\n  \"service_120\": { \"replicas\": 1, \"cpu\": \"220m\", \"image\": \"acme/svc-120:1.3.0\" },\n  \"service_121\": { \"replicas\": 2, \"cpu\": \"221m\", \"image\": \"acme/svc-121:1.4.0\" },\n  \"service_122\": { \"replicas\": 3, \"cpu\": \"222m\", \"image\": \"acme/svc-122:1.5.0\" },\n  \"service_123\": { \"replicas\": 4, \"cpu\": \"223m\", \"image\": \"acme/svc-123:1.6.0\" },\n  \"service_124\": { \"replicas\": 1, \"cpu\": \"224m\", \"image\": \"acme/svc-124:1.7.0\" },\n… [17 lines omitted] …\n  \"service_142\": { \"replicas\": 3, \"cpu\": \"242m\", \"image\": \"acme/svc-142:1.7.0\" },\n… [17 lines omitted] …\n  \"service_160\": { \"replicas\": 1, \"cpu\": \"260m\", \"image\": \"acme/svc-160:1.7.0\" },\n… [2 lines omitted] …\n  \"service_163\": { \"replicas\": 4, \"cpu\": \"263m\", \"image\": \"acme/svc-163:1.1.0\" },\n  \"service_164\": { \"replicas\": 1, \"cpu\": \"264m\", \"image\": \"acme/svc-164:1.2.0\" },\n  \"service_165\": { \"replicas\": 2, \"cpu\": \"265m\", \"image\": \"acme/svc-165:1.3.0\" },\n  \"service_166\": { \"replicas\": 3, \"cpu\": \"266m\", \"image\": \"acme/svc-166:1.4.0\" },\n  \"service_167\": { \"replicas\": 4, \"cpu\": \"267m\", \"image\": \"acme/svc-167:1.5.0\" },\n  \"service_168\": { \"replicas\": 1, \"cpu\": \"268m\", \"image\": \"acme/svc-168:1.6.0\" },\n  \"service_169\": { \"replicas\": 2, \"cpu\": \"269m\", \"image\": \"acme/svc-169:1.7.0\" },\n}",
+      "keptLines": 69,
+      "totalLines": 173,
+      "originalTokens": 3463,
+      "keptTokens": 1450
+     },
+     "keptText": "[pi-jev-context] Output shortened: 69 of 173 lines kept verbatim. You cannot see the omitted lines; before relying on anything not shown here, call context_recall with id \"t1\".\n{\n  \"service_0\": { \"replicas\": 1, \"cpu\": \"100m\", \"image\": \"acme/svc-0:1.0.0\" },\n  \"service_1\": { \"replicas\": 2, \"cpu\": \"101m\", \"image\": \"acme/svc-1:1.1.0\" },\n  \"service_2\": { \"replicas\": 3, \"cpu\": \"102m\", \"image\": \"acme/svc-2:1.2.0\" },\n  \"service_3\": { \"replicas\": 4, \"cpu\": \"103m\", \"image\": \"acme/svc-3:1.3.0\" },\n  \"service_4\": { \"replicas\": 1, \"cpu\": \"104m\", \"image\": \"acme/svc-4:1.4.0\" },\n  \"service_5\": { \"replicas\": 2, \"cpu\": \"105m\", \"image\": \"acme/svc-5:1.5.0\" },\n  \"service_6\": { \"replicas\": 3, \"cpu\": \"106m\", \"image\": \"acme/svc-6:1.6.0\" },\n  \"service_7\": { \"replicas\": 4, \"cpu\": \"107m\", \"image\": \"acme/svc-7:1.7.0\" },\n  \"service_8\": { \"replicas\": 1, \"cpu\": \"108m\", \"image\": \"acme/svc-8:1.8.0\" },\n  \"service_9\": { \"replicas\": 2, \"cpu\": \"109m\", \"image\": \"acme/svc-9:1.0.0\" },\n  \"service_10\": { \"replicas\": 3, \"cpu\": \"110m\", \"image\": \"acme/svc-10:1.1.0\" },\n  \"service_11\": { \"replicas\": 4, \"cpu\": \"111m\", \"image\": \"acme/svc-11:1.2.0\" },\n  \"service_12\": { \"replicas\": 1, \"cpu\": \"112m\", \"image\": \"acme/svc-12:1.3.0\" },\n  \"service_13\": { \"replicas\": 2, \"cpu\": \"113m\", \"image\": \"acme/svc-13:1.4.0\" },\n  \"service_14\": { \"replicas\": 3, \"cpu\": \"114m\", \"image\": \"acme/svc-14:1.5.0\" },\n  \"service_15\": { \"replicas\": 4, \"cpu\": \"115m\", \"image\": \"acme/svc-15:1.6.0\" },\n  \"service_16\": { \"replicas\": 1, \"cpu\": \"116m\", \"image\": \"acme/svc-16:1.7.0\" },\n  \"service_17\": { \"replicas\": 2, \"cpu\": \"117m\", \"image\": \"acme/svc-17:1.8.0\" },\n  \"service_18\": { \"replicas\": 3, \"cpu\": \"118m\", \"image\": \"acme/svc-18:1.0.0\" },\n… [17 lines omitted] …\n  \"service_36\": { \"replicas\": 1, \"cpu\": \"136m\", \"image\": \"acme/svc-36:1.0.0\" },\n… [17 lines omitted] …\n  \"service_54\": { \"replicas\": 3, \"cpu\": \"154m\", \"image\": \"acme/svc-54:1.0.0\" },\n… [17 lines omitted] …\n  \"service_72\": { \"replicas\": 1, \"cpu\": \"172m\", \"image\": \"acme/svc-72:1.0.0\" },\n… [17 lines omitted] …\n  \"service_90\": { \"replicas\": 3, \"cpu\": \"190m\", \"image\": \"acme/svc-90:1.0.0\" },\n  \"service_91\": { \"replicas\": 4, \"cpu\": \"191m\", \"image\": \"acme/svc-91:1.1.0\" },\n  \"service_92\": { \"replicas\": 1, \"cpu\": \"192m\", \"image\": \"acme/svc-92:1.2.0\" },\n  \"service_93\": { \"replicas\": 2, \"cpu\": \"193m\", \"image\": \"acme/svc-93:1.3.0\" },\n  \"service_94\": { \"replicas\": 3, \"cpu\": \"194m\", \"image\": \"acme/svc-94:1.4.0\" },\n  \"service_95\": { \"replicas\": 4, \"cpu\": \"195m\", \"image\": \"acme/svc-95:1.5.0\" },\n  \"service_96\": { \"replicas\": 1, \"cpu\": \"196m\", \"image\": \"acme/svc-96:1.6.0\" },\n  \"service_97\": { \"replicas\": 2, \"cpu\": \"197m\", \"image\": \"acme/svc-97:1.7.0\" },\n  \"service_98\": { \"replicas\": 3, \"cpu\": \"198m\", \"image\": \"acme/svc-98:1.8.0\" },\n  \"service_99\": { \"replicas\": 4, \"cpu\": \"199m\", \"image\": \"acme/svc-99:1.0.0\" },\n  \"service_100\": { \"replicas\": 1, \"cpu\": \"200m\", \"image\": \"acme/svc-100:1.1.0\" },\n  \"service_101\": { \"replicas\": 2, \"cpu\": \"201m\", \"image\": \"acme/svc-101:1.2.0\" },\n  \"service_102\": { \"replicas\": 3, \"cpu\": \"202m\", \"image\": \"acme/svc-102:1.3.0\" },\n  \"service_103\": { \"replicas\": 4, \"cpu\": \"203m\", \"image\": \"acme/svc-103:1.4.0\" },\n  \"service_104\": { \"replicas\": 1, \"cpu\": \"204m\", \"image\": \"acme/svc-104:1.5.0\" },\n  \"service_105\": { \"replicas\": 2, \"cpu\": \"205m\", \"image\": \"acme/svc-105:1.6.0\" },\n  \"service_106\": { \"replicas\": 3, \"cpu\": \"206m\", \"image\": \"acme/svc-106:1.7.0\" },\n  \"service_107\": { \"replicas\": 4, \"cpu\": \"207m\", \"image\": \"acme/svc-107:1.8.0\" },\n  \"service_108\": { \"replicas\": 1, \"cpu\": \"208m\", \"image\": \"acme/svc-108:1.0.0\" },\n  \"service_109\": { \"replicas\": 2, \"cpu\": \"209m\", \"image\": \"acme/svc-109:1.1.0\" },\n  \"service_110\": { \"replicas\": 3, \"cpu\": \"210m\", \"image\": \"acme/svc-110:1.2.0\" },\n  \"service_111\": { \"replicas\": 4, \"cpu\": \"211m\", \"image\": \"acme/svc-111:1.3.0\" },\n  \"service_112\": { \"replicas\": 1, \"cpu\": \"212m\", \"image\": \"acme/svc-112:1.4.0\" },\n  \"service_113\": { \"replicas\": 2, \"cpu\": \"213m\", \"image\": \"acme/svc-113:1.5.0\" },\n  \"service_114\": { \"replicas\": 3, \"cpu\": \"214m\", \"image\": \"acme/svc-114:1.6.0\" },\n  \"service_115\": { \"replicas\": 4, \"cpu\": \"215m\", \"image\": \"acme/svc-115:1.7.0\" },\n  \"service_116\": { \"replicas\": 1, \"cpu\": \"216m\", \"image\": \"acme/svc-116:1.8.0\" },\n  \"service_117\": { \"replicas\": 2, \"cpu\": \"217m\", \"image\": \"acme/svc-117:1.0.0\" },\n  \"service_118\": { \"replicas\": 3, \"cpu\": \"218m\", \"image\": \"acme/svc-118:1.1.0\" },\n  \"service_119\": { \"replicas\": 4, \"cpu\": \"219m\", \"image\": \"acme/svc-119:1.2.0\" },\n  \"checkout\": { \"replicas\": 0, \"cpu\": \"250m\", \"image\": \"acme/checkout:2.4.1\", \"note\": \"scaled to zero by autoscaler at 03:12\" },\n  \"service_120\": { \"replicas\": 1, \"cpu\": \"220m\", \"image\": \"acme/svc-120:1.3.0\" },\n  \"service_121\": { \"replicas\": 2, \"cpu\": \"221m\", \"image\": \"acme/svc-121:1.4.0\" },\n  \"service_122\": { \"replicas\": 3, \"cpu\": \"222m\", \"image\": \"acme/svc-122:1.5.0\" },\n  \"service_123\": { \"replicas\": 4, \"cpu\": \"223m\", \"image\": \"acme/svc-123:1.6.0\" },\n  \"service_124\": { \"replicas\": 1, \"cpu\": \"224m\", \"image\": \"acme/svc-124:1.7.0\" },\n… [17 lines omitted] …\n  \"service_142\": { \"replicas\": 3, \"cpu\": \"242m\", \"image\": \"acme/svc-142:1.7.0\" },\n… [17 lines omitted] …\n  \"service_160\": { \"replicas\": 1, \"cpu\": \"260m\", \"image\": \"acme/svc-160:1.7.0\" },\n… [2 lines omitted] …\n  \"service_163\": { \"replicas\": 4, \"cpu\": \"263m\", \"image\": \"acme/svc-163:1.1.0\" },\n  \"service_164\": { \"replicas\": 1, \"cpu\": \"264m\", \"image\": \"acme/svc-164:1.2.0\" },\n  \"service_165\": { \"replicas\": 2, \"cpu\": \"265m\", \"image\": \"acme/svc-165:1.3.0\" },\n  \"service_166\": { \"replicas\": 3, \"cpu\": \"266m\", \"image\": \"acme/svc-166:1.4.0\" },\n  \"service_167\": { \"replicas\": 4, \"cpu\": \"267m\", \"image\": \"acme/svc-167:1.5.0\" },\n  \"service_168\": { \"replicas\": 1, \"cpu\": \"268m\", \"image\": \"acme/svc-168:1.6.0\" },\n  \"service_169\": { \"replicas\": 2, \"cpu\": \"269m\", \"image\": \"acme/svc-169:1.7.0\" },\n}",
+     "decision": {
+      "trim": true,
+      "reason": "specific_parts hidden 7/10",
+      "selected": []
+     }
+    }
+   ]
+  },
+  {
+   "id": "W27",
+   "truth": "TRIM",
+   "plans": [
+    {
+     "mode": "blocks",
+     "call": {
+      "answers": {
+       "need": {
+        "type": "choice",
+        "choice": "specific_parts",
+        "probabilities": {
+         "unclear": 0,
+         "specific_parts": 1,
+         "every_line": 0,
+         "outcome_only": 0
+        },
+        "confidence": 1
+       },
+       "user_asked": {
+        "type": "noul",
+        "noul": 0.09
+       },
+       "b1": {
+        "type": "noul",
+        "noul": 0.08
+       },
+       "b2": {
+        "type": "noul",
+        "noul": 0.05
+       },
+       "b3": {
+        "type": "noul",
+        "noul": 0.05
+       },
+       "b4": {
+        "type": "noul",
+        "noul": 0.07
+       },
+       "b5": {
+        "type": "noul",
+        "noul": 0.06
+       },
+       "b6": {
+        "type": "noul",
+        "noul": 0.07
+       },
+       "b7": {
+        "type": "noul",
+        "noul": 0.32
+       },
+       "b8": {
+        "type": "noul",
+        "noul": 0.27
+       },
+       "b9": {
+        "type": "noul",
+        "noul": 0.91
+       },
+       "b10": {
+        "type": "noul",
+        "noul": 0.08
+       },
+       "b11": {
+        "type": "noul",
+        "noul": 0.06
+       },
+       "b12": {
+        "type": "noul",
+        "noul": 0.05
+       },
+       "b13": {
+        "type": "noul",
+        "noul": 0.05
+       }
+      },
+      "ms": 348,
+      "model": "typesafe/jev-1.13-20260917",
+      "inputTokens": 5531,
+      "cost": 0.000232302
+     },
+     "trimmed": {
+      "text": "[pi-jev-context] Output shortened: 87 of 190 lines kept verbatim. You cannot see the omitted lines; before relying on anything not shown here, call context_recall with id \"t1\".\n# Vite 6 migration guide\n\n## Environment API\n\nEnvironment API: explanation of behaviour change 1, with migration notes for plugin authors and frameworks.\nEnvironment API: explanation of behaviour change 2, with migration notes for plugin authors and frameworks.\nEnvironment API: explanation of behaviour change 3, with migration notes for plugin authors and frameworks.\nEnvironment API: explanation of behaviour change 4, with migration notes for plugin authors and frameworks.\nEnvironment API: explanation of behaviour change 5, with migration notes for plugin authors and frameworks.\nEnvironment API: explanation of behaviour change 6, with migration notes for plugin authors and frameworks.\nEnvironment API: explanation of behaviour change 7, with migration notes for plugin authors and frameworks.\nEnvironment API: explanation of behaviour change 8, with migration notes for plugin authors and frameworks.\nEnvironment API: explanation of behaviour change 9, with migration notes for plugin authors and frameworks.\nEnvironment API: explanation of behaviour change 10, with migration notes for plugin authors and frameworks.\nEnvironment API: explanation of behaviour change 11, with migration notes for plugin authors and frameworks.\nEnvironment API: explanation of behaviour change 12, with migration notes for plugin authors and frameworks.\nEnvironment API: explanation of behaviour change 13, with migration notes for plugin authors and frameworks.\nEnvironment API: explanation of behaviour change 14, with migration notes for plugin authors and frameworks.\n… [15 lines omitted] …\nResolve conditions: explanation of behaviour change 13, with migration notes for plugin authors and frameworks.\n… [15 lines omitted] …\nJSON stringify: explanation of behaviour change 12, with migration notes for plugin authors and frameworks.\n… [14 lines omitted] …\nExtended asset references: explanation of behaviour change 10, with migration notes for plugin authors and frameworks.\n… [15 lines omitted] …\nPostCSS config: explanation of behaviour change 9, with migration notes for plugin authors and frameworks.\n… [15 lines omitted] …\nSass modern API: explanation of behaviour change 8, with migration notes for plugin authors and frameworks.\nSass modern API: explanation of behaviour change 9, with migration notes for plugin authors and frameworks.\nSass modern API: explanation of behaviour change 10, with migration notes for plugin authors and frameworks.\nSass modern API: explanation of behaviour change 11, with migration notes for plugin authors and frameworks.\nSass modern API: explanation of behaviour change 12, with migration notes for plugin authors and frameworks.\nSass modern API: explanation of behaviour change 13, with migration notes for plugin authors and frameworks.\nSass modern API: explanation of behaviour change 14, with migration notes for plugin authors and frameworks.\n\n## CSS output file name\n\nCSS output file name: explanation of behaviour change 1, with migration notes for plugin authors and frameworks.\nCSS output file name: explanation of behaviour change 2, with migration notes for plugin authors and frameworks.\nCSS output file name: explanation of behaviour change 3, with migration notes for plugin authors and frameworks.\nCSS output file name: explanation of behaviour change 4, with migration notes for plugin authors and frameworks.\nCSS output file name: explanation of behaviour change 5, with migration notes for plugin authors and frameworks.\nCSS output file name: explanation of behaviour change 6, with migration notes for plugin authors and frameworks.\nCSS output file name: explanation of behaviour change 7, with migration notes for plugin authors and frameworks.\nCSS output file name: explanation of behaviour change 8, with migration notes for plugin authors and frameworks.\nCSS output file name: explanation of behaviour change 9, with migration notes for plugin authors and frameworks.\nCSS output file name: explanation of behaviour change 10, with migration notes for plugin authors and frameworks.\nCSS output file name: explanation of behaviour change 11, with migration notes for plugin authors and frameworks.\nCSS output file name: explanation of behaviour change 12, with migration notes for plugin authors and frameworks.\nCSS output file name: explanation of behaviour change 13, with migration notes for plugin authors and frameworks.\nCSS output file name: explanation of behaviour change 14, with migration notes for plugin authors and frameworks.\n\n## Library mode\n\nLibrary mode: explanation of behaviour change 1, with migration notes for plugin authors and frameworks.\nLibrary mode: explanation of behaviour change 2, with migration notes for plugin authors and frameworks.\nLibrary mode: explanation of behaviour change 3, with migration notes for plugin authors and frameworks.\nLibrary mode: explanation of behaviour change 4, with migration notes for plugin authors and frameworks.\nLibrary mode: explanation of behaviour change 5, with migration notes for plugin authors and frameworks.\nLibrary mode: explanation of behaviour change 6, with migration notes for plugin authors and frameworks.\nLibrary mode: explanation of behaviour change 7, with migration notes for plugin authors and frameworks.\nLibrary mode: explanation of behaviour change 8, with migration notes for plugin authors and frameworks.\nLibrary mode: explanation of behaviour change 9, with migration notes for plugin authors and frameworks.\nLibrary mode: explanation of behaviour change 10, with migration notes for plugin authors and frameworks.\nLibrary mode: explanation of behaviour change 11, with migration notes for plugin authors and frameworks.\nLibrary mode: explanation of behaviour change 12, with migration notes for plugin authors and frameworks.\nLibrary mode: explanation of behaviour change 13, with migration notes for plugin authors and frameworks.\nLibrary mode: explanation of behaviour change 14, with migration notes for plugin authors and frameworks.\nIn library mode, `build.lib.fileName` now defaults to the package name, and CSS output is named `style.css` only if `build.lib.cssFileName` is set.\n\n## Dev server\n\nDev server: explanation of behaviour change 1, with migration notes for plugin authors and frameworks.\nDev server: explanation of behaviour change 2, with migration notes for plugin authors and frameworks.\nDev server: explanation of behaviour change 3, with migration notes for plugin authors and frameworks.\nDev server: explanation of behaviour change 4, with migration notes for plugin authors and frameworks.\nDev server: explanation of behaviour change 5, with migration notes for plugin authors and frameworks.\nDev server: explanation of behaviour change 6, with migration notes for plugin authors and frameworks.\nDev server: explanation of behaviour change 7, with migration notes for plugin authors and frameworks.\nDev server: explanation of behaviour change 8, with migration notes for plugin authors and frameworks.\nDev server: explanation of behaviour change 9, with migration notes for plugin authors and frameworks.\nDev server: explanation of behaviour change 10, with migration notes for plugin authors and frameworks.\nDev server: explanation of behaviour change 11, with migration notes for plugin authors and frameworks.\n… [16 lines omitted] …\nBuild: explanation of behaviour change 11, with migration notes for plugin authors and frameworks.\n… [13 lines omitted] …\nAdvanced: explanation of behaviour change 8, with migration notes for plugin authors and frameworks.\nAdvanced: explanation of behaviour change 9, with migration notes for plugin authors and frameworks.\nAdvanced: explanation of behaviour change 10, with migration notes for plugin authors and frameworks.\nAdvanced: explanation of behaviour change 11, with migration notes for plugin authors and frameworks.\nAdvanced: explanation of behaviour change 12, with migration notes for plugin authors and frameworks.\nAdvanced: explanation of behaviour change 13, with migration notes for plugin authors and frameworks.\nAdvanced: explanation of behaviour change 14, with migration notes for plugin authors and frameworks.\n",
+      "keptLines": 87,
+      "totalLines": 190,
+      "originalTokens": 4239,
+      "keptTokens": 2081
+     },
+     "keptText": "[pi-jev-context] Output shortened: 87 of 190 lines kept verbatim. You cannot see the omitted lines; before relying on anything not shown here, call context_recall with id \"t1\".\n# Vite 6 migration guide\n\n## Environment API\n\nEnvironment API: explanation of behaviour change 1, with migration notes for plugin authors and frameworks.\nEnvironment API: explanation of behaviour change 2, with migration notes for plugin authors and frameworks.\nEnvironment API: explanation of behaviour change 3, with migration notes for plugin authors and frameworks.\nEnvironment API: explanation of behaviour change 4, with migration notes for plugin authors and frameworks.\nEnvironment API: explanation of behaviour change 5, with migration notes for plugin authors and frameworks.\nEnvironment API: explanation of behaviour change 6, with migration notes for plugin authors and frameworks.\nEnvironment API: explanation of behaviour change 7, with migration notes for plugin authors and frameworks.\nEnvironment API: explanation of behaviour change 8, with migration notes for plugin authors and frameworks.\nEnvironment API: explanation of behaviour change 9, with migration notes for plugin authors and frameworks.\nEnvironment API: explanation of behaviour change 10, with migration notes for plugin authors and frameworks.\nEnvironment API: explanation of behaviour change 11, with migration notes for plugin authors and frameworks.\nEnvironment API: explanation of behaviour change 12, with migration notes for plugin authors and frameworks.\nEnvironment API: explanation of behaviour change 13, with migration notes for plugin authors and frameworks.\nEnvironment API: explanation of behaviour change 14, with migration notes for plugin authors and frameworks.\n… [15 lines omitted] …\nResolve conditions: explanation of behaviour change 13, with migration notes for plugin authors and frameworks.\n… [15 lines omitted] …\nJSON stringify: explanation of behaviour change 12, with migration notes for plugin authors and frameworks.\n… [14 lines omitted] …\nExtended asset references: explanation of behaviour change 10, with migration notes for plugin authors and frameworks.\n… [15 lines omitted] …\nPostCSS config: explanation of behaviour change 9, with migration notes for plugin authors and frameworks.\n… [15 lines omitted] …\nSass modern API: explanation of behaviour change 8, with migration notes for plugin authors and frameworks.\nSass modern API: explanation of behaviour change 9, with migration notes for plugin authors and frameworks.\nSass modern API: explanation of behaviour change 10, with migration notes for plugin authors and frameworks.\nSass modern API: explanation of behaviour change 11, with migration notes for plugin authors and frameworks.\nSass modern API: explanation of behaviour change 12, with migration notes for plugin authors and frameworks.\nSass modern API: explanation of behaviour change 13, with migration notes for plugin authors and frameworks.\nSass modern API: explanation of behaviour change 14, with migration notes for plugin authors and frameworks.\n\n## CSS output file name\n\nCSS output file name: explanation of behaviour change 1, with migration notes for plugin authors and frameworks.\nCSS output file name: explanation of behaviour change 2, with migration notes for plugin authors and frameworks.\nCSS output file name: explanation of behaviour change 3, with migration notes for plugin authors and frameworks.\nCSS output file name: explanation of behaviour change 4, with migration notes for plugin authors and frameworks.\nCSS output file name: explanation of behaviour change 5, with migration notes for plugin authors and frameworks.\nCSS output file name: explanation of behaviour change 6, with migration notes for plugin authors and frameworks.\nCSS output file name: explanation of behaviour change 7, with migration notes for plugin authors and frameworks.\nCSS output file name: explanation of behaviour change 8, with migration notes for plugin authors and frameworks.\nCSS output file name: explanation of behaviour change 9, with migration notes for plugin authors and frameworks.\nCSS output file name: explanation of behaviour change 10, with migration notes for plugin authors and frameworks.\nCSS output file name: explanation of behaviour change 11, with migration notes for plugin authors and frameworks.\nCSS output file name: explanation of behaviour change 12, with migration notes for plugin authors and frameworks.\nCSS output file name: explanation of behaviour change 13, with migration notes for plugin authors and frameworks.\nCSS output file name: explanation of behaviour change 14, with migration notes for plugin authors and frameworks.\n\n## Library mode\n\nLibrary mode: explanation of behaviour change 1, with migration notes for plugin authors and frameworks.\nLibrary mode: explanation of behaviour change 2, with migration notes for plugin authors and frameworks.\nLibrary mode: explanation of behaviour change 3, with migration notes for plugin authors and frameworks.\nLibrary mode: explanation of behaviour change 4, with migration notes for plugin authors and frameworks.\nLibrary mode: explanation of behaviour change 5, with migration notes for plugin authors and frameworks.\nLibrary mode: explanation of behaviour change 6, with migration notes for plugin authors and frameworks.\nLibrary mode: explanation of behaviour change 7, with migration notes for plugin authors and frameworks.\nLibrary mode: explanation of behaviour change 8, with migration notes for plugin authors and frameworks.\nLibrary mode: explanation of behaviour change 9, with migration notes for plugin authors and frameworks.\nLibrary mode: explanation of behaviour change 10, with migration notes for plugin authors and frameworks.\nLibrary mode: explanation of behaviour change 11, with migration notes for plugin authors and frameworks.\nLibrary mode: explanation of behaviour change 12, with migration notes for plugin authors and frameworks.\nLibrary mode: explanation of behaviour change 13, with migration notes for plugin authors and frameworks.\nLibrary mode: explanation of behaviour change 14, with migration notes for plugin authors and frameworks.\nIn library mode, `build.lib.fileName` now defaults to the package name, and CSS output is named `style.css` only if `build.lib.cssFileName` is set.\n\n## Dev server\n\nDev server: explanation of behaviour change 1, with migration notes for plugin authors and frameworks.\nDev server: explanation of behaviour change 2, with migration notes for plugin authors and frameworks.\nDev server: explanation of behaviour change 3, with migration notes for plugin authors and frameworks.\nDev server: explanation of behaviour change 4, with migration notes for plugin authors and frameworks.\nDev server: explanation of behaviour change 5, with migration notes for plugin authors and frameworks.\nDev server: explanation of behaviour change 6, with migration notes for plugin authors and frameworks.\nDev server: explanation of behaviour change 7, with migration notes for plugin authors and frameworks.\nDev server: explanation of behaviour change 8, with migration notes for plugin authors and frameworks.\nDev server: explanation of behaviour change 9, with migration notes for plugin authors and frameworks.\nDev server: explanation of behaviour change 10, with migration notes for plugin authors and frameworks.\nDev server: explanation of behaviour change 11, with migration notes for plugin authors and frameworks.\n… [16 lines omitted] …\nBuild: explanation of behaviour change 11, with migration notes for plugin authors and frameworks.\n… [13 lines omitted] …\nAdvanced: explanation of behaviour change 8, with migration notes for plugin authors and frameworks.\nAdvanced: explanation of behaviour change 9, with migration notes for plugin authors and frameworks.\nAdvanced: explanation of behaviour change 10, with migration notes for plugin authors and frameworks.\nAdvanced: explanation of behaviour change 11, with migration notes for plugin authors and frameworks.\nAdvanced: explanation of behaviour change 12, with migration notes for plugin authors and frameworks.\nAdvanced: explanation of behaviour change 13, with migration notes for plugin authors and frameworks.\nAdvanced: explanation of behaviour change 14, with migration notes for plugin authors and frameworks.\n",
+     "decision": {
+      "trim": true,
+      "reason": "specific_parts hidden 8/13",
+      "selected": []
+     }
+    },
+    {
+     "mode": "blocks",
+     "call": {
+      "answers": {
+       "need": {
+        "type": "choice",
+        "choice": "specific_parts",
+        "probabilities": {
+         "outcome_only": 0,
+         "unclear": 0,
+         "every_line": 0,
+         "specific_parts": 1
+        },
+        "confidence": 1
+       },
+       "user_asked": {
+        "type": "noul",
+        "noul": 0.08
+       },
+       "b1": {
+        "type": "noul",
+        "noul": 0.08
+       },
+       "b2": {
+        "type": "noul",
+        "noul": 0.06
+       },
+       "b3": {
+        "type": "noul",
+        "noul": 0.06
+       },
+       "b4": {
+        "type": "noul",
+        "noul": 0.07
+       },
+       "b5": {
+        "type": "noul",
+        "noul": 0.07
+       },
+       "b6": {
+        "type": "noul",
+        "noul": 0.07
+       },
+       "b7": {
+        "type": "noul",
+        "noul": 0.19
+       },
+       "b8": {
+        "type": "noul",
+        "noul": 0.35
+       },
+       "b9": {
+        "type": "noul",
+        "noul": 0.9
+       },
+       "b10": {
+        "type": "noul",
+        "noul": 0.13
+       },
+       "b11": {
+        "type": "noul",
+        "noul": 0.07
+       },
+       "b12": {
+        "type": "noul",
+        "noul": 0.06
+       },
+       "b13": {
+        "type": "noul",
+        "noul": 0.06
+       }
+      },
+      "ms": 368,
+      "model": "typesafe/jev-1.13-20260917",
+      "inputTokens": 5531,
+      "cost": 0.000232302
+     },
+     "trimmed": {
+      "text": "[pi-jev-context] Output shortened: 87 of 190 lines kept verbatim. You cannot see the omitted lines; before relying on anything not shown here, call context_recall with id \"t1\".\n# Vite 6 migration guide\n\n## Environment API\n\nEnvironment API: explanation of behaviour change 1, with migration notes for plugin authors and frameworks.\nEnvironment API: explanation of behaviour change 2, with migration notes for plugin authors and frameworks.\nEnvironment API: explanation of behaviour change 3, with migration notes for plugin authors and frameworks.\nEnvironment API: explanation of behaviour change 4, with migration notes for plugin authors and frameworks.\nEnvironment API: explanation of behaviour change 5, with migration notes for plugin authors and frameworks.\nEnvironment API: explanation of behaviour change 6, with migration notes for plugin authors and frameworks.\nEnvironment API: explanation of behaviour change 7, with migration notes for plugin authors and frameworks.\nEnvironment API: explanation of behaviour change 8, with migration notes for plugin authors and frameworks.\nEnvironment API: explanation of behaviour change 9, with migration notes for plugin authors and frameworks.\nEnvironment API: explanation of behaviour change 10, with migration notes for plugin authors and frameworks.\nEnvironment API: explanation of behaviour change 11, with migration notes for plugin authors and frameworks.\nEnvironment API: explanation of behaviour change 12, with migration notes for plugin authors and frameworks.\nEnvironment API: explanation of behaviour change 13, with migration notes for plugin authors and frameworks.\nEnvironment API: explanation of behaviour change 14, with migration notes for plugin authors and frameworks.\n… [15 lines omitted] …\nResolve conditions: explanation of behaviour change 13, with migration notes for plugin authors and frameworks.\n… [15 lines omitted] …\nJSON stringify: explanation of behaviour change 12, with migration notes for plugin authors and frameworks.\n… [14 lines omitted] …\nExtended asset references: explanation of behaviour change 10, with migration notes for plugin authors and frameworks.\n… [15 lines omitted] …\nPostCSS config: explanation of behaviour change 9, with migration notes for plugin authors and frameworks.\n… [15 lines omitted] …\nSass modern API: explanation of behaviour change 8, with migration notes for plugin authors and frameworks.\nSass modern API: explanation of behaviour change 9, with migration notes for plugin authors and frameworks.\nSass modern API: explanation of behaviour change 10, with migration notes for plugin authors and frameworks.\nSass modern API: explanation of behaviour change 11, with migration notes for plugin authors and frameworks.\nSass modern API: explanation of behaviour change 12, with migration notes for plugin authors and frameworks.\nSass modern API: explanation of behaviour change 13, with migration notes for plugin authors and frameworks.\nSass modern API: explanation of behaviour change 14, with migration notes for plugin authors and frameworks.\n\n## CSS output file name\n\nCSS output file name: explanation of behaviour change 1, with migration notes for plugin authors and frameworks.\nCSS output file name: explanation of behaviour change 2, with migration notes for plugin authors and frameworks.\nCSS output file name: explanation of behaviour change 3, with migration notes for plugin authors and frameworks.\nCSS output file name: explanation of behaviour change 4, with migration notes for plugin authors and frameworks.\nCSS output file name: explanation of behaviour change 5, with migration notes for plugin authors and frameworks.\nCSS output file name: explanation of behaviour change 6, with migration notes for plugin authors and frameworks.\nCSS output file name: explanation of behaviour change 7, with migration notes for plugin authors and frameworks.\nCSS output file name: explanation of behaviour change 8, with migration notes for plugin authors and frameworks.\nCSS output file name: explanation of behaviour change 9, with migration notes for plugin authors and frameworks.\nCSS output file name: explanation of behaviour change 10, with migration notes for plugin authors and frameworks.\nCSS output file name: explanation of behaviour change 11, with migration notes for plugin authors and frameworks.\nCSS output file name: explanation of behaviour change 12, with migration notes for plugin authors and frameworks.\nCSS output file name: explanation of behaviour change 13, with migration notes for plugin authors and frameworks.\nCSS output file name: explanation of behaviour change 14, with migration notes for plugin authors and frameworks.\n\n## Library mode\n\nLibrary mode: explanation of behaviour change 1, with migration notes for plugin authors and frameworks.\nLibrary mode: explanation of behaviour change 2, with migration notes for plugin authors and frameworks.\nLibrary mode: explanation of behaviour change 3, with migration notes for plugin authors and frameworks.\nLibrary mode: explanation of behaviour change 4, with migration notes for plugin authors and frameworks.\nLibrary mode: explanation of behaviour change 5, with migration notes for plugin authors and frameworks.\nLibrary mode: explanation of behaviour change 6, with migration notes for plugin authors and frameworks.\nLibrary mode: explanation of behaviour change 7, with migration notes for plugin authors and frameworks.\nLibrary mode: explanation of behaviour change 8, with migration notes for plugin authors and frameworks.\nLibrary mode: explanation of behaviour change 9, with migration notes for plugin authors and frameworks.\nLibrary mode: explanation of behaviour change 10, with migration notes for plugin authors and frameworks.\nLibrary mode: explanation of behaviour change 11, with migration notes for plugin authors and frameworks.\nLibrary mode: explanation of behaviour change 12, with migration notes for plugin authors and frameworks.\nLibrary mode: explanation of behaviour change 13, with migration notes for plugin authors and frameworks.\nLibrary mode: explanation of behaviour change 14, with migration notes for plugin authors and frameworks.\nIn library mode, `build.lib.fileName` now defaults to the package name, and CSS output is named `style.css` only if `build.lib.cssFileName` is set.\n\n## Dev server\n\nDev server: explanation of behaviour change 1, with migration notes for plugin authors and frameworks.\nDev server: explanation of behaviour change 2, with migration notes for plugin authors and frameworks.\nDev server: explanation of behaviour change 3, with migration notes for plugin authors and frameworks.\nDev server: explanation of behaviour change 4, with migration notes for plugin authors and frameworks.\nDev server: explanation of behaviour change 5, with migration notes for plugin authors and frameworks.\nDev server: explanation of behaviour change 6, with migration notes for plugin authors and frameworks.\nDev server: explanation of behaviour change 7, with migration notes for plugin authors and frameworks.\nDev server: explanation of behaviour change 8, with migration notes for plugin authors and frameworks.\nDev server: explanation of behaviour change 9, with migration notes for plugin authors and frameworks.\nDev server: explanation of behaviour change 10, with migration notes for plugin authors and frameworks.\nDev server: explanation of behaviour change 11, with migration notes for plugin authors and frameworks.\n… [16 lines omitted] …\nBuild: explanation of behaviour change 11, with migration notes for plugin authors and frameworks.\n… [13 lines omitted] …\nAdvanced: explanation of behaviour change 8, with migration notes for plugin authors and frameworks.\nAdvanced: explanation of behaviour change 9, with migration notes for plugin authors and frameworks.\nAdvanced: explanation of behaviour change 10, with migration notes for plugin authors and frameworks.\nAdvanced: explanation of behaviour change 11, with migration notes for plugin authors and frameworks.\nAdvanced: explanation of behaviour change 12, with migration notes for plugin authors and frameworks.\nAdvanced: explanation of behaviour change 13, with migration notes for plugin authors and frameworks.\nAdvanced: explanation of behaviour change 14, with migration notes for plugin authors and frameworks.\n",
+      "keptLines": 87,
+      "totalLines": 190,
+      "originalTokens": 4239,
+      "keptTokens": 2081
+     },
+     "keptText": "[pi-jev-context] Output shortened: 87 of 190 lines kept verbatim. You cannot see the omitted lines; before relying on anything not shown here, call context_recall with id \"t1\".\n# Vite 6 migration guide\n\n## Environment API\n\nEnvironment API: explanation of behaviour change 1, with migration notes for plugin authors and frameworks.\nEnvironment API: explanation of behaviour change 2, with migration notes for plugin authors and frameworks.\nEnvironment API: explanation of behaviour change 3, with migration notes for plugin authors and frameworks.\nEnvironment API: explanation of behaviour change 4, with migration notes for plugin authors and frameworks.\nEnvironment API: explanation of behaviour change 5, with migration notes for plugin authors and frameworks.\nEnvironment API: explanation of behaviour change 6, with migration notes for plugin authors and frameworks.\nEnvironment API: explanation of behaviour change 7, with migration notes for plugin authors and frameworks.\nEnvironment API: explanation of behaviour change 8, with migration notes for plugin authors and frameworks.\nEnvironment API: explanation of behaviour change 9, with migration notes for plugin authors and frameworks.\nEnvironment API: explanation of behaviour change 10, with migration notes for plugin authors and frameworks.\nEnvironment API: explanation of behaviour change 11, with migration notes for plugin authors and frameworks.\nEnvironment API: explanation of behaviour change 12, with migration notes for plugin authors and frameworks.\nEnvironment API: explanation of behaviour change 13, with migration notes for plugin authors and frameworks.\nEnvironment API: explanation of behaviour change 14, with migration notes for plugin authors and frameworks.\n… [15 lines omitted] …\nResolve conditions: explanation of behaviour change 13, with migration notes for plugin authors and frameworks.\n… [15 lines omitted] …\nJSON stringify: explanation of behaviour change 12, with migration notes for plugin authors and frameworks.\n… [14 lines omitted] …\nExtended asset references: explanation of behaviour change 10, with migration notes for plugin authors and frameworks.\n… [15 lines omitted] …\nPostCSS config: explanation of behaviour change 9, with migration notes for plugin authors and frameworks.\n… [15 lines omitted] …\nSass modern API: explanation of behaviour change 8, with migration notes for plugin authors and frameworks.\nSass modern API: explanation of behaviour change 9, with migration notes for plugin authors and frameworks.\nSass modern API: explanation of behaviour change 10, with migration notes for plugin authors and frameworks.\nSass modern API: explanation of behaviour change 11, with migration notes for plugin authors and frameworks.\nSass modern API: explanation of behaviour change 12, with migration notes for plugin authors and frameworks.\nSass modern API: explanation of behaviour change 13, with migration notes for plugin authors and frameworks.\nSass modern API: explanation of behaviour change 14, with migration notes for plugin authors and frameworks.\n\n## CSS output file name\n\nCSS output file name: explanation of behaviour change 1, with migration notes for plugin authors and frameworks.\nCSS output file name: explanation of behaviour change 2, with migration notes for plugin authors and frameworks.\nCSS output file name: explanation of behaviour change 3, with migration notes for plugin authors and frameworks.\nCSS output file name: explanation of behaviour change 4, with migration notes for plugin authors and frameworks.\nCSS output file name: explanation of behaviour change 5, with migration notes for plugin authors and frameworks.\nCSS output file name: explanation of behaviour change 6, with migration notes for plugin authors and frameworks.\nCSS output file name: explanation of behaviour change 7, with migration notes for plugin authors and frameworks.\nCSS output file name: explanation of behaviour change 8, with migration notes for plugin authors and frameworks.\nCSS output file name: explanation of behaviour change 9, with migration notes for plugin authors and frameworks.\nCSS output file name: explanation of behaviour change 10, with migration notes for plugin authors and frameworks.\nCSS output file name: explanation of behaviour change 11, with migration notes for plugin authors and frameworks.\nCSS output file name: explanation of behaviour change 12, with migration notes for plugin authors and frameworks.\nCSS output file name: explanation of behaviour change 13, with migration notes for plugin authors and frameworks.\nCSS output file name: explanation of behaviour change 14, with migration notes for plugin authors and frameworks.\n\n## Library mode\n\nLibrary mode: explanation of behaviour change 1, with migration notes for plugin authors and frameworks.\nLibrary mode: explanation of behaviour change 2, with migration notes for plugin authors and frameworks.\nLibrary mode: explanation of behaviour change 3, with migration notes for plugin authors and frameworks.\nLibrary mode: explanation of behaviour change 4, with migration notes for plugin authors and frameworks.\nLibrary mode: explanation of behaviour change 5, with migration notes for plugin authors and frameworks.\nLibrary mode: explanation of behaviour change 6, with migration notes for plugin authors and frameworks.\nLibrary mode: explanation of behaviour change 7, with migration notes for plugin authors and frameworks.\nLibrary mode: explanation of behaviour change 8, with migration notes for plugin authors and frameworks.\nLibrary mode: explanation of behaviour change 9, with migration notes for plugin authors and frameworks.\nLibrary mode: explanation of behaviour change 10, with migration notes for plugin authors and frameworks.\nLibrary mode: explanation of behaviour change 11, with migration notes for plugin authors and frameworks.\nLibrary mode: explanation of behaviour change 12, with migration notes for plugin authors and frameworks.\nLibrary mode: explanation of behaviour change 13, with migration notes for plugin authors and frameworks.\nLibrary mode: explanation of behaviour change 14, with migration notes for plugin authors and frameworks.\nIn library mode, `build.lib.fileName` now defaults to the package name, and CSS output is named `style.css` only if `build.lib.cssFileName` is set.\n\n## Dev server\n\nDev server: explanation of behaviour change 1, with migration notes for plugin authors and frameworks.\nDev server: explanation of behaviour change 2, with migration notes for plugin authors and frameworks.\nDev server: explanation of behaviour change 3, with migration notes for plugin authors and frameworks.\nDev server: explanation of behaviour change 4, with migration notes for plugin authors and frameworks.\nDev server: explanation of behaviour change 5, with migration notes for plugin authors and frameworks.\nDev server: explanation of behaviour change 6, with migration notes for plugin authors and frameworks.\nDev server: explanation of behaviour change 7, with migration notes for plugin authors and frameworks.\nDev server: explanation of behaviour change 8, with migration notes for plugin authors and frameworks.\nDev server: explanation of behaviour change 9, with migration notes for plugin authors and frameworks.\nDev server: explanation of behaviour change 10, with migration notes for plugin authors and frameworks.\nDev server: explanation of behaviour change 11, with migration notes for plugin authors and frameworks.\n… [16 lines omitted] …\nBuild: explanation of behaviour change 11, with migration notes for plugin authors and frameworks.\n… [13 lines omitted] …\nAdvanced: explanation of behaviour change 8, with migration notes for plugin authors and frameworks.\nAdvanced: explanation of behaviour change 9, with migration notes for plugin authors and frameworks.\nAdvanced: explanation of behaviour change 10, with migration notes for plugin authors and frameworks.\nAdvanced: explanation of behaviour change 11, with migration notes for plugin authors and frameworks.\nAdvanced: explanation of behaviour change 12, with migration notes for plugin authors and frameworks.\nAdvanced: explanation of behaviour change 13, with migration notes for plugin authors and frameworks.\nAdvanced: explanation of behaviour change 14, with migration notes for plugin authors and frameworks.\n",
+     "decision": {
+      "trim": true,
+      "reason": "specific_parts hidden 8/13",
+      "selected": []
+     }
+    },
+    {
+     "mode": "blocks",
+     "call": {
+      "answers": {
+       "need": {
+        "type": "choice",
+        "choice": "specific_parts",
+        "probabilities": {
+         "unclear": 0,
+         "outcome_only": 0,
+         "every_line": 0,
+         "specific_parts": 1
+        },
+        "confidence": 1
+       },
+       "user_asked": {
+        "type": "noul",
+        "noul": 0.09
+       },
+       "b1": {
+        "type": "noul",
+        "noul": 0.07
+       },
+       "b2": {
+        "type": "noul",
+        "noul": 0.06
+       },
+       "b3": {
+        "type": "noul",
+        "noul": 0.06
+       },
+       "b4": {
+        "type": "noul",
+        "noul": 0.07
+       },
+       "b5": {
+        "type": "noul",
+        "noul": 0.06
+       },
+       "b6": {
+        "type": "noul",
+        "noul": 0.07
+       },
+       "b7": {
+        "type": "noul",
+        "noul": 0.24
+       },
+       "b8": {
+        "type": "noul",
+        "noul": 0.25
+       },
+       "b9": {
+        "type": "noul",
+        "noul": 0.92
+       },
+       "b10": {
+        "type": "noul",
+        "noul": 0.06
+       },
+       "b11": {
+        "type": "noul",
+        "noul": 0.06
+       },
+       "b12": {
+        "type": "noul",
+        "noul": 0.06
+       },
+       "b13": {
+        "type": "noul",
+        "noul": 0.06
+       }
+      },
+      "ms": 363,
+      "model": "typesafe/jev-1.13-20260917",
+      "inputTokens": 5531,
+      "cost": 0.000232302
+     },
+     "trimmed": {
+      "text": "[pi-jev-context] Output shortened: 87 of 190 lines kept verbatim. You cannot see the omitted lines; before relying on anything not shown here, call context_recall with id \"t1\".\n# Vite 6 migration guide\n\n## Environment API\n\nEnvironment API: explanation of behaviour change 1, with migration notes for plugin authors and frameworks.\nEnvironment API: explanation of behaviour change 2, with migration notes for plugin authors and frameworks.\nEnvironment API: explanation of behaviour change 3, with migration notes for plugin authors and frameworks.\nEnvironment API: explanation of behaviour change 4, with migration notes for plugin authors and frameworks.\nEnvironment API: explanation of behaviour change 5, with migration notes for plugin authors and frameworks.\nEnvironment API: explanation of behaviour change 6, with migration notes for plugin authors and frameworks.\nEnvironment API: explanation of behaviour change 7, with migration notes for plugin authors and frameworks.\nEnvironment API: explanation of behaviour change 8, with migration notes for plugin authors and frameworks.\nEnvironment API: explanation of behaviour change 9, with migration notes for plugin authors and frameworks.\nEnvironment API: explanation of behaviour change 10, with migration notes for plugin authors and frameworks.\nEnvironment API: explanation of behaviour change 11, with migration notes for plugin authors and frameworks.\nEnvironment API: explanation of behaviour change 12, with migration notes for plugin authors and frameworks.\nEnvironment API: explanation of behaviour change 13, with migration notes for plugin authors and frameworks.\nEnvironment API: explanation of behaviour change 14, with migration notes for plugin authors and frameworks.\n… [15 lines omitted] …\nResolve conditions: explanation of behaviour change 13, with migration notes for plugin authors and frameworks.\n… [15 lines omitted] …\nJSON stringify: explanation of behaviour change 12, with migration notes for plugin authors and frameworks.\n… [14 lines omitted] …\nExtended asset references: explanation of behaviour change 10, with migration notes for plugin authors and frameworks.\n… [15 lines omitted] …\nPostCSS config: explanation of behaviour change 9, with migration notes for plugin authors and frameworks.\n… [15 lines omitted] …\nSass modern API: explanation of behaviour change 8, with migration notes for plugin authors and frameworks.\nSass modern API: explanation of behaviour change 9, with migration notes for plugin authors and frameworks.\nSass modern API: explanation of behaviour change 10, with migration notes for plugin authors and frameworks.\nSass modern API: explanation of behaviour change 11, with migration notes for plugin authors and frameworks.\nSass modern API: explanation of behaviour change 12, with migration notes for plugin authors and frameworks.\nSass modern API: explanation of behaviour change 13, with migration notes for plugin authors and frameworks.\nSass modern API: explanation of behaviour change 14, with migration notes for plugin authors and frameworks.\n\n## CSS output file name\n\nCSS output file name: explanation of behaviour change 1, with migration notes for plugin authors and frameworks.\nCSS output file name: explanation of behaviour change 2, with migration notes for plugin authors and frameworks.\nCSS output file name: explanation of behaviour change 3, with migration notes for plugin authors and frameworks.\nCSS output file name: explanation of behaviour change 4, with migration notes for plugin authors and frameworks.\nCSS output file name: explanation of behaviour change 5, with migration notes for plugin authors and frameworks.\nCSS output file name: explanation of behaviour change 6, with migration notes for plugin authors and frameworks.\nCSS output file name: explanation of behaviour change 7, with migration notes for plugin authors and frameworks.\nCSS output file name: explanation of behaviour change 8, with migration notes for plugin authors and frameworks.\nCSS output file name: explanation of behaviour change 9, with migration notes for plugin authors and frameworks.\nCSS output file name: explanation of behaviour change 10, with migration notes for plugin authors and frameworks.\nCSS output file name: explanation of behaviour change 11, with migration notes for plugin authors and frameworks.\nCSS output file name: explanation of behaviour change 12, with migration notes for plugin authors and frameworks.\nCSS output file name: explanation of behaviour change 13, with migration notes for plugin authors and frameworks.\nCSS output file name: explanation of behaviour change 14, with migration notes for plugin authors and frameworks.\n\n## Library mode\n\nLibrary mode: explanation of behaviour change 1, with migration notes for plugin authors and frameworks.\nLibrary mode: explanation of behaviour change 2, with migration notes for plugin authors and frameworks.\nLibrary mode: explanation of behaviour change 3, with migration notes for plugin authors and frameworks.\nLibrary mode: explanation of behaviour change 4, with migration notes for plugin authors and frameworks.\nLibrary mode: explanation of behaviour change 5, with migration notes for plugin authors and frameworks.\nLibrary mode: explanation of behaviour change 6, with migration notes for plugin authors and frameworks.\nLibrary mode: explanation of behaviour change 7, with migration notes for plugin authors and frameworks.\nLibrary mode: explanation of behaviour change 8, with migration notes for plugin authors and frameworks.\nLibrary mode: explanation of behaviour change 9, with migration notes for plugin authors and frameworks.\nLibrary mode: explanation of behaviour change 10, with migration notes for plugin authors and frameworks.\nLibrary mode: explanation of behaviour change 11, with migration notes for plugin authors and frameworks.\nLibrary mode: explanation of behaviour change 12, with migration notes for plugin authors and frameworks.\nLibrary mode: explanation of behaviour change 13, with migration notes for plugin authors and frameworks.\nLibrary mode: explanation of behaviour change 14, with migration notes for plugin authors and frameworks.\nIn library mode, `build.lib.fileName` now defaults to the package name, and CSS output is named `style.css` only if `build.lib.cssFileName` is set.\n\n## Dev server\n\nDev server: explanation of behaviour change 1, with migration notes for plugin authors and frameworks.\nDev server: explanation of behaviour change 2, with migration notes for plugin authors and frameworks.\nDev server: explanation of behaviour change 3, with migration notes for plugin authors and frameworks.\nDev server: explanation of behaviour change 4, with migration notes for plugin authors and frameworks.\nDev server: explanation of behaviour change 5, with migration notes for plugin authors and frameworks.\nDev server: explanation of behaviour change 6, with migration notes for plugin authors and frameworks.\nDev server: explanation of behaviour change 7, with migration notes for plugin authors and frameworks.\nDev server: explanation of behaviour change 8, with migration notes for plugin authors and frameworks.\nDev server: explanation of behaviour change 9, with migration notes for plugin authors and frameworks.\nDev server: explanation of behaviour change 10, with migration notes for plugin authors and frameworks.\nDev server: explanation of behaviour change 11, with migration notes for plugin authors and frameworks.\n… [16 lines omitted] …\nBuild: explanation of behaviour change 11, with migration notes for plugin authors and frameworks.\n… [13 lines omitted] …\nAdvanced: explanation of behaviour change 8, with migration notes for plugin authors and frameworks.\nAdvanced: explanation of behaviour change 9, with migration notes for plugin authors and frameworks.\nAdvanced: explanation of behaviour change 10, with migration notes for plugin authors and frameworks.\nAdvanced: explanation of behaviour change 11, with migration notes for plugin authors and frameworks.\nAdvanced: explanation of behaviour change 12, with migration notes for plugin authors and frameworks.\nAdvanced: explanation of behaviour change 13, with migration notes for plugin authors and frameworks.\nAdvanced: explanation of behaviour change 14, with migration notes for plugin authors and frameworks.\n",
+      "keptLines": 87,
+      "totalLines": 190,
+      "originalTokens": 4239,
+      "keptTokens": 2081
+     },
+     "keptText": "[pi-jev-context] Output shortened: 87 of 190 lines kept verbatim. You cannot see the omitted lines; before relying on anything not shown here, call context_recall with id \"t1\".\n# Vite 6 migration guide\n\n## Environment API\n\nEnvironment API: explanation of behaviour change 1, with migration notes for plugin authors and frameworks.\nEnvironment API: explanation of behaviour change 2, with migration notes for plugin authors and frameworks.\nEnvironment API: explanation of behaviour change 3, with migration notes for plugin authors and frameworks.\nEnvironment API: explanation of behaviour change 4, with migration notes for plugin authors and frameworks.\nEnvironment API: explanation of behaviour change 5, with migration notes for plugin authors and frameworks.\nEnvironment API: explanation of behaviour change 6, with migration notes for plugin authors and frameworks.\nEnvironment API: explanation of behaviour change 7, with migration notes for plugin authors and frameworks.\nEnvironment API: explanation of behaviour change 8, with migration notes for plugin authors and frameworks.\nEnvironment API: explanation of behaviour change 9, with migration notes for plugin authors and frameworks.\nEnvironment API: explanation of behaviour change 10, with migration notes for plugin authors and frameworks.\nEnvironment API: explanation of behaviour change 11, with migration notes for plugin authors and frameworks.\nEnvironment API: explanation of behaviour change 12, with migration notes for plugin authors and frameworks.\nEnvironment API: explanation of behaviour change 13, with migration notes for plugin authors and frameworks.\nEnvironment API: explanation of behaviour change 14, with migration notes for plugin authors and frameworks.\n… [15 lines omitted] …\nResolve conditions: explanation of behaviour change 13, with migration notes for plugin authors and frameworks.\n… [15 lines omitted] …\nJSON stringify: explanation of behaviour change 12, with migration notes for plugin authors and frameworks.\n… [14 lines omitted] …\nExtended asset references: explanation of behaviour change 10, with migration notes for plugin authors and frameworks.\n… [15 lines omitted] …\nPostCSS config: explanation of behaviour change 9, with migration notes for plugin authors and frameworks.\n… [15 lines omitted] …\nSass modern API: explanation of behaviour change 8, with migration notes for plugin authors and frameworks.\nSass modern API: explanation of behaviour change 9, with migration notes for plugin authors and frameworks.\nSass modern API: explanation of behaviour change 10, with migration notes for plugin authors and frameworks.\nSass modern API: explanation of behaviour change 11, with migration notes for plugin authors and frameworks.\nSass modern API: explanation of behaviour change 12, with migration notes for plugin authors and frameworks.\nSass modern API: explanation of behaviour change 13, with migration notes for plugin authors and frameworks.\nSass modern API: explanation of behaviour change 14, with migration notes for plugin authors and frameworks.\n\n## CSS output file name\n\nCSS output file name: explanation of behaviour change 1, with migration notes for plugin authors and frameworks.\nCSS output file name: explanation of behaviour change 2, with migration notes for plugin authors and frameworks.\nCSS output file name: explanation of behaviour change 3, with migration notes for plugin authors and frameworks.\nCSS output file name: explanation of behaviour change 4, with migration notes for plugin authors and frameworks.\nCSS output file name: explanation of behaviour change 5, with migration notes for plugin authors and frameworks.\nCSS output file name: explanation of behaviour change 6, with migration notes for plugin authors and frameworks.\nCSS output file name: explanation of behaviour change 7, with migration notes for plugin authors and frameworks.\nCSS output file name: explanation of behaviour change 8, with migration notes for plugin authors and frameworks.\nCSS output file name: explanation of behaviour change 9, with migration notes for plugin authors and frameworks.\nCSS output file name: explanation of behaviour change 10, with migration notes for plugin authors and frameworks.\nCSS output file name: explanation of behaviour change 11, with migration notes for plugin authors and frameworks.\nCSS output file name: explanation of behaviour change 12, with migration notes for plugin authors and frameworks.\nCSS output file name: explanation of behaviour change 13, with migration notes for plugin authors and frameworks.\nCSS output file name: explanation of behaviour change 14, with migration notes for plugin authors and frameworks.\n\n## Library mode\n\nLibrary mode: explanation of behaviour change 1, with migration notes for plugin authors and frameworks.\nLibrary mode: explanation of behaviour change 2, with migration notes for plugin authors and frameworks.\nLibrary mode: explanation of behaviour change 3, with migration notes for plugin authors and frameworks.\nLibrary mode: explanation of behaviour change 4, with migration notes for plugin authors and frameworks.\nLibrary mode: explanation of behaviour change 5, with migration notes for plugin authors and frameworks.\nLibrary mode: explanation of behaviour change 6, with migration notes for plugin authors and frameworks.\nLibrary mode: explanation of behaviour change 7, with migration notes for plugin authors and frameworks.\nLibrary mode: explanation of behaviour change 8, with migration notes for plugin authors and frameworks.\nLibrary mode: explanation of behaviour change 9, with migration notes for plugin authors and frameworks.\nLibrary mode: explanation of behaviour change 10, with migration notes for plugin authors and frameworks.\nLibrary mode: explanation of behaviour change 11, with migration notes for plugin authors and frameworks.\nLibrary mode: explanation of behaviour change 12, with migration notes for plugin authors and frameworks.\nLibrary mode: explanation of behaviour change 13, with migration notes for plugin authors and frameworks.\nLibrary mode: explanation of behaviour change 14, with migration notes for plugin authors and frameworks.\nIn library mode, `build.lib.fileName` now defaults to the package name, and CSS output is named `style.css` only if `build.lib.cssFileName` is set.\n\n## Dev server\n\nDev server: explanation of behaviour change 1, with migration notes for plugin authors and frameworks.\nDev server: explanation of behaviour change 2, with migration notes for plugin authors and frameworks.\nDev server: explanation of behaviour change 3, with migration notes for plugin authors and frameworks.\nDev server: explanation of behaviour change 4, with migration notes for plugin authors and frameworks.\nDev server: explanation of behaviour change 5, with migration notes for plugin authors and frameworks.\nDev server: explanation of behaviour change 6, with migration notes for plugin authors and frameworks.\nDev server: explanation of behaviour change 7, with migration notes for plugin authors and frameworks.\nDev server: explanation of behaviour change 8, with migration notes for plugin authors and frameworks.\nDev server: explanation of behaviour change 9, with migration notes for plugin authors and frameworks.\nDev server: explanation of behaviour change 10, with migration notes for plugin authors and frameworks.\nDev server: explanation of behaviour change 11, with migration notes for plugin authors and frameworks.\n… [16 lines omitted] …\nBuild: explanation of behaviour change 11, with migration notes for plugin authors and frameworks.\n… [13 lines omitted] …\nAdvanced: explanation of behaviour change 8, with migration notes for plugin authors and frameworks.\nAdvanced: explanation of behaviour change 9, with migration notes for plugin authors and frameworks.\nAdvanced: explanation of behaviour change 10, with migration notes for plugin authors and frameworks.\nAdvanced: explanation of behaviour change 11, with migration notes for plugin authors and frameworks.\nAdvanced: explanation of behaviour change 12, with migration notes for plugin authors and frameworks.\nAdvanced: explanation of behaviour change 13, with migration notes for plugin authors and frameworks.\nAdvanced: explanation of behaviour change 14, with migration notes for plugin authors and frameworks.\n",
+     "decision": {
+      "trim": true,
+      "reason": "specific_parts hidden 8/13",
+      "selected": []
+     }
+    }
+   ]
+  },
+  {
+   "id": "W28",
+   "truth": "TRIM",
+   "plans": [
+    {
+     "mode": "blocks",
+     "call": {
+      "answers": {
+       "need": {
+        "type": "choice",
+        "choice": "specific_parts",
+        "probabilities": {
+         "every_line": 0,
+         "specific_parts": 1,
+         "outcome_only": 0,
+         "unclear": 0
+        },
+        "confidence": 1
+       },
+       "user_asked": {
+        "type": "noul",
+        "noul": 0.05
+       },
+       "b1": {
+        "type": "noul",
+        "noul": 0.1
+       },
+       "b2": {
+        "type": "noul",
+        "noul": 0.06
+       },
+       "b3": {
+        "type": "noul",
+        "noul": 0.07
+       },
+       "b4": {
+        "type": "noul",
+        "noul": 0.06
+       },
+       "b5": {
+        "type": "noul",
+        "noul": 0.06
+       },
+       "b6": {
+        "type": "noul",
+        "noul": 0.06
+       },
+       "b7": {
+        "type": "noul",
+        "noul": 0.07
+       },
+       "b8": {
+        "type": "noul",
+        "noul": 0.96
+       },
+       "b9": {
+        "type": "noul",
+        "noul": 0.07
+       },
+       "b10": {
+        "type": "noul",
+        "noul": 0.32
+       }
+      },
+      "ms": 316,
+      "model": "typesafe/jev-1.13-20260917",
+      "inputTokens": 5380,
+      "cost": 0.00022596
+     },
+     "trimmed": {
+      "text": "[pi-jev-context] Output shortened: 64 of 196 lines kept verbatim. You cannot see the omitted lines; before relying on anything not shown here, call context_recall with id \"t1\".\nPASS  packages/core/test/case-0.spec.ts (10 ms)\nPASS  packages/ui/test/case-1.spec.ts (11 ms)\nPASS  packages/cli/test/case-2.spec.ts (12 ms)\nPASS  packages/server/test/case-3.spec.ts (13 ms)\nPASS  packages/core/test/case-4.spec.ts (14 ms)\nPASS  packages/ui/test/case-5.spec.ts (15 ms)\nPASS  packages/cli/test/case-6.spec.ts (16 ms)\nPASS  packages/server/test/case-7.spec.ts (17 ms)\nPASS  packages/core/test/case-8.spec.ts (18 ms)\nPASS  packages/ui/test/case-9.spec.ts (19 ms)\nPASS  packages/cli/test/case-10.spec.ts (20 ms)\nPASS  packages/server/test/case-11.spec.ts (21 ms)\nPASS  packages/core/test/case-12.spec.ts (22 ms)\nPASS  packages/ui/test/case-13.spec.ts (23 ms)\nPASS  packages/cli/test/case-14.spec.ts (24 ms)\nPASS  packages/server/test/case-15.spec.ts (25 ms)\nPASS  packages/core/test/case-16.spec.ts (26 ms)\nPASS  packages/ui/test/case-17.spec.ts (27 ms)\nPASS  packages/cli/test/case-18.spec.ts (28 ms)\nPASS  packages/server/test/case-19.spec.ts (29 ms)\nPASS  packages/core/test/case-20.spec.ts (30 ms)\n… [19 lines omitted] …\nPASS  packages/core/test/case-40.spec.ts (50 ms)\n… [19 lines omitted] …\nPASS  packages/core/test/case-60.spec.ts (20 ms)\n… [19 lines omitted] …\nPASS  packages/core/test/case-80.spec.ts (40 ms)\n… [19 lines omitted] …\nPASS  packages/core/test/case-100.spec.ts (10 ms)\n… [19 lines omitted] …\nPASS  packages/core/test/case-120.spec.ts (30 ms)\n… [18 lines omitted] …\nPASS  packages/server/test/case-139.spec.ts (49 ms)\nFAIL  packages/cli/test/config-loader.spec.ts\n  ● loadConfig › resolves extends chain\n    Expected: \"./base.json\"\n    Received: undefined\n      at Object.<anonymous> (packages/cli/test/config-loader.spec.ts:77:25)\nPASS  packages/core/test/case-140.spec.ts (50 ms)\nPASS  packages/ui/test/case-141.spec.ts (51 ms)\nPASS  packages/cli/test/case-142.spec.ts (52 ms)\nPASS  packages/server/test/case-143.spec.ts (53 ms)\nPASS  packages/core/test/case-144.spec.ts (54 ms)\nPASS  packages/ui/test/case-145.spec.ts (55 ms)\nPASS  packages/cli/test/case-146.spec.ts (56 ms)\nPASS  packages/server/test/case-147.spec.ts (57 ms)\nPASS  packages/core/test/case-148.spec.ts (58 ms)\nPASS  packages/ui/test/case-149.spec.ts (59 ms)\nPASS  packages/cli/test/case-150.spec.ts (10 ms)\nPASS  packages/server/test/case-151.spec.ts (11 ms)\nPASS  packages/core/test/case-152.spec.ts (12 ms)\nPASS  packages/ui/test/case-153.spec.ts (13 ms)\nPASS  packages/cli/test/case-154.spec.ts (14 ms)\nPASS  packages/server/test/case-155.spec.ts (15 ms)\n… [19 lines omitted] …\nPASS  packages/server/test/case-175.spec.ts (35 ms)\nPASS  packages/core/test/case-176.spec.ts (36 ms)\nPASS  packages/ui/test/case-177.spec.ts (37 ms)\nPASS  packages/cli/test/case-178.spec.ts (38 ms)\nPASS  packages/server/test/case-179.spec.ts (39 ms)\nPASS  packages/core/test/case-180.spec.ts (40 ms)\nPASS  packages/ui/test/case-181.spec.ts (41 ms)\nPASS  packages/cli/test/case-182.spec.ts (42 ms)\nPASS  packages/server/test/case-183.spec.ts (43 ms)\nPASS  packages/core/test/case-184.spec.ts (44 ms)\nPASS  packages/ui/test/case-185.spec.ts (45 ms)\nPASS  packages/cli/test/case-186.spec.ts (46 ms)\nPASS  packages/server/test/case-187.spec.ts (47 ms)\nPASS  packages/core/test/case-188.spec.ts (48 ms)\nPASS  packages/ui/test/case-189.spec.ts (49 ms)\nTests:       1 failed, 189 passed, 190 total",
+      "keptLines": 64,
+      "totalLines": 196,
+      "originalTokens": 2400,
+      "keptTokens": 863
+     },
+     "keptText": "[pi-jev-context] Output shortened: 64 of 196 lines kept verbatim. You cannot see the omitted lines; before relying on anything not shown here, call context_recall with id \"t1\".\nPASS  packages/core/test/case-0.spec.ts (10 ms)\nPASS  packages/ui/test/case-1.spec.ts (11 ms)\nPASS  packages/cli/test/case-2.spec.ts (12 ms)\nPASS  packages/server/test/case-3.spec.ts (13 ms)\nPASS  packages/core/test/case-4.spec.ts (14 ms)\nPASS  packages/ui/test/case-5.spec.ts (15 ms)\nPASS  packages/cli/test/case-6.spec.ts (16 ms)\nPASS  packages/server/test/case-7.spec.ts (17 ms)\nPASS  packages/core/test/case-8.spec.ts (18 ms)\nPASS  packages/ui/test/case-9.spec.ts (19 ms)\nPASS  packages/cli/test/case-10.spec.ts (20 ms)\nPASS  packages/server/test/case-11.spec.ts (21 ms)\nPASS  packages/core/test/case-12.spec.ts (22 ms)\nPASS  packages/ui/test/case-13.spec.ts (23 ms)\nPASS  packages/cli/test/case-14.spec.ts (24 ms)\nPASS  packages/server/test/case-15.spec.ts (25 ms)\nPASS  packages/core/test/case-16.spec.ts (26 ms)\nPASS  packages/ui/test/case-17.spec.ts (27 ms)\nPASS  packages/cli/test/case-18.spec.ts (28 ms)\nPASS  packages/server/test/case-19.spec.ts (29 ms)\nPASS  packages/core/test/case-20.spec.ts (30 ms)\n… [19 lines omitted] …\nPASS  packages/core/test/case-40.spec.ts (50 ms)\n… [19 lines omitted] …\nPASS  packages/core/test/case-60.spec.ts (20 ms)\n… [19 lines omitted] …\nPASS  packages/core/test/case-80.spec.ts (40 ms)\n… [19 lines omitted] …\nPASS  packages/core/test/case-100.spec.ts (10 ms)\n… [19 lines omitted] …\nPASS  packages/core/test/case-120.spec.ts (30 ms)\n… [18 lines omitted] …\nPASS  packages/server/test/case-139.spec.ts (49 ms)\nFAIL  packages/cli/test/config-loader.spec.ts\n  ● loadConfig › resolves extends chain\n    Expected: \"./base.json\"\n    Received: undefined\n      at Object.<anonymous> (packages/cli/test/config-loader.spec.ts:77:25)\nPASS  packages/core/test/case-140.spec.ts (50 ms)\nPASS  packages/ui/test/case-141.spec.ts (51 ms)\nPASS  packages/cli/test/case-142.spec.ts (52 ms)\nPASS  packages/server/test/case-143.spec.ts (53 ms)\nPASS  packages/core/test/case-144.spec.ts (54 ms)\nPASS  packages/ui/test/case-145.spec.ts (55 ms)\nPASS  packages/cli/test/case-146.spec.ts (56 ms)\nPASS  packages/server/test/case-147.spec.ts (57 ms)\nPASS  packages/core/test/case-148.spec.ts (58 ms)\nPASS  packages/ui/test/case-149.spec.ts (59 ms)\nPASS  packages/cli/test/case-150.spec.ts (10 ms)\nPASS  packages/server/test/case-151.spec.ts (11 ms)\nPASS  packages/core/test/case-152.spec.ts (12 ms)\nPASS  packages/ui/test/case-153.spec.ts (13 ms)\nPASS  packages/cli/test/case-154.spec.ts (14 ms)\nPASS  packages/server/test/case-155.spec.ts (15 ms)\n… [19 lines omitted] …\nPASS  packages/server/test/case-175.spec.ts (35 ms)\nPASS  packages/core/test/case-176.spec.ts (36 ms)\nPASS  packages/ui/test/case-177.spec.ts (37 ms)\nPASS  packages/cli/test/case-178.spec.ts (38 ms)\nPASS  packages/server/test/case-179.spec.ts (39 ms)\nPASS  packages/core/test/case-180.spec.ts (40 ms)\nPASS  packages/ui/test/case-181.spec.ts (41 ms)\nPASS  packages/cli/test/case-182.spec.ts (42 ms)\nPASS  packages/server/test/case-183.spec.ts (43 ms)\nPASS  packages/core/test/case-184.spec.ts (44 ms)\nPASS  packages/ui/test/case-185.spec.ts (45 ms)\nPASS  packages/cli/test/case-186.spec.ts (46 ms)\nPASS  packages/server/test/case-187.spec.ts (47 ms)\nPASS  packages/core/test/case-188.spec.ts (48 ms)\nPASS  packages/ui/test/case-189.spec.ts (49 ms)\nTests:       1 failed, 189 passed, 190 total",
+     "decision": {
+      "trim": true,
+      "reason": "specific_parts hidden 7/10",
+      "selected": []
+     }
+    },
+    {
+     "mode": "blocks",
+     "call": {
+      "answers": {
+       "need": {
+        "type": "choice",
+        "choice": "specific_parts",
+        "probabilities": {
+         "outcome_only": 0,
+         "unclear": 0,
+         "specific_parts": 1,
+         "every_line": 0
+        },
+        "confidence": 1
+       },
+       "user_asked": {
+        "type": "noul",
+        "noul": 0.05
+       },
+       "b1": {
+        "type": "noul",
+        "noul": 0.1
+       },
+       "b2": {
+        "type": "noul",
+        "noul": 0.06
+       },
+       "b3": {
+        "type": "noul",
+        "noul": 0.06
+       },
+       "b4": {
+        "type": "noul",
+        "noul": 0.06
+       },
+       "b5": {
+        "type": "noul",
+        "noul": 0.06
+       },
+       "b6": {
+        "type": "noul",
+        "noul": 0.06
+       },
+       "b7": {
+        "type": "noul",
+        "noul": 0.08
+       },
+       "b8": {
+        "type": "noul",
+        "noul": 0.96
+       },
+       "b9": {
+        "type": "noul",
+        "noul": 0.07
+       },
+       "b10": {
+        "type": "noul",
+        "noul": 0.27
+       }
+      },
+      "ms": 366,
+      "model": "typesafe/jev-1.13-20260917",
+      "inputTokens": 5380,
+      "cost": 0.00022596
+     },
+     "trimmed": {
+      "text": "[pi-jev-context] Output shortened: 64 of 196 lines kept verbatim. You cannot see the omitted lines; before relying on anything not shown here, call context_recall with id \"t1\".\nPASS  packages/core/test/case-0.spec.ts (10 ms)\nPASS  packages/ui/test/case-1.spec.ts (11 ms)\nPASS  packages/cli/test/case-2.spec.ts (12 ms)\nPASS  packages/server/test/case-3.spec.ts (13 ms)\nPASS  packages/core/test/case-4.spec.ts (14 ms)\nPASS  packages/ui/test/case-5.spec.ts (15 ms)\nPASS  packages/cli/test/case-6.spec.ts (16 ms)\nPASS  packages/server/test/case-7.spec.ts (17 ms)\nPASS  packages/core/test/case-8.spec.ts (18 ms)\nPASS  packages/ui/test/case-9.spec.ts (19 ms)\nPASS  packages/cli/test/case-10.spec.ts (20 ms)\nPASS  packages/server/test/case-11.spec.ts (21 ms)\nPASS  packages/core/test/case-12.spec.ts (22 ms)\nPASS  packages/ui/test/case-13.spec.ts (23 ms)\nPASS  packages/cli/test/case-14.spec.ts (24 ms)\nPASS  packages/server/test/case-15.spec.ts (25 ms)\nPASS  packages/core/test/case-16.spec.ts (26 ms)\nPASS  packages/ui/test/case-17.spec.ts (27 ms)\nPASS  packages/cli/test/case-18.spec.ts (28 ms)\nPASS  packages/server/test/case-19.spec.ts (29 ms)\nPASS  packages/core/test/case-20.spec.ts (30 ms)\n… [19 lines omitted] …\nPASS  packages/core/test/case-40.spec.ts (50 ms)\n… [19 lines omitted] …\nPASS  packages/core/test/case-60.spec.ts (20 ms)\n… [19 lines omitted] …\nPASS  packages/core/test/case-80.spec.ts (40 ms)\n… [19 lines omitted] …\nPASS  packages/core/test/case-100.spec.ts (10 ms)\n… [19 lines omitted] …\nPASS  packages/core/test/case-120.spec.ts (30 ms)\n… [18 lines omitted] …\nPASS  packages/server/test/case-139.spec.ts (49 ms)\nFAIL  packages/cli/test/config-loader.spec.ts\n  ● loadConfig › resolves extends chain\n    Expected: \"./base.json\"\n    Received: undefined\n      at Object.<anonymous> (packages/cli/test/config-loader.spec.ts:77:25)\nPASS  packages/core/test/case-140.spec.ts (50 ms)\nPASS  packages/ui/test/case-141.spec.ts (51 ms)\nPASS  packages/cli/test/case-142.spec.ts (52 ms)\nPASS  packages/server/test/case-143.spec.ts (53 ms)\nPASS  packages/core/test/case-144.spec.ts (54 ms)\nPASS  packages/ui/test/case-145.spec.ts (55 ms)\nPASS  packages/cli/test/case-146.spec.ts (56 ms)\nPASS  packages/server/test/case-147.spec.ts (57 ms)\nPASS  packages/core/test/case-148.spec.ts (58 ms)\nPASS  packages/ui/test/case-149.spec.ts (59 ms)\nPASS  packages/cli/test/case-150.spec.ts (10 ms)\nPASS  packages/server/test/case-151.spec.ts (11 ms)\nPASS  packages/core/test/case-152.spec.ts (12 ms)\nPASS  packages/ui/test/case-153.spec.ts (13 ms)\nPASS  packages/cli/test/case-154.spec.ts (14 ms)\nPASS  packages/server/test/case-155.spec.ts (15 ms)\n… [19 lines omitted] …\nPASS  packages/server/test/case-175.spec.ts (35 ms)\nPASS  packages/core/test/case-176.spec.ts (36 ms)\nPASS  packages/ui/test/case-177.spec.ts (37 ms)\nPASS  packages/cli/test/case-178.spec.ts (38 ms)\nPASS  packages/server/test/case-179.spec.ts (39 ms)\nPASS  packages/core/test/case-180.spec.ts (40 ms)\nPASS  packages/ui/test/case-181.spec.ts (41 ms)\nPASS  packages/cli/test/case-182.spec.ts (42 ms)\nPASS  packages/server/test/case-183.spec.ts (43 ms)\nPASS  packages/core/test/case-184.spec.ts (44 ms)\nPASS  packages/ui/test/case-185.spec.ts (45 ms)\nPASS  packages/cli/test/case-186.spec.ts (46 ms)\nPASS  packages/server/test/case-187.spec.ts (47 ms)\nPASS  packages/core/test/case-188.spec.ts (48 ms)\nPASS  packages/ui/test/case-189.spec.ts (49 ms)\nTests:       1 failed, 189 passed, 190 total",
+      "keptLines": 64,
+      "totalLines": 196,
+      "originalTokens": 2400,
+      "keptTokens": 863
+     },
+     "keptText": "[pi-jev-context] Output shortened: 64 of 196 lines kept verbatim. You cannot see the omitted lines; before relying on anything not shown here, call context_recall with id \"t1\".\nPASS  packages/core/test/case-0.spec.ts (10 ms)\nPASS  packages/ui/test/case-1.spec.ts (11 ms)\nPASS  packages/cli/test/case-2.spec.ts (12 ms)\nPASS  packages/server/test/case-3.spec.ts (13 ms)\nPASS  packages/core/test/case-4.spec.ts (14 ms)\nPASS  packages/ui/test/case-5.spec.ts (15 ms)\nPASS  packages/cli/test/case-6.spec.ts (16 ms)\nPASS  packages/server/test/case-7.spec.ts (17 ms)\nPASS  packages/core/test/case-8.spec.ts (18 ms)\nPASS  packages/ui/test/case-9.spec.ts (19 ms)\nPASS  packages/cli/test/case-10.spec.ts (20 ms)\nPASS  packages/server/test/case-11.spec.ts (21 ms)\nPASS  packages/core/test/case-12.spec.ts (22 ms)\nPASS  packages/ui/test/case-13.spec.ts (23 ms)\nPASS  packages/cli/test/case-14.spec.ts (24 ms)\nPASS  packages/server/test/case-15.spec.ts (25 ms)\nPASS  packages/core/test/case-16.spec.ts (26 ms)\nPASS  packages/ui/test/case-17.spec.ts (27 ms)\nPASS  packages/cli/test/case-18.spec.ts (28 ms)\nPASS  packages/server/test/case-19.spec.ts (29 ms)\nPASS  packages/core/test/case-20.spec.ts (30 ms)\n… [19 lines omitted] …\nPASS  packages/core/test/case-40.spec.ts (50 ms)\n… [19 lines omitted] …\nPASS  packages/core/test/case-60.spec.ts (20 ms)\n… [19 lines omitted] …\nPASS  packages/core/test/case-80.spec.ts (40 ms)\n… [19 lines omitted] …\nPASS  packages/core/test/case-100.spec.ts (10 ms)\n… [19 lines omitted] …\nPASS  packages/core/test/case-120.spec.ts (30 ms)\n… [18 lines omitted] …\nPASS  packages/server/test/case-139.spec.ts (49 ms)\nFAIL  packages/cli/test/config-loader.spec.ts\n  ● loadConfig › resolves extends chain\n    Expected: \"./base.json\"\n    Received: undefined\n      at Object.<anonymous> (packages/cli/test/config-loader.spec.ts:77:25)\nPASS  packages/core/test/case-140.spec.ts (50 ms)\nPASS  packages/ui/test/case-141.spec.ts (51 ms)\nPASS  packages/cli/test/case-142.spec.ts (52 ms)\nPASS  packages/server/test/case-143.spec.ts (53 ms)\nPASS  packages/core/test/case-144.spec.ts (54 ms)\nPASS  packages/ui/test/case-145.spec.ts (55 ms)\nPASS  packages/cli/test/case-146.spec.ts (56 ms)\nPASS  packages/server/test/case-147.spec.ts (57 ms)\nPASS  packages/core/test/case-148.spec.ts (58 ms)\nPASS  packages/ui/test/case-149.spec.ts (59 ms)\nPASS  packages/cli/test/case-150.spec.ts (10 ms)\nPASS  packages/server/test/case-151.spec.ts (11 ms)\nPASS  packages/core/test/case-152.spec.ts (12 ms)\nPASS  packages/ui/test/case-153.spec.ts (13 ms)\nPASS  packages/cli/test/case-154.spec.ts (14 ms)\nPASS  packages/server/test/case-155.spec.ts (15 ms)\n… [19 lines omitted] …\nPASS  packages/server/test/case-175.spec.ts (35 ms)\nPASS  packages/core/test/case-176.spec.ts (36 ms)\nPASS  packages/ui/test/case-177.spec.ts (37 ms)\nPASS  packages/cli/test/case-178.spec.ts (38 ms)\nPASS  packages/server/test/case-179.spec.ts (39 ms)\nPASS  packages/core/test/case-180.spec.ts (40 ms)\nPASS  packages/ui/test/case-181.spec.ts (41 ms)\nPASS  packages/cli/test/case-182.spec.ts (42 ms)\nPASS  packages/server/test/case-183.spec.ts (43 ms)\nPASS  packages/core/test/case-184.spec.ts (44 ms)\nPASS  packages/ui/test/case-185.spec.ts (45 ms)\nPASS  packages/cli/test/case-186.spec.ts (46 ms)\nPASS  packages/server/test/case-187.spec.ts (47 ms)\nPASS  packages/core/test/case-188.spec.ts (48 ms)\nPASS  packages/ui/test/case-189.spec.ts (49 ms)\nTests:       1 failed, 189 passed, 190 total",
+     "decision": {
+      "trim": true,
+      "reason": "specific_parts hidden 7/10",
+      "selected": []
+     }
+    },
+    {
+     "mode": "blocks",
+     "call": {
+      "answers": {
+       "need": {
+        "type": "choice",
+        "choice": "specific_parts",
+        "probabilities": {
+         "unclear": 0,
+         "every_line": 0,
+         "specific_parts": 1,
+         "outcome_only": 0
+        },
+        "confidence": 1
+       },
+       "user_asked": {
+        "type": "noul",
+        "noul": 0.05
+       },
+       "b1": {
+        "type": "noul",
+        "noul": 0.1
+       },
+       "b2": {
+        "type": "noul",
+        "noul": 0.05
+       },
+       "b3": {
+        "type": "noul",
+        "noul": 0.07
+       },
+       "b4": {
+        "type": "noul",
+        "noul": 0.05
+       },
+       "b5": {
+        "type": "noul",
+        "noul": 0.06
+       },
+       "b6": {
+        "type": "noul",
+        "noul": 0.05
+       },
+       "b7": {
+        "type": "noul",
+        "noul": 0.07
+       },
+       "b8": {
+        "type": "noul",
+        "noul": 0.96
+       },
+       "b9": {
+        "type": "noul",
+        "noul": 0.07
+       },
+       "b10": {
+        "type": "noul",
+        "noul": 0.29
+       }
+      },
+      "ms": 361,
+      "model": "typesafe/jev-1.13-20260917",
+      "inputTokens": 5380,
+      "cost": 0.00022596
+     },
+     "trimmed": {
+      "text": "[pi-jev-context] Output shortened: 64 of 196 lines kept verbatim. You cannot see the omitted lines; before relying on anything not shown here, call context_recall with id \"t1\".\nPASS  packages/core/test/case-0.spec.ts (10 ms)\nPASS  packages/ui/test/case-1.spec.ts (11 ms)\nPASS  packages/cli/test/case-2.spec.ts (12 ms)\nPASS  packages/server/test/case-3.spec.ts (13 ms)\nPASS  packages/core/test/case-4.spec.ts (14 ms)\nPASS  packages/ui/test/case-5.spec.ts (15 ms)\nPASS  packages/cli/test/case-6.spec.ts (16 ms)\nPASS  packages/server/test/case-7.spec.ts (17 ms)\nPASS  packages/core/test/case-8.spec.ts (18 ms)\nPASS  packages/ui/test/case-9.spec.ts (19 ms)\nPASS  packages/cli/test/case-10.spec.ts (20 ms)\nPASS  packages/server/test/case-11.spec.ts (21 ms)\nPASS  packages/core/test/case-12.spec.ts (22 ms)\nPASS  packages/ui/test/case-13.spec.ts (23 ms)\nPASS  packages/cli/test/case-14.spec.ts (24 ms)\nPASS  packages/server/test/case-15.spec.ts (25 ms)\nPASS  packages/core/test/case-16.spec.ts (26 ms)\nPASS  packages/ui/test/case-17.spec.ts (27 ms)\nPASS  packages/cli/test/case-18.spec.ts (28 ms)\nPASS  packages/server/test/case-19.spec.ts (29 ms)\nPASS  packages/core/test/case-20.spec.ts (30 ms)\n… [19 lines omitted] …\nPASS  packages/core/test/case-40.spec.ts (50 ms)\n… [19 lines omitted] …\nPASS  packages/core/test/case-60.spec.ts (20 ms)\n… [19 lines omitted] …\nPASS  packages/core/test/case-80.spec.ts (40 ms)\n… [19 lines omitted] …\nPASS  packages/core/test/case-100.spec.ts (10 ms)\n… [19 lines omitted] …\nPASS  packages/core/test/case-120.spec.ts (30 ms)\n… [18 lines omitted] …\nPASS  packages/server/test/case-139.spec.ts (49 ms)\nFAIL  packages/cli/test/config-loader.spec.ts\n  ● loadConfig › resolves extends chain\n    Expected: \"./base.json\"\n    Received: undefined\n      at Object.<anonymous> (packages/cli/test/config-loader.spec.ts:77:25)\nPASS  packages/core/test/case-140.spec.ts (50 ms)\nPASS  packages/ui/test/case-141.spec.ts (51 ms)\nPASS  packages/cli/test/case-142.spec.ts (52 ms)\nPASS  packages/server/test/case-143.spec.ts (53 ms)\nPASS  packages/core/test/case-144.spec.ts (54 ms)\nPASS  packages/ui/test/case-145.spec.ts (55 ms)\nPASS  packages/cli/test/case-146.spec.ts (56 ms)\nPASS  packages/server/test/case-147.spec.ts (57 ms)\nPASS  packages/core/test/case-148.spec.ts (58 ms)\nPASS  packages/ui/test/case-149.spec.ts (59 ms)\nPASS  packages/cli/test/case-150.spec.ts (10 ms)\nPASS  packages/server/test/case-151.spec.ts (11 ms)\nPASS  packages/core/test/case-152.spec.ts (12 ms)\nPASS  packages/ui/test/case-153.spec.ts (13 ms)\nPASS  packages/cli/test/case-154.spec.ts (14 ms)\nPASS  packages/server/test/case-155.spec.ts (15 ms)\n… [19 lines omitted] …\nPASS  packages/server/test/case-175.spec.ts (35 ms)\nPASS  packages/core/test/case-176.spec.ts (36 ms)\nPASS  packages/ui/test/case-177.spec.ts (37 ms)\nPASS  packages/cli/test/case-178.spec.ts (38 ms)\nPASS  packages/server/test/case-179.spec.ts (39 ms)\nPASS  packages/core/test/case-180.spec.ts (40 ms)\nPASS  packages/ui/test/case-181.spec.ts (41 ms)\nPASS  packages/cli/test/case-182.spec.ts (42 ms)\nPASS  packages/server/test/case-183.spec.ts (43 ms)\nPASS  packages/core/test/case-184.spec.ts (44 ms)\nPASS  packages/ui/test/case-185.spec.ts (45 ms)\nPASS  packages/cli/test/case-186.spec.ts (46 ms)\nPASS  packages/server/test/case-187.spec.ts (47 ms)\nPASS  packages/core/test/case-188.spec.ts (48 ms)\nPASS  packages/ui/test/case-189.spec.ts (49 ms)\nTests:       1 failed, 189 passed, 190 total",
+      "keptLines": 64,
+      "totalLines": 196,
+      "originalTokens": 2400,
+      "keptTokens": 863
+     },
+     "keptText": "[pi-jev-context] Output shortened: 64 of 196 lines kept verbatim. You cannot see the omitted lines; before relying on anything not shown here, call context_recall with id \"t1\".\nPASS  packages/core/test/case-0.spec.ts (10 ms)\nPASS  packages/ui/test/case-1.spec.ts (11 ms)\nPASS  packages/cli/test/case-2.spec.ts (12 ms)\nPASS  packages/server/test/case-3.spec.ts (13 ms)\nPASS  packages/core/test/case-4.spec.ts (14 ms)\nPASS  packages/ui/test/case-5.spec.ts (15 ms)\nPASS  packages/cli/test/case-6.spec.ts (16 ms)\nPASS  packages/server/test/case-7.spec.ts (17 ms)\nPASS  packages/core/test/case-8.spec.ts (18 ms)\nPASS  packages/ui/test/case-9.spec.ts (19 ms)\nPASS  packages/cli/test/case-10.spec.ts (20 ms)\nPASS  packages/server/test/case-11.spec.ts (21 ms)\nPASS  packages/core/test/case-12.spec.ts (22 ms)\nPASS  packages/ui/test/case-13.spec.ts (23 ms)\nPASS  packages/cli/test/case-14.spec.ts (24 ms)\nPASS  packages/server/test/case-15.spec.ts (25 ms)\nPASS  packages/core/test/case-16.spec.ts (26 ms)\nPASS  packages/ui/test/case-17.spec.ts (27 ms)\nPASS  packages/cli/test/case-18.spec.ts (28 ms)\nPASS  packages/server/test/case-19.spec.ts (29 ms)\nPASS  packages/core/test/case-20.spec.ts (30 ms)\n… [19 lines omitted] …\nPASS  packages/core/test/case-40.spec.ts (50 ms)\n… [19 lines omitted] …\nPASS  packages/core/test/case-60.spec.ts (20 ms)\n… [19 lines omitted] …\nPASS  packages/core/test/case-80.spec.ts (40 ms)\n… [19 lines omitted] …\nPASS  packages/core/test/case-100.spec.ts (10 ms)\n… [19 lines omitted] …\nPASS  packages/core/test/case-120.spec.ts (30 ms)\n… [18 lines omitted] …\nPASS  packages/server/test/case-139.spec.ts (49 ms)\nFAIL  packages/cli/test/config-loader.spec.ts\n  ● loadConfig › resolves extends chain\n    Expected: \"./base.json\"\n    Received: undefined\n      at Object.<anonymous> (packages/cli/test/config-loader.spec.ts:77:25)\nPASS  packages/core/test/case-140.spec.ts (50 ms)\nPASS  packages/ui/test/case-141.spec.ts (51 ms)\nPASS  packages/cli/test/case-142.spec.ts (52 ms)\nPASS  packages/server/test/case-143.spec.ts (53 ms)\nPASS  packages/core/test/case-144.spec.ts (54 ms)\nPASS  packages/ui/test/case-145.spec.ts (55 ms)\nPASS  packages/cli/test/case-146.spec.ts (56 ms)\nPASS  packages/server/test/case-147.spec.ts (57 ms)\nPASS  packages/core/test/case-148.spec.ts (58 ms)\nPASS  packages/ui/test/case-149.spec.ts (59 ms)\nPASS  packages/cli/test/case-150.spec.ts (10 ms)\nPASS  packages/server/test/case-151.spec.ts (11 ms)\nPASS  packages/core/test/case-152.spec.ts (12 ms)\nPASS  packages/ui/test/case-153.spec.ts (13 ms)\nPASS  packages/cli/test/case-154.spec.ts (14 ms)\nPASS  packages/server/test/case-155.spec.ts (15 ms)\n… [19 lines omitted] …\nPASS  packages/server/test/case-175.spec.ts (35 ms)\nPASS  packages/core/test/case-176.spec.ts (36 ms)\nPASS  packages/ui/test/case-177.spec.ts (37 ms)\nPASS  packages/cli/test/case-178.spec.ts (38 ms)\nPASS  packages/server/test/case-179.spec.ts (39 ms)\nPASS  packages/core/test/case-180.spec.ts (40 ms)\nPASS  packages/ui/test/case-181.spec.ts (41 ms)\nPASS  packages/cli/test/case-182.spec.ts (42 ms)\nPASS  packages/server/test/case-183.spec.ts (43 ms)\nPASS  packages/core/test/case-184.spec.ts (44 ms)\nPASS  packages/ui/test/case-185.spec.ts (45 ms)\nPASS  packages/cli/test/case-186.spec.ts (46 ms)\nPASS  packages/server/test/case-187.spec.ts (47 ms)\nPASS  packages/core/test/case-188.spec.ts (48 ms)\nPASS  packages/ui/test/case-189.spec.ts (49 ms)\nTests:       1 failed, 189 passed, 190 total",
+     "decision": {
+      "trim": true,
+      "reason": "specific_parts hidden 7/10",
+      "selected": []
+     }
+    }
+   ]
+  },
+  {
+   "id": "W29",
+   "truth": "TRIM",
+   "plans": [
+    {
+     "mode": "blocks",
+     "call": {
+      "answers": {
+       "need": {
+        "type": "choice",
+        "choice": "specific_parts",
+        "probabilities": {
+         "every_line": 0.01,
+         "specific_parts": 0.99,
+         "unclear": 0,
+         "outcome_only": 0
+        },
+        "confidence": 0.99
+       },
+       "user_asked": {
+        "type": "noul",
+        "noul": 0.05
+       },
+       "b1": {
+        "type": "noul",
+        "noul": 0.13
+       },
+       "b2": {
+        "type": "noul",
+        "noul": 0.09
+       },
+       "b3": {
+        "type": "noul",
+        "noul": 0.09
+       },
+       "b4": {
+        "type": "noul",
+        "noul": 0.09
+       },
+       "b5": {
+        "type": "noul",
+        "noul": 0.96
+       },
+       "b6": {
+        "type": "noul",
+        "noul": 0.09
+       },
+       "b7": {
+        "type": "noul",
+        "noul": 0.08
+       },
+       "b8": {
+        "type": "noul",
+        "noul": 0.07
+       },
+       "b9": {
+        "type": "noul",
+        "noul": 0.09
+       }
+      },
+      "ms": 385,
+      "model": "typesafe/jev-1.13-20260917",
+      "inputTokens": 4895,
+      "cost": 0.00020559
+     },
+     "trimmed": {
+      "text": "[pi-jev-context] Output shortened: 74 of 178 lines kept verbatim. You cannot see the omitted lines; before relying on anything not shown here, call context_recall with id \"t1\".\nacme-app@1.4.0 /home/dev/acme-app\n├── lodash-plugin-0@1.0.0\n│ ├── zod-plugin-1@2.1.0\n│ ├── react-plugin-2@3.2.0\n│ ├── express-plugin-3@1.3.0\n│ ├── vite-plugin-4@2.4.0\n├── dayjs-plugin-5@3.5.0\n│ ├── axios-plugin-6@1.6.0\n│ ├── lodash-plugin-7@2.7.0\n│ ├── zod-plugin-8@3.8.0\n│ ├── react-plugin-9@1.9.0\n├── express-plugin-10@2.0.0\n│ ├── vite-plugin-11@3.1.0\n│ ├── dayjs-plugin-12@1.2.0\n│ ├── axios-plugin-13@2.3.0\n│ ├── lodash-plugin-14@3.4.0\n├── zod-plugin-15@1.5.0\n│ ├── react-plugin-16@2.6.0\n│ ├── express-plugin-17@3.7.0\n│ ├── vite-plugin-18@1.8.0\n│ ├── dayjs-plugin-19@2.9.0\n├── axios-plugin-20@3.0.0\n│ ├── lodash-plugin-21@1.1.0\n│ ├── zod-plugin-22@2.2.0\n│ ├── react-plugin-23@3.3.0\n│ ├── express-plugin-24@1.4.0\n├── vite-plugin-25@2.5.0\n│ ├── dayjs-plugin-26@3.6.0\n│ ├── axios-plugin-27@1.7.0\n│ ├── lodash-plugin-28@2.8.0\n│ ├── zod-plugin-29@3.9.0\n├── react-plugin-30@1.0.0\n│ ├── express-plugin-31@2.1.0\n│ ├── vite-plugin-32@3.2.0\n│ ├── dayjs-plugin-33@1.3.0\n│ ├── axios-plugin-34@2.4.0\n├── lodash-plugin-35@3.5.0\n│ ├── zod-plugin-36@1.6.0\n│ ├── react-plugin-37@2.7.0\n│ ├── express-plugin-38@3.8.0\n│ ├── vite-plugin-39@1.9.0\n… [19 lines omitted] …\n│ ├── express-plugin-59@3.9.0\n… [19 lines omitted] …\n│ ├── react-plugin-79@2.9.0\n├── express-plugin-80@3.0.0\n│ ├── vite-plugin-81@1.1.0\n│ ├── dayjs-plugin-82@2.2.0\n│ ├── axios-plugin-83@3.3.0\n│ ├── lodash-plugin-84@1.4.0\n├── zod-plugin-85@2.5.0\n│ ├── react-plugin-86@3.6.0\n├─┬ jsonwebtoken@8.5.1\n│ └── jws@3.2.2  (deprecated: CVE-2022-23540, upgrade to jsonwebtoken@9)\n│ ├── express-plugin-87@1.7.0\n│ ├── vite-plugin-88@2.8.0\n│ ├── dayjs-plugin-89@3.9.0\n├── axios-plugin-90@1.0.0\n│ ├── lodash-plugin-91@2.1.0\n│ ├── zod-plugin-92@3.2.0\n│ ├── react-plugin-93@1.3.0\n│ ├── express-plugin-94@2.4.0\n├── vite-plugin-95@3.5.0\n│ ├── dayjs-plugin-96@1.6.0\n│ ├── axios-plugin-97@2.7.0\n… [19 lines omitted] …\n│ ├── dayjs-plugin-117@1.7.0\n… [19 lines omitted] …\n│ ├── vite-plugin-137@3.7.0\n… [19 lines omitted] …\n│ ├── express-plugin-157@2.7.0\n… [9 lines omitted] …\n│ ├── axios-plugin-167@3.7.0\n│ ├── lodash-plugin-168@1.8.0\n│ ├── zod-plugin-169@2.9.0\n├── react-plugin-170@3.0.0\n│ ├── express-plugin-171@1.1.0\n│ ├── vite-plugin-172@2.2.0\n│ ├── dayjs-plugin-173@3.3.0\n│ ├── axios-plugin-174@1.4.0",
+      "keptLines": 74,
+      "totalLines": 178,
+      "originalTokens": 1256,
+      "keptTokens": 603
+     },
+     "keptText": "[pi-jev-context] Output shortened: 74 of 178 lines kept verbatim. You cannot see the omitted lines; before relying on anything not shown here, call context_recall with id \"t1\".\nacme-app@1.4.0 /home/dev/acme-app\n├── lodash-plugin-0@1.0.0\n│ ├── zod-plugin-1@2.1.0\n│ ├── react-plugin-2@3.2.0\n│ ├── express-plugin-3@1.3.0\n│ ├── vite-plugin-4@2.4.0\n├── dayjs-plugin-5@3.5.0\n│ ├── axios-plugin-6@1.6.0\n│ ├── lodash-plugin-7@2.7.0\n│ ├── zod-plugin-8@3.8.0\n│ ├── react-plugin-9@1.9.0\n├── express-plugin-10@2.0.0\n│ ├── vite-plugin-11@3.1.0\n│ ├── dayjs-plugin-12@1.2.0\n│ ├── axios-plugin-13@2.3.0\n│ ├── lodash-plugin-14@3.4.0\n├── zod-plugin-15@1.5.0\n│ ├── react-plugin-16@2.6.0\n│ ├── express-plugin-17@3.7.0\n│ ├── vite-plugin-18@1.8.0\n│ ├── dayjs-plugin-19@2.9.0\n├── axios-plugin-20@3.0.0\n│ ├── lodash-plugin-21@1.1.0\n│ ├── zod-plugin-22@2.2.0\n│ ├── react-plugin-23@3.3.0\n│ ├── express-plugin-24@1.4.0\n├── vite-plugin-25@2.5.0\n│ ├── dayjs-plugin-26@3.6.0\n│ ├── axios-plugin-27@1.7.0\n│ ├── lodash-plugin-28@2.8.0\n│ ├── zod-plugin-29@3.9.0\n├── react-plugin-30@1.0.0\n│ ├── express-plugin-31@2.1.0\n│ ├── vite-plugin-32@3.2.0\n│ ├── dayjs-plugin-33@1.3.0\n│ ├── axios-plugin-34@2.4.0\n├── lodash-plugin-35@3.5.0\n│ ├── zod-plugin-36@1.6.0\n│ ├── react-plugin-37@2.7.0\n│ ├── express-plugin-38@3.8.0\n│ ├── vite-plugin-39@1.9.0\n… [19 lines omitted] …\n│ ├── express-plugin-59@3.9.0\n… [19 lines omitted] …\n│ ├── react-plugin-79@2.9.0\n├── express-plugin-80@3.0.0\n│ ├── vite-plugin-81@1.1.0\n│ ├── dayjs-plugin-82@2.2.0\n│ ├── axios-plugin-83@3.3.0\n│ ├── lodash-plugin-84@1.4.0\n├── zod-plugin-85@2.5.0\n│ ├── react-plugin-86@3.6.0\n├─┬ jsonwebtoken@8.5.1\n│ └── jws@3.2.2  (deprecated: CVE-2022-23540, upgrade to jsonwebtoken@9)\n│ ├── express-plugin-87@1.7.0\n│ ├── vite-plugin-88@2.8.0\n│ ├── dayjs-plugin-89@3.9.0\n├── axios-plugin-90@1.0.0\n│ ├── lodash-plugin-91@2.1.0\n│ ├── zod-plugin-92@3.2.0\n│ ├── react-plugin-93@1.3.0\n│ ├── express-plugin-94@2.4.0\n├── vite-plugin-95@3.5.0\n│ ├── dayjs-plugin-96@1.6.0\n│ ├── axios-plugin-97@2.7.0\n… [19 lines omitted] …\n│ ├── dayjs-plugin-117@1.7.0\n… [19 lines omitted] …\n│ ├── vite-plugin-137@3.7.0\n… [19 lines omitted] …\n│ ├── express-plugin-157@2.7.0\n… [9 lines omitted] …\n│ ├── axios-plugin-167@3.7.0\n│ ├── lodash-plugin-168@1.8.0\n│ ├── zod-plugin-169@2.9.0\n├── react-plugin-170@3.0.0\n│ ├── express-plugin-171@1.1.0\n│ ├── vite-plugin-172@2.2.0\n│ ├── dayjs-plugin-173@3.3.0\n│ ├── axios-plugin-174@1.4.0",
+     "decision": {
+      "trim": true,
+      "reason": "specific_parts hidden 6/9",
+      "selected": []
+     }
+    },
+    {
+     "mode": "blocks",
+     "call": {
+      "answers": {
+       "need": {
+        "type": "choice",
+        "choice": "specific_parts",
+        "probabilities": {
+         "specific_parts": 0.99,
+         "every_line": 0.01,
+         "unclear": 0,
+         "outcome_only": 0
+        },
+        "confidence": 0.99
+       },
+       "user_asked": {
+        "type": "noul",
+        "noul": 0.04
+       },
+       "b1": {
+        "type": "noul",
+        "noul": 0.13
+       },
+       "b2": {
+        "type": "noul",
+        "noul": 0.09
+       },
+       "b3": {
+        "type": "noul",
+        "noul": 0.09
+       },
+       "b4": {
+        "type": "noul",
+        "noul": 0.11
+       },
+       "b5": {
+        "type": "noul",
+        "noul": 0.97
+       },
+       "b6": {
+        "type": "noul",
+        "noul": 0.08
+       },
+       "b7": {
+        "type": "noul",
+        "noul": 0.08
+       },
+       "b8": {
+        "type": "noul",
+        "noul": 0.07
+       },
+       "b9": {
+        "type": "noul",
+        "noul": 0.09
+       }
+      },
+      "ms": 299,
+      "model": "typesafe/jev-1.13-20260917",
+      "inputTokens": 4895,
+      "cost": 0.00020559
+     },
+     "trimmed": {
+      "text": "[pi-jev-context] Output shortened: 74 of 178 lines kept verbatim. You cannot see the omitted lines; before relying on anything not shown here, call context_recall with id \"t1\".\nacme-app@1.4.0 /home/dev/acme-app\n├── lodash-plugin-0@1.0.0\n│ ├── zod-plugin-1@2.1.0\n│ ├── react-plugin-2@3.2.0\n│ ├── express-plugin-3@1.3.0\n│ ├── vite-plugin-4@2.4.0\n├── dayjs-plugin-5@3.5.0\n│ ├── axios-plugin-6@1.6.0\n│ ├── lodash-plugin-7@2.7.0\n│ ├── zod-plugin-8@3.8.0\n│ ├── react-plugin-9@1.9.0\n├── express-plugin-10@2.0.0\n│ ├── vite-plugin-11@3.1.0\n│ ├── dayjs-plugin-12@1.2.0\n│ ├── axios-plugin-13@2.3.0\n│ ├── lodash-plugin-14@3.4.0\n├── zod-plugin-15@1.5.0\n│ ├── react-plugin-16@2.6.0\n│ ├── express-plugin-17@3.7.0\n│ ├── vite-plugin-18@1.8.0\n│ ├── dayjs-plugin-19@2.9.0\n… [19 lines omitted] …\n│ ├── vite-plugin-39@1.9.0\n… [19 lines omitted] …\n│ ├── express-plugin-59@3.9.0\n├── vite-plugin-60@1.0.0\n│ ├── dayjs-plugin-61@2.1.0\n│ ├── axios-plugin-62@3.2.0\n│ ├── lodash-plugin-63@1.3.0\n│ ├── zod-plugin-64@2.4.0\n├── react-plugin-65@3.5.0\n│ ├── express-plugin-66@1.6.0\n│ ├── vite-plugin-67@2.7.0\n│ ├── dayjs-plugin-68@3.8.0\n│ ├── axios-plugin-69@1.9.0\n├── lodash-plugin-70@2.0.0\n│ ├── zod-plugin-71@3.1.0\n│ ├── react-plugin-72@1.2.0\n│ ├── express-plugin-73@2.3.0\n│ ├── vite-plugin-74@3.4.0\n├── dayjs-plugin-75@1.5.0\n│ ├── axios-plugin-76@2.6.0\n│ ├── lodash-plugin-77@3.7.0\n│ ├── zod-plugin-78@1.8.0\n│ ├── react-plugin-79@2.9.0\n├── express-plugin-80@3.0.0\n│ ├── vite-plugin-81@1.1.0\n│ ├── dayjs-plugin-82@2.2.0\n│ ├── axios-plugin-83@3.3.0\n│ ├── lodash-plugin-84@1.4.0\n├── zod-plugin-85@2.5.0\n│ ├── react-plugin-86@3.6.0\n├─┬ jsonwebtoken@8.5.1\n│ └── jws@3.2.2  (deprecated: CVE-2022-23540, upgrade to jsonwebtoken@9)\n│ ├── express-plugin-87@1.7.0\n│ ├── vite-plugin-88@2.8.0\n│ ├── dayjs-plugin-89@3.9.0\n├── axios-plugin-90@1.0.0\n│ ├── lodash-plugin-91@2.1.0\n│ ├── zod-plugin-92@3.2.0\n│ ├── react-plugin-93@1.3.0\n│ ├── express-plugin-94@2.4.0\n├── vite-plugin-95@3.5.0\n│ ├── dayjs-plugin-96@1.6.0\n│ ├── axios-plugin-97@2.7.0\n… [19 lines omitted] …\n│ ├── dayjs-plugin-117@1.7.0\n… [19 lines omitted] …\n│ ├── vite-plugin-137@3.7.0\n… [19 lines omitted] …\n│ ├── express-plugin-157@2.7.0\n… [9 lines omitted] …\n│ ├── axios-plugin-167@3.7.0\n│ ├── lodash-plugin-168@1.8.0\n│ ├── zod-plugin-169@2.9.0\n├── react-plugin-170@3.0.0\n│ ├── express-plugin-171@1.1.0\n│ ├── vite-plugin-172@2.2.0\n│ ├── dayjs-plugin-173@3.3.0\n│ ├── axios-plugin-174@1.4.0",
+      "keptLines": 74,
+      "totalLines": 178,
+      "originalTokens": 1256,
+      "keptTokens": 602
+     },
+     "keptText": "[pi-jev-context] Output shortened: 74 of 178 lines kept verbatim. You cannot see the omitted lines; before relying on anything not shown here, call context_recall with id \"t1\".\nacme-app@1.4.0 /home/dev/acme-app\n├── lodash-plugin-0@1.0.0\n│ ├── zod-plugin-1@2.1.0\n│ ├── react-plugin-2@3.2.0\n│ ├── express-plugin-3@1.3.0\n│ ├── vite-plugin-4@2.4.0\n├── dayjs-plugin-5@3.5.0\n│ ├── axios-plugin-6@1.6.0\n│ ├── lodash-plugin-7@2.7.0\n│ ├── zod-plugin-8@3.8.0\n│ ├── react-plugin-9@1.9.0\n├── express-plugin-10@2.0.0\n│ ├── vite-plugin-11@3.1.0\n│ ├── dayjs-plugin-12@1.2.0\n│ ├── axios-plugin-13@2.3.0\n│ ├── lodash-plugin-14@3.4.0\n├── zod-plugin-15@1.5.0\n│ ├── react-plugin-16@2.6.0\n│ ├── express-plugin-17@3.7.0\n│ ├── vite-plugin-18@1.8.0\n│ ├── dayjs-plugin-19@2.9.0\n… [19 lines omitted] …\n│ ├── vite-plugin-39@1.9.0\n… [19 lines omitted] …\n│ ├── express-plugin-59@3.9.0\n├── vite-plugin-60@1.0.0\n│ ├── dayjs-plugin-61@2.1.0\n│ ├── axios-plugin-62@3.2.0\n│ ├── lodash-plugin-63@1.3.0\n│ ├── zod-plugin-64@2.4.0\n├── react-plugin-65@3.5.0\n│ ├── express-plugin-66@1.6.0\n│ ├── vite-plugin-67@2.7.0\n│ ├── dayjs-plugin-68@3.8.0\n│ ├── axios-plugin-69@1.9.0\n├── lodash-plugin-70@2.0.0\n│ ├── zod-plugin-71@3.1.0\n│ ├── react-plugin-72@1.2.0\n│ ├── express-plugin-73@2.3.0\n│ ├── vite-plugin-74@3.4.0\n├── dayjs-plugin-75@1.5.0\n│ ├── axios-plugin-76@2.6.0\n│ ├── lodash-plugin-77@3.7.0\n│ ├── zod-plugin-78@1.8.0\n│ ├── react-plugin-79@2.9.0\n├── express-plugin-80@3.0.0\n│ ├── vite-plugin-81@1.1.0\n│ ├── dayjs-plugin-82@2.2.0\n│ ├── axios-plugin-83@3.3.0\n│ ├── lodash-plugin-84@1.4.0\n├── zod-plugin-85@2.5.0\n│ ├── react-plugin-86@3.6.0\n├─┬ jsonwebtoken@8.5.1\n│ └── jws@3.2.2  (deprecated: CVE-2022-23540, upgrade to jsonwebtoken@9)\n│ ├── express-plugin-87@1.7.0\n│ ├── vite-plugin-88@2.8.0\n│ ├── dayjs-plugin-89@3.9.0\n├── axios-plugin-90@1.0.0\n│ ├── lodash-plugin-91@2.1.0\n│ ├── zod-plugin-92@3.2.0\n│ ├── react-plugin-93@1.3.0\n│ ├── express-plugin-94@2.4.0\n├── vite-plugin-95@3.5.0\n│ ├── dayjs-plugin-96@1.6.0\n│ ├── axios-plugin-97@2.7.0\n… [19 lines omitted] …\n│ ├── dayjs-plugin-117@1.7.0\n… [19 lines omitted] …\n│ ├── vite-plugin-137@3.7.0\n… [19 lines omitted] …\n│ ├── express-plugin-157@2.7.0\n… [9 lines omitted] …\n│ ├── axios-plugin-167@3.7.0\n│ ├── lodash-plugin-168@1.8.0\n│ ├── zod-plugin-169@2.9.0\n├── react-plugin-170@3.0.0\n│ ├── express-plugin-171@1.1.0\n│ ├── vite-plugin-172@2.2.0\n│ ├── dayjs-plugin-173@3.3.0\n│ ├── axios-plugin-174@1.4.0",
+     "decision": {
+      "trim": true,
+      "reason": "specific_parts hidden 6/9",
+      "selected": []
+     }
+    },
+    {
+     "mode": "blocks",
+     "call": {
+      "answers": {
+       "need": {
+        "type": "choice",
+        "choice": "specific_parts",
+        "probabilities": {
+         "specific_parts": 0.99,
+         "unclear": 0,
+         "every_line": 0.01,
+         "outcome_only": 0
+        },
+        "confidence": 0.99
+       },
+       "user_asked": {
+        "type": "noul",
+        "noul": 0.04
+       },
+       "b1": {
+        "type": "noul",
+        "noul": 0.13
+       },
+       "b2": {
+        "type": "noul",
+        "noul": 0.09
+       },
+       "b3": {
+        "type": "noul",
+        "noul": 0.08
+       },
+       "b4": {
+        "type": "noul",
+        "noul": 0.1
+       },
+       "b5": {
+        "type": "noul",
+        "noul": 0.96
+       },
+       "b6": {
+        "type": "noul",
+        "noul": 0.09
+       },
+       "b7": {
+        "type": "noul",
+        "noul": 0.09
+       },
+       "b8": {
+        "type": "noul",
+        "noul": 0.09
+       },
+       "b9": {
+        "type": "noul",
+        "noul": 0.09
+       }
+      },
+      "ms": 369,
+      "model": "typesafe/jev-1.13-20260917",
+      "inputTokens": 4895,
+      "cost": 0.00020559
+     },
+     "trimmed": {
+      "text": "[pi-jev-context] Output shortened: 74 of 178 lines kept verbatim. You cannot see the omitted lines; before relying on anything not shown here, call context_recall with id \"t1\".\nacme-app@1.4.0 /home/dev/acme-app\n├── lodash-plugin-0@1.0.0\n│ ├── zod-plugin-1@2.1.0\n│ ├── react-plugin-2@3.2.0\n│ ├── express-plugin-3@1.3.0\n│ ├── vite-plugin-4@2.4.0\n├── dayjs-plugin-5@3.5.0\n│ ├── axios-plugin-6@1.6.0\n│ ├── lodash-plugin-7@2.7.0\n│ ├── zod-plugin-8@3.8.0\n│ ├── react-plugin-9@1.9.0\n├── express-plugin-10@2.0.0\n│ ├── vite-plugin-11@3.1.0\n│ ├── dayjs-plugin-12@1.2.0\n│ ├── axios-plugin-13@2.3.0\n│ ├── lodash-plugin-14@3.4.0\n├── zod-plugin-15@1.5.0\n│ ├── react-plugin-16@2.6.0\n│ ├── express-plugin-17@3.7.0\n│ ├── vite-plugin-18@1.8.0\n│ ├── dayjs-plugin-19@2.9.0\n… [19 lines omitted] …\n│ ├── vite-plugin-39@1.9.0\n… [19 lines omitted] …\n│ ├── express-plugin-59@3.9.0\n├── vite-plugin-60@1.0.0\n│ ├── dayjs-plugin-61@2.1.0\n│ ├── axios-plugin-62@3.2.0\n│ ├── lodash-plugin-63@1.3.0\n│ ├── zod-plugin-64@2.4.0\n├── react-plugin-65@3.5.0\n│ ├── express-plugin-66@1.6.0\n│ ├── vite-plugin-67@2.7.0\n│ ├── dayjs-plugin-68@3.8.0\n│ ├── axios-plugin-69@1.9.0\n├── lodash-plugin-70@2.0.0\n│ ├── zod-plugin-71@3.1.0\n│ ├── react-plugin-72@1.2.0\n│ ├── express-plugin-73@2.3.0\n│ ├── vite-plugin-74@3.4.0\n├── dayjs-plugin-75@1.5.0\n│ ├── axios-plugin-76@2.6.0\n│ ├── lodash-plugin-77@3.7.0\n│ ├── zod-plugin-78@1.8.0\n│ ├── react-plugin-79@2.9.0\n├── express-plugin-80@3.0.0\n│ ├── vite-plugin-81@1.1.0\n│ ├── dayjs-plugin-82@2.2.0\n│ ├── axios-plugin-83@3.3.0\n│ ├── lodash-plugin-84@1.4.0\n├── zod-plugin-85@2.5.0\n│ ├── react-plugin-86@3.6.0\n├─┬ jsonwebtoken@8.5.1\n│ └── jws@3.2.2  (deprecated: CVE-2022-23540, upgrade to jsonwebtoken@9)\n│ ├── express-plugin-87@1.7.0\n│ ├── vite-plugin-88@2.8.0\n│ ├── dayjs-plugin-89@3.9.0\n├── axios-plugin-90@1.0.0\n│ ├── lodash-plugin-91@2.1.0\n│ ├── zod-plugin-92@3.2.0\n│ ├── react-plugin-93@1.3.0\n│ ├── express-plugin-94@2.4.0\n├── vite-plugin-95@3.5.0\n│ ├── dayjs-plugin-96@1.6.0\n│ ├── axios-plugin-97@2.7.0\n… [19 lines omitted] …\n│ ├── dayjs-plugin-117@1.7.0\n… [19 lines omitted] …\n│ ├── vite-plugin-137@3.7.0\n… [19 lines omitted] …\n│ ├── express-plugin-157@2.7.0\n… [9 lines omitted] …\n│ ├── axios-plugin-167@3.7.0\n│ ├── lodash-plugin-168@1.8.0\n│ ├── zod-plugin-169@2.9.0\n├── react-plugin-170@3.0.0\n│ ├── express-plugin-171@1.1.0\n│ ├── vite-plugin-172@2.2.0\n│ ├── dayjs-plugin-173@3.3.0\n│ ├── axios-plugin-174@1.4.0",
+      "keptLines": 74,
+      "totalLines": 178,
+      "originalTokens": 1256,
+      "keptTokens": 602
+     },
+     "keptText": "[pi-jev-context] Output shortened: 74 of 178 lines kept verbatim. You cannot see the omitted lines; before relying on anything not shown here, call context_recall with id \"t1\".\nacme-app@1.4.0 /home/dev/acme-app\n├── lodash-plugin-0@1.0.0\n│ ├── zod-plugin-1@2.1.0\n│ ├── react-plugin-2@3.2.0\n│ ├── express-plugin-3@1.3.0\n│ ├── vite-plugin-4@2.4.0\n├── dayjs-plugin-5@3.5.0\n│ ├── axios-plugin-6@1.6.0\n│ ├── lodash-plugin-7@2.7.0\n│ ├── zod-plugin-8@3.8.0\n│ ├── react-plugin-9@1.9.0\n├── express-plugin-10@2.0.0\n│ ├── vite-plugin-11@3.1.0\n│ ├── dayjs-plugin-12@1.2.0\n│ ├── axios-plugin-13@2.3.0\n│ ├── lodash-plugin-14@3.4.0\n├── zod-plugin-15@1.5.0\n│ ├── react-plugin-16@2.6.0\n│ ├── express-plugin-17@3.7.0\n│ ├── vite-plugin-18@1.8.0\n│ ├── dayjs-plugin-19@2.9.0\n… [19 lines omitted] …\n│ ├── vite-plugin-39@1.9.0\n… [19 lines omitted] …\n│ ├── express-plugin-59@3.9.0\n├── vite-plugin-60@1.0.0\n│ ├── dayjs-plugin-61@2.1.0\n│ ├── axios-plugin-62@3.2.0\n│ ├── lodash-plugin-63@1.3.0\n│ ├── zod-plugin-64@2.4.0\n├── react-plugin-65@3.5.0\n│ ├── express-plugin-66@1.6.0\n│ ├── vite-plugin-67@2.7.0\n│ ├── dayjs-plugin-68@3.8.0\n│ ├── axios-plugin-69@1.9.0\n├── lodash-plugin-70@2.0.0\n│ ├── zod-plugin-71@3.1.0\n│ ├── react-plugin-72@1.2.0\n│ ├── express-plugin-73@2.3.0\n│ ├── vite-plugin-74@3.4.0\n├── dayjs-plugin-75@1.5.0\n│ ├── axios-plugin-76@2.6.0\n│ ├── lodash-plugin-77@3.7.0\n│ ├── zod-plugin-78@1.8.0\n│ ├── react-plugin-79@2.9.0\n├── express-plugin-80@3.0.0\n│ ├── vite-plugin-81@1.1.0\n│ ├── dayjs-plugin-82@2.2.0\n│ ├── axios-plugin-83@3.3.0\n│ ├── lodash-plugin-84@1.4.0\n├── zod-plugin-85@2.5.0\n│ ├── react-plugin-86@3.6.0\n├─┬ jsonwebtoken@8.5.1\n│ └── jws@3.2.2  (deprecated: CVE-2022-23540, upgrade to jsonwebtoken@9)\n│ ├── express-plugin-87@1.7.0\n│ ├── vite-plugin-88@2.8.0\n│ ├── dayjs-plugin-89@3.9.0\n├── axios-plugin-90@1.0.0\n│ ├── lodash-plugin-91@2.1.0\n│ ├── zod-plugin-92@3.2.0\n│ ├── react-plugin-93@1.3.0\n│ ├── express-plugin-94@2.4.0\n├── vite-plugin-95@3.5.0\n│ ├── dayjs-plugin-96@1.6.0\n│ ├── axios-plugin-97@2.7.0\n… [19 lines omitted] …\n│ ├── dayjs-plugin-117@1.7.0\n… [19 lines omitted] …\n│ ├── vite-plugin-137@3.7.0\n… [19 lines omitted] …\n│ ├── express-plugin-157@2.7.0\n… [9 lines omitted] …\n│ ├── axios-plugin-167@3.7.0\n│ ├── lodash-plugin-168@1.8.0\n│ ├── zod-plugin-169@2.9.0\n├── react-plugin-170@3.0.0\n│ ├── express-plugin-171@1.1.0\n│ ├── vite-plugin-172@2.2.0\n│ ├── dayjs-plugin-173@3.3.0\n│ ├── axios-plugin-174@1.4.0",
+     "decision": {
+      "trim": true,
+      "reason": "specific_parts hidden 6/9",
+      "selected": []
+     }
+    }
+   ]
+  },
+  {
+   "id": "W30",
+   "truth": "KEEP",
+   "plans": [
+    {
+     "mode": "blocks",
+     "call": {
+      "answers": {
+       "need": {
+        "type": "choice",
+        "choice": "every_line",
+        "probabilities": {
+         "every_line": 0.68,
+         "unclear": 0,
+         "specific_parts": 0.32,
+         "outcome_only": 0
+        },
+        "confidence": 0.58
+       },
+       "user_asked": {
+        "type": "noul",
+        "noul": 0.08
+       },
+       "b1": {
+        "type": "noul",
+        "noul": 0.84
+       },
+       "b2": {
+        "type": "noul",
+        "noul": 0.77
+       },
+       "b3": {
+        "type": "noul",
+        "noul": 0.75
+       },
+       "b4": {
+        "type": "noul",
+        "noul": 0.73
+       },
+       "b5": {
+        "type": "noul",
+        "noul": 0.72
+       },
+       "b6": {
+        "type": "noul",
+        "noul": 0.72
+       },
+       "b7": {
+        "type": "noul",
+        "noul": 0.81
+       },
+       "b8": {
+        "type": "noul",
+        "noul": 0.72
+       },
+       "b9": {
+        "type": "noul",
+        "noul": 0.74
+       },
+       "b10": {
+        "type": "noul",
+        "noul": 0.84
+       }
+      },
+      "ms": 303,
+      "model": "typesafe/jev-1.13-20260917",
+      "inputTokens": 9453,
+      "cost": 0.000397026
+     },
+     "skip": "jev every_line",
+     "decision": {
+      "trim": false,
+      "reason": "every_line hidden 0/10",
+      "selected": []
+     }
+    },
+    {
+     "mode": "blocks",
+     "call": {
+      "answers": {
+       "need": {
+        "type": "choice",
+        "choice": "every_line",
+        "probabilities": {
+         "every_line": 0.69,
+         "specific_parts": 0.31,
+         "unclear": 0,
+         "outcome_only": 0
+        },
+        "confidence": 0.58
+       },
+       "user_asked": {
+        "type": "noul",
+        "noul": 0.09
+       },
+       "b1": {
+        "type": "noul",
+        "noul": 0.86
+       },
+       "b2": {
+        "type": "noul",
+        "noul": 0.79
+       },
+       "b3": {
+        "type": "noul",
+        "noul": 0.76
+       },
+       "b4": {
+        "type": "noul",
+        "noul": 0.73
+       },
+       "b5": {
+        "type": "noul",
+        "noul": 0.74
+       },
+       "b6": {
+        "type": "noul",
+        "noul": 0.72
+       },
+       "b7": {
+        "type": "noul",
+        "noul": 0.81
+       },
+       "b8": {
+        "type": "noul",
+        "noul": 0.74
+       },
+       "b9": {
+        "type": "noul",
+        "noul": 0.76
+       },
+       "b10": {
+        "type": "noul",
+        "noul": 0.85
+       }
+      },
+      "ms": 385,
+      "model": "typesafe/jev-1.13-20260917",
+      "inputTokens": 9453,
+      "cost": 0.000397026
+     },
+     "skip": "jev every_line",
+     "decision": {
+      "trim": false,
+      "reason": "every_line hidden 0/10",
+      "selected": []
+     }
+    },
+    {
+     "mode": "blocks",
+     "call": {
+      "answers": {
+       "need": {
+        "type": "choice",
+        "choice": "every_line",
+        "probabilities": {
+         "specific_parts": 0.25,
+         "outcome_only": 0,
+         "unclear": 0,
+         "every_line": 0.75
+        },
+        "confidence": 0.67
+       },
+       "user_asked": {
+        "type": "noul",
+        "noul": 0.1
+       },
+       "b1": {
+        "type": "noul",
+        "noul": 0.84
+       },
+       "b2": {
+        "type": "noul",
+        "noul": 0.8
+       },
+       "b3": {
+        "type": "noul",
+        "noul": 0.77
+       },
+       "b4": {
+        "type": "noul",
+        "noul": 0.76
+       },
+       "b5": {
+        "type": "noul",
+        "noul": 0.77
+       },
+       "b6": {
+        "type": "noul",
+        "noul": 0.74
+       },
+       "b7": {
+        "type": "noul",
+        "noul": 0.84
+       },
+       "b8": {
+        "type": "noul",
+        "noul": 0.76
+       },
+       "b9": {
+        "type": "noul",
+        "noul": 0.75
+       },
+       "b10": {
+        "type": "noul",
+        "noul": 0.85
+       }
+      },
+      "ms": 350,
+      "model": "typesafe/jev-1.13-20260917",
+      "inputTokens": 9453,
+      "cost": 0.000397026
+     },
+     "skip": "jev every_line",
+     "decision": {
+      "trim": false,
+      "reason": "every_line hidden 0/10",
+      "selected": []
+     }
+    }
+   ]
+  },
+  {
+   "id": "W31",
+   "truth": "KEEP",
+   "plans": [
+    {
+     "mode": "blocks",
+     "call": {
+      "answers": {
+       "need": {
+        "type": "choice",
+        "choice": "every_line",
+        "probabilities": {
+         "specific_parts": 0.17,
+         "unclear": 0,
+         "every_line": 0.83,
+         "outcome_only": 0
+        },
+        "confidence": 0.77
+       },
+       "user_asked": {
+        "type": "noul",
+        "noul": 0.1
+       },
+       "b1": {
+        "type": "noul",
+        "noul": 0.93
+       },
+       "b2": {
+        "type": "noul",
+        "noul": 0.92
+       },
+       "b3": {
+        "type": "noul",
+        "noul": 0.92
+       },
+       "b4": {
+        "type": "noul",
+        "noul": 0.9
+       },
+       "b5": {
+        "type": "noul",
+        "noul": 0.89
+       },
+       "b6": {
+        "type": "noul",
+        "noul": 0.9
+       },
+       "b7": {
+        "type": "noul",
+        "noul": 0.89
+       },
+       "b8": {
+        "type": "noul",
+        "noul": 0.89
+       },
+       "b9": {
+        "type": "noul",
+        "noul": 0.88
+       },
+       "b10": {
+        "type": "noul",
+        "noul": 0.89
+       },
+       "b11": {
+        "type": "noul",
+        "noul": 0.9
+       },
+       "b12": {
+        "type": "noul",
+        "noul": 0.9
+       },
+       "b13": {
+        "type": "noul",
+        "noul": 0.92
+       }
+      },
+      "ms": 366,
+      "model": "typesafe/jev-1.13-20260917",
+      "inputTokens": 5528,
+      "cost": 0.000232176
+     },
+     "skip": "jev every_line",
+     "decision": {
+      "trim": false,
+      "reason": "every_line hidden 0/13",
+      "selected": []
+     }
+    },
+    {
+     "mode": "blocks",
+     "call": {
+      "answers": {
+       "need": {
+        "type": "choice",
+        "choice": "every_line",
+        "probabilities": {
+         "unclear": 0,
+         "every_line": 0.89,
+         "specific_parts": 0.11,
+         "outcome_only": 0
+        },
+        "confidence": 0.85
+       },
+       "user_asked": {
+        "type": "noul",
+        "noul": 0.11
+       },
+       "b1": {
+        "type": "noul",
+        "noul": 0.92
+       },
+       "b2": {
+        "type": "noul",
+        "noul": 0.92
+       },
+       "b3": {
+        "type": "noul",
+        "noul": 0.92
+       },
+       "b4": {
+        "type": "noul",
+        "noul": 0.91
+       },
+       "b5": {
+        "type": "noul",
+        "noul": 0.89
+       },
+       "b6": {
+        "type": "noul",
+        "noul": 0.91
+       },
+       "b7": {
+        "type": "noul",
+        "noul": 0.88
+       },
+       "b8": {
+        "type": "noul",
+        "noul": 0.89
+       },
+       "b9": {
+        "type": "noul",
+        "noul": 0.89
+       },
+       "b10": {
+        "type": "noul",
+        "noul": 0.9
+       },
+       "b11": {
+        "type": "noul",
+        "noul": 0.91
+       },
+       "b12": {
+        "type": "noul",
+        "noul": 0.9
+       },
+       "b13": {
+        "type": "noul",
+        "noul": 0.92
+       }
+      },
+      "ms": 409,
+      "model": "typesafe/jev-1.13-20260917",
+      "inputTokens": 5528,
+      "cost": 0.000232176
+     },
+     "skip": "jev every_line",
+     "decision": {
+      "trim": false,
+      "reason": "every_line hidden 0/13",
+      "selected": []
+     }
+    },
+    {
+     "mode": "blocks",
+     "call": {
+      "answers": {
+       "need": {
+        "type": "choice",
+        "choice": "every_line",
+        "probabilities": {
+         "outcome_only": 0,
+         "specific_parts": 0.11,
+         "unclear": 0,
+         "every_line": 0.89
+        },
+        "confidence": 0.86
+       },
+       "user_asked": {
+        "type": "noul",
+        "noul": 0.1
+       },
+       "b1": {
+        "type": "noul",
+        "noul": 0.92
+       },
+       "b2": {
+        "type": "noul",
+        "noul": 0.92
+       },
+       "b3": {
+        "type": "noul",
+        "noul": 0.91
+       },
+       "b4": {
+        "type": "noul",
+        "noul": 0.91
+       },
+       "b5": {
+        "type": "noul",
+        "noul": 0.89
+       },
+       "b6": {
+        "type": "noul",
+        "noul": 0.9
+       },
+       "b7": {
+        "type": "noul",
+        "noul": 0.88
+       },
+       "b8": {
+        "type": "noul",
+        "noul": 0.9
+       },
+       "b9": {
+        "type": "noul",
+        "noul": 0.9
+       },
+       "b10": {
+        "type": "noul",
+        "noul": 0.91
+       },
+       "b11": {
+        "type": "noul",
+        "noul": 0.91
+       },
+       "b12": {
+        "type": "noul",
+        "noul": 0.89
+       },
+       "b13": {
+        "type": "noul",
+        "noul": 0.93
+       }
+      },
+      "ms": 435,
+      "model": "typesafe/jev-1.13-20260917",
+      "inputTokens": 5528,
+      "cost": 0.000232176
+     },
+     "skip": "jev every_line",
+     "decision": {
+      "trim": false,
+      "reason": "every_line hidden 0/13",
+      "selected": []
+     }
+    }
+   ]
+  },
+  {
+   "id": "W32",
+   "truth": "KEEP",
+   "plans": [
+    {
+     "mode": "blocks",
+     "call": {
+      "answers": {
+       "need": {
+        "type": "choice",
+        "choice": "every_line",
+        "probabilities": {
+         "specific_parts": 0,
+         "every_line": 1,
+         "unclear": 0,
+         "outcome_only": 0
+        },
+        "confidence": 1
+       },
+       "user_asked": {
+        "type": "noul",
+        "noul": 0.59
+       },
+       "b1": {
+        "type": "noul",
+        "noul": 0.87
+       },
+       "b2": {
+        "type": "noul",
+        "noul": 0.87
+       },
+       "b3": {
+        "type": "noul",
+        "noul": 0.86
+       },
+       "b4": {
+        "type": "noul",
+        "noul": 0.85
+       },
+       "b5": {
+        "type": "noul",
+        "noul": 0.85
+       },
+       "b6": {
+        "type": "noul",
+        "noul": 0.85
+       },
+       "b7": {
+        "type": "noul",
+        "noul": 0.85
+       },
+       "b8": {
+        "type": "noul",
+        "noul": 0.86
+       },
+       "b9": {
+        "type": "noul",
+        "noul": 0.91
+       }
+      },
+      "ms": 326,
+      "model": "typesafe/jev-1.13-20260917",
+      "inputTokens": 4896,
+      "cost": 0.000205632
+     },
+     "skip": "jev every_line",
+     "decision": {
+      "trim": false,
+      "reason": "every_line hidden 0/9",
+      "selected": []
+     }
+    },
+    {
+     "mode": "blocks",
+     "call": {
+      "answers": {
+       "need": {
+        "type": "choice",
+        "choice": "every_line",
+        "probabilities": {
+         "specific_parts": 0,
+         "unclear": 0,
+         "every_line": 1,
+         "outcome_only": 0
+        },
+        "confidence": 1
+       },
+       "user_asked": {
+        "type": "noul",
+        "noul": 0.53
+       },
+       "b1": {
+        "type": "noul",
+        "noul": 0.87
+       },
+       "b2": {
+        "type": "noul",
+        "noul": 0.86
+       },
+       "b3": {
+        "type": "noul",
+        "noul": 0.87
+       },
+       "b4": {
+        "type": "noul",
+        "noul": 0.83
+       },
+       "b5": {
+        "type": "noul",
+        "noul": 0.82
+       },
+       "b6": {
+        "type": "noul",
+        "noul": 0.86
+       },
+       "b7": {
+        "type": "noul",
+        "noul": 0.84
+       },
+       "b8": {
+        "type": "noul",
+        "noul": 0.87
+       },
+       "b9": {
+        "type": "noul",
+        "noul": 0.92
+       }
+      },
+      "ms": 345,
+      "model": "typesafe/jev-1.13-20260917",
+      "inputTokens": 4896,
+      "cost": 0.000205632
+     },
+     "skip": "jev every_line",
+     "decision": {
+      "trim": false,
+      "reason": "every_line hidden 0/9",
+      "selected": []
+     }
+    },
+    {
+     "mode": "blocks",
+     "call": {
+      "answers": {
+       "need": {
+        "type": "choice",
+        "choice": "every_line",
+        "probabilities": {
+         "every_line": 1,
+         "outcome_only": 0,
+         "unclear": 0,
+         "specific_parts": 0
+        },
+        "confidence": 1
+       },
+       "user_asked": {
+        "type": "noul",
+        "noul": 0.62
+       },
+       "b1": {
+        "type": "noul",
+        "noul": 0.86
+       },
+       "b2": {
+        "type": "noul",
+        "noul": 0.87
+       },
+       "b3": {
+        "type": "noul",
+        "noul": 0.87
+       },
+       "b4": {
+        "type": "noul",
+        "noul": 0.84
+       },
+       "b5": {
+        "type": "noul",
+        "noul": 0.82
+       },
+       "b6": {
+        "type": "noul",
+        "noul": 0.86
+       },
+       "b7": {
+        "type": "noul",
+        "noul": 0.82
+       },
+       "b8": {
+        "type": "noul",
+        "noul": 0.87
+       },
+       "b9": {
+        "type": "noul",
+        "noul": 0.91
+       }
+      },
+      "ms": 376,
+      "model": "typesafe/jev-1.13-20260917",
+      "inputTokens": 4896,
+      "cost": 0.000205632
+     },
+     "skip": "jev every_line",
+     "decision": {
+      "trim": false,
+      "reason": "every_line hidden 0/9",
+      "selected": []
+     }
+    }
+   ]
+  }
+ ]
+}

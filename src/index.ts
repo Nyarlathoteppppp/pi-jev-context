@@ -12,6 +12,7 @@ import { buildState } from "./state.ts";
 import { DEFAULT_TRIM, shouldConsider, type TrimConfig } from "./trim.ts";
 import type { Label, Message } from "./types.ts";
 import { planTrim } from "./writetime.ts";
+import { DEFAULT_SIEVE, planSieve, type SieveConfig } from "./sieve.ts";
 
 // pi-jev-context v0.1
 //  1. Write-time trimming (mode "on"): long tool output is shortened to its key lines BEFORE it enters the
@@ -25,6 +26,9 @@ const MODES: Mode[] = ["off", "shadow", "on"];
 
 export interface JevContextConfig {
 	mode: Mode;
+	/** Write-time engine: "sieve" hides only blocks Jev is confident are unneeded (v0.2 default); "select" keeps only what Jev selects (v0.1). */
+	engine: "sieve" | "select";
+	sieve: SieveConfig;
 	trim: TrimConfig;
 	/** Hard deadline for a write-time decision; on timeout the output passes through unchanged. */
 	trimTimeoutMs: number;
@@ -42,6 +46,8 @@ export interface JevContextConfig {
 
 export const DEFAULT_CONFIG: JevContextConfig = {
 	mode: "shadow",
+	engine: "sieve",
+	sieve: DEFAULT_SIEVE,
 	trim: DEFAULT_TRIM,
 	trimTimeoutMs: 2500,
 	pruneMinTokens: 150,
@@ -75,7 +81,7 @@ export interface Original {
 }
 
 export type LogRecord =
-	| { kind: "trim"; mode: Mode; acted: boolean; alias?: string; toolCallId: string; summary: string; from: number; to?: number; keptLines?: number; totalLines: number; ms: number; cost?: number; skip?: string; need?: string; p?: number }
+	| { kind: "trim"; mode: Mode; acted: boolean; alias?: string; toolCallId: string; summary: string; engine?: string; blocks?: number; hidden?: number; from: number; to?: number; keptLines?: number; totalLines: number; ms: number; cost?: number; skip?: string; need?: string; p?: number }
 	| { kind: "recall"; alias: string; found: boolean }
 	| { kind: "prune"; toolCallId: string; summary: string; decision: Label; raw?: string; p?: number; confidence?: number; tokens: number; goal: number; facts: string; ms: number; cost?: number; error?: string }
 	| { kind: "cold"; gapMs: number; reason: string; wouldSave: number; decisions: number }
@@ -195,9 +201,13 @@ export function createJevContext(pi: ExtensionAPI, options: JevContextOptions = 
 		const fresh = { toolCallId: event.toolCallId, toolName: event.toolName, input, text, isError: event.isError };
 		const summary = summarizeCall(event.toolName, input);
 		const run = async (alias: string, signal?: AbortSignal) => {
-			const plan = await planTrim(judge, contextMessages(ctx), fresh, alias, { cfg: config.trim, timeoutMs: config.trimTimeoutMs, signal });
-			const need = plan.reading?.need;
-			return { plan, base: { toolCallId: event.toolCallId, summary, from: estimateTokens(text), totalLines: text.split("\n").length, ms: plan.call.ms, cost: plan.call.cost, need: need?.choice, p: need ? need.probabilities[need.choice] : undefined } };
+			const opts = { cfg: config.trim, timeoutMs: config.trimTimeoutMs, signal };
+			const plan =
+				config.engine === "sieve"
+					? await planSieve(judge, contextMessages(ctx), fresh, alias, { ...opts, cfg: config.sieve, trim: config.trim }).then((p) => ({ ...p, need: p.need, extra: { blocks: p.blocks.length, hidden: p.hidden.length } }))
+					: await planTrim(judge, contextMessages(ctx), fresh, alias, opts).then((p) => ({ ...p, need: p.reading?.need, extra: {} }));
+			const need = plan.need;
+			return { plan, base: { toolCallId: event.toolCallId, summary, engine: config.engine, ...plan.extra, from: estimateTokens(text), totalLines: text.split("\n").length, ms: plan.call.ms, cost: plan.call.cost, need: need?.choice, p: need ? need.probabilities[need.choice] : undefined } };
 		};
 
 		if (config.mode === "shadow") {

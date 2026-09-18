@@ -20,14 +20,14 @@ describe("sieve", () => {
 		}
 	});
 
-	it("hides only confidently unneeded blocks; uncertain and oversize blocks stay; vetoes win", () => {
-		const blocks = [
-			{ id: "b1", from: 1, to: 1, text: "a" },
-			{ id: "b2", from: 2, to: 2, text: "b" },
-			{ id: "b3", from: 3, to: 3, text: "x".repeat(DEFAULT_SIEVE.blockChars + 1) },
-		];
-		const probs = { b1: 0.05, b2: 0.3, b3: 0.01 };
-		assert.deepEqual(sieveDecide(need("specific_parts"), 0.1, blocks, probs).hidden.map((b) => b.id), ["b1"]);
+	it("hides only confidently unneeded blocks; uncertain, oversize, top-ranked and request-matching blocks stay; vetoes win", () => {
+		const mk = (id: string, text = id) => ({ id, from: 1, to: 1, text });
+		const blocks = [mk("b1"), mk("b2"), mk("b3", "x".repeat(DEFAULT_SIEVE.blockChars + 1)), mk("b4"), mk("b5"), mk("b6"), mk("b7", "the omit option")];
+		const probs = { b1: 0.05, b2: 0.3, b3: 0.01, b4: 0.9, b5: 0.8, b6: 0.04, b7: 0.02 };
+		// b2 uncertain, b3 oversize, b4/b5/b2 top-3; b7 matches the request term "omit".
+		assert.deepEqual(sieveDecide(need("specific_parts"), 0.1, blocks, probs, DEFAULT_SIEVE, "use the omit option").hidden.map((b) => b.id), ["b1", "b6"]);
+		// outcome_only: no top-3 protection.
+		assert.deepEqual(sieveDecide(need("outcome_only"), 0.1, blocks, probs).hidden.map((b) => b.id), ["b1", "b6", "b7"]);
 		assert.equal(sieveDecide(need("every_line"), 0.1, blocks, probs).hidden.length, 0);
 		assert.equal(sieveDecide(need("specific_parts"), 0.9, blocks, probs).hidden.length, 0);
 	});

@@ -22,9 +22,11 @@ export interface SieveConfig {
 	minHiddenShare: number;
 	/** A confident "every_line" or a user request for the full output vetoes any hiding. */
 	vetoProbability: number;
+	/** Skip (pass through) when state + questions would exceed this many tokens. */
+	maxRequestTokens: number;
 }
 
-export const DEFAULT_SIEVE: SieveConfig = { blockLines: 20, maxBlocks: 80, blockChars: 1500, drop: 0.15, minHiddenShare: 0.3, vetoProbability: 0.5 };
+export const DEFAULT_SIEVE: SieveConfig = { blockLines: 20, maxBlocks: 80, blockChars: 1500, drop: 0.15, minHiddenShare: 0.3, vetoProbability: 0.5, maxRequestTokens: 24000 };
 
 export const SIEVE_VERSION = "s1";
 
@@ -74,9 +76,12 @@ export function sieveBlocks(text: string, toolName: string, cfg: SieveConfig = D
 		const len = i - start;
 		// Never let a block outgrow what Jev is shown: a hidden block must have been read in full.
 		if (i <= n && chars + lines[i - 1]!.length + 1 > cfg.blockChars) {
-			ranges.push([start, i - 1]);
-			start = i;
-			chars = lines[i - 1]!.length + 1;
+			// Prefer the last blank line in the second half of the block, so sections are not split mid-way.
+			let cut = i - 1;
+			if (blanky) for (let k = i - 1; k > start + (i - start) / 2; k--) if (!lines[k - 1]!.trim()) { cut = k; break; }
+			ranges.push([start, cut]);
+			start = cut + 1;
+			chars = lines.slice(start - 1, i).reduce((a, l) => a + l.length + 1, 0);
 			continue;
 		}
 		if (i <= n) chars += lines[i - 1]!.length + 1;
@@ -132,13 +137,40 @@ export interface SievePlan {
 }
 
 /** Pure decision from Jev's answers: which blocks to hide. Exposed for threshold sweeps on recorded answers. */
-export function sieveDecide(need: ChoiceAnswer | undefined, userAsked: number, blocks: Unit[], probs: Record<string, number>, cfg: SieveConfig = DEFAULT_SIEVE): { hidden: Unit[]; skip?: string } {
+const STOP = new Set("about above after again against because before being below between could does doing during each from further have having here into itself just more most other over same should some such than that their them then there these they this those through under until very what when where which while will with would your yours please check find make need want tell show look using into also only again still first".split(" "));
+
+/**
+ * Distinctive words of the request: backticked terms, identifiers (dots, slashes, underscores, camelCase,
+ * digits) and longer words, kept only if they occur in few blocks. A block that contains one is never hidden:
+ * Jev judges a block as a whole and can miss one relevant line inside an unrelated block (W08).
+ */
+export function requestTerms(request: string, blocks: Unit[]): string[] {
+	const words = new Set<string>();
+	for (const m of request.matchAll(/`([^`]{2,60})`/g)) words.add(m[1]!.toLowerCase());
+	for (const w of request.split(/[^\w.\/@-]+/)) {
+		const t = w.replace(/^[.\-/]+|[.\-/]+$/g, "").toLowerCase();
+		if (t.length < 4 || STOP.has(t)) continue;
+		if (/[._\/@-]|\d|[a-z][A-Z]/.test(w) || t.length >= 4) words.add(t);
+	}
+	const limit = Math.max(1, Math.floor(blocks.length * 0.2));
+	return [...words].filter((w) => {
+		const hits = blocks.filter((b) => b.text.toLowerCase().includes(w)).length;
+		return hits > 0 && hits <= limit;
+	});
+}
+
+export function sieveDecide(need: ChoiceAnswer | undefined, userAsked: number, blocks: Unit[], probs: Record<string, number>, cfg: SieveConfig = DEFAULT_SIEVE, request = ""): { hidden: Unit[]; skip?: string; protectedIds?: string[] } {
 	if (need?.choice === "every_line" && (need.probabilities.every_line ?? 0) >= cfg.vetoProbability) return { hidden: [], skip: "jev every_line" };
 	if (userAsked >= cfg.vetoProbability) return { hidden: [], skip: "user asked for this output" };
+	const keep = new Set<string>();
+	// "Only specific parts matter" contradicts "no part matters": never hide the 3 most likely blocks.
+	if (need?.choice !== "outcome_only") for (const b of [...blocks].sort((a, b) => (probs[b.id] ?? 0) - (probs[a.id] ?? 0)).slice(0, 3)) keep.add(b.id);
+	const terms = requestTerms(request, blocks);
+	for (const b of blocks) if (terms.some((t) => b.text.toLowerCase().includes(t))) keep.add(b.id);
 	// A block Jev saw only in part (longer than blockChars, e.g. after merging) is never hidden.
-	const hidden = blocks.filter((b) => (probs[b.id] ?? 1) < cfg.drop && b.text.length <= cfg.blockChars);
-	if (!hidden.length) return { hidden, skip: "nothing confidently unneeded" };
-	return { hidden };
+	const hidden = blocks.filter((b) => !keep.has(b.id) && (probs[b.id] ?? 1) < cfg.drop && b.text.length <= cfg.blockChars);
+	if (!hidden.length) return { hidden, skip: "nothing confidently unneeded", protectedIds: [...keep] };
+	return { hidden, protectedIds: [...keep] };
 }
 
 export async function planSieve(
@@ -153,12 +185,17 @@ export async function planSieve(
 	const blocks = sieveBlocks(r.text, r.toolName, cfg);
 	const questions: Record<string, Question> = { need: SIEVE_NEED, user_asked: SIEVE_USER_ASKED };
 	for (const b of blocks) questions[b.id] = blockQuestion(b.id);
-	const call = await judge.decide(sieveState(context, r, blocks, cfg), questions, opts.timeoutMs ?? 2500, opts.signal);
+	const state = sieveState(context, r, blocks, cfg);
+	// Jev's limit is 64k tokens for state + questions (32k for state + the longest question). Stay well under.
+	const budget = estimateTokens(JSON.stringify(state)) + estimateTokens(JSON.stringify(questions));
+	if (budget > cfg.maxRequestTokens) return { blocks, call: { ms: 0, error: `too large for one call (~${budget} tokens)` }, probs: {}, hidden: [], skip: `too large for one Jev call (~${budget} tokens)` };
+	const call = await judge.decide(state, questions, opts.timeoutMs ?? 2500, opts.signal);
 	if (!call.answers) return { blocks, call, probs: {}, hidden: [], skip: `jev unavailable: ${call.error}` };
 	const need = call.answers.need as ChoiceAnswer;
 	const userAsked = (call.answers.user_asked as NoulAnswer).noul;
 	const probs = Object.fromEntries(blocks.map((b) => [b.id, (call.answers![b.id] as NoulAnswer).noul]));
-	const { hidden, skip } = sieveDecide(need, userAsked, blocks, probs, cfg);
+	const request = textOf(context.filter((m) => m.role === "user").at(-1)?.content ?? "");
+	const { hidden, skip } = sieveDecide(need, userAsked, blocks, probs, cfg, request);
 	if (skip) return { blocks, call, need, userAsked, probs, hidden, skip };
 	const hiddenIds = new Set(hidden.map((b) => b.id));
 	const kept = blocks.filter((b) => !hiddenIds.has(b.id));

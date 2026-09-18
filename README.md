@@ -8,7 +8,7 @@ Context trimming for the [pi](https://pi.dev) coding agent, powered by [TypeSafe
 
 [![pi](https://img.shields.io/badge/pi-%E2%89%A50.85.1-7c5cff)](https://pi.dev)
 [![Jev](https://img.shields.io/badge/powered%20by-TypeSafe%20Jev-f5a524)](https://docs.typesafe.ai)
-[![tests](https://img.shields.io/badge/tests-23%20passing-2ea043)](#development)
+[![tests](https://img.shields.io/badge/tests-28%20passing-2ea043)](#development)
 [![license](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
 
 </div>

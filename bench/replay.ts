@@ -129,9 +129,9 @@ if (what === "write") {
 			const blocks = p.blocks.map((b, k) => {
 				const others = new Set(p.blocks.filter((_, x) => x !== k).flatMap((_, x) => blockFacts[x]!));
 				const mine = blockFacts[k]!.filter((f) => !others.has(f));
-				return { id: b.id, lines: b.to - b.from + 1, chars: b.text.length, tokens: estimateTokens(b.text), p: p.probs[b.id], needed: usedBeforeResupplied(j.messages, j.idx, mine).length > 0 };
+				return { id: b.id, text: b.text, lines: b.to - b.from + 1, chars: b.text.length, tokens: estimateTokens(b.text), p: p.probs[b.id], needed: usedBeforeResupplied(j.messages, j.idx, mine).length > 0 };
 			});
-			recs.push({ session: j.s, tool: j.toolName, isError: j.isError, lines: j.text.split("\n").length, tokens: estimateTokens(j.text), need: p.need, userAsked: p.userAsked, trimmed: !!p.trimmed, kept: p.trimmed?.keptTokens, skip: p.skip, blocks, ms: p.call.ms, cost: p.call.cost, error: p.call.error });
+			recs.push({ request: textOf(j.messages.slice(0, j.idx).filter((m) => m.role === "user").at(-1)?.content ?? ""), session: j.s, tool: j.toolName, isError: j.isError, lines: j.text.split("\n").length, tokens: estimateTokens(j.text), need: p.need, userAsked: p.userAsked, trimmed: !!p.trimmed, kept: p.trimmed?.keptTokens, skip: p.skip, blocks, ms: p.call.ms, cost: p.call.cost, error: p.call.error });
 		});
 		writeFileSync("results-private/replay-sieve.json", JSON.stringify(recs, null, 1));
 		const ok = recs.filter((r) => !r.error);
@@ -141,9 +141,9 @@ if (what === "write") {
 		for (const drop of [0.05, 0.1, 0.15, 0.2, 0.3, 0.5]) {
 			let rewritten = 0, hiddenB = 0, allB = 0, hiddenTok = 0, allTok = 0, neededAll = 0, neededHidden = 0, badOutputs = 0;
 			for (const r of ok) {
-				const units = r.blocks.map((b: any) => ({ id: b.id, from: 0, to: 0, text: "x".repeat(b.chars) }));
+				const units = r.blocks.map((b: any) => ({ id: b.id, from: 0, to: 0, text: b.text ?? "x".repeat(b.chars) }));
 				const probs = Object.fromEntries(r.blocks.map((b: any) => [b.id, b.p]));
-				const { hidden } = sieveDecide(r.need, r.userAsked, units, probs, { ...DEFAULT_SIEVE, drop });
+				const { hidden } = sieveDecide(r.need, r.userAsked, units, probs, { ...DEFAULT_SIEVE, drop }, r.request);
 				const hid = new Set(hidden.map((h) => h.id));
 				const tokH = r.blocks.filter((b: any) => hid.has(b.id)).reduce((s: number, b: any) => s + b.tokens, 0);
 				allTok += r.tokens; allB += r.blocks.length; neededAll += r.blocks.filter((b: any) => b.needed).length;

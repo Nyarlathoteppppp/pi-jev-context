@@ -8,8 +8,10 @@ const LOG = longVitestLog();
 
 /** Write-time answers: "specific_parts", every failure line is key. Old-item answers: DROP. */
 const trimJudge = (need = "specific_parts") =>
-	fakeJudge((k: string, q: Question): Answer | undefined => {
+	fakeJudge((k: string, q: Question, state: any): Answer | undefined => {
 		if (k === "need") return choice(need, 0.97, 0.95);
+		// sieve block questions: judge the block's own text
+		if (/^b\d+$/.test(k)) return noul(/FAIL|failed|Expected|×|\.ts:\d+/.test(String(state?.blocks?.[k] ?? "")) ? 0.9 : 0.02);
 		if (k === "user_asked") return noul(0.05);
 		if (k === "decision") return choice("DROP", 0.95, 0.9);
 		if (q.type === "noul") return noul(/FAIL|failed|Expected|×|\.ts:\d+/.test(q.instructions) ? 0.9 : 0.1);
@@ -33,7 +35,8 @@ describe("write-time trimming", () => {
 		for (const k of ["2 failed", "auth.test.ts:42", "expected 401 to be 200", "auth.test.ts:58"]) assert.ok(r.text.includes(k), k);
 		// every kept line is an original line
 		for (const l of r.text.split("\n").slice(1)) if (!l.startsWith("… [")) assert.ok(LOG.split("\n").includes(l), l);
-		assert.ok(r.text.length < LOG.length / 4);
+		// sieve contract: a rewrite hides at least minHiddenShare (30%) of the tokens
+		assert.ok(r.text.length < LOG.length * 0.7);
 		const recalled = await pi.recall({ id: "t1" });
 		assert.equal(recalled.split("\n").slice(1).join("\n"), LOG);
 		assert.equal(pi.logs("trim")[0].acted, true);

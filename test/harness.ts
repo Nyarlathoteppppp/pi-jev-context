@@ -104,16 +104,16 @@ export class FakePi {
 }
 
 /** Fake judge: answers every question via `fn`; records the questions it saw. */
-export function fakeJudge(fn: (key: string, q: Question) => Answer | undefined, opts: { error?: string } = {}): Judge & { calls: Array<Record<string, Question>> } {
+export function fakeJudge(fn: (key: string, q: Question, state: any) => Answer | undefined, opts: { error?: string } = {}): Judge & { calls: Array<Record<string, Question>> } {
 	const calls: Array<Record<string, Question>> = [];
 	return {
 		calls,
-		async decide(_state, questions): Promise<JevCall> {
+		async decide(state, questions): Promise<JevCall> {
 			calls.push(questions);
 			if (opts.error) return { error: opts.error, ms: 1 };
 			const answers: Record<string, Answer> = {};
 			for (const [k, q] of Object.entries(questions)) {
-				const a = fn(k, q);
+				const a = fn(k, q, state);
 				if (a) answers[k] = a;
 			}
 			return { answers, ms: 1, cost: 0.00006 };

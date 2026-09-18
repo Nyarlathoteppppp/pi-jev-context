@@ -1,47 +1,130 @@
-# pi-jev-context (v0.0 — shadow evaluation only)
+<div align="center">
 
-**Question:** can [Jev](https://docs.typesafe.ai) reliably decide whether an old pi tool result should be **KEEP**, **TRUNCATE** or **DROP**?
+# pi-jev-context
 
-This repository is only a benchmark. It never touches a real pi session: no context hook, no compaction, no dropping.
+**Long tool output, cut to the lines that matter, before it can cost you a cache miss.**
 
-## Answer (jev-1.13, 2026-09-19)
+Context trimming for the [pi](https://pi.dev) coding agent, powered by [TypeSafe Jev](https://docs.typesafe.ai). It is measured before it is trusted.
 
-Jev is good at judging whether something is **relevant right now**. It does **not reliably judge future value**. Jev alone is not safe enough to decide an irreversible DROP. With deterministic guards and reversible stubs around it, it is worth building.
+[![pi](https://img.shields.io/badge/pi-%E2%89%A50.85.1-7c5cff)](https://pi.dev)
+[![Jev](https://img.shields.io/badge/powered%20by-TypeSafe%20Jev-f5a524)](https://docs.typesafe.ai)
+[![tests](https://img.shields.io/badge/tests-23%20passing-2ea043)](#development)
+[![license](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
 
-| | dev (37 items) | held-out (16 items, labelled after the policy was frozen) |
+</div>
+
+---
+
+In real pi sessions, **96% of message tokens are tool results**. The usual fix is to rewrite old context, and that breaks the provider's prompt cache: every edit invalidates the cached prefix after it.
+
+pi-jev-context works on the one place where trimming is free. It shortens a long output **when the output arrives**, before it has ever been sent or cached:
+
+```
+[pi-jev-context] Output shortened: 44 of 509 lines kept (chosen by Jev for the current task; kept lines are verbatim). Full output: context_recall with id "t1".
+ RUN  v2.1.8 /home/dev/acme-app
+… [307 lines omitted] …
+ ❯ src/auth/auth.test.ts (6 tests | 2 failed) 88ms
+   × auth › refreshes an expired session
+…
+AssertionError: expected 401 to be 200 // Object.is equality
+ ❯ src/auth/auth.test.ts:42:31
+…
+      Tests  2 failed | 402 passed (404)
+```
+
+5,115 tokens became 421. The model still named both failures with `file:line`. When it later needed an omitted line, it called `context_recall` and got the original back, byte for byte.
+
+## How it decides
+
+- **Code picks the candidates.** For logs these are error, failure and summary lines. For grep, find and search output, it forms blocks by file, directory or paragraph.
+- **Jev decides the rest, in one ~300 ms call.** It judges what the output is *for* (every line / specific parts / only the outcome / unclear) and which candidates the current request needs.
+- **When unsure, it does nothing.** Low confidence, a user who asked for the full output, a Jev error or a timeout: the output passes through untouched.
+- **Never trimmed:** `read`, `edit`, `write`, `cat`, `git diff` and other file viewers. The agent needs those verbatim the first time.
+
+## What we measured
+
+The full reports are in [`docs/experiments/`](docs/experiments) and the running conclusions in [`docs/FINDINGS.md`](docs/FINDINGS.md). Ground truth was committed before every live run, and held-out sets were written after the design was frozen.
+
+**Write-time trimming** (shipped): 25 labelled fresh outputs, 5 repeats each, from bash, grep, find, MCP-style search/fetch and SQL, including Chinese requests.
+
+| | dev | **held-out** |
 |---|---|---|
-| Jev raw accuracy (per call) | 87.0% | 93.8% |
-| KEEP recall | 86.7% | 100% |
-| **Critical false drop, Jev raw** | **11.1%** (C05.A, C16) | **12.5%** (H02.A) |
-| Critical false drop, frozen `guardedPolicy` | 0.0% (fitted on this set) | **7.5%** (did not generalise) |
-| Critical false drop, hybrid (post-hoc) | 0.0% | 0.0% |
-| latency p50 / p95 | 308 / 433 ms | 315 / 430 ms |
-| cost | $0.0123 for 185 calls | $0.0046 for 80 calls |
-| stability (identical choice over 5 repeats) | 36/37 | 16/16 |
+| outputs that needed every line but were trimmed | 0 / 25 | **0 / 25** |
+| key lines kept when trimmed | 100% | **100%** |
+| trimmed when it should have been | 75% | 86% |
+| tokens saved | 49% | 61% |
+| latency p50 / p95 | 350 / 576 ms | 359 / 563 ms |
+| cost per decision | ≈ $0.00014 | ≈ $0.00014 |
 
-- Every critical false drop is the same kind of item: a **durable fact that is irrelevant to the current goal** (`package.json` engines, `prisma --version`, `schema.prisma`). Once the goal changes and makes that fact relevant, Jev re-judges the same item as KEEP every time (C05.B, H02.B, H03, H11).
-- Jev never chose `UNCERTAIN` (0 of 265 calls). Abstention has to come from `confidence` and probabilities, not from the UNCERTAIN option.
-- `unique_fact` has no discriminating power (it is 0.70 even for `pwd`). `durable` is informative, but not reliable enough to be the only guard.
-- Key-line selection for TRUNCATE works when the code-generated candidates contain the right lines (C04, C24, C26: 100% of key lines kept in every repeat). The regex that generates candidates missed `✕ unmet peer` in H08, and that is a gap in the extractor.
+**Old-context pruning** (shadow only): 53 labelled old tool results.
 
-Full reports: `results/run-q1.md`, `results/run-q1-holdout.md`. The ground truth was committed before each live run (see git log).
+| | dev | held-out |
+|---|---|---|
+| Jev accuracy | 87% | 94% |
+| critical info dropped by raw Jev | **11%** | **12.5%** |
+| … with deterministic source protection (post-hoc) | 0% | 0% |
 
-## Run
+Jev is very good at judging whether something is relevant now. It does **not** judge future value: it dropped 3 of 3 facts that were irrelevant at the time but needed later (a `package.json` engines field, a Prisma version, a schema). That is why v0.1 never rewrites old context. It only logs what it would do.
+
+Three lessons that transfer to other Jev projects:
+
+1. **Ask what the output is for, not which category it is in.** Situational options raised trim recall from 50% to 75–89% with zero false trims. An abstract KEEP/TRUNCATE/DROP question did not.
+2. **Jev never abstains by picking `UNCERTAIN`** (0 of 265 calls). Use `confidence`, and put deterministic guards around the known blind spots.
+3. **Candidate generation limits you before the model does.** When the key line was among the candidates, Jev kept it every time.
+
+## Install
+
+```bash
+pi install git:github.com/Nyarlathoteppppp/pi-jev-context
+```
+
+It starts in **shadow** mode: it decides and logs, and never changes anything. Turn trimming on with:
+
+```
+/context mode on
+```
+
+It needs a Jev key: `OPENROUTER_API_KEY` or `TYPESAFE_API_KEY`, or a dotenv file named by `PI_JEV_ENV_FILE` (it also reads `PI_HEED_ENV_FILE`, so it shares the key with [pi-heed](https://github.com/Nyarlathoteppppp/pi-heed)). Without a key it does nothing.
+
+## Commands and tool
+
+```
+/context report          trims, recalls, shadow pruning decisions, cold-cache windows, Jev cost
+/context mode <off|shadow|on>
+/context recalls         shortened outputs on this branch
+/context label <good|bad> [note]   label the latest trim
+```
+
+`context_recall(id, offset?, limit?)` is the model's tool for getting a shortened output back. It is always registered, in every mode, because the tool list is part of the cached prompt prefix and must not change when you switch modes.
+
+## Safety properties
+
+- **Cache-neutral.** It modifies an output only before it enters the context. The `context` hook never returns anything.
+- **Lossless.** Every trimmed original is stored in the session (custom entries never reach the model) and can be recalled by id. Kept lines are verbatim; nothing is paraphrased.
+- **Fails open.** No key, a Jev error, a 2.5 s timeout or low confidence all leave the output unchanged.
+- **Never starts a turn.** It never sends messages or re-prompts the model.
+- **Deterministic.** The same output always renders the same text.
+
+**What leaves your machine:** for each long output that is considered, the call summary, your latest request, an excerpt of the output (head, notable lines, tail, block previews) and a few recent messages go to Jev. In shadow pruning, the same applies to old tool results.
+
+## Roadmap
+
+- [x] v0.1: write-time trimming, `context_recall`, shadow pruning with source protection, cold-cache observation
+- [ ] Validate shadow pruning on real sessions (`/context report`, weakly labelled replays)
+- [ ] v0.2: apply pruning only in cache-cold windows (idle gap past the TTL, model switch, compaction), as monotone stubs with recall
+- [ ] v0.3: goal-change re-evaluation; pi-heed integration (never prune an active constraint's evidence)
+
+## Development
 
 ```bash
 npm install
-npm test                                              # offline unit tests
-node bench/run.ts --dry-run                           # print every Jev state, no network
-PI_JEV_ENV_FILE=~/litellm-gateway/.env node bench/run.ts --set dev --repeats 5
-node bench/report.ts results/run-XXXX.json            # metrics, confusion, sweep
-node bench/hybrid.ts results/run-q1.json results/run-q1-holdout.json   # post-hoc hybrid
+npm test                                    # 23 tests, no network
+npm run typecheck
+node bench/run.ts --dry-run                 # print every Jev state for the old-context benchmark
+PI_JEV_ENV_FILE=~/.env node bench/run.ts --set dev|holdout --repeats 5
+node bench/report.ts results/run-XXXX.json
+PI_JEV_ENV_FILE=~/.env node bench/writetime.ts --set dev|holdout --repeats 5
+node bench/real-sessions.ts                 # offline census of your own ~/.pi sessions
 ```
 
-## Layout
-
-| file | role |
-|---|---|
-| `src/state.ts` | bounded Jev state: goal, recent conversation, the item (full text or an excerpt), what happened after it, and newer related results (computed in code) |
-| `src/questions.ts` | pre-registered Choice (KEEP/TRUNCATE/DROP/UNCERTAIN) plus 6 Noul signals and per-line key-line Nouls, all in one fan-out call |
-| `src/policy.ts` | raw / safe / composite / guarded policies, plus a rules-only baseline |
-| `bench/cases.ts`, `bench/holdout.ts` | synthetic sessions with ground truth |
+MIT © Nyarlathoteppppp

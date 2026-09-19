@@ -69,3 +69,70 @@ Model for all entries: `typesafe/jev-1.13-20260917` via OpenRouter `~typesafe/je
 - **Setup:** 20 local pi sessions, 8,741 tool results, counted offline (nothing sent anywhere).
 - **Result:** tool results are 96.3% of message-text tokens. Outputs eligible for write-time trimming (≥ 150 lines, not read/edit/write/file viewers) are 4.2% of results but 26.8% of tool-result tokens. `read` alone is 37% and is deliberately untouched by v0.1.
 - **Conclusion:** Write-time trimming targets about a quarter of tool-result tokens at zero cache cost. The larger `read` share needs old-context pruning (v0.2), which is where F2 applies.
+
+---
+
+## F11 · On real sessions, "keep only what Jev selects" hides things the agent uses later (2026-09-19)
+
+- **Setup:** v0.1 write-time trimming replayed on every eligible tool result in 20 local pi sessions (365 outputs), live Jev. Weak label: a fact (path, identifier, error code, 4+ digit number) from the *omitted* part that the agent or user used later, before any later tool result supplied it again. Per-item records stay local (`results-private/`, gitignored). Only aggregates are published.
+- **Result:** trims on 48% of eligible outputs, 44% of eligible tokens saved, but **17.2%** of trims hid a fact used later. Blocks mode (search results, listings, grep) was at 23.4%, line mode (logs) at 12.6%. The naive label (no "supplied again" check) said 57%, so the label choice matters.
+- **Cause, from reading the hits:**
+  - code viewed through wrapped commands (`ssh host 'sed -n …'`, `cd x && sed …`), which the first-word viewer check missed;
+  - exploratory outputs (search results, file lists, test lists) that the agent later picks items from.
+- **Conclusion:** The synthetic benchmark (0 false trims, 100% key lines) did not predict this. Real replays are required.
+
+## F12 · Code guards fix most of it; failures are always kept (2026-09-19)
+
+- **Changes:**
+  - the viewer check applies anywhere in a compound command;
+  - outputs that are ≥ 30% source lines are never trimmed (except grep);
+  - failure-level lines (with ±1 line of context), plus `file:line` locations within 6 lines of a failure, are always kept, whatever Jev selected;
+  - omitted blocks leave a skeleton (first line and URL lines);
+  - the header now tells the model it cannot see omitted lines and must recall them.
+- **Result (real replay):** "omitted fact used later" fell from 17.2% to **10.6%**. Failing commands: **0 of 12**. The eligible set shrank from 365 to 191 outputs (code views excluded).
+- **Origin of the failure-lines rule:** in real pi, a trim judged "outcome only" hid the second of two failures. The model noticed the output had been shortened and still did not call `context_recall`.
+
+## F13 · Old-context pruning is not safe on real sessions, even with protection (2026-09-19)
+
+- **Setup:** 19,794 (checkpoint, old tool result ≥ 150 tokens) pairs from real sessions. Weak label: the result is the only source of a fact that was used after the checkpoint, before anything supplied it again. 600 random pairs (1.7% needed) plus **300 weakly needed pairs**.
+- **Result on the needed pairs:** raw Jev dropped **73.3%**, the hybrid policy **21.3%** (64/300), rules alone 24.3%. The false drops spread across read, find, grep, bash and web search.
+- **Conclusion:** The 0% on synthetic sets (F4) did not transfer. DROP of old context stays shadow-only. F2 (no sense of future value) is the dominant effect on real data.
+
+## F14 · Sieve: hide only what Jev is confident is unneeded (2026-09-19)
+
+- **Design** (after Winnow): every block (at most 1,500 characters, shown to Jev in full, cut at blank lines or path changes) gets its own P(needed), asked with `true`/`false` criteria. A block is hidden only when P < 0.15. Uncertain blocks stay, and every guard from F12 still applies.
+- **Synthetic** (official endpoint, 3 repeats): dev 87.5% trimmed; held-out 100%; **held-out 2, written before the guards ran, 100%**. **0 false trims and 100% key lines on all three.**
+- **Real replay, threshold sweep** (184 outputs):
+
+  | hide if P < | tokens hidden | outputs with a later-used block hidden |
+  |---|---|---|
+  | 0.10 | 3.6% | 0/9 |
+  | **0.15** (default) | **19.2%** | **1/43** (2.3%) |
+  | 0.20 | 43.2% | 2/78 (2.6%) |
+
+  The single 0.15 case was a block of *passing* tests whose name the agent repeated in a summary.
+- **Conclusion:** Sieve trades savings for safety. It is the v0.2 default at 0.15. Only 8 blocks carried the "used later" label, so these regret rates are rough.
+
+## F15 · Jev judges a block as a whole, so one relevant line can drown (2026-09-19)
+
+- **Result:** in W08 the `omit` section sat at the end of a block about logging, and Jev gave it P = 0.07. In W16 the block text shown to Jev was truncated, so it never saw the `CrashLoopBackOff` line. That second one was our bug.
+- **Guards (code):**
+  - a block is at most what Jev sees, and is never hidden if it was shown truncated;
+  - blocks are cut at blank lines;
+  - with `specific_parts`, the top 3 blocks are never hidden (the answer "only parts matter" contradicts "nothing matters");
+  - a block containing a distinctive term from the request is never hidden.
+
+## F16 · Official endpoint: warm it up with a real call (2026-09-19)
+
+- **Result:** `api.typesafe.ai` returned `jev-1.13.0`. The first request on a fresh connection took **897 ms**; after one warm-up call the p50 was **336 ms** (p95 386 ms). Idle gaps up to 45 s did not bring the cold cost back. The response has no `cost` field, so cost is computed as input tokens × $0.042 / M.
+- **Change:** warm-up is a real tiny decision (about $0.00001) at session start, repeated on user input after 5 minutes without one. The key now prefers `TYPESAFE_API_KEY`.
+
+## F17 · v0.2 end-to-end in real pi, and an unexplained startup stall (2026-09-19)
+
+- **Result:** in 5 of 5 runs on the 509-line failing log, sieve rewrote the output (5,115 → about 1,300 tokens) and the model named both failures with `file:line`. Jev latency was 560–650 ms.
+- **Open issue:** 7 `pi -p` runs stalled before any output. All of them happened while another session was starting many pi processes. Instrumentation showed the stall comes *before* our `session_start` handler runs. It did not reproduce in 12 later runs, with or without instrumentation. Cause unknown; not attributed to this extension.
+
+## F18 · Real user requests are often not the task (2026-09-19)
+
+- **Observation:** in real sessions the latest user message is frequently a meta instruction ("continue", "check it and finish", `/goal …`). Jev then judges relevance against a weak goal. Winnow includes the assistant's last sentence before the call.
+- **Next:** add what the agent said just before the call to the write-time state (v0.3, to be measured).

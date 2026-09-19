@@ -61,7 +61,7 @@ In real pi (5 of 5 runs), this 509-line failing test log went into the context a
 
 ## What we measured
 
-Full reports are in [`docs/experiments/`](docs/experiments), running conclusions in [`docs/FINDINGS.md`](docs/FINDINGS.md). Ground truth was committed before every live run. Held-out sets were written after the design was frozen. Real-session replays (20 sessions, 8,741 tool results) used weak labels, and only aggregates are published.
+Full reports are in [`docs/experiments/`](docs/experiments), running conclusions in [`docs/FINDINGS.md`](docs/FINDINGS.md). Ground truth was committed before every live run, and held-out sets were written after the design was frozen. Real-session replays (20 sessions, 8,741 tool results) used weak labels, and only aggregates are published.
 
 **Write-time trimming** (v0.2, TypeSafe endpoint, `jev-1.13.0`):
 
@@ -82,10 +82,10 @@ Full reports are in [`docs/experiments/`](docs/experiments), running conclusions
 
 Jev is very good at judging whether something is relevant *now*. It cannot judge *future* value, and synthetic benchmarks hide how much that matters. That is why pi-jev-context never deletes old context. It only logs what it would do.
 
-What transfers to other Jev projects:
+These lessons transfer to other Jev projects.
 
 1. **Every synthetic 0% became non-zero on real sessions.** Replay real sessions before you trust a number.
-2. **Hide what is confidently useless; don't keep only what looks useful.** The asymmetry mattered more than the wording.
+2. **Hide only what is confidently useless.** Keeping only what looks useful hid more; the asymmetry mattered more than the wording.
 3. **Ask what the output is *for*.** Situational options beat an abstract KEEP/TRUNCATE/DROP question (trim recall 50% → 75–89%, 0 false trims).
 4. **Jev reads a block as a whole.** One relevant line inside an unrelated block scored 0.07, so protect request terms in code.
 5. **Jev never picks `UNCERTAIN`** (0 of 265 calls). Use probabilities and confidence.

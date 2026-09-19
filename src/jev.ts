@@ -46,6 +46,9 @@ interface Transport {
 	key: string;
 }
 
+/** Jev list price: $0.042 per million input tokens, output free (docs.typesafe.ai/models). */
+export const JEV_PRICE_PER_INPUT_TOKEN = 0.042 / 1_000_000;
+
 const OPENROUTER_URL = "https://openrouter.ai/api/alpha/decisions";
 const TYPESAFE_URL = "https://api.typesafe.ai/v1/systemone";
 
@@ -65,10 +68,11 @@ function fromEnvFile(path: string | undefined, name: string): string | undefined
 export function resolveTransport(env: NodeJS.ProcessEnv = process.env, fileEnvFile?: string): Transport | undefined {
 	const envFile = env.PI_JEV_ENV_FILE ?? env.PI_HEED_ENV_FILE ?? fileEnvFile;
 	const model = env.PI_JEV_MODEL;
-	const openrouter = env.OPENROUTER_API_KEY ?? fromEnvFile(envFile, "OPENROUTER_API_KEY");
-	if (openrouter) return { url: OPENROUTER_URL, model: model ?? "~typesafe/jev-latest", key: openrouter };
+	// TypeSafe's own endpoint first (official key), OpenRouter as the fallback.
 	const typesafe = env.TYPESAFE_API_KEY ?? fromEnvFile(envFile, "TYPESAFE_API_KEY");
 	if (typesafe) return { url: TYPESAFE_URL, model: model ?? "jev-latest", key: typesafe };
+	const openrouter = env.OPENROUTER_API_KEY ?? fromEnvFile(envFile, "OPENROUTER_API_KEY");
+	if (openrouter) return { url: OPENROUTER_URL, model: model ?? "~typesafe/jev-latest", key: openrouter };
 	return undefined;
 }
 
@@ -81,7 +85,7 @@ function validAnswer(q: Question, a: any): boolean {
 /** Anything that answers Jev questions: the real client, or a fake in tests. */
 export interface Judge {
 	decide(state: unknown, questions: Record<string, Question>, timeoutMs?: number, signal?: AbortSignal): Promise<JevCall>;
-	warm?(): void;
+	warm?(): unknown;
 }
 
 export class Jev implements Judge {
@@ -90,12 +94,13 @@ export class Jev implements Judge {
 		this.transport = transport;
 	}
 
-	/** Opens DNS + TLS ahead of the first decision. Never throws. */
-	warm(): void {
-		fetch(new URL(this.transport.url).origin, { method: "HEAD", signal: AbortSignal.timeout(3000) }).then(
-			(r) => r.body?.cancel(),
-			() => {},
-		);
+	/**
+	 * Pays the cold start ahead of the first real decision: DNS + TLS, and the first request on a fresh
+	 * connection. A tiny real decision (≈ 275 input tokens, ≈ $0.00001), not a HEAD, so the model path is warm too.
+	 * Never throws.
+	 */
+	warm(): Promise<JevCall> {
+		return this.decide("warm-up", { warm: { type: "noul", instructions: "This is a warm-up request." } }, 5000).catch((e) => ({ error: String(e), ms: 0 }));
 	}
 
 	/** Never throws: failures come back as `error` (callers fail open). */
@@ -117,7 +122,10 @@ export class Jev implements Judge {
 				if (!validAnswer(q, a)) return { error: `malformed answer for ${key}`, ms };
 				answers[key] = { ...(a as Answer), type: q.type } as Answer;
 			}
-			return { answers, ms, model: body.model, inputTokens: body.usage?.input_tokens, cost: body.usage?.cost };
+			const inputTokens = body.usage?.input_tokens;
+			// OpenRouter reports cost; TypeSafe's endpoint reports tokens only (input is billed, output is free).
+			const cost = body.usage?.cost ?? (inputTokens !== undefined ? inputTokens * JEV_PRICE_PER_INPUT_TOKEN : undefined);
+			return { answers, ms, model: body.model, inputTokens, cost };
 		} catch (e) {
 			return { error: String((e as Error)?.message ?? e), ms: Math.round(performance.now() - started) };
 		}

@@ -42,6 +42,8 @@ export interface JevContextConfig {
 	coldAfterMs: number;
 	/** Log cache usage for LLM calls that follow an idle gap at least this long. */
 	observeGapMs: number;
+	/** Re-warm the Jev connection when the user types after this long without a warm-up. */
+	rewarmAfterMs: number;
 }
 
 export const DEFAULT_CONFIG: JevContextConfig = {
@@ -56,6 +58,7 @@ export const DEFAULT_CONFIG: JevContextConfig = {
 	pruneTimeoutMs: 5000,
 	coldAfterMs: 5 * 60_000,
 	observeGapMs: 60_000,
+	rewarmAfterMs: 5 * 60_000,
 };
 
 export interface JevContextOptions {
@@ -339,9 +342,20 @@ export function createJevContext(pi: ExtensionAPI, options: JevContextOptions = 
 		lastAssistantAt = m.timestamp;
 	});
 
+	// Jev's first request on a fresh connection is slow (measured: 897 ms cold vs 336 ms warm), so pay it
+	// before the first long output arrives: at session start, and again when the user types after a long idle.
+	let lastWarm = 0;
+	const warm = () => {
+		if (config.mode === "off" || !judge?.warm) return;
+		lastWarm = Date.now();
+		void judge.warm();
+	};
 	pi.on("session_start", (_e, ctx) => {
 		rebuild(ctx);
-		if (config.mode !== "off") judge?.warm?.();
+		warm();
+	});
+	pi.on("input", () => {
+		if (Date.now() - lastWarm > config.rewarmAfterMs) warm();
 	});
 	pi.on("session_tree", (_e, ctx) => rebuild(ctx));
 

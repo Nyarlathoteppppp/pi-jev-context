@@ -219,3 +219,19 @@ describe("v0.2 write-time guards", () => {
 		assert.equal(c.hasJudge, false);
 	});
 });
+
+describe("warm-up", () => {
+	it("warms Jev at session start and again on input after a long idle, never when off", async () => {
+		let warms = 0;
+		const judge = { ...fakeJudge(() => undefined), warm: () => (warms++, Promise.resolve({ ms: 1 })) };
+		const { pi, ext } = track(setup({ judge, config: { mode: "on", rewarmAfterMs: 0 } }));
+		await pi.emit("session_start", { reason: "startup" });
+		assert.equal(warms, 1);
+		await new Promise((r) => setTimeout(r, 2));
+		await pi.emit("input", { text: "hi", source: "interactive" });
+		assert.equal(warms, 2);
+		ext.config.mode = "off";
+		await pi.emit("session_start", { reason: "startup" });
+		assert.equal(warms, 2);
+	});
+});

@@ -1,6 +1,6 @@
 {
 	"name": "pi-jev-context",
-	"version": "0.2.0",
+	"version": "0.2.1",
 	"private": false,
 	"description": "Cache-neutral context trimming for the pi coding agent, powered by TypeSafe Jev: shortens long bash logs to their key lines before they enter context, with lossless recall. Old-context pruning runs in shadow mode only.",
 	"type": "module",

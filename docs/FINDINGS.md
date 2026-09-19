@@ -136,3 +136,10 @@ Model for all entries: `typesafe/jev-1.13-20260917` via OpenRouter `~typesafe/je
 
 - **Observation:** in real sessions the latest user message is frequently a meta instruction ("continue", "check it and finish", `/goal …`). Jev then judges relevance against a weak goal. Winnow includes the assistant's last sentence before the call.
 - **Next:** add what the agent said just before the call to the write-time state (v0.3, to be measured).
+
+## F19 · Correction to F16, from pi-heed's E13: the cold cost is the connection (2026-09-19)
+
+- **What F16 claimed:** a warm-up should be a real decision "so the model path is warm too". That was never measured.
+- **Evidence:** [pi-heed E13](https://github.com/Nyarlathoteppppp/pi-heed/blob/main/EXPERIMENTS.md) measured this on the same endpoint in fresh processes, five runs each. The first decision took 790–918 ms with no warm-up, 305–382 ms after an unauthenticated HEAD, and 288–397 ms after a tiny real decision. After 1–30 s idle there was no second cold start. The cold cost is TLS to `api.typesafe.ai`, not the model.
+- **Change:** warm-up is a HEAD again (free). The re-warm on user input after 5 minutes stays, because a HEAD costs nothing and idle gaps that long were not measured.
+- **Also ported from pi-heed v0.7:** the Jev client retries 429 and transient 5xx (up to twice, honouring Retry-After, never past the caller's deadline), and clamps answers into [0, 1], rejecting non-finite or off-schema values.

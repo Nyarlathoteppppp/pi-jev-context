@@ -76,16 +76,48 @@ export function resolveTransport(env: NodeJS.ProcessEnv = process.env, fileEnvFi
 	return undefined;
 }
 
-function validAnswer(q: Question, a: any): boolean {
-	if (!a || typeof a !== "object") return false;
-	if (q.type === "noul") return typeof a.noul === "number";
-	return typeof a.choice === "string" && a.choice in q.criteria && typeof a.confidence === "number" && !!a.probabilities;
+const finite = (x: unknown): x is number => typeof x === "number" && Number.isFinite(x);
+const clamp01 = (x: number) => Math.min(1, Math.max(0, x));
+
+/**
+ * Validates an answer and clamps minor numeric overshoot into [0, 1]; anything non-finite or off-schema is
+ * rejected, which fails the call open. (Ported from pi-heed v0.7, which borrowed it from thruwire/foreman, MIT.)
+ */
+export function normalizeAnswer(q: Question, a: any): Answer | undefined {
+	if (!a || typeof a !== "object") return undefined;
+	if (q.type === "noul") return finite(a.noul) ? { type: "noul", noul: clamp01(a.noul) } : undefined;
+	if (typeof a.choice !== "string" || !(a.choice in q.criteria) || !finite(a.confidence) || !a.probabilities || typeof a.probabilities !== "object") return undefined;
+	const probabilities: Record<string, number> = {};
+	for (const [k, v] of Object.entries(a.probabilities)) {
+		if (!finite(v)) return undefined;
+		probabilities[k] = clamp01(v);
+	}
+	return { type: "choice", choice: a.choice, probabilities, confidence: clamp01(a.confidence) };
+}
+
+/** Transient statuses worth retrying (TypeSafe's SDK retries the same set). From pi-heed v0.7. */
+const RETRYABLE = new Set([429, 500, 502, 503, 504]);
+const MAX_RETRIES = 2;
+
+function retryDelay(res: Response, attempt: number): number {
+	const header = res.headers.get("retry-after");
+	const seconds = header !== null && header !== "" ? Number(header) : Number.NaN;
+	if (Number.isFinite(seconds) && seconds >= 0) return seconds * 1000;
+	return 150 * 2 ** attempt;
+}
+
+function sleep(ms: number, signal: AbortSignal): Promise<void> {
+	return new Promise((resolve, reject) => {
+		if (signal.aborted) return reject(signal.reason);
+		const t = setTimeout(resolve, ms);
+		signal.addEventListener("abort", () => (clearTimeout(t), reject(signal.reason)), { once: true });
+	});
 }
 
 /** Anything that answers Jev questions: the real client, or a fake in tests. */
 export interface Judge {
 	decide(state: unknown, questions: Record<string, Question>, timeoutMs?: number, signal?: AbortSignal): Promise<JevCall>;
-	warm?(): unknown;
+	warm?(): void;
 }
 
 export class Jev implements Judge {
@@ -95,32 +127,46 @@ export class Jev implements Judge {
 	}
 
 	/**
-	 * Pays the cold start ahead of the first real decision: DNS + TLS, and the first request on a fresh
-	 * connection. A tiny real decision (≈ 275 input tokens, ≈ $0.00001), not a HEAD, so the model path is warm too.
-	 * Never throws.
+	 * Opens DNS + TLS ahead of the first decision with an unauthenticated HEAD. pi-heed E13 measured this
+	 * against a tiny real decision on TypeSafe's endpoint: same first-decision latency (305–382 vs 288–397 ms,
+	 * cold 790–918 ms), because the cold cost is the connection, not the model. Free, never throws.
 	 */
-	warm(): Promise<JevCall> {
-		return this.decide("warm-up", { warm: { type: "noul", instructions: "This is a warm-up request." } }, 5000).catch((e) => ({ error: String(e), ms: 0 }));
+	warm(): void {
+		fetch(new URL(this.transport.url).origin, { method: "HEAD", signal: AbortSignal.timeout(3000) }).then(
+			(r) => r.body?.cancel(),
+			() => {},
+		);
 	}
 
-	/** Never throws: failures come back as `error` (callers fail open). */
+	/**
+	 * Never throws: failures come back as `error` (callers fail open). 429 and transient 5xx are retried (up to
+	 * twice, honouring Retry-After) inside the deadline, so retries never exceed the caller's timeout.
+	 */
 	async decide(state: unknown, questions: Record<string, Question>, timeoutMs = 15000, signal?: AbortSignal): Promise<JevCall> {
 		const started = performance.now();
+		const deadline = signal ? AbortSignal.any([signal, AbortSignal.timeout(timeoutMs)]) : AbortSignal.timeout(timeoutMs);
+		const payload = JSON.stringify({ model: this.transport.model, state, questions });
 		try {
-			const res = await fetch(this.transport.url, {
-				method: "POST",
-				headers: { Authorization: `Bearer ${this.transport.key}`, "Content-Type": "application/json", "X-Title": "pi-jev-context" },
-				body: JSON.stringify({ model: this.transport.model, state, questions }),
-				signal: signal ? AbortSignal.any([signal, AbortSignal.timeout(timeoutMs)]) : AbortSignal.timeout(timeoutMs),
-			});
+			let res: Response;
+			for (let attempt = 0; ; attempt++) {
+				res = await fetch(this.transport.url, {
+					method: "POST",
+					headers: { Authorization: `Bearer ${this.transport.key}`, "Content-Type": "application/json", "X-Title": "pi-jev-context" },
+					body: payload,
+					signal: deadline,
+				});
+				if (res.ok || !RETRYABLE.has(res.status) || attempt >= MAX_RETRIES) break;
+				await res.body?.cancel().catch(() => {});
+				await sleep(retryDelay(res, attempt), deadline);
+			}
 			const ms = Math.round(performance.now() - started);
 			if (!res.ok) return { error: `http ${res.status}: ${(await res.text()).slice(0, 200)}`, ms };
 			const body = (await res.json()) as { model?: string; answers?: Record<string, unknown>; usage?: { input_tokens?: number; cost?: number } };
 			const answers: Record<string, Answer> = {};
 			for (const [key, q] of Object.entries(questions)) {
-				const a = body.answers?.[key];
-				if (!validAnswer(q, a)) return { error: `malformed answer for ${key}`, ms };
-				answers[key] = { ...(a as Answer), type: q.type } as Answer;
+				const a = normalizeAnswer(q, body.answers?.[key]);
+				if (!a) return { error: `malformed answer for ${key}`, ms };
+				answers[key] = a;
 			}
 			const inputTokens = body.usage?.input_tokens;
 			// OpenRouter reports cost; TypeSafe's endpoint reports tokens only (input is billed, output is free).

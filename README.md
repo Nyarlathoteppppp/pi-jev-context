@@ -8,7 +8,7 @@ Context trimming for the [pi](https://pi.dev) coding agent, powered by [TypeSafe
 
 [![pi](https://img.shields.io/badge/pi-%E2%89%A50.85.1-7c5cff)](https://pi.dev)
 [![Jev](https://img.shields.io/badge/powered%20by-TypeSafe%20Jev-f5a524)](https://docs.typesafe.ai)
-[![tests](https://img.shields.io/badge/tests-29%20passing-2ea043)](#development)
+[![tests](https://img.shields.io/badge/tests-33%20passing-2ea043)](#development)
 [![license](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
 
 </div>
@@ -89,7 +89,7 @@ These lessons transfer to other Jev projects.
 3. **Ask what the output is *for*.** Situational options beat an abstract KEEP/TRUNCATE/DROP question (trim recall 50% → 75–89%, 0 false trims).
 4. **Jev reads a block as a whole.** One relevant line inside an unrelated block scored 0.07, so protect request terms in code.
 5. **Jev never picks `UNCERTAIN`** (0 of 265 calls). Use probabilities and confidence.
-6. **Warm up with a real call.** The first request took 897 ms and later ones about 336 ms.
+6. **Warm up the connection.** The first request took 897 ms and later ones about 336 ms. A free HEAD warm-up does as well as a real call (pi-heed E13).
 
 ## Install
 
@@ -130,19 +130,22 @@ It needs a Jev key: `TYPESAFE_API_KEY` (preferred, TypeSafe's endpoint) or `OPEN
 
 - [x] v0.1: write-time trimming, `context_recall`, shadow pruning with source protection, cold-cache observation
 - [x] v0.2: sieve engine, code guards found in real-session replays, TypeSafe endpoint with warm-up, settings file
+- [ ] v0.3: live benchmark in the style of [pi-heed](https://github.com/Nyarlathoteppppp/pi-heed/tree/main/bench/live): real pi, real model, small real repos, trimming off vs on, outcomes read from files and git, measuring task success, recalls and tokens
+- [ ] v0.3: record and replay Jev answers (cassettes) so benchmarks rerun offline and deterministically
+- [ ] v0.3: A/B the sieve's shared state: pi-heed E12 found that a question sharing a request with others can lose accuracy
 - [ ] v0.3: add what the agent said just before a call to Jev's state (real user messages are often "continue"); measure it
 - [ ] v0.3: compaction experiment: in the one place where the cache is lost anyway, compare Jev-selected verbatim history (as in [fast-jev-compaction](https://github.com/tamaratran/fast-jev-compaction)) with pi's LLM summary, on real sessions
 - [ ] pi-heed integration: never trim or prune the evidence behind an active constraint
 
 ## Known issues
 
-- On one machine, 7 `pi -p` runs stalled at startup while another session was launching many pi processes. The stall happened before this extension's `session_start` handler ran, and it has not reproduced since. See F17 in the findings.
+- On one machine, 7 `pi -p` runs stalled at startup while another session was launching many pi processes (most likely pi-heed's live benchmark, which since sets `PI_JEV_CONTEXT_MODE=off` for isolation). The stall happened before this extension's `session_start` handler ran, and it has not reproduced since. See F17 in the findings.
 
 ## Development
 
 ```bash
 npm install
-npm test                                    # 29 tests, no network
+npm test                                    # 33 tests, no network
 npm run typecheck
 node bench/run.ts --dry-run                 # print every Jev state for the old-context benchmark
 PI_JEV_ENV_FILE=~/.env node bench/run.ts --set dev|holdout --repeats 5

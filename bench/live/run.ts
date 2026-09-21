@@ -13,6 +13,9 @@ import { join } from "node:path";
 import { parseArgs } from "node:util";
 import { SCENARIOS } from "./scenarios.ts";
 
+/** Absolute path, so a transient PATH lookup failure cannot abort the benchmark. */
+const PI_BIN = process.env.PI_BIN ?? "/opt/homebrew/bin/pi";
+
 const { values } = parseArgs({
 	options: {
 		reps: { type: "string", default: "3" },
@@ -53,15 +56,21 @@ function pi(dir: string, prompt: string, condition: "off" | "on"): Promise<{ sec
 	const started = Date.now();
 	return new Promise((resolve) => {
 		// stdin must be closed: with an open pipe pi waits for input and never runs the prompt.
-		const child = spawn("pi", ["-p", "-a", "--model", values.model!, "--session-dir", join(dir, ".session"), prompt], {
+		const child = spawn(PI_BIN, ["-p", "-a", "--model", values.model!, "--session-dir", join(dir, ".session"), prompt], {
 			cwd: dir,
 			stdio: ["ignore", "pipe", "pipe"],
 			env: { ...process.env, PI_JEV_CONTEXT_MODE: condition, PI_HEED_MODE: "off" },
 		});
 		let output = "";
+		child.on("error", (e) => {
+			output += `\n[runner] could not start pi: ${e}`;
+			clearTimeout(timer);
+			resolve({ seconds: Math.round((Date.now() - started) / 1000), timedOut: false, output });
+		});
 		child.stdout.on("data", (d) => (output += d));
 		child.stderr.on("data", (d) => (output += d));
 		let timedOut = false;
+		// biome-ignore lint: declared before use by the error handler above
 		const timer = setTimeout(() => {
 			timedOut = true;
 			child.kill("SIGKILL");

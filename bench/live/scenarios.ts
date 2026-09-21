@@ -54,6 +54,27 @@ function pipeline(n: number): string {
 
 export const SCENARIOS: Scenario[] = [
 	{
+		id: "S4",
+		exercises: "reads",
+		// 650 steps ≈ 2,600 lines: past pi's 2,000-line read window, so the file can only be read in slices.
+		prompt:
+			"src/pipeline.ts is long. Three functions are wrong: step50, step330 and step610 must multiply by their step number instead of adding it (`compute(input) * 50` and so on). Fix exactly those three, and after each fix read that part of the file again to confirm the change landed. Change nothing else.",
+		setup: (dir) => {
+			write(dir, "src/compute.ts", "export const compute = (x: number) => x * 2;\n");
+			write(dir, "src/pipeline.ts", pipeline(650));
+			git(dir, ["init", "-q"]);
+			git(dir, ["add", "-A"]);
+			git(dir, ["-c", "user.email=b@b", "-c", "user.name=b", "commit", "-qm", "init"]);
+		},
+		score: (dir) => {
+			const t = read(dir, "src/pipeline.ts");
+			const want = [50, 330, 610].every((i) => new RegExp(`return compute\\(input\\) \\* ${i};`).test(t));
+			const others = [...Array(650).keys()].map((k) => k + 1).filter((i) => ![50, 330, 610].includes(i));
+			const intact = others.every((i) => t.includes(`return compute(input) + ${i};`));
+			return [want && intact, `fixed=${want} others-intact=${intact}`];
+		},
+	},
+	{
 		id: "S1",
 		exercises: "reads",
 		prompt:

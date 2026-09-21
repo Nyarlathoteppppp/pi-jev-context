@@ -4,22 +4,12 @@ A small Pi extension that shortens repeated file reads before they enter context
 Version 0.4 keeps deterministic read deduplication and original-output recall. It
 makes no Jev/model/network calls and does not implement compaction.
 
-## Principles / 项目原则
-
-**模型表现第一，节省 token 第二。宁可不折叠，也不隐藏模型仍需要的证据。**
-
-1. **默认保留全文。** 只有当前有效上下文中存在同一路径、同一文件行位置的逐字相同内容，才允许折叠重复段；来源或位置不确定就原样保留。
-2. **保护缓存前缀。** 只在新工具结果进入上下文之前处理它，不改写、删除、重排旧消息；模式切换不增删工具声明。不为了省 token 主动触发 compaction。
-3. **表现优先于收益。** token 节省不能抵消任务正确性、约束遵守或信息获取能力的退化。可复现且归因于折叠的退化，应先禁用相关行为，再修复验证。
-4. **可恢复不等于无损。** recall 是恢复途径，不能成为隐藏未知价值内容的理由。确定性匹配、测试通过都不等于模型表现绝对不变；不做“零风险”承诺。
-5. **不把概率筛选放进默认路径。** sieve、旧 context pruning 和第三方 compaction 都不属于 MVP 的运行时。Pi 自身的原生 compaction 另行评估。
-6. **证据决定默认值。** 真实回放衡量收益，live 任务验收检查表现；如实记录失败和样本限制，不改验收标准来美化结果。
-
-Model performance comes first. Preserve full output unless duplicate evidence is
-proven in the current context. Transform only the arriving result, preserve prior
-message bytes and the tool list, and disable any behavior with a reproducible,
-attributable capability regression. Cache hits and equal model performance are
-validation targets, never guarantees inferred from token savings.
+> [!IMPORTANT]
+> **Model performance first. Token savings second.**
+>
+> - **When in doubt, keep it.** Fold only exact duplicates still visible in context.
+> - **Protect the cache prefix.** Never rewrite old messages or change tool declarations when toggling modes.
+> - **Stop on regression.** Disable folding that demonstrably harms task performance. Recall is not proof of losslessness.
 
 ## Install
 

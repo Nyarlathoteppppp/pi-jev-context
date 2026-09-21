@@ -1,6 +1,6 @@
 {
 	"name": "pi-jev-context",
-	"version": "0.7.0",
+	"version": "0.7.1",
 	"private": false,
 	"description": "Performance-first Pi context extension: freshness-aware read dedupe, Jev log sieve, and searchable verbatim recall.",
 	"type": "module",

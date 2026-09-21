@@ -178,6 +178,10 @@ export function createJevContext(pi: ExtensionAPI, options: JevContextOptions = 
     pi.registerTool<ReturnType<typeof recallParams>, RecallDetails>({ name: "context_recall", label: "Context recall", description: "Search saved historical output by query (optional id, budget, offset), or retrieve original lines by id/offset/limit. Search returns verbatim chunks, may miss facts, and is branch-local. Use read/search for current files.", promptSnippet: "context_recall: search historical originals by query, or retrieve exact original lines by id", parameters: recallParams(), async execute(_toolCallId, params) {
         if (params.query !== undefined) {
             const source = params.id ? originals.get(params.id) ?? originals.get(byCallId.get(params.id) ?? "") : undefined;
+            if (params.id && !source) {
+                log({ kind: "recall", alias: params.id, query: params.query, found: false });
+                return { content: [{ type: "text", text: `Unknown original id "${params.id}" on this branch. Available ids: ${[...originals.keys()].slice(-5).join(", ") || "none"}. Omit id to search the saved originals on this branch.` }], details: {} };
+            }
             const result = searchOriginals(params.id ? (source ? [source] : []) : originals.values(), params.query, params.budget ?? 800, Math.max(1, Math.floor(params.offset ?? 1)));
             log({ kind: "recall", alias: params.id ?? "*", query: params.query, found: result.hits > 0 });
             return { content: [{ type: "text", text: result.text }], details: { hits: result.hits, returned: result.returned } };

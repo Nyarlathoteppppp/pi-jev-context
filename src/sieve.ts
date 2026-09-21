@@ -1,3 +1,4 @@
+import { literalCommandArgs } from "./bash-command.ts";
 import { hiddenReferences } from "./hints.ts";
 import { estimateTokens, lineCount, summarizeCall, textOf, truncate } from "./extract.ts";
 import type { Message } from "./types.ts";
@@ -9,25 +10,33 @@ export interface FreshResult { toolCallId: string; toolName: string; input: Reco
 export interface SieveBlock { id: string; fromLine: number; toLine: number; text: string; completeForJev: boolean; hardKeep: boolean; keepReason?: string; }
 export interface SievePlan { blocks: SieveBlock[]; hidden: SieveBlock[]; visible: SieveBlock[]; call?: { ms: number; error?: string; inputTokens?: number; cost?: number; model?: string }; skip?: string; }
 
-const VIEWER = /(?:^|[\s;&|()'"`])(?:cat|bat|less|more|nl|sed|awk|jq|yq|xxd|od|head|tail|grep|rg|ripgrep|find|ls|fd|search|diff|git\s+(?:diff|show|blame|log\b))/i;
-const PIPE = /\||`[^`]*`|\$\([^)]*\)/;
 export type BashOutputKind = "test" | "build" | "lint" | "diagnostic" | "log";
 export function classifyBashCommand(command: string): BashOutputKind | undefined {
-    const c = command.trim().replace(/^cd\s+[\w./~-]+\s*&&\s*/, "").replace(/^python(?:3)?\s+-m\s+pytest\b/, "pytest");
-    // Mixed commands can append source or unrelated evidence after a test log.
-    // Accept a single known executable, optionally preceded by a simple cd.
-    if (!c || VIEWER.test(c) || PIPE.test(c) || /[;&\n\r]/.test(c)) return undefined;
-    if (!/^(?:npm|pnpm|yarn|bun|npx|jest|vitest|mocha|ava|pytest|tsc|eslint|biome|stylelint|cargo|go|mvn|gradle|webpack|vite|docker|kubectl|podman|journalctl)(?:\s|$)/i.test(c) && !/^\.\/[\w./-]*(?:test|tests)[\w./-]*(?:\s|$)/i.test(c)) return undefined;
-    if (/^cargo\s+(?:check|clippy)\b/.test(c)) return "diagnostic";
-    if (/^go\s+vet\b/.test(c)) return "diagnostic";
-    if (/^go\s+build\b/.test(c)) return "build";
-    if (/(?:^|[\s;&])(?:npm|pnpm|yarn|bun)\s+(?:run\s+)?test\b/i.test(c) || /(?:^|[\s;&])(?:npx\s+)?(?:jest|vitest|mocha|ava|pytest)\b/i.test(c) || /(?:^|[\s;&])(?:cargo\s+test|go\s+test|mvn\s+test|gradle\s+test)\b/i.test(c)) return "test";
-    if (/(?:^|[\s;&])(?:npm|pnpm|yarn|bun)\s+(?:run\s+)?(?:lint|eslint|clippy|stylelint|biome)\b/i.test(c) || /(?:^|[\s;&])(?:npx\s+)?(?:eslint|biome|stylelint)\b/i.test(c)) return "lint";
-    if (/(?:^|[\s;&])(?:npm|pnpm|yarn|bun)\s+(?:run\s+)?(?:typecheck|check)\b/i.test(c) || /(?:^|[\s;&])(?:npx\s+)?tsc\b/i.test(c)) return "diagnostic";
-    if (/(?:^|[\s;&])(?:npm|pnpm|yarn|bun)\s+(?:run\s+)?(?:build|compile)\b/i.test(c) || /(?:^|[\s;&])(?:npx\s+)?(?:webpack|vite\s+build)\b/i.test(c) || /(?:^|[\s;&])cargo\s+build\b/i.test(c)) return "build";
-    if (/(?:^|[\s;&])(?:\.\/|[\w.-]+\/)[\w./-]*(?:test|tests)[\w./-]*(?:\s|$)/i.test(c)) return "test";
-    if (/(?:^|[\s;&])(?:docker|kubectl|podman)\s+(?:compose\s+)?logs\b|(?:^|[\s;&])journalctl\b/i.test(c)) return "log";
-    return undefined;
+    let args = literalCommandArgs(command);
+    if (!args) return;
+    if (["python", "python3"].includes(args[0]!) && args[1] === "-m" && args[2] === "pytest") args = args.slice(2);
+    if (args[0] === "npx") args = args.slice(["--no-install", "--yes", "-y"].includes(args[1]!) ? 2 : 1);
+    const [exe, sub] = args;
+    if (["npm", "pnpm", "yarn", "bun"].includes(exe!)) {
+        const script = sub === "run" ? args[2] : sub;
+        const base = script?.match(/^([a-z]+)(?:[:.-][\w:.-]+)?$/)?.[1];
+        if (base === "test") return "test";
+        if (["lint", "eslint", "clippy", "stylelint", "biome"].includes(base!)) return "lint";
+        if (["typecheck", "check"].includes(base!)) return "diagnostic";
+        if (["build", "compile"].includes(base!)) return "build";
+        return;
+    }
+    if (["jest", "vitest", "mocha", "ava", "pytest"].includes(exe!)) return "test";
+    if (["eslint", "biome", "stylelint"].includes(exe!)) return "lint";
+    if (exe === "tsc") return "diagnostic";
+    if (exe === "cargo") return sub === "test" ? "test" : sub === "build" ? "build" : ["check", "clippy"].includes(sub!) ? "diagnostic" : undefined;
+    if (exe === "go") return sub === "test" ? "test" : sub === "build" ? "build" : sub === "vet" ? "diagnostic" : undefined;
+    if (["mvn", "gradle"].includes(exe!) && sub === "test") return "test";
+    if (exe === "webpack" || (exe === "vite" && sub === "build")) return "build";
+    if (exe && /^\.\/[\w./-]*(?:test|tests)[\w./-]*$/.test(exe)) return "test";
+    if (["docker", "kubectl", "podman"].includes(exe!) && (sub === "logs" || (sub === "compose" && args[2] === "logs"))) return "log";
+    if (exe === "journalctl") return "log";
+    return;
 }
 export function eligibleFreshOutput(toolName: string, input: Record<string, unknown>, text: string, isError: boolean, cfg = DEFAULT_SIEVE): BashOutputKind | undefined {
     if (toolName !== "bash" || typeof input.command !== "string") return undefined;

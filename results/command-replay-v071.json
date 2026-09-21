@@ -1,0 +1,17 @@
+{
+  "scope": "All branches in non-temporary local sessions; long means >=3000 estimated tokens. Eligibility also considers the production line threshold. No Jev calls or safety labels.",
+  "counts": {
+    "sessions": 26,
+    "bashResults": 2792,
+    "longResults": 148,
+    "oldClassified": 45,
+    "newClassified": 45,
+    "newlyClassified": 0,
+    "noLongerClassified": 0,
+    "newlyClassifiedLong": 0,
+    "newEligible": 0,
+    "newEligibleUntruncated": 0
+  },
+  "newlyClassifiedKinds": {},
+  "noLongerClassifiedReasons": {}
+}

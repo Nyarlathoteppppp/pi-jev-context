@@ -19,6 +19,22 @@ A context extension for Pi that folds repeated reads, filters long command logs 
 
 Independent switches. Branch-local originals. Pi-native compaction.
 
+### v0.7.1: common command forms and clearer recall
+
+The same log policy now recognizes literal wrappers such as
+`cd "my repo" && CI=1 npm test 2>&1`, `env CI=1 pnpm test`, and
+`npx --no-install vitest run`. Common script names such as `test:unit` and
+`build:production` remain supported. Parsing identifies the executable and subcommand;
+a test name inside another command's arguments is not enough. Commands are never
+rewritten or evaluated by the parser. Pipelines, command substitutions and mixed
+command sequences still pass through unchanged.
+
+Recall distinguishes an empty store, an unknown id, zero keyword matches, partial
+identifier matches, and a chunk that does not fit the budget. It shows available
+source ids when useful and points to exact line retrieval. Missing lexical matches
+still do not prove a historical fact is absent. See
+[v0.7.1 measurements and limits](docs/V0.7.1_FOLLOW_UP.md).
+
 ## Install
 
 ```sh

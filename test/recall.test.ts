@@ -26,7 +26,7 @@ it('query search reuses persisted originals, source filters, and preserves id-on
  const {pi}=setup();pi.entries.push({type:'custom',customType:ORIGINAL,data:{alias:'t1',toolCallId:'c1',tool:'bash',summary:'npm test',text:'JWT_EXPIRED: refreshSession'}});
  await pi.emit('session_start');assert.match(await pi.recall({query:'JWT_EXPIRED'}),/JWT_EXPIRED: refreshSession/);
  assert.match(await pi.recall({id:'c1',query:'JWT'}),/JWT_EXPIRED/);
- assert.match(await pi.recall({id:'unknown',query:'JWT'}),/No lexical matches/);
+ assert.match(await pi.recall({id:'unknown',query:'JWT'}),/Unknown original id/);
  assert.ok((await pi.recall({id:'t1'})).endsWith('JWT_EXPIRED: refreshSession'));
  assert.match(await pi.recall({}),/Provide query/);
 });

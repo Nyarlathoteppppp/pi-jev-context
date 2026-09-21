@@ -301,3 +301,30 @@ Validation: 73 unit/integration tests, 16 archive tests, typecheck, replay,
 standalone 10-test lifecycle/SDK suite, package dry-run, and diff whitespace check.
 The actual SDK startup regression test makes no model completion call. Three
 preexisting protected result files retain their original checksums.
+
+## F30 · v0.7.1 common wrappers and recall feedback (2026-09-22)
+
+The follow-up adds literal directory/environment/stderr wrappers and reports search
+scope, unmatched terms/identifiers and source ids. It leaves Jev policy and retrieval
+ranking unchanged. See [the full report](V0.7.1_FOLLOW_UP.md) for commands, baseline
+construction, fixture constraints and official guidance considered.
+
+On antigravity/gemini-3.8-flash, a paired four-scenario/two-repetition recall pilot
+passed 8/8 per condition. Recall calls fell from 22 to 14; total latency from 67.0s
+to 55.6s; estimated returned tokens from 18,304 to 16,378. Absent-component cases
+improved, but alternate-wording cases returned more text (2,120 to 7,255 tokens),
+including a full-original inspection. Two scenarios explicitly prescribe an initial
+query. This is evidence of navigation improvement on small fixtures, not a general
+quality or cost guarantee. Cache counters were all zero.
+
+A real wrapped-command filesystem fixture passed for both versions. v0.7.1 made
+two Jev decisions, one rewrite and zero Jev failures, saving 8,682 estimated net
+tokens; v0.7.0 did not classify the wrapper. No recalls occurred. In contrast,
+offline inventory of 26 non-temporary session files (2,792 bash results) found no
+historical coverage gain: both versions classify 45 commands, and none pass full
+sieve eligibility. Supporting common syntax is useful interoperability work, but
+the earlier 117 compound long commands must not be portrayed as available savings.
+
+Validation: 77 tests, 16 archive tests, typecheck, the standalone 10-test
+lifecycle/SDK suite, read replay, command replay and diff whitespace checks passed.
+No prior messages are rewritten and no model-call or retrieval fallback was added.

@@ -66,7 +66,7 @@ describe('installed Pi SessionManager lifecycle',()=>{
   await h.tool();const alias=data(h.originals()[0]).alias;const leaf=h.sm.getLeafId()!;
   h.sm.branch(root);h.sm.appendMessage({role:'user',content:'sibling',timestamp:Date.now()});await h.emit('session_tree');
   assert.equal(h.originals().length,0);assert.match(await h.recall(alias),/No shortened output/);
-  assert.match((await h.tools.get('context_recall').execute('q',{query:'routine'})).content[0].text,/No lexical matches/);
+  assert.match((await h.tools.get('context_recall').execute('q',{query:'routine'})).content[0].text,/No saved originals/);
   h.sm.branch(leaf);await h.emit('session_tree');assert.equal(h.originals().length,1);assert.ok((await h.recall(alias)).endsWith(output));assert.equal(j.calls,1);
  });
  it('compaction and rebuild do not rejudge; compacted reads cannot authorize dedupe; new output still sieves',async()=>{

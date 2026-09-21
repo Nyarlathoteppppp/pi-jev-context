@@ -1,5 +1,5 @@
 import type { Message } from "../src/types.ts";
-import type { FreshResult } from "../src/writetime.ts";
+import type { FreshResult } from "./experimental/writetime.ts";
 import { longBuildLog, longVitestLog, Session } from "./builder.ts";
 
 // WRITE-TIME GROUND TRUTH, committed before any Jev call on these cases.

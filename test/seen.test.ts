@@ -1,149 +1,107 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
-import { collapse, DEFAULT_SEEN, matchingRuns, planCollapse } from "../src/seen.ts";
+import { SessionManager } from "@earendil-works/pi-coding-agent";
+import { createJevContext, contextMessages } from "../src/index.ts";
+import { DEFAULT_SEEN, matchingRuns, planCollapse } from "../src/seen.ts";
 import type { Message } from "../src/types.ts";
-import { fakeJudge, setup } from "./harness.ts";
-
-const file = (n: number, tag = "l") => Array.from({ length: n }, (_, i) => `${tag}${i + 1}: const value${i + 1} = compute(${i + 1});`);
-const body = (n: number, tag?: string) => file(n, tag).join("\n");
-
-const readResult = (path: string, text: string, id: string): Message[] => [
-	{ role: "assistant", content: [{ type: "toolCall", id, name: "read", arguments: { path } }] },
-	{ role: "toolResult", toolCallId: id, toolName: "read", content: [{ type: "text", text }], isError: false },
+import { setup, FakePi } from "./harness.ts";
+const lines = Array.from({ length: 300 }, (_, i) => `line${i + 1}: const result${i + 1} = calculate(${i + 1});`);
+const text = lines.slice(0, 200).join("\n");
+const read = (body = text, offset = 1, id = "c1"): Message[] => [
+ { role: "assistant", content: [{ type: "toolCall", id, name: "read", arguments: { path: "a.ts", offset } }] },
+ { role: "toolResult", toolCallId: id, toolName: "read", content: [{ type: "text", text: body }], isError: false },
 ];
+const fresh = (body = text, offset = 1) => ({ toolCallId: "c2", toolName: "read", input: { path: "a.ts", offset }, text: body, isError: false });
 
-describe("matching runs", () => {
-	it("finds contiguous already-shown runs and ignores scattered coincidences", () => {
-		const earlier = file(100);
-		const next = [...file(100), "brand new line A", "brand new line B"];
-		assert.deepEqual(matchingRuns(next, earlier, 30), [{ from: 1, to: 100 }]);
-		// Only contiguity counts. Here the earlier text is ["}", l1…l35], so the run starts at the "}"
-		// that directly precedes l1 in the new text (line 3), not at l1 itself.
-		const scattered = ["}", "}", "}", ...file(40), "}", "}"];
-		assert.deepEqual(matchingRuns(scattered, ["}", ...file(40).slice(0, 35)], 30), [{ from: 3, to: 38 }]);
-		// Lines that were only ever seen scattered are never a run.
-		assert.deepEqual(matchingRuns(file(40), file(40).filter((_, i) => i % 2 === 0), 30), []);
-	});
-
-	it("matches a middle section when the file grew around it", () => {
-		const earlier = file(80);
-		const next = ["new header", ...file(80), "new footer"];
-		assert.deepEqual(matchingRuns(next, earlier, 30), [{ from: 2, to: 81 }]);
-	});
+describe("position-aware read dedupe", () => {
+ it("matches overlapping ranges and labels absolute file positions", () => {
+  const c = planCollapse(read(), fresh(lines.slice(100).join("\n"), 101), "t1")!;
+  assert.equal(c.collapsedLines, 100);
+  assert.match(c.text, /file lines 101-200 unchanged/);
+  assert.match(c.text, /Folded 100\/200 file lines matching read c1 still in context/);
+  assert.ok(c.text.includes(lines[250]!));
+ });
+ it("does not confuse identical blocks at different positions or shifted content", () => {
+  assert.equal(planCollapse(read(), fresh(text, 301), "t1"), undefined);
+  assert.deepEqual(matchingRuns(["new", ...lines], lines, 30), []);
+ });
+ it("keeps edited lines and nonmatching ranges verbatim", () => {
+  const changed = [...lines.slice(0, 200)]; changed[100] = "CHANGED VALUE";
+  const c = planCollapse(read(), fresh(changed.join("\n")), "t1")!;
+  assert.ok(c.text.includes("CHANGED VALUE"));
+  assert.equal(c.collapsedLines, 199);
+  assert.equal(planCollapse(read(text), fresh(lines.slice(200).join("\n"), 201), "t1"), undefined);
+ });
+ it("preserves Pi continuation notices and excludes them from file lines", () => {
+  const footer = "\n\n[100 more lines in file. Use offset=201 to continue.]";
+  const c = planCollapse(read(text + footer), fresh(text + footer), "t1")!;
+  assert.equal(c.totalLines, 200); assert.ok(c.text.endsWith(footer));
+ });
+ it("does not use folded output, errors, other paths or short runs", () => {
+  const c = planCollapse(read(), fresh(), "t1")!;
+  assert.equal(planCollapse(read(c.text), fresh(), "t2"), undefined);
+  assert.equal(planCollapse(read(), { ...fresh(), isError: true }, "t1"), undefined);
+  assert.equal(planCollapse(read(), { ...fresh(), input: { path: "b.ts" } }, "t1"), undefined);
+  assert.equal(planCollapse(read(), fresh(lines.slice(0, 20).join("\n")), "t1"), undefined);
+  assert.equal(planCollapse([], fresh(), "t1"), undefined);
+ });
 });
 
-describe("collapse", () => {
-	it("keeps unseen lines verbatim, collapses seen runs, and names the recall id", () => {
-		const earlier = body(100);
-		const next = `${body(100)}\n${file(20, "NEW").join("\n")}`;
-		const c = collapse(next, [earlier], "t4", "src/a.ts")!;
-		assert.equal(c.collapsedLines, 100);
-		assert.equal(c.totalLines, 120);
-		assert.match(c.text, /… \[lines 1-100 unchanged from what you already read of src\/a\.ts; full text: context_recall with id "t4"\] …/);
-		for (const l of file(20, "NEW")) assert.ok(c.text.includes(l));
-		assert.ok(c.keptTokens < c.originalTokens / 3);
-	});
-
-	it("does nothing without an earlier read, for short files, or when nothing matches", () => {
-		assert.equal(collapse(body(100), [], "t1", "a.ts"), undefined);
-		assert.equal(collapse(body(10), [body(10)], "t1", "a.ts"), undefined);
-		assert.equal(collapse(body(100), [body(100, "OTHER")], "t1", "a.ts"), undefined);
-	});
-});
-
-describe("planCollapse", () => {
-	it("collapses a re-read of a file whose text is still in the context", () => {
-		const text = body(200);
-		const ctx = readResult("src/a.ts", text, "c1");
-		const c = planCollapse(ctx, { toolCallId: "c2", toolName: "read", input: { path: "src/a.ts" }, text, isError: false }, "t1", DEFAULT_SEEN)!;
-		assert.equal(c.collapsedLines, 200);
-	});
-
-	it("never collapses lines the agent has not been shown (the cachebro bug)", () => {
-		// The agent read lines 1-100. It now reads 101-300 of the same unchanged file.
-		const whole = file(300);
-		const ctx = readResult("src/a.ts", whole.slice(0, 100).join("\n"), "c1");
-		const later = whole.slice(100).join("\n");
-		assert.equal(planCollapse(ctx, { toolCallId: "c2", toolName: "read", input: { path: "src/a.ts" }, text: later, isError: false }, "t1"), undefined);
-	});
-
-	it("stops collapsing once the earlier read is no longer in the context", () => {
-		const text = body(200);
-		const withRead = readResult("src/a.ts", text, "c1");
-		const fresh = { toolCallId: "c2", toolName: "read", input: { path: "src/a.ts" }, text, isError: false };
-		assert.ok(planCollapse(withRead, fresh, "t1"));
-		// Compaction dropped the earlier read: nothing to point at any more.
-		assert.equal(planCollapse([], fresh, "t1"), undefined);
-	});
-
-	it("ignores other tools, errors and other paths", () => {
-		const text = body(200);
-		const ctx = readResult("src/a.ts", text, "c1");
-		assert.equal(planCollapse(ctx, { toolCallId: "c2", toolName: "bash", input: { command: "cat src/a.ts" }, text, isError: false }, "t1"), undefined);
-		assert.equal(planCollapse(ctx, { toolCallId: "c2", toolName: "read", input: { path: "src/a.ts" }, text, isError: true }, "t1"), undefined);
-		assert.equal(planCollapse(ctx, { toolCallId: "c2", toolName: "read", input: { path: "src/b.ts" }, text, isError: true }, "t1"), undefined);
-	});
-});
-
-describe("in the extension", () => {
-	const noJev = () => fakeJudge(() => undefined, { error: "should not be called" });
-
-	it("collapses a re-read without calling Jev, and recall returns the original", async () => {
-		const judge = noJev();
-		const { pi } = setup({ judge, config: { mode: "on" } });
-		pi.user("refactor src/a.ts");
-		const text = body(200);
-		await pi.tool("read", { path: "src/a.ts" }, text);
-		const again = await pi.tool("read", { path: "src/a.ts" }, text);
-		assert.ok(again.patch, "second read rewritten");
-		assert.match(again.text, /unchanged from what you already read of src\/a\.ts/);
-		assert.equal(judge.calls.length, 0, "no model call");
-		const [log] = pi.logs("seen");
-		assert.equal(log.acted, true);
-		assert.equal(log.collapsedLines, 200);
-		assert.equal((await pi.recall({ id: log.alias })).split("\n").slice(1).join("\n"), text);
-		assert.deepEqual(pi.sent, []);
-	});
-
-	it("shadow mode logs the same decision and changes nothing", async () => {
-		const { pi } = setup({ judge: noJev(), config: { mode: "shadow" } });
-		pi.user("refactor src/a.ts");
-		const text = body(200);
-		await pi.tool("read", { path: "src/a.ts" }, text);
-		const again = await pi.tool("read", { path: "src/a.ts" }, text);
-		assert.equal(again.patch, undefined);
-		assert.equal(again.text, text);
-		assert.equal(pi.logs("seen")[0].acted, false);
-	});
-
-	it("leaves the first read of a file alone", async () => {
-		const { pi } = setup({ judge: noJev(), config: { mode: "on" } });
-		pi.user("read it");
-		const first = await pi.tool("read", { path: "src/a.ts" }, body(200));
-		assert.equal(first.patch, undefined);
-		assert.equal(pi.logs("seen").length, 0);
-	});
-});
-
-describe("cache neutrality (design invariant)", () => {
-	it("a rewrite touches only the arriving result; every earlier message stays byte-identical", async () => {
-		const { pi } = setup({ judge: fakeJudge(() => undefined, { error: "no" }), config: { mode: "on" } });
-		pi.user("refactor src/a.ts");
-		const text = body(200);
-		await pi.tool("read", { path: "src/a.ts" }, text);
-		const before = JSON.stringify(pi.entries.filter((e) => e.type === "message"));
-		const again = await pi.tool("read", { path: "src/a.ts" }, text);
-		assert.ok(again.patch, "the arriving result was rewritten");
-		const after = JSON.stringify(pi.entries.filter((e) => e.type === "message").slice(0, JSON.parse(before).length));
-		assert.equal(after, before, "no earlier message was modified");
-		// The context hook must stay observation-only, whatever happened.
-		assert.equal(await pi.emit("context", { messages: [] }), undefined);
-	});
-
-	it("is deterministic: the same read in the same context always renders the same text", () => {
-		const text = body(200);
-		const ctx = readResult("src/a.ts", text, "c1");
-		const fresh = { toolCallId: "c2", toolName: "read", input: { path: "src/a.ts" }, text, isError: false };
-		assert.equal(planCollapse(ctx, fresh, "t1")!.text, planCollapse(ctx, fresh, "t1")!.text);
-	});
+describe("MVP lifecycle", () => {
+ it("rewrites only incoming reads, persists originals, supports recall and reports dedupe", async () => {
+  const { pi } = setup();
+  await pi.tool("read", { path: "a.ts" }, text);
+  const before = JSON.stringify(pi.entries);
+  const n = pi.entries.length;
+  const result = await pi.tool("read", { path: "a.ts" }, text);
+  assert.ok(result.patch);
+  assert.equal(JSON.stringify(pi.entries.slice(0, n)), before);
+  const alias = pi.logs("seen")[0].alias;
+  assert.equal((await pi.recall({ id: alias })).split("\n").slice(1).join("\n"), text);
+  assert.deepEqual((await pi.recall({ id: alias, offset: 101, limit: 2 })).split("\n").slice(1), lines.slice(100, 102));
+  await pi.command("/context report"); assert.match(pi.notes.at(-1)!, /Collapsed: 1 reads/);
+  assert.equal(await pi.emit("context", { messages: [] }), undefined);
+  assert.deepEqual(pi.sent, []);
+ });
+ it("shadow and off do not alter output", async () => {
+  for (const mode of ["shadow", "off"] as const) {
+   const { pi } = setup({ config: { mode } });
+   await pi.tool("read", { path: "a.ts" }, text);
+   assert.equal((await pi.tool("read", { path: "a.ts" }, text)).patch, undefined);
+   assert.equal(pi.logs("seen").length, mode === "shadow" ? 1 : 0);
+  }
+ });
+ it("does not start external judgments or handle old pruning events", async () => {
+  const { pi } = setup();
+  assert.deepEqual([...pi.handlers.keys()].sort(), ["session_start", "session_tree", "tool_result"]);
+  assert.equal((await pi.tool("bash", { command: "test" }, text)).patch, undefined);
+ });
+ it("rebuilds recall and statistics on resume and clears them on session switch", async () => {
+  const { pi } = setup();
+  await pi.tool("read", { path: "a.ts" }, text);
+  await pi.tool("read", { path: "a.ts" }, text);
+  const alias = pi.logs("seen")[0].alias;
+  const resumed = new FakePi(); resumed.entries = structuredClone(pi.entries);
+  createJevContext(resumed.api(), { env: {}, settingsPath: "/nonexistent" });
+  await resumed.emit("session_start");
+  assert.equal((await resumed.recall({ id: alias })).split("\n").slice(1).join("\n"), text);
+  assert.match(resumed.status!, /1 trimmed/);
+  resumed.entries = []; await resumed.emit("session_start");
+  assert.match(await resumed.recall({ id: alias }), /No shortened output/);
+ });
+ it("uses Pi's actual compaction boundary, ignoring originals outside it", () => {
+  const sm = SessionManager.inMemory();
+  for (const m of read()) sm.appendMessage(m as any);
+  const tail = sm.appendMessage({ role: "user", content: "continue", timestamp: Date.now() });
+  sm.appendCompaction("Earlier file reviewed", tail, 10000);
+  const messages = contextMessages({ sessionManager: sm } as any);
+  assert.equal(planCollapse(messages, fresh(), "t1"), undefined);
+ });
+ it("does not remember results absent from the current context during the same run", async () => {
+  const { pi } = setup();
+  await pi.emit("agent_start");
+  await pi.tool("read", { path: "a.ts" }, text);
+  pi.entries = [];
+  assert.equal((await pi.tool("read", { path: "a.ts" }, text)).patch, undefined);
+ });
 });

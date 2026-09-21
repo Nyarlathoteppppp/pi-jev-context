@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { afterEach, describe, it } from "node:test";
-import { Jev, normalizeAnswer } from "../src/jev.ts";
+import { Jev, normalizeAnswer } from "../bench/experimental/jev.ts";
 
 const realFetch = globalThis.fetch;
 afterEach(() => {

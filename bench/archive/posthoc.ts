@@ -1,9 +1,9 @@
 // POST-HOC analysis: policies designed after seeing run-q1 results. Numbers here are fitted to the
 // same items and therefore optimistic; they must be confirmed on held-out cases.
 import { readFileSync } from "node:fs";
-import type { ChoiceAnswer, NoulAnswer } from "../src/jev.ts";
-import { summarize, type Row } from "../src/metrics.ts";
-import type { Label, Prediction } from "../src/types.ts";
+import type { ChoiceAnswer, NoulAnswer } from "../experimental/jev.ts";
+import { summarize, type Row } from "../experimental/metrics.ts";
+import type { Label, Prediction } from "../../src/types.ts";
 import type { ItemResult } from "./run.ts";
 
 const { results } = JSON.parse(readFileSync(process.argv[2]!, "utf8")) as { results: ItemResult[] };

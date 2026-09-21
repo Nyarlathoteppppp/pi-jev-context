@@ -4,7 +4,7 @@ Append-only record of what the experiments established. Each entry states the qu
 result, the conclusion and where the evidence is. A later entry may supersede an earlier one; earlier
 entries are never rewritten. Raw data lives in `results/`, full write-ups in `docs/experiments/`.
 
-Model for all entries: `typesafe/jev-1.13-20260917` via OpenRouter `~typesafe/jev-latest`.
+Model for the original Jev experiments (later entries specify their own models): `typesafe/jev-1.13-20260917` via OpenRouter `~typesafe/jev-latest`.
 
 ---
 
@@ -154,3 +154,47 @@ Model for all entries: `typesafe/jev-1.13-20260917` via OpenRouter `~typesafe/je
 - **Thresholds barely matter:** from `minRun` 10 to 50 the saving moves only 14.9% → 12.4% of read tokens, so the conservative setting is close to free.
 - **Cost:** no model call, no network. The layer is pure line comparison.
 - **Ceiling, for honesty:** 47% of read tokens are lines seen before somewhere. Most of that is not contiguous enough, or the earlier read is no longer visible, so it is not collectable this way.
+
+## F21 · Narrow read-dedupe MVP and corrected replay (2026-09-21)
+
+- **Change:** 0.4 runtime only performs deterministic read dedupe and recall. Retired runtime is in `bench/archive/`; Jev/sieve/policy helpers are in `bench/experimental/`. Neither is shipped. Default is on; shadow is deterministic and makes no network calls.
+- **Correctness:** matching requires the same file positions and exact path string. No `runReads` cache or stored-original evidence; shortened prior outputs are excluded. File positions and recall output positions are explicitly distinguished. Native read continuation notices remain intact.
+- **Correction to F20:** the old replay accumulated messages without processing compaction entries. Its claim that it enforced current-context visibility was not supported by that runner. New replay uses Pi's `buildContextEntries` at each entry's parent, respecting branches and compaction. F20's 13.4% must not be quoted as the MVP result.
+- **Result:** 24 sessions, 3,670 reads, about 2,482k read tokens / 6,344k tool tokens; 141 reads shortened, about 101k tokens saved = 4.1% of read tokens / 1.6% of all tool tokens. Estimates use characters/4, not billing tokenization. This is a different corpus and stricter matcher, so the decrease cannot be attributed to one change alone.
+- **Validation:** 28 active tests plus 16 archived runtime integration tests pass; typecheck passes. Lifecycle tests include actual Pi SessionManager compaction boundaries, resume/recall, range overlap, changes and repeated content at different positions.
+- **Evidence:** `results/seen-mvp.txt`, `test/seen.test.ts`.
+
+## F22 · Antigravity tools were missing from outgoing requests (2026-09-21)
+
+- **Observed:** isolated Antigravity Gemini 3.8 Flash read calls returned `MALFORMED_FUNCTION_CALL`. Native compaction could still generate summaries. An initial SDK OAuth attempt also failed parsing a compressed response; a subsequent attempt succeeded.
+- **Cause of malformed calls:** the currently installed Pi normalizes tool declarations and system instructions into transcript system messages. pi-antigravity 0.7.3 still read `context.tools` and `context.systemPrompt`; outgoing request inspection showed no tool declarations. Switching JSON-schema fields did not fix it.
+- **Fix:** installed provider `buildRequest` now calls Pi's `normalizeContext`, `getCurrentSystemPrompt`, and `getCurrentTools`, then excludes system messages from Gemini contents. Regression assertions cover tool additions/removals, prompt preservation, and legacy shorthand. Live read succeeded after the change.
+- **Scope:** this is a local installed-provider patch, stored with backup and tests at `~/.pi/agent/local-patches/pi-antigravity-transcript/`. Reinstall can overwrite it. No credentials were printed or manually changed.
+- **Harness correction:** repository SDK dependencies and installed Pi SDK expose different pi-ai interfaces despite their coding-agent version labels. Live runners now use the installed SDK, plus the same HTTP dispatcher initialization as CLI. The initial mismatched-SDK runs are retained as harness errors, not model or dedupe failures.
+- **Quota:** all successful live/summary runs use `antigravity/gemini-3.8-flash`. One Google Direct diagnostic attempt returned 402 prepaid credits depleted; it produced no summary and was not retried. Google Direct is not used by the resulting runners.
+
+## F23 · MVP live smoke: off 4/4, dedupe 4/4 (2026-09-21)
+
+- **Setup:** two fixtures (overlapping reread followed by exact edit; early-region recall plus fresh status after a later read), two repetitions each, off/on. Only Antigravity and this extension loaded; tools read/write/edit/context_recall. Conditions alternate order. The fixture setup and filesystem acceptance predicates were fixed before model runs.
+- **Result:** off 4/4, on 4/4. Every on run performed one collapse (~1,502 tokens saved), preserved the fresh update, and passed exact file/JSON checks. No provider errors in the valid runs.
+- **Limit:** smoke-sized, synthetic, one model; this does not establish general non-inferiority. Offline real-session replay measures savings, not task success. No success rate is inferred for sieve.
+- **Evidence:** `bench/live/mvp.ts`, `results/live-mvp.json`. Invalid SDK trials: `results/live-mvp-sdk-mismatch.json`.
+
+## F24 · Wang compaction falls back on all five real checkpoints (2026-09-21)
+
+- **Setup:** five distinct local sessions at their first recorded compaction point, with substantial older context. Same branch entries, keepRecentTokens=1024, reserveTokens=16384, and actual `AgentSession.compact()` for native and Wang. Native summarizer: Antigravity Gemini 3.8 Flash. Wang source commit: `058d91db752f97c7d52062e465eb151bddab060d` (0.1.0). TypeSafe key resolved through existing configuration; no production install of Wang.
+- **Result:** native completed 5/5; Wang extractive path completed 0/5 and native fallback completed 5/5. Retention boundary IDs match within every pair. Diagnostic reruns reported four "no candidates or less than 10% byte reduction" and one "protected history exceeds output budget". These combined fallback messages do not distinguish no candidates from low reduction.
+- **Conclusion:** these results establish loading/lifecycle compatibility with installed Pi, not Jev semantic superiority. Comparing the generated summaries would compare two native samples. Do not enable Wang based on these results; no additional online Jev-vs-native trial is justified by this pilot. Native compaction remains in use.
+- **Evaluation note:** iefnaf `eval/vs-pi.ts` was inspected. It uses cached/offline outputs and later-used lexical facts; useful for diagnostics, but lexical recall alone favors extractive text and is not an adequate capability endpoint.
+- **Evidence:** `results/compaction-mvp.json`, `results/wang-mvp-diagnostics.json`; private snapshots/summaries in gitignored `results-private/`. Input checkpoints were selected before calls. No semantic score or claim about cost advantage is made.
+
+## F25 · Explicit folded-line counts (2026-09-21)
+
+- **Change:** each replacement header reports folded/total file lines, alongside the
+  file range, visible source read ID and recall ID. Span markers retain absolute
+  file positions. The count describes omitted lines, not semantic information.
+- **Validation:** overlap regression checks `Folded 100/200`; all 28 active tests
+  pass. Replaying the same 24 sessions after adding the count rewrites 140 reads
+  instead of 141 (one result no longer clears the 30% savings threshold). Rounded
+  savings remain 101k tokens, 4.1% of reads / 1.6% of tool tokens.
+- **Limit:** F23's live outcomes precede this small marker wording change.

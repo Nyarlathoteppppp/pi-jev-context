@@ -1,0 +1,5 @@
+sessions 24, reads 3670 (2482k tok of 6344k tool tokens)
+minRun=30 lines, minSavedShare=0.3
+  reads rewritten: 140 (3.8%)
+  tokens saved: 101k = 4.1% of read tokens, 1.6% of all tool tokens
+  best sessions: 54k saved of 837k (6.5%, 65/1297 reads) · 21k saved of 412k (5.2%, 29/588 reads) · 7k saved of 209k (3.4%, 12/346 reads) · 6k saved of 109k (5.6%, 10/153 reads) · 3k saved of 173k (1.9%, 8/258 reads)

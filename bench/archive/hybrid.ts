@@ -1,12 +1,12 @@
 // POST-HOC (designed after run-q1 dev + held-out): deterministic protections around Jev.
 // Evaluated on dev and held-out together; both sets have now been seen, so this needs a third, fresh set.
 import { readFileSync } from "node:fs";
-import { relatedKey, toolEvents } from "../src/extract.ts";
-import type { ChoiceAnswer, NoulAnswer } from "../src/jev.ts";
-import { summarize, type Row } from "../src/metrics.ts";
-import { guardedPolicy, type JevReading, rawPolicy } from "../src/policy.ts";
-import { SIGNALS } from "../src/questions.ts";
-import type { Label, Message, Prediction } from "../src/types.ts";
+import { relatedKey, toolEvents } from "../../src/extract.ts";
+import type { ChoiceAnswer, NoulAnswer } from "../experimental/jev.ts";
+import { summarize, type Row } from "../experimental/metrics.ts";
+import { guardedPolicy, type JevReading, rawPolicy } from "../experimental/policy.ts";
+import { SIGNALS } from "../experimental/questions.ts";
+import type { Label, Message, Prediction } from "../../src/types.ts";
 import { CASES, items } from "./cases.ts";
 import { HOLDOUT } from "./holdout.ts";
 import type { ItemResult } from "./run.ts";

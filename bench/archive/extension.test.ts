@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { afterEach, describe, it } from "node:test";
-import { longVitestLog, packageJson } from "../bench/builder.ts";
-import type { Answer, Question } from "../src/jev.ts";
+import { longVitestLog, packageJson } from "../builder.ts";
+import type { Answer, Question } from "../experimental/jev.ts";
 import { choice, type FakePi, fakeJudge, noul, setup } from "./harness.ts";
 
 const LOG = longVitestLog();
@@ -151,7 +151,7 @@ describe("never touches the model's context", () => {
 describe("old-context pruning (shadow)", () => {
 	it("judges old results, protects the current request, drops exact repeats without Jev, never drops durable sources", async () => {
 		const judge = trimJudge();
-		const { pi, ext } = track(setup({ judge, config: { mode: "on", trim: { ...(await import("../src/trim.ts")).DEFAULT_TRIM, minLines: 100000 } } }));
+		const { pi, ext } = track(setup({ judge, config: { mode: "on", trim: { ...(await import("../experimental/trim.ts")).DEFAULT_TRIM, minLines: 100000 } } }));
 		const big = (s: string) => `${s}\n${"line of output\n".repeat(80)}`;
 		pi.user("first task");
 		const pkg = await pi.tool("bash", { command: "cat package.json" }, `${packageJson()}\n${" ".repeat(800)}`);
@@ -204,7 +204,7 @@ describe("v0.2 write-time guards", () => {
 	it("reads mode and key file from the settings file; env overrides the file", async () => {
 		const { writeFileSync, mkdtempSync } = await import("node:fs");
 		const { tmpdir } = await import("node:os");
-		const { createJevContext } = await import("../src/index.ts");
+		const { createJevContext } = await import("./index-v03.ts");
 		const { FakePi } = await import("./harness.ts");
 		const dir = mkdtempSync(`${tmpdir()}/jctx-`);
 		writeFileSync(`${dir}/s.json`, JSON.stringify({ mode: "on", envFile: `${dir}/.env` }));

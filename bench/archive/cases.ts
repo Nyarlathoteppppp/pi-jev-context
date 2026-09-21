@@ -1,5 +1,5 @@
-import type { Label } from "../src/types.ts";
-import { longBuildLog, longVitestLog, packageJson, Session } from "./builder.ts";
+import type { Label } from "../../src/types.ts";
+import { longBuildLog, longVitestLog, packageJson, Session } from "../builder.ts";
 
 // GROUND TRUTH. Written and committed before the first live Jev run. Do not edit labels to fit results;
 // if a label is wrong, fix it in a separate commit that says why, and re-run.

@@ -1,6 +1,6 @@
 import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
-import { createJevContext, type JevContextOptions } from "../src/index.ts";
-import type { Answer, JevCall, Judge, Question } from "../bench/experimental/jev.ts";
+import { createJevContext, type JevContextOptions } from "./index-v03.ts";
+import type { Answer, JevCall, Judge, Question } from "../experimental/jev.ts";
 
 type Handler = (event: any, ctx: any) => any;
 

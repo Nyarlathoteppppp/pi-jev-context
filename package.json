@@ -1,8 +1,8 @@
 {
 	"name": "pi-jev-context",
-	"version": "0.3.0",
+	"version": "0.4.0",
 	"private": false,
-	"description": "Cache-neutral context trimming for the pi coding agent, powered by TypeSafe Jev: shortens long bash logs to their key lines before they enter context, with lossless recall. Old-context pruning runs in shadow mode only.",
+	"description": "Deterministic, position-aware read deduplication for Pi, with original-output recall. No model calls.",
 	"type": "module",
 	"license": "MIT",
 	"engines": {
@@ -11,9 +11,8 @@
 	"scripts": {
 		"test": "node --test test/*.test.ts",
 		"typecheck": "tsc --noEmit",
-		"bench": "node bench/run.ts",
-		"bench:dry": "node bench/run.ts --dry-run",
-		"report": "node bench/report.ts"
+		"bench": "node bench/seen-replay.ts",
+		"test:archive": "node --test bench/archive/extension.test.ts"
 	},
 	"devDependencies": {
 		"@earendil-works/pi-coding-agent": "^0.85.1",

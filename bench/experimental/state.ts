@@ -11,8 +11,8 @@ import {
 	type ToolEvent,
 	toolEvents,
 	truncate,
-} from "./extract.ts";
-import type { Message } from "./types.ts";
+} from "../../src/extract.ts";
+import type { Message } from "../../src/types.ts";
 
 // Builds the bounded Jev `state` for one old tool result. Jev's docs: filter first, keep numbers and
 // arithmetic in code, reduce indirection. So relations ("same command re-run later") are computed here

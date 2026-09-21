@@ -4,7 +4,7 @@ import { readdirSync, readFileSync, statSync } from "node:fs";
 import { join } from "node:path";
 import { homedir } from "node:os";
 import { estimateTokens, textOf } from "../src/extract.ts";
-import { shouldConsider } from "../src/trim.ts";
+import { shouldConsider } from "./experimental/trim.ts";
 
 const root = process.argv[2] ?? join(homedir(), ".pi/agent/sessions");
 const files: string[] = [];

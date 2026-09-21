@@ -1,0 +1,82 @@
+[
+  {
+    "scenario": "reread-edit",
+    "rep": 1,
+    "mode": "off",
+    "passed": true,
+    "acted": 0,
+    "savedTokens": 0,
+    "errors": [],
+    "ms": 11901
+  },
+  {
+    "scenario": "reread-edit",
+    "rep": 1,
+    "mode": "on",
+    "passed": true,
+    "acted": 1,
+    "savedTokens": 1503,
+    "errors": [],
+    "ms": 16988
+  },
+  {
+    "scenario": "reread-edit",
+    "rep": 2,
+    "mode": "on",
+    "passed": true,
+    "acted": 1,
+    "savedTokens": 1502,
+    "errors": [],
+    "ms": 17603
+  },
+  {
+    "scenario": "reread-edit",
+    "rep": 2,
+    "mode": "off",
+    "passed": true,
+    "acted": 0,
+    "savedTokens": 0,
+    "errors": [],
+    "ms": 10459
+  },
+  {
+    "scenario": "delayed-fact",
+    "rep": 1,
+    "mode": "off",
+    "passed": true,
+    "acted": 0,
+    "savedTokens": 0,
+    "errors": [],
+    "ms": 16012
+  },
+  {
+    "scenario": "delayed-fact",
+    "rep": 1,
+    "mode": "on",
+    "passed": true,
+    "acted": 1,
+    "savedTokens": 1502,
+    "errors": [],
+    "ms": 12078
+  },
+  {
+    "scenario": "delayed-fact",
+    "rep": 2,
+    "mode": "on",
+    "passed": true,
+    "acted": 1,
+    "savedTokens": 1502,
+    "errors": [],
+    "ms": 10594
+  },
+  {
+    "scenario": "delayed-fact",
+    "rep": 2,
+    "mode": "off",
+    "passed": true,
+    "acted": 0,
+    "savedTokens": 0,
+    "errors": [],
+    "ms": 11587
+  }
+]

@@ -1,9 +1,9 @@
 import type { ChoiceAnswer, JevCall, Judge, NoulAnswer, Question } from "./jev.ts";
 import { WRITE_NEED, WRITE_USER_ASKED } from "./questions.ts";
 import { conversationText, LIMITS } from "./state.ts";
-import { lineCount, notableLines, sizeClass, summarizeCall, textOf, truncate } from "./extract.ts";
+import { lineCount, notableLines, sizeClass, summarizeCall, textOf, truncate } from "../../src/extract.ts";
 import { DEFAULT_TRIM, decideTrim, renderTrimmed, type TrimConfig, type TrimDecision, type Trimmed, type Unit, type UnitMode, unitQuestion, units, worthTrimming } from "./trim.ts";
-import type { Message } from "./types.ts";
+import type { Message } from "../../src/types.ts";
 
 export interface FreshResult {
 	toolCallId: string;

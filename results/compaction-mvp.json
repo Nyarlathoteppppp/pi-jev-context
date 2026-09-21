@@ -1,0 +1,102 @@
+[
+  {
+    "case": "C1",
+    "mode": "native",
+    "ms": 11467,
+    "summaryChars": 4889,
+    "estimatedTokensAfter": 3393,
+    "tokensBefore": 125076,
+    "firstKeptEntryId": "4046d832",
+    "source": "native"
+  },
+  {
+    "case": "C1",
+    "mode": "wang",
+    "ms": 13619,
+    "summaryChars": 5050,
+    "estimatedTokensAfter": 3433,
+    "tokensBefore": 125076,
+    "firstKeptEntryId": "4046d832",
+    "source": "native"
+  },
+  {
+    "case": "C2",
+    "mode": "native",
+    "ms": 14774,
+    "summaryChars": 13614,
+    "estimatedTokensAfter": 3903,
+    "tokensBefore": 231314,
+    "firstKeptEntryId": "eaa8fc94",
+    "source": "native"
+  },
+  {
+    "case": "C2",
+    "mode": "wang",
+    "ms": 18405,
+    "summaryChars": 12808,
+    "estimatedTokensAfter": 3701,
+    "tokensBefore": 231314,
+    "firstKeptEntryId": "eaa8fc94",
+    "source": "native"
+  },
+  {
+    "case": "C3",
+    "mode": "native",
+    "ms": 14056,
+    "summaryChars": 5559,
+    "estimatedTokensAfter": 2166,
+    "tokensBefore": 112118,
+    "firstKeptEntryId": "e0a26a4f",
+    "source": "native"
+  },
+  {
+    "case": "C3",
+    "mode": "wang",
+    "ms": 18475,
+    "summaryChars": 5529,
+    "estimatedTokensAfter": 2159,
+    "tokensBefore": 112118,
+    "firstKeptEntryId": "e0a26a4f",
+    "source": "native"
+  },
+  {
+    "case": "C4",
+    "mode": "native",
+    "ms": 11948,
+    "summaryChars": 5107,
+    "estimatedTokensAfter": 10415,
+    "tokensBefore": 114895,
+    "firstKeptEntryId": "622b3f6c",
+    "source": "native"
+  },
+  {
+    "case": "C4",
+    "mode": "wang",
+    "ms": 14377,
+    "summaryChars": 5797,
+    "estimatedTokensAfter": 10588,
+    "tokensBefore": 114895,
+    "firstKeptEntryId": "622b3f6c",
+    "source": "native"
+  },
+  {
+    "case": "C5",
+    "mode": "native",
+    "ms": 11456,
+    "summaryChars": 4729,
+    "estimatedTokensAfter": 1184,
+    "tokensBefore": 166689,
+    "firstKeptEntryId": "be752d8b",
+    "source": "native"
+  },
+  {
+    "case": "C5",
+    "mode": "wang",
+    "ms": 12797,
+    "summaryChars": 4671,
+    "estimatedTokensAfter": 1169,
+    "tokensBefore": 166689,
+    "firstKeptEntryId": "be752d8b",
+    "source": "native"
+  }
+]

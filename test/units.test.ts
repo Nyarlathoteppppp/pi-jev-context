@@ -1,10 +1,10 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
-import { items } from "../bench/cases.ts";
+import { items } from "../bench/archive/cases.ts";
 import { notableLines, relatedKey, toolEvents } from "../src/extract.ts";
-import { majority, percentile, summarize, type Row } from "../src/metrics.ts";
-import { compositePolicy, type JevReading, rulePolicy, safePolicy } from "../src/policy.ts";
-import { buildState } from "../src/state.ts";
+import { majority, percentile, summarize, type Row } from "../bench/experimental/metrics.ts";
+import { compositePolicy, type JevReading, rulePolicy, safePolicy } from "../bench/experimental/policy.ts";
+import { buildState } from "../bench/experimental/state.ts";
 import { Session } from "../bench/builder.ts";
 
 const reading = (choice: string, probs: Record<string, number>, confidence: number, signals: Record<string, number> = {}, excerpted = false): JevReading => ({

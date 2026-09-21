@@ -7,9 +7,9 @@
 
 import { mkdirSync, writeFileSync } from "node:fs";
 import { parseArgs } from "node:util";
-import { Jev, type JevCall, resolveTransport } from "../src/jev.ts";
-import { QUESTIONS_VERSION, questionsFor } from "../src/questions.ts";
-import { buildState } from "../src/state.ts";
+import { Jev, type JevCall, resolveTransport } from "../experimental/jev.ts";
+import { QUESTIONS_VERSION, questionsFor } from "../experimental/questions.ts";
+import { buildState } from "../experimental/state.ts";
 import { CASES, items } from "./cases.ts";
 import { HOLDOUT } from "./holdout.ts";
 

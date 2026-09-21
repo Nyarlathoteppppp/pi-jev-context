@@ -1,6 +1,6 @@
-import { lineCount, relatedKey, type ToolEvent, toolEvents } from "./extract.ts";
+import { lineCount, relatedKey, type ToolEvent, toolEvents } from "../../src/extract.ts";
 import type { ChoiceAnswer } from "./jev.ts";
-import type { Label, Message, Prediction } from "./types.ts";
+import type { Label, Message, Prediction } from "../../src/types.ts";
 
 /** What one Jev call said about one item. */
 export interface JevReading {

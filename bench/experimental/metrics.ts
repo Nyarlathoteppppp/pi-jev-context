@@ -1,4 +1,4 @@
-import { LABELS, type Label, type Prediction } from "./types.ts";
+import { LABELS, type Label, type Prediction } from "../../src/types.ts";
 
 export interface Row {
 	key: string;

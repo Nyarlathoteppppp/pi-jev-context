@@ -1,4 +1,4 @@
-import { estimateTokens, linePriority, notableLines, truncate } from "./extract.ts";
+import { estimateTokens, linePriority, notableLines, truncate } from "../../src/extract.ts";
 import type { ChoiceAnswer, NoulQuestion } from "./jev.ts";
 
 // Write-time trimming of long tool output. Runs in tool_result, before the result ever enters the

@@ -4,11 +4,11 @@
 import { mkdirSync, writeFileSync } from "node:fs";
 import { parseArgs } from "node:util";
 import { estimateTokens } from "../src/extract.ts";
-import { Jev, resolveTransport } from "../src/jev.ts";
-import { percentile } from "../src/metrics.ts";
-import { shouldConsider, units } from "../src/trim.ts";
-import { planTrim, type TrimPlan } from "../src/writetime.ts";
-import { planSieve } from "../src/sieve.ts";
+import { Jev, resolveTransport } from "./experimental/jev.ts";
+import { percentile } from "./experimental/metrics.ts";
+import { shouldConsider, units } from "./experimental/trim.ts";
+import { planTrim, type TrimPlan } from "./experimental/writetime.ts";
+import { planSieve } from "./experimental/sieve.ts";
 import { WRITE_CASES as DEV, WRITE_HOLDOUT, WRITE_HOLDOUT2 } from "./writetime-cases.ts";
 
 const { values } = parseArgs({ options: { repeats: { type: "string", default: "5" }, "dry-run": { type: "boolean", default: false }, set: { type: "string", default: "dev" }, out: { type: "string" }, engine: { type: "string", default: "select" } } });

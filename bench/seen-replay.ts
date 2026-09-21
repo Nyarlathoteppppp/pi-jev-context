@@ -3,6 +3,7 @@
 //
 //   node bench/seen-replay.ts [sessions-dir] [--min-run 30]
 
+import { buildContextEntries } from "@earendil-works/pi-coding-agent";
 import { readdirSync, readFileSync, statSync } from "node:fs";
 import { homedir } from "node:os";
 import { join } from "node:path";
@@ -33,7 +34,7 @@ const perSession: Array<{ reads: number; collapsed: number; saved: number; readT
 
 for (const f of files) {
 	const calls = new Map<string, Record<string, unknown>>();
-	const context: Message[] = [];
+	const entries: any[] = [];
 	const s = { reads: 0, collapsed: 0, saved: 0, readTok: 0 };
 	for (const line of readFileSync(f, "utf8").split("\n")) {
 		if (!line) continue;
@@ -43,6 +44,8 @@ for (const f of files) {
 		} catch {
 			continue;
 		}
+		const context = buildContextEntries(entries, e.parentId).flatMap((entry: any) => entry.type === "message" && ["user", "assistant", "toolResult"].includes(entry.message.role) ? [entry.message as Message] : []);
+		entries.push(e);
 		const m = e.type === "message" ? e.message : undefined;
 		if (!m || !["user", "assistant", "toolResult"].includes(m.role)) continue;
 		if (m.role === "assistant") for (const c of m.content ?? []) if (c.type === "toolCall") calls.set(c.id, c.arguments ?? {});
@@ -58,12 +61,11 @@ for (const f of files) {
 					s.collapsed++;
 					s.saved += c.originalTokens - c.keptTokens;
 					// What the agent would have seen from here on is the collapsed text.
-					context.push({ ...m, content: [{ type: "text", text: c.text }] } as Message);
+					e.message = { ...m, content: [{ type: "text", text: c.text }] };
 					continue;
 				}
 			}
 		}
-		context.push(m as Message);
 	}
 	if (s.reads) perSession.push(s);
 	reads += s.reads;

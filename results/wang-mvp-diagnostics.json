@@ -1,0 +1,57 @@
+[
+  {
+    "case": "C1",
+    "events": [
+      {
+        "notes": [
+          "Jev: native compaction (no candidates or less than 10% byte reduction)"
+        ],
+        "acted": false
+      }
+    ]
+  },
+  {
+    "case": "C2",
+    "events": [
+      {
+        "notes": [
+          "Jev: native compaction (no candidates or less than 10% byte reduction)"
+        ],
+        "acted": false
+      }
+    ]
+  },
+  {
+    "case": "C3",
+    "events": [
+      {
+        "notes": [
+          "Jev: native compaction (no candidates or less than 10% byte reduction)"
+        ],
+        "acted": false
+      }
+    ]
+  },
+  {
+    "case": "C4",
+    "events": [
+      {
+        "notes": [
+          "Jev: native compaction (protected history exceeds output budget)"
+        ],
+        "acted": false
+      }
+    ]
+  },
+  {
+    "case": "C5",
+    "events": [
+      {
+        "notes": [
+          "Jev: native compaction (no candidates or less than 10% byte reduction)"
+        ],
+        "acted": false
+      }
+    ]
+  }
+]

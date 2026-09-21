@@ -1,4 +1,4 @@
-import { Session } from "./builder.ts";
+import { Session } from "../builder.ts";
 import { type Case, end, T } from "./cases.ts";
 
 // HELD-OUT GROUND TRUTH. Written after run-q1 and after freezing GUARD in src/policy.ts, committed before

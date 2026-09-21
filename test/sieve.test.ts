@@ -1,8 +1,8 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
 import { WRITE_CASES, WRITE_HOLDOUT } from "../bench/writetime-cases.ts";
-import type { Answer, Question } from "../src/jev.ts";
-import { DEFAULT_SIEVE, planSieve, sieveBlocks, sieveDecide } from "../src/sieve.ts";
+import type { Answer, Question } from "../bench/experimental/jev.ts";
+import { DEFAULT_SIEVE, planSieve, sieveBlocks, sieveDecide } from "../bench/experimental/sieve.ts";
 import { fakeJudge, noul, choice } from "./harness.ts";
 
 const need = (c: string, p = 0.95) => ({ type: "choice" as const, choice: c, probabilities: { [c]: p }, confidence: 0.9 });

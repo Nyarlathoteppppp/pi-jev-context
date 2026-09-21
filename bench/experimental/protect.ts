@@ -1,6 +1,6 @@
-import { relatedKey, toolEvents } from "./extract.ts";
+import { relatedKey, toolEvents } from "../../src/extract.ts";
 import { guardedPolicy, type JevReading } from "./policy.ts";
-import type { Label, Message } from "./types.ts";
+import type { Label, Message } from "../../src/types.ts";
 
 // Deterministic facts about where an old tool result came from. They guard against Jev's one measured
 // weakness: durable facts that are irrelevant to the current goal (package.json engines, prisma --version,

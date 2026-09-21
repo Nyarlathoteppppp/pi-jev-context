@@ -1,8 +1,8 @@
 import { conversationText, LIMITS } from "./state.ts";
-import { estimateTokens, lineCount, sizeClass, summarizeCall, textOf, truncate } from "./extract.ts";
+import { estimateTokens, lineCount, sizeClass, summarizeCall, textOf, truncate } from "../../src/extract.ts";
 import type { ChoiceAnswer, ChoiceQuestion, JevCall, Judge, NoulAnswer, NoulQuestion, Question } from "./jev.ts";
 import { DEFAULT_TRIM, renderTrimmed, type TrimConfig, type Trimmed, type Unit } from "./trim.ts";
-import type { Message } from "./types.ts";
+import type { Message } from "../../src/types.ts";
 import type { FreshResult } from "./writetime.ts";
 
 // v0.2 write-time "sieve" (after run-q1 real-session replays and Winnow's design): every block of a long

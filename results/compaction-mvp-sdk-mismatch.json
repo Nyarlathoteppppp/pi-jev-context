@@ -1,0 +1,52 @@
+[
+  {
+    "case": "C1",
+    "mode": "native",
+    "error": "Error: Nothing to compact (session too small)"
+  },
+  {
+    "case": "C1",
+    "mode": "wang",
+    "error": "Error: Nothing to compact (session too small)"
+  },
+  {
+    "case": "C2",
+    "mode": "native",
+    "error": "Error: Summarization failed: (0 , _piAi.normalizeContext) is not a function"
+  },
+  {
+    "case": "C2",
+    "mode": "wang",
+    "error": "Error: Summarization failed: (0 , _piAi.normalizeContext) is not a function"
+  },
+  {
+    "case": "C3",
+    "mode": "native",
+    "error": "Error: Summarization failed: (0 , _piAi.normalizeContext) is not a function"
+  },
+  {
+    "case": "C3",
+    "mode": "wang",
+    "error": "Error: Summarization failed: (0 , _piAi.normalizeContext) is not a function"
+  },
+  {
+    "case": "C4",
+    "mode": "native",
+    "error": "Error: Summarization failed: (0 , _piAi.normalizeContext) is not a function"
+  },
+  {
+    "case": "C4",
+    "mode": "wang",
+    "error": "Error: Summarization failed: (0 , _piAi.normalizeContext) is not a function"
+  },
+  {
+    "case": "C5",
+    "mode": "native",
+    "error": "Error: Summarization failed: (0 , _piAi.normalizeContext) is not a function"
+  },
+  {
+    "case": "C5",
+    "mode": "wang",
+    "error": "Error: Summarization failed: (0 , _piAi.normalizeContext) is not a function"
+  }
+]

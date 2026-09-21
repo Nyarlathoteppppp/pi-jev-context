@@ -41,6 +41,13 @@ pi-jev-context works on the one place where trimming is free. It shortens a long
 
 In real pi (5 of 5 runs), this 509-line failing test log went into the context as about 1,300 tokens instead of 5,115, and the model still named both failures with `file:line`. When the model needs an omitted line, it calls `context_recall` and gets the original back byte for byte.
 
+## Design principles
+
+1. **The model's ability comes first, saving tokens second.** A layer ships only if it can be shown not to get in the model's way. Nothing is paraphrased, kept lines are verbatim, and every original is recallable in full.
+2. **Never touch the cache.** Output is only ever changed *before* it enters the context. No earlier message is modified, and the `context` hook returns nothing. A test asserts that every earlier message stays byte-identical after a rewrite.
+3. **Prefer comparison to judgement.** Layer 1 uses no model at all. Jev is only asked where a comparison cannot decide.
+4. **When unsure, do nothing.** No key, an error, a timeout, low confidence, a request for the full output, or too little to gain: the output passes through untouched.
+
 ## Two layers
 
 **Code controls the flow; Jev is the sensor.** The first layer never calls a model at all.

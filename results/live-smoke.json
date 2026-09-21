@@ -1,0 +1,42 @@
+{
+ "model": "antigravity/gemini-3.8-flash",
+ "reps": 1,
+ "runs": [
+  {
+   "scenario": "S1",
+   "condition": "off",
+   "rep": 1,
+   "passed": true,
+   "detail": "fixed=true others-intact=true",
+   "seconds": 73,
+   "timedOut": false,
+   "llmCalls": 12,
+   "inputTokens": 83753,
+   "cacheReadTokens": 328745,
+   "toolResultTokens": 955,
+   "acted": 0,
+   "savedTokens": 0,
+   "recalls": 0,
+   "jevCost": 0,
+   "output": "\u001b]777;notify;Pi;Ready for input\u0007Updated `src/pipeline.ts` to multiply by the step number instead of adding it in `step17`, `step58`, and `step91`:\n\n- `step17`: `return compute(input) * 17;`\n- `step58`: `return compute(input) * 58;`\n- `step91`: `return compute(input) * 91;`\n"
+  },
+  {
+   "scenario": "S1",
+   "condition": "on",
+   "rep": 1,
+   "passed": true,
+   "detail": "fixed=true others-intact=true",
+   "seconds": 122,
+   "timedOut": false,
+   "llmCalls": 14,
+   "inputTokens": 115438,
+   "cacheReadTokens": 332431,
+   "toolResultTokens": 1125,
+   "acted": 0,
+   "savedTokens": 0,
+   "recalls": 0,
+   "jevCost": 0,
+   "output": "\u001b]777;notify;Pi;Ready for input\u0007Updated `src/pipeline.ts` so `step17`, `step58`, and `step91` multiply by their respective step numbers instead of adding:\n\n- `step17`: `return compute(input) * 17;`\n- `step58`: `return compute(input) * 58;`\n- `step91`: `return compute(input) * 91;`\n\nNo other functions or files were changed.\n"
+  }
+ ]
+}

@@ -1,0 +1,9 @@
+
+> pi-jev-context@0.5.0 bench
+> node bench/seen-replay.ts
+
+sessions 27, reads 3814 (2686k tok of 6670k tool tokens)
+minRun=30 lines, minSavedShare=0.3
+  reads rewritten: 142 (3.7%)
+  tokens saved: 103k = 3.8% of read tokens, 1.5% of all tool tokens
+  best sessions: 54k saved of 837k (6.5%, 65/1297 reads) · 21k saved of 412k (5.2%, 29/588 reads) · 7k saved of 209k (3.4%, 12/346 reads) · 6k saved of 109k (5.6%, 10/153 reads) · 3k saved of 173k (1.9%, 8/258 reads)

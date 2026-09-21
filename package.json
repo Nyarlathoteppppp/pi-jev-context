@@ -1,8 +1,8 @@
 {
 	"name": "pi-jev-context",
-	"version": "0.4.0",
+	"version": "0.5.0",
 	"private": false,
-	"description": "Deterministic, position-aware read deduplication for Pi, with original-output recall. No model calls.",
+	"description": "Position-aware read deduplication and optional active Jev fresh-log sieve for Pi, with original-output recall.",
 	"type": "module",
 	"license": "MIT",
 	"engines": {

@@ -1,4 +1,4 @@
-import { estimateTokens, toolEvents } from "./extract.ts";
+import { estimateTokens, textOf, toolEvents } from "./extract.ts";
 import type { Message } from "./types.ts";
 
 export interface SeenConfig {
@@ -6,10 +6,11 @@ export interface SeenConfig {
 	minSavedShare: number;
 	minLines: number;
 	maxEarlierReads: number;
+	dedupeMaxAgeTokens: number;
 }
-export const DEFAULT_SEEN: SeenConfig = { minRun: 30, minSavedShare: 0.3, minLines: 60, maxEarlierReads: 4 };
+export const DEFAULT_SEEN: SeenConfig = { minRun: 30, minSavedShare: 0.3, minLines: 60, maxEarlierReads: 4, dedupeMaxAgeTokens: 12_000 };
 export interface Run { from: number; to: number; }
-export interface ReadEvidence { text: string; offset: number; toolCallId: string; }
+export interface ReadEvidence { text: string; offset: number; toolCallId: string; userTurn: number; ageTokens: number; }
 export interface Collapsed {
 	text: string; collapsedLines: number; totalLines: number;
 	originalTokens: number; keptTokens: number; runs: Run[];
@@ -41,17 +42,28 @@ export function matchingRuns(next: string[], earlier: string[], minRun: number, 
 	return runs;
 }
 
-/** Only visible, unshortened, text-only reads with known positions are evidence. */
+function messageTokens(message: Message): number {
+	if (message.role === "user") return estimateTokens(typeof message.content === "string" ? message.content : textOf(message.content));
+	if (message.role === "toolResult") return estimateTokens(textOf(message.content));
+	return estimateTokens(message.content.map((part) => part.type === "text" ? part.text : part.type === "toolCall" ? JSON.stringify(part.arguments) : part.thinking).join("\n"));
+}
+
+/** Only visible, unshortened, same-epoch reads within the deterministic token-age window are evidence. */
 export function earlierReads(messages: Message[], path: string, toolCallId: string, cfg = DEFAULT_SEEN): ReadEvidence[] {
+	const currentUserTurn = messages.reduce((turn, message) => turn + (message.role === "user" ? 1 : 0), 0);
 	const out: ReadEvidence[] = [];
+	const suffixTokens = new Array<number>(messages.length + 1).fill(0);
+	for (let i = messages.length - 1; i >= 0; i--) suffixTokens[i] = suffixTokens[i + 1]! + messageTokens(messages[i]!);
 	for (const e of toolEvents(messages)) {
-		if (e.id === toolCallId || e.isError || e.name !== "read" || e.args.path !== path) continue;
+		if (e.id === toolCallId || e.isError || e.name !== "read" || e.args.path !== path || e.userTurn !== currentUserTurn) continue;
 		const m = messages[e.index];
 		if (!m || m.role !== "toolResult" || !Array.isArray(m.content) || !m.content.every(c => c.type === "text")) continue;
 		// Folded results have lost the original positional mapping. Do not use stored originals as evidence.
 		if (e.output.includes("context_recall with id") || e.output.startsWith("[pi-jev-context]")) continue;
 		const offset = offsetOf(e.args);
-		if (offset !== undefined) out.push({ text: e.output, offset, toolCallId: e.id });
+		if (offset === undefined) continue;
+		const ageTokens = suffixTokens[e.index + 1]!;
+		if (ageTokens <= cfg.dedupeMaxAgeTokens) out.push({ text: e.output, offset, toolCallId: e.id, userTurn: e.userTurn, ageTokens });
 	}
 	return out.slice(-cfg.maxEarlierReads).reverse();
 }
@@ -61,13 +73,16 @@ export function collapse(text: string, earlier: ReadEvidence[], alias: string, p
 	if (lines.length < cfg.minLines) return;
 	let runs: Run[] = [];
 	let source: ReadEvidence | undefined;
-	let covered = 0;
 	for (const e of earlier) {
 		const candidate = matchingRuns(lines, fileBody(e.text).lines, cfg.minRun, offset, e.offset);
-		const n = candidate.reduce((sum, r) => sum + r.to - r.from + 1, 0);
-		if (n > covered) { runs = candidate; source = e; covered = n; }
+		if (candidate.length) {
+			runs = candidate;
+			source = e;
+			break;
+		}
 	}
 	if (!source) return;
+	const covered = runs.reduce((sum, r) => sum + r.to - r.from + 1, 0);
 	const body = [`[pi-jev-context] ${path}: file lines ${offset}-${offset + lines.length - 1}. Folded ${covered}/${lines.length} file lines matching read ${source.toolCallId} still in context. Full output: context_recall with id "${alias}".`];
 	let cursor = 0;
 	for (const r of runs) {

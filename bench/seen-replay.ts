@@ -9,8 +9,8 @@ import { homedir } from "node:os";
 import { join } from "node:path";
 import { parseArgs } from "node:util";
 import { estimateTokens, textOf } from "../src/extract.ts";
+import { dedupeContextMessages } from "../src/index.ts";
 import { DEFAULT_SEEN, planCollapse } from "../src/seen.ts";
-import type { Message } from "../src/types.ts";
 
 const { values, positionals } = parseArgs({ allowPositionals: true, options: { "min-run": { type: "string" }, "min-share": { type: "string" } } });
 const cfg = { ...DEFAULT_SEEN, minRun: Number(values["min-run"] ?? DEFAULT_SEEN.minRun), minSavedShare: Number(values["min-share"] ?? DEFAULT_SEEN.minSavedShare) };
@@ -44,7 +44,7 @@ for (const f of files) {
 		} catch {
 			continue;
 		}
-		const context = buildContextEntries(entries, e.parentId).flatMap((entry: any) => entry.type === "message" && ["user", "assistant", "toolResult"].includes(entry.message.role) ? [entry.message as Message] : []);
+		const context = dedupeContextMessages({ sessionManager: { buildContextEntries: () => buildContextEntries(entries, e.parentId) } } as any);
 		entries.push(e);
 		const m = e.type === "message" ? e.message : undefined;
 		if (!m || !["user", "assistant", "toolResult"].includes(m.role)) continue;

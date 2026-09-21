@@ -20,10 +20,11 @@ export interface JevContextConfig {
     jevThreshold: number;
     minHiddenShare: number;
     minSavedTokens: number;
+    dedupeMaxAgeTokens: number;
     seen: SeenConfig;
     sieveConfig: SieveConfig;
 }
-export const DEFAULT_CONFIG: JevContextConfig = { mode: "on", dedupe: "on", sieve: "on", jevThreshold: 0.10, minHiddenShare: 0.30, minSavedTokens: 1000, seen: DEFAULT_SEEN, sieveConfig: DEFAULT_SIEVE };
+export const DEFAULT_CONFIG: JevContextConfig = { mode: "on", dedupe: "on", sieve: "on", jevThreshold: 0.10, minHiddenShare: 0.30, minSavedTokens: 1000, dedupeMaxAgeTokens: DEFAULT_SEEN.dedupeMaxAgeTokens, seen: DEFAULT_SEEN, sieveConfig: DEFAULT_SIEVE };
 export interface JevContextOptions { config?: Partial<JevContextConfig>; env?: NodeJS.ProcessEnv; settingsPath?: string; judge?: Judge; }
 export const ORIGINAL = "jev-context-original";
 export const LOG = "jev-context";
@@ -38,15 +39,29 @@ export type LogRecord =
 export function contextMessages(ctx: ExtensionContext): Message[] {
     return ctx.sessionManager.buildContextEntries().filter((e) => e.type === "message" && ["user", "assistant", "toolResult"].includes(e.message?.role)).flatMap((e) => e.type === "message" ? [e.message as Message] : []);
 }
+// Unknown context-bearing entries conservatively end read evidence. This keeps the
+// sieve's existing context projection unchanged while preventing invisible age gaps.
+export function dedupeContextMessages(ctx: ExtensionContext): Message[] {
+    const entries = ctx.sessionManager.buildContextEntries();
+    let start = 0;
+    for (let i = 0; i < entries.length; i++) {
+        const entry = entries[i]!;
+        if (entry.type === "custom_message" || entry.type === "branch_summary" || entry.type === "compaction" ||
+            (entry.type === "message" && !["user", "assistant", "toolResult"].includes(entry.message?.role))) start = i + 1;
+    }
+    return entries.slice(start).flatMap((entry) => entry.type === "message" ? [entry.message as Message] : []);
+}
 function branch(ctx: ExtensionContext): Array<Record<string, any>> { return ctx.sessionManager.getBranch() as Array<Record<string, any>>; }
 const recallParams = () => Type.Object({ id: Type.String({ description: "The id from the [pi-jev-context] header, e.g. t3" }), offset: Type.Optional(Type.Number({ description: "First output line to return (1-based, not file line)" })), limit: Type.Optional(Type.Number({ description: "Maximum number of lines (default 2000)" })) });
 type RecallDetails = { alias?: string; from?: number; to?: number; total?: number };
-interface Settings { mode?: Mode; dedupe?: DedupeMode; sieve?: SieveMode; jevThreshold?: number; minHiddenShare?: number; minSavedTokens?: number; envFile?: string; }
+interface Settings { mode?: Mode; dedupe?: DedupeMode; sieve?: SieveMode; jevThreshold?: number; minHiddenShare?: number; minSavedTokens?: number; dedupeMaxAgeTokens?: number; envFile?: string; }
 const numberInRange = (value: unknown, min: number, max: number): value is number => typeof value === "number" && Number.isFinite(value) && value >= min && value <= max;
 const parseEnvNumber = (value: string): number => value.trim() ? Number(value) : NaN;
 const nonNegative = (value: unknown): value is number => typeof value === "number" && Number.isFinite(value) && value >= 0 && value <= Number.MAX_SAFE_INTEGER;
 const safeThreshold = (value: unknown, fallback: number) => numberInRange(value, 0, 1) ? value : fallback;
 const safeSavedTokens = (value: unknown, fallback: number) => nonNegative(value) ? value : fallback;
+const validAgeTokens = (value: unknown): value is number => typeof value === "number" && Number.isSafeInteger(value) && value >= 0;
+const safeAgeTokens = (value: unknown, fallback: number) => validAgeTokens(value) ? value : fallback;
 export function readSettingsFile(path: string): Settings {
     try {
         const raw = JSON.parse(readFileSync(path, "utf8"));
@@ -57,6 +72,7 @@ export function readSettingsFile(path: string): Settings {
             jevThreshold: numberInRange(raw.jevThreshold, 0, 1) ? raw.jevThreshold : undefined,
             minHiddenShare: numberInRange(raw.minHiddenShare, 0, 1) ? raw.minHiddenShare : undefined,
             minSavedTokens: nonNegative(raw.minSavedTokens) ? raw.minSavedTokens : undefined,
+            dedupeMaxAgeTokens: validAgeTokens(raw.dedupeMaxAgeTokens) ? raw.dedupeMaxAgeTokens : undefined,
             envFile: typeof raw.envFile === "string" ? raw.envFile : undefined,
         };
     } catch { return {}; }
@@ -77,9 +93,14 @@ export function createJevContext(pi: ExtensionAPI, options: JevContextOptions = 
     const envThreshold = env.PI_JEV_CONTEXT_JEV_THRESHOLD === undefined ? undefined : parseEnvNumber(env.PI_JEV_CONTEXT_JEV_THRESHOLD);
     const envHiddenShare = env.PI_JEV_CONTEXT_MIN_HIDDEN_SHARE === undefined ? undefined : parseEnvNumber(env.PI_JEV_CONTEXT_MIN_HIDDEN_SHARE);
     const envSavedTokens = env.PI_JEV_CONTEXT_MIN_SAVED_TOKENS === undefined ? undefined : parseEnvNumber(env.PI_JEV_CONTEXT_MIN_SAVED_TOKENS);
+    const envMaxAgeTokens = env.PI_JEV_CONTEXT_DEDUPE_MAX_AGE_TOKENS === undefined ? undefined : parseEnvNumber(env.PI_JEV_CONTEXT_DEDUPE_MAX_AGE_TOKENS);
     config.jevThreshold = safeThreshold(options.config?.jevThreshold ?? envThreshold ?? file.jevThreshold, DEFAULT_CONFIG.jevThreshold);
     config.minHiddenShare = safeThreshold(options.config?.minHiddenShare ?? envHiddenShare ?? file.minHiddenShare, DEFAULT_CONFIG.minHiddenShare);
     config.minSavedTokens = safeSavedTokens(options.config?.minSavedTokens ?? envSavedTokens ?? file.minSavedTokens, DEFAULT_CONFIG.minSavedTokens);
+    const selectedAgeTokens = options.config && Object.hasOwn(options.config, "dedupeMaxAgeTokens")
+        ? options.config.dedupeMaxAgeTokens : envMaxAgeTokens ?? file.dedupeMaxAgeTokens;
+    config.dedupeMaxAgeTokens = safeAgeTokens(selectedAgeTokens, DEFAULT_CONFIG.dedupeMaxAgeTokens);
+    config.seen = { ...DEFAULT_SEEN, ...config.seen, dedupeMaxAgeTokens: config.dedupeMaxAgeTokens };
     const originals = new Map<string, Original>();
     const byCallId = new Map<string, string>();
     const judgedCallIds = new Set<string>();
@@ -117,7 +138,7 @@ export function createJevContext(pi: ExtensionAPI, options: JevContextOptions = 
         const input = event.input as Record<string, unknown>;
         if (event.toolName === "read" && config.dedupe === "on") {
             const alias = nextAlias();
-            const collapse = planCollapse(contextMessages(ctx), { toolCallId: event.toolCallId, toolName: event.toolName, input, text, isError: event.isError }, alias, config.seen);
+            const collapse = planCollapse(dedupeContextMessages(ctx), { toolCallId: event.toolCallId, toolName: event.toolName, input, text, isError: event.isError }, alias, config.seen);
             if (collapse) {
                 const base = { toolCallId: event.toolCallId, summary: summarizeCall(event.toolName, input), from: collapse.originalTokens, to: collapse.keptTokens, collapsedLines: collapse.collapsedLines, totalLines: collapse.totalLines, runs: collapse.runs.length };
                 if (config.mode === "shadow" && runtimeOverrides.dedupe === undefined) { log({ kind: "seen", mode: "shadow", acted: false, ...base }); return; }
@@ -163,7 +184,7 @@ export function createJevContext(pi: ExtensionAPI, options: JevContextOptions = 
     function report(ctx: ExtensionContext): string {
         const records = branch(ctx).filter((e) => e.customType === LOG).map((e) => e.data as LogRecord);
         const saved = (record: LogRecord) => (record.kind === "seen" || record.kind === "sieve") && record.acted ? Math.max(0, record.from - record.to) : 0;
-        return [`pi-jev-context: mode ${config.mode} · dedupe ${config.dedupe} · sieve ${config.sieve}`, `Collapsed: ${records.filter((r) => r.kind === "seen" && r.acted).length} reads; shortened: ${records.filter((r) => r.kind === "sieve" && r.acted).length} outputs · ~${records.reduce((n, r) => n + saved(r), 0)} tokens saved`, `Jev sieve calls: ${records.filter((r) => r.kind === "sieve").length}`, `Recalls: ${records.filter((r) => r.kind === "recall").length}`].join("\n");
+        return [`pi-jev-context: mode ${config.mode} · dedupe ${config.dedupe} (max age ${config.dedupeMaxAgeTokens} tok) · sieve ${config.sieve}`, `Collapsed: ${records.filter((r) => r.kind === "seen" && r.acted).length} reads; shortened: ${records.filter((r) => r.kind === "sieve" && r.acted).length} outputs · ~${records.reduce((n, r) => n + saved(r), 0)} tokens saved`, `Jev sieve calls: ${records.filter((r) => r.kind === "sieve").length}`, `Recalls: ${records.filter((r) => r.kind === "recall").length}`].join("\n");
     }
     pi.registerCommand("context", { description: "pi-jev-context: status | report | mode <off|shadow|on> | dedupe <on|off> | sieve <on|off> | recalls | label <good|bad> [note]", getArgumentCompletions: (prefix) => ["status", "report", "mode", "dedupe", "sieve", "recalls", "label"].filter((s) => s.startsWith(prefix)).map((s) => ({ value: s, label: s })), handler: async (args, ctx) => {
         const [sub = "report", ...rest] = args.trim().split(/\s+/).filter(Boolean); const say = (message: string, level: "info" | "warning" = "info") => ctx.ui.notify(message, level);

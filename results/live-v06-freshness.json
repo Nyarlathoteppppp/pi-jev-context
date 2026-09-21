@@ -1,0 +1,11 @@
+{
+  "version": "0.6.0",
+  "model": "deterministic-no-jev",
+  "dedupeMaxAgeTokens": 12000,
+  "reads": 14,
+  "freshDedupe": 4,
+  "staleRefresh": 1,
+  "crossUserTurnPrevented": 1,
+  "partialOverlapDedupe": 1,
+  "savedTokens": 6166
+}

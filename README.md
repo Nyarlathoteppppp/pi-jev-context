@@ -1,6 +1,6 @@
 # pi-jev-context
 
-A small Pi extension that shortens repeated file reads before they enter context and, in v0.5, can sieve narrowly classified long bash test/build/lint/diagnostic output with an active Jev judgment. Read deduplication remains deterministic and Jev never participates in its matching decision.
+A small Pi extension that shortens repeated file reads before they enter context and, in v0.6, keeps deterministic read deduplication freshness-aware while retaining the v0.5 active Jev sieve for narrowly classified long bash test/build/lint/diagnostic output. Read deduplication remains deterministic and Jev never participates in its matching decision.
 
 > [!IMPORTANT]
 > **Model performance first. Token savings second.**
@@ -30,6 +30,8 @@ Reload an existing Pi session with `/reload`. Default mode is `on`.
 /context label bad incorrect location
 ```
 
+`/context report` also shows the active deterministic freshness window.
+
 ### Independent configuration
 
 At startup, each layer resolves independently:
@@ -38,7 +40,7 @@ Environment switches are `PI_JEV_CONTEXT_DEDUPE` and `PI_JEV_CONTEXT_SIEVE`;
 the settings file is `~/.pi/agent/pi-jev-context.json`:
 
 ```json
-{ "dedupe": "on", "sieve": "off" }
+{ "dedupe": "on", "sieve": "off", "dedupeMaxAgeTokens": 12000 }
 ```
 
 `/context dedupe on|off` and `/context sieve on|off` are explicit session overrides,
@@ -52,13 +54,37 @@ logs dedupe candidates without rewriting (sieve off). Explicit `dedupe=on` acts 
 under `mode=shadow`. The default compatibility mode is `on`.
 
 Numeric options (also accepted in the settings file) default to `jevThreshold=0.10`,
-`minHiddenShare=0.30`, and `minSavedTokens=1000`. Corresponding environment variables
-are `PI_JEV_CONTEXT_JEV_THRESHOLD`, `PI_JEV_CONTEXT_MIN_HIDDEN_SHARE`, and
-`PI_JEV_CONTEXT_MIN_SAVED_TOKENS`. Threshold/share must be finite numbers in [0,1];
-saved tokens must be finite, nonnegative and within the safe integer range. Invalid
-values use defaults. JSON/options strings are invalid; environment numeric strings
-are parsed, while empty strings are invalid. The decision is strictly
-**`P(needed) < jevThreshold`**, not less-than-or-equal.
+`minHiddenShare=0.30`, `minSavedTokens=1000`, and `dedupeMaxAgeTokens=12000`.
+Corresponding environment variables are `PI_JEV_CONTEXT_JEV_THRESHOLD`,
+`PI_JEV_CONTEXT_MIN_HIDDEN_SHARE`, `PI_JEV_CONTEXT_MIN_SAVED_TOKENS`, and
+`PI_JEV_CONTEXT_DEDUPE_MAX_AGE_TOKENS`. Threshold/share must be finite numbers in [0,1];
+saved tokens must be finite nonnegative numbers within the safe integer range, and dedupe age must be a finite safe nonnegative integer. Invalid values use
+defaults. JSON/options strings are invalid; environment numeric strings are parsed, while
+empty strings are invalid. The decision is strictly **`P(needed) < jevThreshold`**, not
+less-than-or-equal.
+
+## Freshness-aware dedupe
+
+A repeated read is eligible only when its exact source is still visible on the active
+branch, has the same path and absolute line positions, belongs to the current latest
+user-message task epoch, and is no more than `dedupeMaxAgeTokens` estimated tokens
+behind the incoming read. The default age window is 12,000 estimated tokens. Any new
+user message makes earlier reads stale, even when it is only a few tokens away.
+
+When several exact copies exist, the newest eligible occurrence wins. A stale read is
+passed through in full; that full result then becomes the new fresh source for later
+reads. Exact matching is line-range based, so a fresh `80-130` source can fold only
+that range from a later `50-150` read; stale ranges are not used to fill the rest.
+Fork, compaction, and resume rebuild freshness from the active context only. No
+semantic similarity, embedding, summary, or attention prediction is used.
+
+The age is a deterministic estimated-token sum of modeled message content after the
+source tool result and before the incoming read. It includes intervening user and
+tool-result text, plus assistant text, thinking, and tool-call arguments, but not the
+incoming read output itself. Visible custom messages, summaries, and unmodeled
+message roles conservatively end prior read evidence rather than silently undercounting
+age. Plain custom storage does not count and never supplies read evidence.
+See [v0.6 freshness semantics](docs/V0.6_FRESHNESS.md) for exact boundaries and configuration precedence.
 
 ## Fresh-output sieve
 
@@ -83,10 +109,11 @@ Recall is an escape hatch, not proof that hiding content preserves capability.
 
 
 An incoming successful text-only `read` is compared with unshortened reads of the
-same exact path string in Pi's current compaction-aware session context. Only
-identical text at the same absolute file positions can match. Reads shorter than
-60 lines pass through; matching spans must contain at least 30 consecutive lines,
-and the replacement must save at least 30% of estimated tokens.
+same exact path string in Pi's current compaction-aware active branch context. Only
+identical text at the same absolute file positions, within the current latest
+user-message task epoch and freshness token window, can match. Reads shorter than 60
+lines pass through; matching spans must contain at least 30 consecutive lines, and the
+replacement must save at least 30% of estimated tokens.
 
 A short header reports folded/total file lines; markers identify absolute file
 lines and the earlier read's tool-call ID. Changed
@@ -106,6 +133,7 @@ it is not a claim that provider cache hits or model behavior are guaranteed.
   recall only. Compacted-away source reads cannot authorize new collapses.
 - Relative and absolute path aliases are not merged. Content shifted by insertion
   at another position is kept. Up to four recent eligible source reads are checked.
+- A new user turn makes previous reads stale; the newest exact eligible source wins.
 - Raw session context is the source of truth. Other extensions that independently
   remove/transform old context are outside this MVP's verified configuration.
 - Recall restores the output Pi originally returned, not bytes Pi had already
@@ -124,9 +152,12 @@ npm run test:archive
 
 The current offline replay uses Pi's branch/compaction boundaries, feeds each
 replacement into later decisions, and never sends session content externally.
-On 27 local sessions: 3,814 reads; 142 rewritten; approximately 103k tokens saved
-(3.8% of read tokens, 1.5% of all tool-result tokens). These are character/4
-estimates, not billed token savings. See `results/seen-v05-hardening.txt`.
+On the acceptance run of 27 local sessions: 3,845 reads; 24 rewritten; approximately
+15k tokens saved (0.5% of read tokens, 0.2% of all tool-result tokens) under the v0.6 freshness
+window. Local sessions continue growing, so later replay counts can differ. The v0.5 replay baseline was 142 rewrites and approximately 103k tokens;
+the reduction is expected because old and cross-user-turn copies no longer qualify.
+These are character/4 estimates, not billed token savings. See `results/seen-v05-hardening.txt`
+for the historical baseline and the v0.6 focused result for freshness-specific counts.
 
 `bench/live/mvp.ts` is the historical v0.4 runner; it tests two scenarios with two
 repetitions each, using the installed Pi SDK and Antigravity 3.8 Flash. It loads
@@ -136,6 +167,18 @@ extensions. `bench/live/flash-compaction.ts` probes actual native compaction;
 These scripts are local-machine experiment runners; their SDK/provider paths
 are explicit. Private session inputs and summaries stay in gitignored
 `results-private/`.
+
+The v0.6 focused freshness benchmark is deterministic and makes no Jev or network calls:
+
+```sh
+node bench/live/v06-freshness.ts --out /tmp/live-v06-freshness-new.json
+```
+
+The runner asserts its expected decisions and refuses to overwrite an existing output
+path; use a new path for repeat runs. The recorded run uses a 12,000-token age window and reports `14` reads, `4` fresh
+dedupes, `1` stale refresh, `1` cross-user-turn prevented dedupe, `1` partial-overlap
+dedupe, and approximately `6,166` estimated tokens saved. These are character/4
+estimates, not billed token savings.
 
 The v0.5 A/B/C runner uses plugin off, dedupe only, and dedupe plus active sieve:
 

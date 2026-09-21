@@ -65,14 +65,21 @@ export function matchingRuns(next: string[], earlier: string[], minRun: number):
 	return runs;
 }
 
-/** Earlier reads of `path` whose text is still in the context, newest first. */
-export function earlierReads(messages: Message[], path: string, toolCallId: string, cfg: SeenConfig = DEFAULT_SEEN): string[] {
+/**
+ * Earlier reads of `path` the agent has been shown: the ones still in the context, plus any sibling read
+ * from the batch currently being executed. pi does not guarantee that `buildContextEntries()` already
+ * contains sibling results of the same assistant message, but the model will see them in the same turn.
+ */
+export function earlierReads(messages: Message[], path: string, toolCallId: string, cfg: SeenConfig = DEFAULT_SEEN, siblings: ReadonlyArray<{ toolCallId: string; path: string; text: string }> = []): string[] {
 	const out: string[] = [];
+	const seenIds = new Set<string>();
 	for (const e of toolEvents(messages)) {
 		if (e.id === toolCallId || e.isError) continue;
 		if (e.name !== "read" || String(e.args.path ?? "") !== path) continue;
+		seenIds.add(e.id);
 		out.push(e.output);
 	}
+	for (const s of siblings) if (s.path === path && s.toolCallId !== toolCallId && !seenIds.has(s.toolCallId)) out.push(s.text);
 	return out.slice(-cfg.maxEarlierReads).reverse();
 }
 
@@ -128,11 +135,17 @@ export function collapse(text: string, earlier: string[], alias: string, path: s
 export const worthCollapsing = (c: Collapsed, cfg: SeenConfig = DEFAULT_SEEN) => c.keptTokens <= c.originalTokens * (1 - cfg.minSavedShare);
 
 /** The whole decision for one fresh read result. Returns nothing when the result should pass through. */
-export function planCollapse(messages: Message[], r: { toolCallId: string; toolName: string; input: Record<string, unknown>; text: string; isError: boolean }, alias: string, cfg: SeenConfig = DEFAULT_SEEN): Collapsed | undefined {
+export function planCollapse(
+	messages: Message[],
+	r: { toolCallId: string; toolName: string; input: Record<string, unknown>; text: string; isError: boolean },
+	alias: string,
+	cfg: SeenConfig = DEFAULT_SEEN,
+	siblings: ReadonlyArray<{ toolCallId: string; path: string; text: string }> = [],
+): Collapsed | undefined {
 	if (r.toolName !== "read" || r.isError) return undefined;
 	const path = String(r.input.path ?? "");
 	if (!path) return undefined;
-	const earlier = earlierReads(messages, path, r.toolCallId, cfg);
+	const earlier = earlierReads(messages, path, r.toolCallId, cfg, siblings);
 	const c = collapse(r.text, earlier, alias, path, cfg);
 	return c && worthCollapsing(c, cfg) ? c : undefined;
 }

@@ -155,6 +155,8 @@ export function createJevContext(pi: ExtensionAPI, options: JevContextOptions = 
 	const byCallId = new Map<string, string>();
 	/** Latest shadow decision per tool call, and the goal version (user message count) it was made for. */
 	const decisions = new Map<string, { decision: Label; tokens: number; goal: number }>();
+	/** Reads handled during the current agent run: pi may not have them in buildContextEntries() yet. */
+	let runReads: Array<{ toolCallId: string; path: string; text: string }> = [];
 	let lastAssistantAt: number | undefined;
 	let modelChanged = false;
 	let pruning: Promise<void> | undefined;
@@ -173,6 +175,7 @@ export function createJevContext(pi: ExtensionAPI, options: JevContextOptions = 
 		originals.clear();
 		byCallId.clear();
 		decisions.clear();
+		runReads = [];
 		stats = { trimmed: 0, savedTokens: 0 };
 		lastAssistantAt = undefined;
 		aliasSeq = 0;
@@ -214,7 +217,9 @@ export function createJevContext(pi: ExtensionAPI, options: JevContextOptions = 
 		if (config.dedupeReads && event.toolName === "read") {
 			const alias = nextAlias();
 			const fresh = { toolCallId: event.toolCallId, toolName: event.toolName, input, text, isError: event.isError };
-			const c = planCollapse(contextMessages(ctx), fresh, alias, config.seen);
+			const c = planCollapse(contextMessages(ctx), fresh, alias, config.seen, runReads);
+			runReads.push({ toolCallId: event.toolCallId, path: String(input.path ?? ""), text });
+			if (runReads.length > 40) runReads = runReads.slice(-40);
 			if (c) {
 				const base = { toolCallId: event.toolCallId, summary: summarizeCall(event.toolName, input), from: c.originalTokens, to: c.keptTokens, collapsedLines: c.collapsedLines, totalLines: c.totalLines, runs: c.runs.length };
 				if (config.mode === "shadow") {
@@ -339,6 +344,11 @@ export function createJevContext(pi: ExtensionAPI, options: JevContextOptions = 
 			log({ kind: "prune", toolCallId: m.toolCallId, summary: truncate(summarizeCall(m.toolName, events.find((x) => x.id === m.toolCallId)?.args ?? {}), 80), decision, raw: raw.choice, p: raw.p, confidence: raw.confidence, tokens, goal, facts: factText, ms: raw.ms, cost: raw.cost, error: raw.error });
 		});
 	}
+
+	// Sibling reads only help within the batch being executed; across runs the context is the reference.
+	pi.on("agent_start", () => {
+		runReads = [];
+	});
 
 	pi.on("agent_settled", (_e, ctx) => {
 		// Background only; never awaited by pi.

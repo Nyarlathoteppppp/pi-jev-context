@@ -143,3 +143,14 @@ Model for all entries: `typesafe/jev-1.13-20260917` via OpenRouter `~typesafe/je
 - **Evidence:** [pi-heed E13](https://github.com/Nyarlathoteppppp/pi-heed/blob/main/EXPERIMENTS.md) measured this on the same endpoint in fresh processes, five runs each. The first decision took 790–918 ms with no warm-up, 305–382 ms after an unauthenticated HEAD, and 288–397 ms after a tiny real decision. After 1–30 s idle there was no second cold start. The cold cost is TLS to `api.typesafe.ai`, not the model.
 - **Change:** warm-up is a HEAD again (free). The re-warm on user input after 5 minutes stays, because a HEAD costs nothing and idle gaps that long were not measured.
 - **Also ported from pi-heed v0.7:** the Jev client retries 429 and transient 5xx (up to twice, honouring Retry-After, never past the caller's deadline), and clamps answers into [0, 1], rejecting non-finite or off-schema values.
+
+## F20 · Deterministic read de-duplication: reference the context, not the disk (2026-09-21)
+
+- **Question:** Re-reads are a large share of context. Can they be shortened without a model, without touching the cache, and without risk?
+- **Prior art:** [cachebro](https://github.com/glommer/cachebro) (MIT, MCP) and its pi port in [rawwerks/ypi](https://github.com/rawwerks/ypi/blob/main/contrib/extensions/cachebro.ts) hash the file **on disk** against their own cache and answer `[unchanged]` or a diff.
+- **Their flaw, measured on 22 real sessions:** the disk is the wrong reference. The agent reads lines 1–100, then reads 300–350 of the same unchanged file; cachebro answers "unchanged in lines 300-350" for lines the agent has never been shown. That pattern fires **2,301 times**, and in **598 of them (25%) more than half of the requested lines had never been shown** — about **458k tokens** of content that would simply vanish. In these sessions 97% of re-reads use different `offset`/`limit` arguments, so this is the common case, not an edge case.
+- **What this extension does instead:** collapse a run of lines only when the agent was shown exactly those lines, contiguously, by an earlier read of the same file **that is still in the context**. Contiguity matters: a set of lines seen scattered around a file is not a block the agent read. If compaction removed the earlier read, nothing is collapsed.
+- **Result on the same sessions** (production code, `minRun` 30 lines, `minSavedShare` 0.3): 12.0% of reads rewritten, **332k tokens saved = 13.4% of read tokens, 5.3% of all tool tokens**; best session 22.5% of its read tokens.
+- **Thresholds barely matter:** from `minRun` 10 to 50 the saving moves only 14.9% → 12.4% of read tokens, so the conservative setting is close to free.
+- **Cost:** no model call, no network. The layer is pure line comparison.
+- **Ceiling, for honesty:** 47% of read tokens are lines seen before somewhere. Most of that is not contiguous enough, or the earlier read is no longer visible, so it is not collectable this way.

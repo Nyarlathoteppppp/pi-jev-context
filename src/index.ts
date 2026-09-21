@@ -13,6 +13,7 @@ import { DEFAULT_TRIM, shouldConsider, type TrimConfig } from "./trim.ts";
 import type { Label, Message } from "./types.ts";
 import { planTrim } from "./writetime.ts";
 import { DEFAULT_SIEVE, planSieve, type SieveConfig } from "./sieve.ts";
+import { DEFAULT_SEEN, planCollapse, type SeenConfig } from "./seen.ts";
 
 // pi-jev-context v0.1
 //  1. Write-time trimming (mode "on"): long tool output is shortened to its key lines BEFORE it enters the
@@ -29,6 +30,10 @@ export interface JevContextConfig {
 	/** Write-time engine: "sieve" hides only blocks Jev is confident are unneeded (v0.2 default); "select" keeps only what Jev selects (v0.1). */
 	engine: "sieve" | "select";
 	sieve: SieveConfig;
+	/** Deterministic de-duplication of file reads against what the agent has already been shown. */
+	seen: SeenConfig;
+	/** Set false to switch that layer off. */
+	dedupeReads: boolean;
 	trim: TrimConfig;
 	/** Hard deadline for a write-time decision; on timeout the output passes through unchanged. */
 	trimTimeoutMs: number;
@@ -50,6 +55,8 @@ export const DEFAULT_CONFIG: JevContextConfig = {
 	mode: "shadow",
 	engine: "sieve",
 	sieve: DEFAULT_SIEVE,
+	seen: DEFAULT_SEEN,
+	dedupeReads: true,
 	trim: DEFAULT_TRIM,
 	trimTimeoutMs: 2500,
 	pruneMinTokens: 150,
@@ -84,6 +91,7 @@ export interface Original {
 }
 
 export type LogRecord =
+	| { kind: "seen"; mode: Mode; acted: boolean; alias?: string; toolCallId: string; summary: string; from: number; to: number; collapsedLines: number; totalLines: number; runs: number }
 	| { kind: "trim"; mode: Mode; acted: boolean; alias?: string; toolCallId: string; summary: string; engine?: string; blocks?: number; hidden?: number; from: number; to?: number; keptLines?: number; totalLines: number; ms: number; cost?: number; skip?: string; need?: string; p?: number }
 	| { kind: "recall"; alias: string; found: boolean }
 	| { kind: "prune"; toolCallId: string; summary: string; decision: Label; raw?: string; p?: number; confidence?: number; tokens: number; goal: number; facts: string; ms: number; cost?: number; error?: string }
@@ -195,11 +203,39 @@ export function createJevContext(pi: ExtensionAPI, options: JevContextOptions = 
 	// ---- 1. write-time trimming -----------------------------------------------------------------
 
 	pi.on("tool_result", async (event, ctx) => {
-		if (config.mode === "off" || !judge) return;
+		if (config.mode === "off") return;
 		// Images or other non-text parts: leave untouched.
 		if (!event.content.every((c) => c.type === "text")) return;
 		const text = textOf(event.content);
 		const input = event.input as Record<string, unknown>;
+
+		// Layer 1: deterministic. No Jev, no model, no judgement: collapse only runs of lines the agent
+		// was already shown, contiguously, by an earlier read of this file that is still in the context.
+		if (config.dedupeReads && event.toolName === "read") {
+			const alias = nextAlias();
+			const fresh = { toolCallId: event.toolCallId, toolName: event.toolName, input, text, isError: event.isError };
+			const c = planCollapse(contextMessages(ctx), fresh, alias, config.seen);
+			if (c) {
+				const base = { toolCallId: event.toolCallId, summary: summarizeCall(event.toolName, input), from: c.originalTokens, to: c.keptTokens, collapsedLines: c.collapsedLines, totalLines: c.totalLines, runs: c.runs.length };
+				if (config.mode === "shadow") {
+					log({ kind: "seen", mode: "shadow", acted: false, ...base });
+					return;
+				}
+				const original: Original = { alias, toolCallId: event.toolCallId, tool: event.toolName, summary: base.summary, text };
+				pi.appendEntry(ORIGINAL, original);
+				originals.set(alias, original);
+				byCallId.set(event.toolCallId, alias);
+				log({ kind: "seen", mode: "on", acted: true, alias, ...base });
+				stats.trimmed++;
+				stats.savedTokens += Math.max(0, c.originalTokens - c.keptTokens);
+				status(ctx);
+				return { content: [{ type: "text" as const, text: c.text }] };
+			}
+			return;
+		}
+
+		// Layer 2: Jev decides which blocks of a long output the current request needs.
+		if (!judge) return;
 		if (!shouldConsider(event.toolName, input, text, config.trim)) return;
 		const fresh = { toolCallId: event.toolCallId, toolName: event.toolName, input, text, isError: event.isError };
 		const summary = summarizeCall(event.toolName, input);

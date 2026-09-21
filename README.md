@@ -8,7 +8,7 @@ Context trimming for the [pi](https://pi.dev) coding agent, powered by [TypeSafe
 
 [![pi](https://img.shields.io/badge/pi-%E2%89%A50.85.1-7c5cff)](https://pi.dev)
 [![Jev](https://img.shields.io/badge/powered%20by-TypeSafe%20Jev-f5a524)](https://docs.typesafe.ai)
-[![tests](https://img.shields.io/badge/tests-33%20passing-2ea043)](#development)
+[![tests](https://img.shields.io/badge/tests-46%20passing-2ea043)](#development)
 [![license](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
 
 </div>
@@ -41,9 +41,23 @@ pi-jev-context works on the one place where trimming is free. It shortens a long
 
 In real pi (5 of 5 runs), this 509-line failing test log went into the context as about 1,300 tokens instead of 5,115, and the model still named both failures with `file:line`. When the model needs an omitted line, it calls `context_recall` and gets the original back byte for byte.
 
-## How it decides (v0.2 "sieve")
+## Two layers
 
-**Code controls the flow; Jev is the sensor.**
+**Code controls the flow; Jev is the sensor.** The first layer never calls a model at all.
+
+### 1. Already-seen reads, decided by comparison (no model)
+
+When a file is read again, runs of lines the agent was **already shown, contiguously, by an earlier read that is still in the context** collapse to one marker line. Nothing else changes, and the full text is one `context_recall` away.
+
+```
+… [lines 1-240 unchanged from what you already read of src/cart/totals.ts; full text: context_recall with id "t7"] …
+```
+
+The reference is the context, not the disk. [cachebro](https://github.com/glommer/cachebro) compares the file on disk against its own cache, so it answers "unchanged in lines 300-350" even when the agent has never been shown those lines; replaying 22 real sessions, that fires 2,301 times and hides content the agent never saw in 598 of them. Here, a run is collapsed only if the agent actually saw it, and only while the earlier read is still in the context.
+
+On those same sessions this saves 13.4% of read tokens (5.3% of all tool tokens) with no model call.
+
+### 2. Long outputs, sieved by Jev
 
 - **Every block is judged.** The output is cut into blocks of up to 1,500 characters, at file, directory or paragraph boundaries. One Jev call (~350 ms) gives each block a probability that the current request needs it, and says whether the request needs every line.
 - **Only confidently useless blocks are hidden** (P < 0.15). Uncertain blocks stay. An earlier version kept only what Jev selected; on real sessions that hid facts the agent used later in 17% of trims.
@@ -57,7 +71,7 @@ In real pi (5 of 5 runs), this 509-line failing test log went into the context a
 
   Hidden blocks leave their first line behind as a signpost.
 - **When unsure, it does nothing.** Nothing is trimmed if Jev answers "every line", if you asked for the full output, if the output looks like source code, if the command is a file viewer (`cat`, `sed`, `git diff`, …, even inside `ssh … '…'` or `cd … &&`), or if Jev errors, times out, or would hide less than 30%.
-- **Never trimmed:** `read`, `edit`, `write`.
+- **Never sieved:** `read`, `edit`, `write`. Reads go through layer 1 instead.
 
 ## What we measured
 
@@ -130,6 +144,7 @@ It needs a Jev key: `TYPESAFE_API_KEY` (preferred, TypeSafe's endpoint) or `OPEN
 
 - [x] v0.1: write-time trimming, `context_recall`, shadow pruning with source protection, cold-cache observation
 - [x] v0.2: sieve engine, code guards found in real-session replays, TypeSafe endpoint with warm-up, settings file
+- [x] v0.3: deterministic read de-duplication against what the agent has actually been shown
 - [ ] v0.3: live benchmark in the style of [pi-heed](https://github.com/Nyarlathoteppppp/pi-heed/tree/main/bench/live): real pi, real model, small real repos, trimming off vs on, outcomes read from files and git, measuring task success, recalls and tokens
 - [ ] v0.3: record and replay Jev answers (cassettes) so benchmarks rerun offline and deterministically
 - [ ] v0.3: A/B the sieve's shared state: pi-heed E12 found that a question sharing a request with others can lose accuracy
@@ -145,13 +160,14 @@ It needs a Jev key: `TYPESAFE_API_KEY` (preferred, TypeSafe's endpoint) or `OPEN
 
 ```bash
 npm install
-npm test                                    # 33 tests, no network
+npm test                                    # 46 tests, no network
 npm run typecheck
 node bench/run.ts --dry-run                 # print every Jev state for the old-context benchmark
 PI_JEV_ENV_FILE=~/.env node bench/run.ts --set dev|holdout --repeats 5
 node bench/report.ts results/run-XXXX.json
 PI_JEV_ENV_FILE=~/.env node bench/writetime.ts --engine sieve --set dev|holdout|holdout2 --repeats 3
 node bench/real-sessions.ts                 # offline census of your own ~/.pi sessions
+node bench/seen-replay.ts                   # what layer 1 would save on your sessions (offline)
 PI_JEV_ENV_FILE=~/.env node bench/replay.ts write --engine sieve   # replay your own sessions (sends them to Jev)
 ```
 

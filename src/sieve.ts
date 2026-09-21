@@ -1,3 +1,4 @@
+import { hiddenReferences } from "./hints.ts";
 import { estimateTokens, lineCount, summarizeCall, textOf, truncate } from "./extract.ts";
 import type { Message } from "./types.ts";
 import type { ChoiceAnswer, Judge, NoulAnswer, Question } from "./jev.ts";
@@ -12,11 +13,14 @@ const VIEWER = /(?:^|[\s;&|()'"`])(?:cat|bat|less|more|nl|sed|awk|jq|yq|xxd|od|h
 const PIPE = /\||`[^`]*`|\$\([^)]*\)/;
 export type BashOutputKind = "test" | "build" | "lint" | "diagnostic" | "log";
 export function classifyBashCommand(command: string): BashOutputKind | undefined {
-    const c = command.trim().replace(/^cd\s+[\w./~-]+\s*&&\s*/, "");
+    const c = command.trim().replace(/^cd\s+[\w./~-]+\s*&&\s*/, "").replace(/^python(?:3)?\s+-m\s+pytest\b/, "pytest");
     // Mixed commands can append source or unrelated evidence after a test log.
     // Accept a single known executable, optionally preceded by a simple cd.
     if (!c || VIEWER.test(c) || PIPE.test(c) || /[;&\n\r]/.test(c)) return undefined;
     if (!/^(?:npm|pnpm|yarn|bun|npx|jest|vitest|mocha|ava|pytest|tsc|eslint|biome|stylelint|cargo|go|mvn|gradle|webpack|vite|docker|kubectl|podman|journalctl)(?:\s|$)/i.test(c) && !/^\.\/[\w./-]*(?:test|tests)[\w./-]*(?:\s|$)/i.test(c)) return undefined;
+    if (/^cargo\s+(?:check|clippy)\b/.test(c)) return "diagnostic";
+    if (/^go\s+vet\b/.test(c)) return "diagnostic";
+    if (/^go\s+build\b/.test(c)) return "build";
     if (/(?:^|[\s;&])(?:npm|pnpm|yarn|bun)\s+(?:run\s+)?test\b/i.test(c) || /(?:^|[\s;&])(?:npx\s+)?(?:jest|vitest|mocha|ava|pytest)\b/i.test(c) || /(?:^|[\s;&])(?:cargo\s+test|go\s+test|mvn\s+test|gradle\s+test)\b/i.test(c)) return "test";
     if (/(?:^|[\s;&])(?:npm|pnpm|yarn|bun)\s+(?:run\s+)?(?:lint|eslint|clippy|stylelint|biome)\b/i.test(c) || /(?:^|[\s;&])(?:npx\s+)?(?:eslint|biome|stylelint)\b/i.test(c)) return "lint";
     if (/(?:^|[\s;&])(?:npm|pnpm|yarn|bun)\s+(?:run\s+)?(?:typecheck|check)\b/i.test(c) || /(?:^|[\s;&])(?:npx\s+)?tsc\b/i.test(c)) return "diagnostic";
@@ -26,8 +30,9 @@ export function classifyBashCommand(command: string): BashOutputKind | undefined
     return undefined;
 }
 export function eligibleFreshOutput(toolName: string, input: Record<string, unknown>, text: string, isError: boolean, cfg = DEFAULT_SIEVE): BashOutputKind | undefined {
-    if (toolName !== "bash" || isError || typeof input.command !== "string") return undefined;
+    if (toolName !== "bash" || typeof input.command !== "string") return undefined;
     if (lineCount(text) < cfg.minLines && estimateTokens(text) < cfg.minTokens) return undefined;
+    if (isError && (!/^\s*PASS\s+/m.test(text) || !/\b(?:FAIL|ERROR|Error|FAILED)\b/.test(text))) return undefined;
     return classifyBashCommand(input.command);
 }
 
@@ -128,13 +133,21 @@ export function renderSieve(text: string, blocks: SieveBlock[], hidden: SieveBlo
     const lines = text.split("\n");
     const visible: string[] = [];
     let omitted = 0;
+    // Winnow's contiguous hidden-group stubs inspired coalescing adjacent ranges.
+    const ranges: Array<{ from: number; to: number }> = [];
+    for (const block of hidden) {
+        const previous = ranges.at(-1);
+        if (previous && previous.to + 1 === block.fromLine) previous.to = block.toLine;
+        else ranges.push({ from: block.fromLine, to: block.toLine });
+    }
     for (const block of blocks) {
         if (!hiddenIds.has(block.id)) { visible.push(block.text); continue; }
         omitted += block.toLine - block.fromLine + 1;
-        visible.push(`… [${block.toLine - block.fromLine + 1} lines omitted: ${block.fromLine}-${block.toLine}] …`);
+        const range = ranges.find(r => r.from === block.fromLine);
+        if (range) visible.push(`… [${range.to - range.from + 1} lines omitted: ${range.from}-${range.to}] …`);
     }
-    const header = `[pi-jev-context] Output shortened: ${lines.length - omitted} of ${lines.length} lines retained verbatim; ${hidden.length} block(s) hidden (${hidden.map((b) => `${b.fromLine}-${b.toLine}`).join(", ")}). Omitted content is not visible. Before relying on it, call context_recall with id "${alias}".`;
-    const rendered = `${header}\n${visible.join("\n")}`;
+    const header = `[pi-jev-context] Output shortened: ${lines.length - omitted} of ${lines.length} lines retained verbatim; ${hidden.length} block(s) hidden (${ranges.map(r => `${r.from}-${r.to}`).join(", ")}). Omitted content is not visible. Before relying on it, call context_recall with id "${alias}".`;
+    const rendered = `${header}${hiddenReferences(hidden.map(b => b.text).join("\n"))} Search hidden original chunks with context_recall query (optional id).\n${visible.join("\n")}`;
     return { text: rendered, originalTokens: estimateTokens(text), visibleTokens: estimateTokens(rendered), hiddenTokens: Math.max(0, estimateTokens(text) - estimateTokens(rendered)) };
 }
 export function chooseHidden(need: ChoiceAnswer, userAsked: NoulAnswer, blocks: SieveBlock[], probabilities: Record<string, number>, threshold: number, request: string): { hidden: SieveBlock[]; skip?: string } {
@@ -148,6 +161,13 @@ export async function planSieve(judge: Judge, context: Message[], result: FreshR
     const cfg = opts.config ?? DEFAULT_SIEVE;
     const blocks = splitSieveBlocks(result.text, cfg);
     if (!blocks) return { blocks: [], hidden: [], visible: [], skip: "uncertain block coverage" };
+    if (result.isError) for (const block of blocks) {
+        // Failure output can carry unrecognized diagnostics. Only separate PASS-only
+        // blocks enter probabilistic selection; every other block stays verbatim.
+        if (!block.text.split("\n").every(line => !line.trim() || /^\s*PASS\s+/.test(line))) {
+            block.hardKeep = true; block.keepReason = "failed command evidence";
+        }
+    }
     const questions: Record<string, Question> = { need: NEED, user_asked: USER_ASKED };
     for (const block of blocks) questions[block.id] = blockQuestion(block);
     const built = state(context, result, blocks);

@@ -15,6 +15,8 @@ export async function isolatedSession(cwd: string, sm = SessionManager.inMemory(
  const model = modelRuntime.getModel("antigravity", "gemini-3.8-flash");
  if (!model) throw new Error("antigravity/gemini-3.8-flash not registered");
  await session.setModel(model);
+ // SDK clients must bind to dispatch session_start and restore extension state.
+ await session.bindExtensions({});
  return session;
 }
 

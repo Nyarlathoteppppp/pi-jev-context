@@ -1,0 +1,139 @@
+{
+  "model": "antigravity/gemini-3.8-flash",
+  "method": "Fixed synthetic historical originals. A full output; B legacy id recall; C query recall and hints. Only write and recall available. No live Jev in this retrieval ablation.",
+  "rows": [
+    {
+      "condition": "A",
+      "scenario": "needed",
+      "rep": 1,
+      "passed": true,
+      "ms": 4626,
+      "recalls": 0,
+      "searches": 0,
+      "recallTokens": 0,
+      "inputTokens": 14916,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "providerErrors": []
+    },
+    {
+      "condition": "B",
+      "scenario": "needed",
+      "rep": 1,
+      "passed": false,
+      "error": "benchmark turn limit (8)",
+      "ms": 18247,
+      "recalls": 8,
+      "searches": 0,
+      "recallTokens": 149,
+      "inputTokens": 11818,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "providerErrors": [
+        "This operation was aborted"
+      ]
+    },
+    {
+      "condition": "C",
+      "scenario": "needed",
+      "rep": 1,
+      "passed": false,
+      "error": "benchmark turn limit (8)",
+      "ms": 21181,
+      "recalls": 8,
+      "searches": 5,
+      "recallTokens": 217,
+      "inputTokens": 12808,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "providerErrors": [
+        "This operation was aborted"
+      ]
+    },
+    {
+      "condition": "A",
+      "scenario": "unnecessary",
+      "rep": 1,
+      "passed": true,
+      "ms": 3342,
+      "recalls": 0,
+      "searches": 0,
+      "recallTokens": 0,
+      "inputTokens": 14799,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "providerErrors": []
+    },
+    {
+      "condition": "B",
+      "scenario": "unnecessary",
+      "rep": 1,
+      "passed": true,
+      "ms": 4685,
+      "recalls": 0,
+      "searches": 0,
+      "recallTokens": 0,
+      "inputTokens": 1570,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "providerErrors": []
+    },
+    {
+      "condition": "C",
+      "scenario": "unnecessary",
+      "rep": 1,
+      "passed": true,
+      "ms": 4432,
+      "recalls": 0,
+      "searches": 0,
+      "recallTokens": 0,
+      "inputTokens": 2048,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "providerErrors": []
+    },
+    {
+      "condition": "A",
+      "scenario": "no-match",
+      "rep": 1,
+      "passed": true,
+      "ms": 6755,
+      "recalls": 0,
+      "searches": 0,
+      "recallTokens": 0,
+      "inputTokens": 15031,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "providerErrors": []
+    },
+    {
+      "condition": "B",
+      "scenario": "no-match",
+      "rep": 1,
+      "passed": true,
+      "ms": 9359,
+      "recalls": 1,
+      "searches": 0,
+      "recallTokens": 13,
+      "inputTokens": 3241,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "providerErrors": []
+    },
+    {
+      "condition": "C",
+      "scenario": "no-match",
+      "rep": 1,
+      "passed": true,
+      "ms": 17998,
+      "recalls": 4,
+      "searches": 3,
+      "recallTokens": 127,
+      "inputTokens": 9851,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "providerErrors": []
+    }
+  ],
+  "invalidHarness": "Missing SDK bindExtensions meant session_start never restored originals. Exclude these rows from capability comparison."
+}

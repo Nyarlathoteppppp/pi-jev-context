@@ -1,13 +1,23 @@
 # pi-jev-context
 
-A small Pi extension that shortens repeated file reads before they enter context and, in v0.6, keeps deterministic read deduplication freshness-aware while retaining the v0.5 active Jev sieve for narrowly classified long bash test/build/lint/diagnostic output. Read deduplication remains deterministic and Jev never participates in its matching decision.
+**Less noise. Original evidence within reach.**
+
+A context extension for Pi that folds repeated reads, filters long command logs with Jev, and retrieves saved originals as searchable, verbatim chunks.
 
 > [!IMPORTANT]
-> **Model performance first. Token savings second.**
+> ## Model performance first. Token savings second.
 >
-> - **When in doubt, keep it.** Dedupe needs visible exact duplicates; sieve must pass hard KEEP rules and complete Jev judgments.
-> - **Protect the cache prefix.** Never rewrite old messages or change tool declarations when toggling modes.
-> - **Stop on regression.** Disable folding that demonstrably harms task performance. Recall is not proof of losslessness.
+> **Keep uncertain evidence. Protect the cache prefix. Stop on capability regressions.**
+>
+> Only transform incoming results—never rewrite old messages or change tool declarations when toggling modes. Recall is an escape hatch, not proof of losslessness.
+
+| Capability | What it does |
+|---|---|
+| **Deterministic dedupe** | Folds exact repeated file lines only while the source remains fresh and visible. |
+| **Active Jev sieve** | Filters eligible command logs with hard KEEP rules; judgment and persistence failures preserve the original output. |
+| **Searchable recall** | Finds original chunks by keyword, with source ids, line ranges, and a retrieval budget. |
+
+Independent switches. Branch-local originals. Pi-native compaction.
 
 ## Install
 
@@ -86,14 +96,51 @@ message roles conservatively end prior read evidence rather than silently underc
 age. Plain custom storage does not count and never supplies read evidence.
 See [v0.6 freshness semantics](docs/V0.6_FRESHNESS.md) for exact boundaries and configuration precedence.
 
+## Searchable historical recall (v0.7)
+
+```js
+context_recall({ query: "AuthMiddleware JWT", budget: 800 })
+context_recall({ id: "t12", query: "JWT" })
+context_recall({ id: "t12", offset: 120, limit: 80 })
+```
+
+Search reuses saved originals on the **active branch**. It returns ranked verbatim
+chunks with original output line numbers and source ids. Matching is deterministic
+keyword/identifier overlap with an exact-phrase bonus; partial keyword matches are
+possible. No database, embeddings, summarizer, or Jev call is involved in recall.
+For current file contents use Pi's native read/search tools; recalled outputs are historical.
+
+Chunks target 24 lines and keep recognized contiguous stack regions together.
+The default search budget is 800 estimated tokens for chunks and source headers;
+the small navigation header is additional. Whole chunks that do not fit are not cut.
+Follow the returned continuation, raise the budget, or request exact lines by id.
+With a query, `offset` is a 1-based ranked chunk position; without a query it is a
+1-based output line, and `limit` defaults to 2,000 lines. Omit query and paginate by
+id to recover all saved text. An empty search does not prove a fact is absent.
+
+Shortened outputs include counts, recall instructions, and up to six actual paths
+or identifiers from hidden text when available. This hint is incomplete, not a
+summary. Its overhead counts against the existing savings requirements. Original
+storage and recall are escape hatches, **not proof of capability equivalence**.
+
 ## Fresh-output sieve
+
+v0.7 also recognizes `python[3] -m pytest`, `cargo check`, `cargo clippy`,
+`go build`, and `go vet`. Failed commands are eligible only when they contain
+recognizable failure evidence and PASS lines. In such results only separate
+PASS-only blocks can be hidden; all other blocks and the error status stay intact.
+Existing hard KEEP, task overlap, strict probability threshold and benefit gates
+still apply. Mixed shell pipelines and arbitrary commands remain outside scope.
+Pi truncates very large logs before extension handling: already-truncated bash
+results pass through, retaining Pi's full-output-file pointer. Recall restores the
+original received by this extension, not bytes Pi never delivered.
 
 **`sieve=on` means active Jev participation**, using the configured TypeSafe or
 OpenRouter transport. It is not shadow logging. No key means unchanged output.
 
-Only long, successful, text-only `bash` results with an unambiguous test, build,
+Only long, text-only `bash` results with an unambiguous test, build,
 lint, typecheck/diagnostic, or explicit log command are eligible. Source viewers,
-search/list commands, pipelines, read/edit/write results, errors, old context,
+search/list commands, pipelines, read/edit/write results, unclassified errors, old context,
 compaction, user/assistant messages, and history rewriting are excluded. Jev sees
 complete structural blocks and answers relevance questions only; it does not write
 summaries or visible replacement text. Deterministic guards retain failures,
@@ -152,8 +199,8 @@ npm run test:archive
 
 The current offline replay uses Pi's branch/compaction boundaries, feeds each
 replacement into later decisions, and never sends session content externally.
-On the acceptance run of 27 local sessions: 3,845 reads; 24 rewritten; approximately
-15k tokens saved (0.5% of read tokens, 0.2% of all tool-result tokens) under the v0.6 freshness
+On the v0.7 replay of 27 local sessions: 3,847 reads; 20 rewritten; approximately
+13k tokens saved (0.5% of read tokens, 0.2% of all tool-result tokens) under the v0.6 freshness
 window. Local sessions continue growing, so later replay counts can differ. The v0.5 replay baseline was 142 rewrites and approximately 103k tokens;
 the reduction is expected because old and cross-user-turn copies no longer qualify.
 These are character/4 estimates, not billed token savings. See `results/seen-v05-hardening.txt`
@@ -203,3 +250,31 @@ they do not claim full UI, AgentSession compaction or disk-I/O integration cover
 integration tests. Neither directory is shipped in the extension package or
 imported by its runtime. Old research results are retained in `docs/FINDINGS.md`;
 new entries supersede unsafe claims rather than rewriting the historical record.
+
+
+## Design acknowledgements
+
+[Winnow](https://github.com/GhalebDweikat/winnow) informed the hidden-content
+hints and contiguous omission markers. The recall chunker's paragraph boundary
+rule adapts Winnow's MIT-licensed implementation; see
+[third-party notices](THIRD_PARTY_NOTICES.md). Pi branch-local storage, deterministic
+search, freshness rules and stack-region protection remain specific to this project.
+We also reviewed [RTK](https://github.com/rtk-ai/rtk) for command-specific filtering
+and [Anthropic's context engineering guidance](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents)
+for on-demand retrieval. Their compression ratios are not our capability evidence.
+
+## v0.7 validation
+
+```sh
+node bench/live/v07-recall.ts --reps 2 --out results/live-v07-recall-new.json
+node bench/live/v05-hardening.ts --reps 1 --focused --scenarios failure-exit --out results/live-v07-failure-new.json
+node bench/output-profile.ts
+```
+
+The final synthetic recall comparison passed 18/18 tasks on Pi's
+`antigravity/gemini-3.8-flash`: full originals, v0.6 id/line recall, and searchable
+recall each passed 6/6. Search returned 2,268 estimated tokens versus 26,964 for
+id/line recall, but took 49.6s versus 28.3s across six tasks. Absence checks required
+more searches. These small fixtures do not prove capability equivalence or cache
+benefits. See [v0.7 design](docs/V0.7_SEARCHABLE_RECALL.md) and
+[measured limitations](docs/FINDINGS.md#f29--v07-searchable-recall-and-expanded-failure-logs-2026-09-22).

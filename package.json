@@ -1,8 +1,8 @@
 {
 	"name": "pi-jev-context",
-	"version": "0.6.0",
+	"version": "0.7.0",
 	"private": false,
-	"description": "Freshness-aware position-based read deduplication and optional active Jev fresh-log sieve for Pi, with original-output recall.",
+	"description": "Performance-first Pi context extension: freshness-aware read dedupe, Jev log sieve, and searchable verbatim recall.",
 	"type": "module",
 	"license": "MIT",
 	"engines": {
@@ -37,7 +37,8 @@
 	"files": [
 		"src",
 		"README.md",
-		"LICENSE"
+		"LICENSE",
+		"THIRD_PARTY_NOTICES.md"
 	],
 	"peerDependencies": {
 		"@earendil-works/pi-coding-agent": ">=0.85.1"

@@ -230,3 +230,74 @@ Model for the original Jev experiments (later entries specify their own models):
 - **Limits:** token age is an approximation of visible message text, not provider billing tokens. The latest-user-message epoch is intentionally coarse and treats every new user message as a hard freshness boundary. No semantic similarity, embeddings, summaries, attention prediction, or Jev participation is used.
 - **Acceptance corrections:** read-only evidence projection now stops at context-bearing custom messages, summaries, and unmodeled message roles; plain custom storage remains ignored. The v0.5 sieve projection is unchanged. Explicit invalid option values cannot inherit a larger environment/file age window. Token age uses suffix sums instead of repeated suffix scans.
 - **Acceptance verification:** 64 active tests, 16 archived tests, typecheck and diff checks pass. New cases cover age 0/11999/12000/12001, two fresh partial/full sources, folded-result age non-renewal, resumed branch age, unknown visible-message boundaries, and configuration precedence. The focused benchmark asserts its decisions and reproduces 6,166 estimated tokens saved. A local read replay reported 27 sessions, 3,845 reads, 24 rewrites and approximately 15k tokens saved; the local corpus continues growing.
+
+## F29 · v0.7 searchable recall and expanded failure logs (2026-09-22)
+
+Search now scans existing active-branch originals deterministically and returns
+verbatim, source-labelled chunks. It preserves exact line pagination and never
+rewrites previous results. Paragraph boundary selection adapts Winnow (MIT);
+THIRD_PARTY_NOTICES.md records the source and license. Small hidden-content hints
+and contiguous omission markers count against the existing benefit gate.
+
+Final retrieval ablation:
+
+```sh
+node bench/live/v07-recall.ts --out results/live-v07-recall-05.json --reps 2
+```
+
+Model: antigravity/gemini-3.8-flash. Three fixed scenarios (needed, unnecessary,
+absent component), two repetitions, three conditions. The fixture deliberately
+hides historical evidence; this measures retrieval, not production sieve safety.
+Only write and recall tools are available, so filesystem grading cannot be bypassed
+by rerunning the fixture. Budget: 20 turns / 90 seconds per case.
+
+| Condition | Pass | Recalls | Search calls | Estimated recall tokens | Reported input tokens | Total latency |
+|---|---:|---:|---:|---:|---:|---:|
+| A: full original | 6/6 | 0 | 0 | 0 | 89,480 | 21.1s |
+| B: exact v0.6 id/line declaration | 6/6 | 4 | 0 | 26,964 | 67,185 | 28.3s |
+| C: searchable chunks + hints | 6/6 | 12 | 12 | 2,268 | 36,776 | 49.6s |
+
+C's needed-fact cases each made one search and returned about 340 estimated tokens.
+Unnecessary cases made no recalls. Each absent-component case made five searches,
+returned about 794 tokens, and took about 15.4s. Search therefore reduced returned
+text but increased tool rounds and latency; no-match is not proof of absence.
+All cache counters were zero, so these runs establish no cache-hit improvement.
+No live Jev calls or sieve rewrites occur in this retrieval ablation.
+
+Earlier attempts remain available. Run 01 stalled; run 02 exposed a benchmark
+startup defect: SDK `bindExtensions()` was missing, so `session_start` never
+restored seeded originals. Those runs are invalid for capability comparison.
+Run 03 fixed startup but limited execution to eight turns. Run 04 used 20 turns
+and passed 18/18, but its legacy declaration omitted v0.6's parameter descriptions,
+including the 2,000-line default. Run 05 restores the exact legacy declaration and
+is the primary comparison. Do not pool these different harness versions.
+
+Expanded failed-output benchmark (three conditions, one repetition per run):
+
+```sh
+node bench/live/v05-hardening.ts --reps 1 --focused --scenarios failure-exit --out results/live-v07-failure-02.json
+```
+
+Run 01 passed 3/3 but C made two Jev calls that timed out; all output passed through.
+Run 02 passed 3/3; C made two Jev decisions, one sieve rewrite hiding 18 blocks and
+6,184 estimated net tokens, zero Jev failures, and zero recalls. A/B made no
+rewrites. The unchanged failure-exit fixture grades the repaired booleans and
+preservation of its source files. This small test does not establish broad safety.
+The diagnostic-only `sieve-v07-probe.json` also records real Jev block probabilities;
+it is not a task-capability benchmark.
+
+Local inventory (`results/output-profile-v07.json`) covers 26 non-temporary session
+files, all branches, and exports no private text. Read output dominates at ~2.74M
+estimated tokens; bash view/search adds ~1.13M. No output passes the current sieve
+eligibility rules. Of 148 long bash outputs, 117 have shell composition syntax.
+This is a real coverage limitation, not justification to filter arbitrary compound
+commands. Repetition counts are candidates for investigation, not safe savings.
+
+The separate replay includes 27 files and 3,847 text-only reads; 20 rewrites save
+~13K estimated tokens (0.5% of reads, 0.2% of all tool output). Inventory and replay
+have different inclusion rules. Token reductions are not billing reductions.
+
+Validation: 73 unit/integration tests, 16 archive tests, typecheck, replay,
+standalone 10-test lifecycle/SDK suite, package dry-run, and diff whitespace check.
+The actual SDK startup regression test makes no model completion call. Three
+preexisting protected result files retain their original checksums.

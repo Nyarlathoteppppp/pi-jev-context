@@ -5,6 +5,7 @@ import { join } from "node:path";
 import { Type } from "typebox";
 import { summarizeCall, textOf } from "./extract.ts";
 import type { Message } from "./types.ts";
+import { searchOriginals } from "./recall.ts";
 import { DEFAULT_SEEN, planCollapse, type SeenConfig } from "./seen.ts";
 import { Jev, resolveTransport, type Judge } from "./jev.ts";
 import { DEFAULT_SIEVE, eligibleFreshOutput, planSieve, renderSieve, type SieveConfig } from "./sieve.ts";
@@ -33,7 +34,7 @@ export interface Original { alias: string; toolCallId: string; tool: string; sum
 export type LogRecord =
     | { kind: "seen"; mode: Mode; acted: boolean; alias?: string; toolCallId: string; summary: string; from: number; to: number; collapsedLines: number; totalLines: number; runs: number }
     | { kind: "sieve"; mode: SieveMode; acted: boolean; alias?: string; toolCallId: string; summary: string; from: number; to: number; hiddenBlocks: number; latencyMs: number; inputTokens?: number; cost?: number; skip?: string; category?: string; threshold: number }
-    | { kind: "recall"; alias: string; found: boolean }
+    | { kind: "recall"; alias: string; found: boolean; query?: string }
     | { kind: "label"; target: string; label: "good" | "bad"; note?: string };
 
 export function contextMessages(ctx: ExtensionContext): Message[] {
@@ -52,8 +53,8 @@ export function dedupeContextMessages(ctx: ExtensionContext): Message[] {
     return entries.slice(start).flatMap((entry) => entry.type === "message" ? [entry.message as Message] : []);
 }
 function branch(ctx: ExtensionContext): Array<Record<string, any>> { return ctx.sessionManager.getBranch() as Array<Record<string, any>>; }
-const recallParams = () => Type.Object({ id: Type.String({ description: "The id from the [pi-jev-context] header, e.g. t3" }), offset: Type.Optional(Type.Number({ description: "First output line to return (1-based, not file line)" })), limit: Type.Optional(Type.Number({ description: "Maximum number of lines (default 2000)" })) });
-type RecallDetails = { alias?: string; from?: number; to?: number; total?: number };
+const recallParams = () => Type.Object({ id: Type.Optional(Type.String({ description: "Original id, e.g. t3. Omit to search all originals on the active branch." })), query: Type.Optional(Type.String({ description: "Keywords or identifiers to search historical original chunks." })), budget: Type.Optional(Type.Integer({ minimum: 1, description: "Estimated tokens for whole search chunks, default 800. Navigation header is additional." })), offset: Type.Optional(Type.Integer({ minimum: 1, description: "1-based output line for id-only recall; 1-based ranked chunk for query pagination" })), limit: Type.Optional(Type.Integer({ minimum: 1, description: "Maximum number of lines (default 2000)" })) });
+type RecallDetails = { hits?: number; returned?: number; alias?: string; from?: number; to?: number; total?: number };
 interface Settings { mode?: Mode; dedupe?: DedupeMode; sieve?: SieveMode; jevThreshold?: number; minHiddenShare?: number; minSavedTokens?: number; dedupeMaxAgeTokens?: number; envFile?: string; }
 const numberInRange = (value: unknown, min: number, max: number): value is number => typeof value === "number" && Number.isFinite(value) && value >= min && value <= max;
 const parseEnvNumber = (value: string): number => value.trim() ? Number(value) : NaN;
@@ -150,6 +151,8 @@ export function createJevContext(pi: ExtensionAPI, options: JevContextOptions = 
             return;
         }
         if (config.sieve !== "on" || !judge || judgedCallIds.has(event.toolCallId)) return;
+        // Pi truncates before tool_result; do not hide more of an already partial log.
+        if ((event.details as any)?.truncation?.truncated || /\[Showing [^\n]*Full output:/.test(text)) return;
         const category = eligibleFreshOutput(event.toolName, input, text, !!event.isError, config.sieveConfig);
         if (!category) return;
         const alias = nextAlias();
@@ -172,7 +175,14 @@ export function createJevContext(pi: ExtensionAPI, options: JevContextOptions = 
         }
     });
 
-    pi.registerTool<ReturnType<typeof recallParams>, RecallDetails>({ name: "context_recall", label: "Context recall", description: "Return the full original text of a tool output that pi-jev-context shortened. Use the id from the collapse marker.", promptSnippet: "context_recall: get the full original of a tool output shortened by pi-jev-context", parameters: recallParams(), async execute(_toolCallId, params) {
+    pi.registerTool<ReturnType<typeof recallParams>, RecallDetails>({ name: "context_recall", label: "Context recall", description: "Search saved historical output by query (optional id, budget, offset), or retrieve original lines by id/offset/limit. Search returns verbatim chunks, may miss facts, and is branch-local. Use read/search for current files.", promptSnippet: "context_recall: search historical originals by query, or retrieve exact original lines by id", parameters: recallParams(), async execute(_toolCallId, params) {
+        if (params.query !== undefined) {
+            const source = params.id ? originals.get(params.id) ?? originals.get(byCallId.get(params.id) ?? "") : undefined;
+            const result = searchOriginals(params.id ? (source ? [source] : []) : originals.values(), params.query, params.budget ?? 800, Math.max(1, Math.floor(params.offset ?? 1)));
+            log({ kind: "recall", alias: params.id ?? "*", query: params.query, found: result.hits > 0 });
+            return { content: [{ type: "text", text: result.text }], details: { hits: result.hits, returned: result.returned } };
+        }
+        if (!params.id) return { content: [{ type: "text", text: "Provide query to search, or id with optional offset/limit to retrieve original lines." }], details: {} };
         const original = originals.get(params.id) ?? originals.get(byCallId.get(params.id) ?? "");
         log({ kind: "recall", alias: params.id, found: !!original });
         if (!original) return { content: [{ type: "text", text: `No shortened output with id "${params.id}". Known ids: ${[...originals.keys()].slice(-20).join(", ") || "none"}.` }], details: {} };

@@ -1,0 +1,21 @@
+{
+  "model": "antigravity/gemini-3.8-flash",
+  "method": "Fixed synthetic historical originals. A full output; B legacy id recall; C query recall and hints. Only write and recall available. No live Jev in this retrieval ablation.",
+  "rows": [
+    {
+      "condition": "A",
+      "scenario": "needed",
+      "rep": 1,
+      "passed": true,
+      "ms": 5546,
+      "recalls": 0,
+      "searches": 0,
+      "recallTokens": 0,
+      "inputTokens": 14855,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "providerErrors": []
+    }
+  ],
+  "incomplete": "Stopped during B/needed after more than 3 minutes without a completed row; this attempt does not establish task success or failure. Added benchmark deadline and turn instrumentation for the next run."
+}

@@ -1,3 +1,4 @@
+import { hiddenReferences } from "./hints.ts";
 import { estimateTokens, textOf, toolEvents } from "./extract.ts";
 import type { Message } from "./types.ts";
 
@@ -83,7 +84,7 @@ export function collapse(text: string, earlier: ReadEvidence[], alias: string, p
 	}
 	if (!source) return;
 	const covered = runs.reduce((sum, r) => sum + r.to - r.from + 1, 0);
-	const body = [`[pi-jev-context] ${path}: file lines ${offset}-${offset + lines.length - 1}. Folded ${covered}/${lines.length} file lines matching read ${source.toolCallId} still in context. Full output: context_recall with id "${alias}".`];
+	const body = [`[pi-jev-context] ${path}: file lines ${offset}-${offset + lines.length - 1}. Folded ${covered}/${lines.length} file lines matching read ${source.toolCallId} still in context. Full output: context_recall with id "${alias}".${hiddenReferences(runs.map(r => lines.slice(r.from - 1, r.to).join("\n")).join("\n"))} Search original chunks with context_recall query.`];
 	let cursor = 0;
 	for (const r of runs) {
 		body.push(...lines.slice(cursor, r.from - 1));

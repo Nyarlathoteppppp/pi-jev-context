@@ -51,6 +51,7 @@ describe('installed Pi SessionManager lifecycle',()=>{
   const sm=SessionManager.inMemory(h.sm.getCwd(),undefined,entries);sm.branch(h.sm.getLeafId()!);
   const resumed=new Harness(sm);resumed.install({judge:j.judge});await resumed.emit('session_start');
   assert.equal(resumed.originals().length,2);
+  assert.match((await resumed.tools.get('context_recall').execute('q',{query:'second-output',budget:1000})).content[0].text,/second-output/);
   for(const e of originals)assert.equal((await resumed.recall(data(e).alias)).split('\n').slice(1).join('\n'),data(e).text);
   assert.equal(j.calls,2);
  });
@@ -65,6 +66,7 @@ describe('installed Pi SessionManager lifecycle',()=>{
   await h.tool();const alias=data(h.originals()[0]).alias;const leaf=h.sm.getLeafId()!;
   h.sm.branch(root);h.sm.appendMessage({role:'user',content:'sibling',timestamp:Date.now()});await h.emit('session_tree');
   assert.equal(h.originals().length,0);assert.match(await h.recall(alias),/No shortened output/);
+  assert.match((await h.tools.get('context_recall').execute('q',{query:'routine'})).content[0].text,/No lexical matches/);
   h.sm.branch(leaf);await h.emit('session_tree');assert.equal(h.originals().length,1);assert.ok((await h.recall(alias)).endsWith(output));assert.equal(j.calls,1);
  });
  it('compaction and rebuild do not rejudge; compacted reads cannot authorize dedupe; new output still sieves',async()=>{
@@ -74,6 +76,7 @@ describe('installed Pi SessionManager lifecycle',()=>{
   h.sm.appendCompaction('native summary',tail,10000);
   assert.equal(h.sm.buildContextEntries().filter(e=>e.type==='message').length,1);
   await h.emit('session_start');assert.equal(j.calls,1);assert.equal(h.originals().length,1);assert.ok((await h.recall(alias)).endsWith(output));
+  assert.match((await h.tools.get('context_recall').execute('q',{query:'routine',budget:1000})).content[0].text,/routine test output/);
   assert.equal((await h.tool('read',readText,{path:'a.ts'})).patch,undefined);
   assert.ok((await h.tool()).patch);assert.equal(j.calls,2);assert.equal(h.originals().length,2);
  });

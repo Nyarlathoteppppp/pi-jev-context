@@ -1,0 +1,101 @@
+{
+  "sessions": 26,
+  "scope": "All local non-temporary session entries, all branches; heuristic bash categories. Repeated lines are not necessarily removable.",
+  "groups": {
+    "bash/git": {
+      "count": 178,
+      "tokens": 181414,
+      "long": 23,
+      "errors": 10,
+      "repeatedLineTokens": 20174,
+      "truncated": 3,
+      "eligible": 0
+    },
+    "read": {
+      "count": 3912,
+      "tokens": 2739701,
+      "long": 50,
+      "errors": 76,
+      "repeatedLineTokens": 174392,
+      "truncated": 5,
+      "eligible": 0
+    },
+    "other": {
+      "count": 2877,
+      "tokens": 1692649,
+      "long": 123,
+      "errors": 23,
+      "repeatedLineTokens": 69039,
+      "truncated": 2,
+      "eligible": 0
+    },
+    "bash/view-search": {
+      "count": 1356,
+      "tokens": 1127148,
+      "long": 56,
+      "errors": 66,
+      "repeatedLineTokens": 75695,
+      "truncated": 5,
+      "eligible": 0
+    },
+    "bash/test": {
+      "count": 278,
+      "tokens": 170780,
+      "long": 8,
+      "errors": 56,
+      "repeatedLineTokens": 8597,
+      "truncated": 1,
+      "eligible": 0
+    },
+    "bash/other": {
+      "count": 773,
+      "tokens": 659992,
+      "long": 47,
+      "errors": 104,
+      "repeatedLineTokens": 40803,
+      "truncated": 31,
+      "eligible": 0
+    },
+    "bash/build-check": {
+      "count": 123,
+      "tokens": 71342,
+      "long": 5,
+      "errors": 12,
+      "repeatedLineTokens": 4153,
+      "truncated": 0,
+      "eligible": 0
+    },
+    "write": {
+      "count": 287,
+      "tokens": 18270,
+      "long": 0,
+      "errors": 0,
+      "repeatedLineTokens": 60,
+      "truncated": 0,
+      "eligible": 0
+    },
+    "edit": {
+      "count": 1025,
+      "tokens": 72186,
+      "long": 1,
+      "errors": 115,
+      "repeatedLineTokens": 603,
+      "truncated": 0,
+      "eligible": 0
+    },
+    "bash/install": {
+      "count": 39,
+      "tokens": 60456,
+      "long": 9,
+      "errors": 2,
+      "repeatedLineTokens": 2280,
+      "truncated": 0,
+      "eligible": 0
+    }
+  },
+  "longBashShapes": {
+    "other unrecognized or guarded": 29,
+    "shell composition": 117,
+    "viewer/search/git": 2
+  }
+}

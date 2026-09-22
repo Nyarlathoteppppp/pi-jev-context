@@ -191,6 +191,7 @@ export function createJevContext(pi: ExtensionAPI, options: JevContextOptions = 
         log({ kind: "recall", alias: params.id, found: !!original });
         if (!original) return { content: [{ type: "text", text: `No shortened output with id "${params.id}". Known ids: ${[...originals.keys()].slice(-20).join(", ") || "none"}.` }], details: {} };
         const lines = original.text.split("\n"); const from = Math.max(1, Math.floor(params.offset ?? 1)); const to = Math.min(lines.length, from - 1 + Math.max(1, Math.floor(params.limit ?? 2000))); const more = to < lines.length ? ` More: offset ${to + 1}.` : "";
+        if (from > lines.length) return { content: [{ type: "text", text: `[context_recall ${original.alias}] Offset ${from} is beyond the saved original's ${lines.length} lines. No lines returned. Use offset 1 to restart.` }], details: { alias: original.alias, returned: 0, total: lines.length } };
         return { content: [{ type: "text", text: `[context_recall ${original.alias}] ${original.summary}: output lines ${from}-${to} of ${lines.length}.${more}\n${lines.slice(from - 1, to).join("\n")}` }], details: { alias: original.alias, from, to, total: lines.length } };
     }});
     pi.on("session_start", (_event, ctx) => rebuild(ctx));
@@ -198,7 +199,7 @@ export function createJevContext(pi: ExtensionAPI, options: JevContextOptions = 
     function report(ctx: ExtensionContext): string {
         const records = branch(ctx).filter((e) => e.customType === LOG).map((e) => e.data as LogRecord);
         const saved = (record: LogRecord) => (record.kind === "seen" || record.kind === "sieve") && record.acted ? Math.max(0, record.from - record.to) : 0;
-        return [`pi-jev-context: mode ${config.mode} · dedupe ${config.dedupe} (max age ${config.dedupeMaxAgeTokens} tok) · sieve ${config.sieve}`, `Collapsed: ${records.filter((r) => r.kind === "seen" && r.acted).length} reads; shortened: ${records.filter((r) => r.kind === "sieve" && r.acted).length} outputs · ~${records.reduce((n, r) => n + saved(r), 0)} tokens saved`, `Jev sieve calls: ${records.filter((r) => r.kind === "sieve").length}`, `Recalls: ${records.filter((r) => r.kind === "recall").length}`].join("\n");
+        return [`pi-jev-context: mode ${config.mode} · dedupe ${config.dedupe} (max age ${config.dedupeMaxAgeTokens} tok) · sieve ${config.sieve}`, `Collapsed: ${records.filter((r) => r.kind === "seen" && r.acted).length} reads; shortened: ${records.filter((r) => r.kind === "sieve" && r.acted).length} outputs · ~${records.reduce((n, r) => n + saved(r), 0)} tokens saved`, `Sieve evaluations: ${records.filter((r) => r.kind === "sieve").length} (includes pre-request skips; not HTTP calls)`, judge ? "Jev configured (connectivity not checked)" : "Jev unavailable: no configured judge/API key; sieve preserves full output", `Recalls: ${records.filter((r) => r.kind === "recall").length}`].join("\n");
     }
     pi.registerCommand("context", { description: "pi-jev-context: status | report | mode <off|shadow|on> | dedupe <on|off> | sieve <on|off> | recalls | label <good|bad> [note]", getArgumentCompletions: (prefix) => ["status", "report", "mode", "dedupe", "sieve", "recalls", "label"].filter((s) => s.startsWith(prefix)).map((s) => ({ value: s, label: s })), handler: async (args, ctx) => {
         const [sub = "report", ...rest] = args.trim().split(/\s+/).filter(Boolean); const say = (message: string, level: "info" | "warning" = "info") => ctx.ui.notify(message, level);
@@ -224,7 +225,7 @@ export function createJevContext(pi: ExtensionAPI, options: JevContextOptions = 
             return say(`pi-jev-context ${sub}: ${value}`);
         }
         if (sub === "recalls") return say([...originals.values()].slice(-20).map((o) => `${o.alias}  ${o.summary}  (${o.text.split("\n").length} lines)`).join("\n") || "nothing shortened on this branch");
-        if (sub === "label") { const label = rest[0]; if (label !== "good" && label !== "bad") return say("usage: /context label <good|bad> [note]", "warning"); const last = branch(ctx).filter((e) => e.type === "custom" && e.customType === LOG).at(-1); if (!last) return say("nothing to label", "warning"); log({ kind: "label", target: last.id, label, note: rest.slice(1).join(" ") || undefined }); return say(`labelled ${last.id} ${label}`); }
+        if (sub === "label") { const label = rest[0]; if (label !== "good" && label !== "bad") return say("usage: /context label <good|bad> [note]", "warning"); const last = branch(ctx).filter((e) => e.type === "custom" && e.customType === LOG && (e.data?.kind === "seen" || e.data?.kind === "sieve")).at(-1); if (!last) return say("nothing to label", "warning"); log({ kind: "label", target: last.id, label, note: rest.slice(1).join(" ") || undefined }); return say(`labelled ${last.id} ${label}`); }
         return say(`unknown subcommand ${sub}`, "warning");
     }});
     return { config, originals, judge };

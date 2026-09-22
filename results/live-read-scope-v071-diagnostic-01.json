@@ -1,0 +1,358 @@
+{
+  "model": "antigravity/gemini-3.8-flash",
+  "method": "Synthetic 100-function source registry, same tools and active production plugin. Whole-file instruction vs task-directed search/ranges. Three sequential filesystem-graded questions: initial dependency, changed current vs historical value, delayed previously unrequested dependency. Paired repetitions with reversed order on even reps. No private content sent. This tests tool use, not semantic compression.",
+  "sourceLines": 1303,
+  "sourceTokens": 5559,
+  "rows": [
+    {
+      "condition": "whole",
+      "rep": 1,
+      "passed": true,
+      "sourcePreserved": true,
+      "phases": [
+        {
+          "phase": 1,
+          "passed": true,
+          "filesystemPassed": true,
+          "providerErrors": [],
+          "ms": 11575,
+          "reads": 2,
+          "toolErrors": 1,
+          "toolErrorMessages": [
+            "fatal: not a git repository (or any of the parent directories): .git\n\n\nCommand exited with code 128"
+          ],
+          "actions": [
+            {
+              "name": "read",
+              "args": {
+                "path": "policies.ts"
+              }
+            },
+            {
+              "name": "write",
+              "args": {
+                "content": "{\"rate\":7,\"region\":\"au-southeast-2\"}\n",
+                "path": "answer1.json"
+              }
+            },
+            {
+              "name": "read",
+              "args": {
+                "path": "answer1.json"
+              }
+            },
+            {
+              "name": "bash",
+              "args": {
+                "command": "git status"
+              }
+            }
+          ],
+          "returnedTokens": 5594,
+          "inputTokens": 43231,
+          "cacheRead": 0,
+          "rewrites": 0,
+          "hiddenTokens": 0,
+          "jevDecisions": 0,
+          "jevFailures": 0,
+          "recalls": 0,
+          "bashCalls": 1
+        },
+        {
+          "phase": 2,
+          "passed": true,
+          "filesystemPassed": true,
+          "providerErrors": [],
+          "ms": 6606,
+          "reads": 2,
+          "toolErrors": 0,
+          "toolErrorMessages": [],
+          "actions": [
+            {
+              "name": "read",
+              "args": {
+                "path": "policies.ts"
+              }
+            },
+            {
+              "name": "write",
+              "args": {
+                "content": "{\"previousRate\":7,\"currentRate\":11,\"region\":\"au-southeast-2\"}\n",
+                "path": "answer2.json"
+              }
+            },
+            {
+              "name": "read",
+              "args": {
+                "path": "answer2.json"
+              }
+            }
+          ],
+          "returnedTokens": 5576,
+          "inputTokens": 38362,
+          "cacheRead": 32558,
+          "rewrites": 0,
+          "hiddenTokens": 0,
+          "jevDecisions": 0,
+          "jevFailures": 0,
+          "recalls": 0,
+          "bashCalls": 0
+        },
+        {
+          "phase": 3,
+          "passed": true,
+          "filesystemPassed": true,
+          "providerErrors": [],
+          "ms": 12563,
+          "reads": 2,
+          "toolErrors": 0,
+          "toolErrorMessages": [],
+          "actions": [
+            {
+              "name": "read",
+              "args": {
+                "path": "policies.ts"
+              }
+            },
+            {
+              "name": "write",
+              "args": {
+                "path": "answer3.json",
+                "content": "{\"retentionDays\":42}\n"
+              }
+            },
+            {
+              "name": "read",
+              "args": {
+                "path": "answer3.json"
+              }
+            }
+          ],
+          "returnedTokens": 5566,
+          "inputTokens": 27251,
+          "cacheRead": 81431,
+          "rewrites": 0,
+          "hiddenTokens": 0,
+          "jevDecisions": 0,
+          "jevFailures": 0,
+          "recalls": 0,
+          "bashCalls": 0
+        }
+      ]
+    },
+    {
+      "condition": "scoped",
+      "rep": 1,
+      "passed": true,
+      "sourcePreserved": true,
+      "phases": [
+        {
+          "phase": 1,
+          "passed": true,
+          "filesystemPassed": true,
+          "providerErrors": [],
+          "ms": 18665,
+          "reads": 3,
+          "toolErrors": 1,
+          "toolErrorMessages": [
+            "fatal: not a git repository (or any of the parent directories): .git\n\n\nCommand exited with code 128"
+          ],
+          "actions": [
+            {
+              "name": "bash",
+              "args": {
+                "command": "ls -la"
+              }
+            },
+            {
+              "name": "bash",
+              "args": {
+                "command": "grep -n \"checkoutPolicy\" policies.ts"
+              }
+            },
+            {
+              "name": "read",
+              "args": {
+                "offset": 390,
+                "limit": 100,
+                "path": "policies.ts"
+              }
+            },
+            {
+              "name": "bash",
+              "args": {
+                "command": "grep -n \"defaultRegion\" policies.ts"
+              }
+            },
+            {
+              "name": "read",
+              "args": {
+                "limit": 10,
+                "path": "policies.ts",
+                "offset": 1
+              }
+            },
+            {
+              "name": "write",
+              "args": {
+                "path": "answer1.json",
+                "content": "{\"rate\":7,\"region\":\"au-southeast-2\"}\n"
+              }
+            },
+            {
+              "name": "bash",
+              "args": {
+                "command": "git status"
+              }
+            },
+            {
+              "name": "read",
+              "args": {
+                "path": "answer1.json",
+                "limit": 10,
+                "offset": 1
+              }
+            }
+          ],
+          "returnedTokens": 642,
+          "inputTokens": 18270,
+          "cacheRead": 0,
+          "rewrites": 0,
+          "hiddenTokens": 0,
+          "jevDecisions": 0,
+          "jevFailures": 0,
+          "recalls": 0,
+          "bashCalls": 4
+        },
+        {
+          "phase": 2,
+          "passed": true,
+          "filesystemPassed": true,
+          "providerErrors": [],
+          "ms": 12577,
+          "reads": 3,
+          "toolErrors": 0,
+          "toolErrorMessages": [],
+          "actions": [
+            {
+              "name": "bash",
+              "args": {
+                "command": "grep -n \"checkoutPolicy\" policies.ts"
+              }
+            },
+            {
+              "name": "read",
+              "args": {
+                "path": "policies.ts",
+                "offset": 405,
+                "limit": 30
+              }
+            },
+            {
+              "name": "bash",
+              "args": {
+                "command": "grep -n \"defaultRegion\" policies.ts"
+              }
+            },
+            {
+              "name": "read",
+              "args": {
+                "offset": 1,
+                "path": "policies.ts",
+                "limit": 10
+              }
+            },
+            {
+              "name": "write",
+              "args": {
+                "path": "answer2.json",
+                "content": "{\"previousRate\":7,\"currentRate\":11,\"region\":\"au-southeast-2\"}\n"
+              }
+            },
+            {
+              "name": "read",
+              "args": {
+                "offset": 1,
+                "path": "answer2.json",
+                "limit": 10
+              }
+            }
+          ],
+          "returnedTokens": 280,
+          "inputTokens": 21250,
+          "cacheRead": 0,
+          "rewrites": 0,
+          "hiddenTokens": 0,
+          "jevDecisions": 0,
+          "jevFailures": 0,
+          "recalls": 0,
+          "bashCalls": 2
+        },
+        {
+          "phase": 3,
+          "passed": true,
+          "filesystemPassed": true,
+          "providerErrors": [],
+          "ms": 13580,
+          "reads": 3,
+          "toolErrors": 0,
+          "toolErrorMessages": [],
+          "actions": [
+            {
+              "name": "bash",
+              "args": {
+                "command": "grep -n \"auditPolicy\" policies.ts"
+              }
+            },
+            {
+              "name": "read",
+              "args": {
+                "offset": 1015,
+                "path": "policies.ts",
+                "limit": 30
+              }
+            },
+            {
+              "name": "bash",
+              "args": {
+                "command": "grep -n \"baseRetentionDays\" policies.ts"
+              }
+            },
+            {
+              "name": "read",
+              "args": {
+                "limit": 10,
+                "path": "policies.ts",
+                "offset": 1
+              }
+            },
+            {
+              "name": "write",
+              "args": {
+                "content": "{\"retentionDays\":42}\n",
+                "path": "answer3.json"
+              }
+            },
+            {
+              "name": "read",
+              "args": {
+                "path": "answer3.json",
+                "limit": 10,
+                "offset": 1
+              }
+            }
+          ],
+          "returnedTokens": 271,
+          "inputTokens": 26743,
+          "cacheRead": 0,
+          "rewrites": 0,
+          "hiddenTokens": 0,
+          "jevDecisions": 0,
+          "jevFailures": 0,
+          "recalls": 0,
+          "bashCalls": 2
+        }
+      ]
+    }
+  ]
+}

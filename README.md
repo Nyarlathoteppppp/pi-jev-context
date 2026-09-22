@@ -35,6 +35,14 @@ source ids when useful and points to exact line retrieval. Missing lexical match
 still do not prove a historical fact is absent. See
 [v0.7.1 measurements and limits](docs/V0.7.1_FOLLOW_UP.md).
 
+### Current scope
+
+v0.7.1 is in maintenance: exact read dedupe, guarded command-log sieve, and
+verbatim recall. Broad everyday efficiency gains are **not established**.
+A [source-read experiment](docs/READ_SCOPE_EXPERIMENT.md) reduced returned text but
+added tool calls and did not consistently lower total input or latency. Search and
+source-code semantic filtering remain outside the production scope.
+
 ## Install
 
 ```sh
@@ -56,7 +64,10 @@ Reload an existing Pi session with `/reload`. Default mode is `on`.
 /context label bad incorrect location
 ```
 
-`/context report` also shows the active deterministic freshness window.
+`/context report` shows the active freshness window and whether a Jev judge is
+configured (not a connectivity test). Sieve evaluations include pre-request skips;
+they are not an HTTP-call count. `/context label` labels the latest dedupe/sieve
+decision on the active branch, ignoring intervening recalls and labels.
 
 ### Independent configuration
 

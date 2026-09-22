@@ -1,0 +1,71 @@
+{
+  "scope": "Local non-temporary sessions; all read entries, ancestry-only comparisons to latest read of identical literal path/offset/limit. No visibility, age, mutation or compaction safety inference. Tokens estimated as chars/4.",
+  "sessions": 25,
+  "groups": {
+    "docs": {
+      "reads": 594,
+      "tokens": 550584,
+      "longReads": 17,
+      "longTokens": 88234,
+      "exactRepeatReads": 59,
+      "exactRepeatTokens": 38709,
+      "crossUserRepeatReads": 44,
+      "crossUserRepeatTokens": 32690,
+      "unboundedReads": 116,
+      "unboundedTokens": 93063,
+      "truncated": 0
+    },
+    "structured-data": {
+      "reads": 214,
+      "tokens": 126654,
+      "longReads": 2,
+      "longTokens": 13208,
+      "exactRepeatReads": 16,
+      "exactRepeatTokens": 6125,
+      "crossUserRepeatReads": 14,
+      "crossUserRepeatTokens": 5147,
+      "unboundedReads": 47,
+      "unboundedTokens": 23599,
+      "truncated": 0
+    },
+    "source-code": {
+      "reads": 2527,
+      "tokens": 1679704,
+      "longReads": 25,
+      "longTokens": 99635,
+      "exactRepeatReads": 161,
+      "exactRepeatTokens": 84747,
+      "crossUserRepeatReads": 121,
+      "crossUserRepeatTokens": 64873,
+      "unboundedReads": 319,
+      "unboundedTokens": 225647,
+      "truncated": 0
+    },
+    "agent-instructions": {
+      "reads": 84,
+      "tokens": 115713,
+      "longReads": 1,
+      "longTokens": 4028,
+      "exactRepeatReads": 17,
+      "exactRepeatTokens": 31871,
+      "crossUserRepeatReads": 16,
+      "crossUserRepeatTokens": 30371,
+      "unboundedReads": 21,
+      "unboundedTokens": 43831,
+      "truncated": 0
+    },
+    "other": {
+      "reads": 77,
+      "tokens": 74987,
+      "longReads": 4,
+      "longTokens": 45942,
+      "exactRepeatReads": 3,
+      "exactRepeatTokens": 564,
+      "crossUserRepeatReads": 3,
+      "crossUserRepeatTokens": 564,
+      "unboundedReads": 17,
+      "unboundedTokens": 15463,
+      "truncated": 4
+    }
+  }
+}

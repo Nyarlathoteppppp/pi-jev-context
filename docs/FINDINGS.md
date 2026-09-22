@@ -328,3 +328,57 @@ the earlier 117 compound long commands must not be portrayed as available saving
 Validation: 77 tests, 16 archive tests, typecheck, the standalone 10-test
 lifecycle/SDK suite, read replay, command replay and diff whitespace checks passed.
 No prior messages are rewritten and no model-call or retrieval fallback was added.
+
+### F31 — Source reads dominate; smaller reads did not reliably reduce total work
+
+The current 25-file local snapshot attributes 65.9% of successful text-only read
+tokens to source code. Exact same-path/range repeats account for only 5.0% of source
+read tokens, mostly across user turns; reads with neither offset nor limit account
+for 13.4%. Neither measure establishes safe deletability.
+
+A synthetic, filesystem-graded Antigravity Gemini 3.8 Flash experiment compared
+explicit whole-file reads with task-directed search and ranges. Both passed all
+six primary questions, including current versus historical values and a delayed
+unrequested dependency. Scoped retrieval reduced returned estimated tokens from
+33,731 to 7,264, but read/bash calls rose from 15 to 28, time from 64.35s to 78.16s,
+and reported input from 244,608 to 248,527. Cache-read counters differed (195,275
+versus zero), preventing a simple output-size-to-cost inference. A diagnostic
+repeat also passed, but remained slower despite smaller output. Some diagnostic
+and primary execution overlapped; timings are descriptive. Recovered diagnostic
+errors were incidental git-status calls outside a Git repository.
+
+No Jev judgments, rewrites, hidden tokens or recalls occurred. No production
+policy changed. This supports testing fewer navigation round trips, not hiding
+source code or relaxing freshness. See `docs/READ_SCOPE_EXPERIMENT.md` for scope,
+commands, complete metrics and limitations. Private session content stays local.
+
+### F32 — v0.7.1 closeout review and boundary fixes
+
+Review covered the production extension, read matching, sieve stack protection,
+shell recognition, original search, transport, SDK lifecycle tests and pending
+read-scope experiments. Four new regression tests failed before the fixes:
+
+- Exact recall beyond EOF produced inverted ranges (for example, lines 3-2).
+  It now returns an explicit empty-page message and the original's line count.
+- Feedback after a recall attached to the recall log; subsequent feedback attached
+  to the previous label. Labels now select the latest seen/sieve decision.
+- An absent Retry-After header became zero via Number(null), skipping intended
+  backoff. Missing/empty headers now use the existing bounded exponential delay.
+  Transport latency also includes response-body decoding, previously omitted.
+- The status report called pre-request sieve skips Jev calls and concealed missing
+  credentials. It now reports evaluations and configuration availability, without
+  claiming an actual network connectivity check.
+
+No filtering thresholds, tool declarations, historical messages or package version
+changed. No new severe defect was identified in this review. Semantic filtering
+remains probabilistic, lexical recall can miss synonyms, and recoverability is not
+capability equivalence. Other history-transforming extensions remain outside the
+verified configuration. This is not a full audit of external dependencies.
+
+Validation: npm test 81/81; npm run test:archive 16/16; standalone lifecycle/SDK
+10/10; npm run typecheck and git diff --check passed. npm run bench on the current
+26-file snapshot: 3,573 reads, 19 rewrites, approximately 12k saved tokens (0.5% of
+read tokens; 0.2% of all tool-result tokens). Snapshot counts differ from earlier
+runs; no filtering-policy change was made. Benchmark is offline: no Jev calls or
+live model rerun in this closeout. The prior six-session live source-read experiment
+is retained with its limitations. Protected user result files remain unchanged.

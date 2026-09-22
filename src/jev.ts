@@ -73,12 +73,16 @@ export class Jev implements Judge {
                 response = await fetch(this.transport.url, { method: "POST", headers: { Authorization: `Bearer ${this.transport.key}`, "Content-Type": "application/json", "X-Title": "pi-jev-context" }, body, signal: deadline });
                 if (response.ok || !retryable.has(response.status) || attempt >= 2) break;
                 await response.body?.cancel().catch(() => {});
-                const retryAfter = Number(response.headers.get("retry-after"));
+                const header = response.headers.get("retry-after");
+                const retryAfter = header?.trim() ? Number(header) : NaN;
                 await wait(Number.isFinite(retryAfter) && retryAfter >= 0 ? retryAfter * 1000 : 150 * 2 ** attempt, deadline);
             }
-            const ms = Math.round(performance.now() - started);
-            if (!response!.ok) return { error: `http ${response!.status}: ${(await response!.text()).slice(0, 200)}`, ms };
+            if (!response.ok) {
+                const detail = (await response.text()).slice(0, 200);
+                return { error: `http ${response.status}: ${detail}`, ms: Math.round(performance.now() - started) };
+            }
             const payload = await response.json() as { model?: string; answers?: Record<string, unknown>; usage?: { input_tokens?: number; cost?: number } };
+            const ms = Math.round(performance.now() - started);
             const answers: Record<string, Answer> = {};
             for (const [key, question] of Object.entries(questions)) {
                 const answer = normalizeAnswer(question, payload.answers?.[key]);

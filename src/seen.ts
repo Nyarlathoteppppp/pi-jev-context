@@ -8,8 +8,10 @@ export interface SeenConfig {
 	minLines: number;
 	maxEarlierReads: number;
 	dedupeMaxAgeTokens: number;
+	/** Only reads made since the latest user message count as evidence. */
+	sameUserTurn: boolean;
 }
-export const DEFAULT_SEEN: SeenConfig = { minRun: 30, minSavedShare: 0.3, minLines: 60, maxEarlierReads: 4, dedupeMaxAgeTokens: 12_000 };
+export const DEFAULT_SEEN: SeenConfig = { minRun: 30, minSavedShare: 0.3, minLines: 60, maxEarlierReads: 4, dedupeMaxAgeTokens: 12_000, sameUserTurn: true };
 export interface Run { from: number; to: number; }
 export interface ReadEvidence { text: string; offset: number; toolCallId: string; userTurn: number; ageTokens: number; }
 export interface Collapsed {
@@ -56,7 +58,7 @@ export function earlierReads(messages: Message[], path: string, toolCallId: stri
 	const suffixTokens = new Array<number>(messages.length + 1).fill(0);
 	for (let i = messages.length - 1; i >= 0; i--) suffixTokens[i] = suffixTokens[i + 1]! + messageTokens(messages[i]!);
 	for (const e of toolEvents(messages)) {
-		if (e.id === toolCallId || e.isError || e.name !== "read" || e.args.path !== path || e.userTurn !== currentUserTurn) continue;
+		if (e.id === toolCallId || e.isError || e.name !== "read" || e.args.path !== path || (cfg.sameUserTurn && e.userTurn !== currentUserTurn)) continue;
 		const m = messages[e.index];
 		if (!m || m.role !== "toolResult" || !Array.isArray(m.content) || !m.content.every(c => c.type === "text")) continue;
 		// Folded results have lost the original positional mapping. Do not use stored originals as evidence.

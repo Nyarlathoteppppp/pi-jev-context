@@ -61,7 +61,7 @@ describe("v0.5 active sieve", () => {
         assert.equal(ext.config.sieve, "on");
         const resumed = new FakePi();
         resumed.entries = structuredClone(pi.entries);
-        const resumedExt = createJevContext(resumed.api(), { env: {}, settingsPath: "/nonexistent", judge });
+        const resumedExt = createJevContext(resumed.api(), { env: {}, settingsPath: "/nonexistent", judge, config: { sieve: "on" } });
         await resumed.emit("session_start");
         assert.equal(resumedExt.config.sieve, "on");
         assert.equal(resumedExt.config.dedupe, "on");
@@ -75,7 +75,7 @@ describe("v0.5 active sieve", () => {
     });
 
     it("rewrites eligible fresh output, preserves failures, and recalls the original", async () => {
-        const { pi } = setup({ judge });
+        const { pi } = setup({ judge, config: { sieve: "on" } });
         pi.user("Run the tests and fix any failure.");
         const result = await pi.tool("bash", { command: "npm test" }, output);
         assert.ok(result.patch, "Jev must actively participate");
@@ -88,7 +88,7 @@ describe("v0.5 active sieve", () => {
     it("fails open for errors and source viewers without calling Jev", async () => {
         let calls = 0;
         const counting: Judge = { async decide() { calls++; return judge.decide({}, {}); } };
-        const { pi } = setup({ judge: counting });
+        const { pi } = setup({ judge: counting, config: { sieve: "on" } });
         assert.equal((await pi.tool("bash", { command: "npm test" }, output, { isError: true })).patch, undefined);
         assert.equal((await pi.tool("bash", { command: "git diff" }, output)).patch, undefined);
         assert.equal((await pi.tool("bash", { command: "grep error log" }, output)).patch, undefined);

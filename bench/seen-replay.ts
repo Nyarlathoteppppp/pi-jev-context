@@ -12,8 +12,8 @@ import { estimateTokens, textOf } from "../src/extract.ts";
 import { dedupeContextMessages } from "../src/index.ts";
 import { DEFAULT_SEEN, planCollapse } from "../src/seen.ts";
 
-const { values, positionals } = parseArgs({ allowPositionals: true, options: { "min-run": { type: "string" }, "min-share": { type: "string" } } });
-const cfg = { ...DEFAULT_SEEN, minRun: Number(values["min-run"] ?? DEFAULT_SEEN.minRun), minSavedShare: Number(values["min-share"] ?? DEFAULT_SEEN.minSavedShare) };
+const { values, positionals } = parseArgs({ allowPositionals: true, options: { "min-run": { type: "string" }, "min-share": { type: "string" }, "max-age": { type: "string" }, "any-turn": { type: "boolean", default: false } } });
+const cfg = { ...DEFAULT_SEEN, minRun: Number(values["min-run"] ?? DEFAULT_SEEN.minRun), minSavedShare: Number(values["min-share"] ?? DEFAULT_SEEN.minSavedShare), dedupeMaxAgeTokens: Number(values["max-age"] ?? DEFAULT_SEEN.dedupeMaxAgeTokens), sameUserTurn: !values["any-turn"] };
 
 const files: string[] = [];
 const walk = (d: string) => {

@@ -28,7 +28,7 @@ class Harness {
  } as any;}
  ctx(){return {hasUI:false,sessionManager:this.sm,ui:{setStatus(){},notify(){}}};}
  async emit(n:string,e:any={}){let result;for(const h of this.handlers.get(n)??[]){const r=await h({type:n,...e},this.ctx());if(r!==undefined)result=r;}return result;}
- install(options:JevContextOptions={}){return createJevContext(this.api(),{env:{},settingsPath:'/nonexistent',...options});}
+ install(options:JevContextOptions={}){return createJevContext(this.api(),{env:{},settingsPath:'/nonexistent',...options,config:{sieve:'on',...options.config}});}
  originals(){return this.sm.getBranch().filter(e=>e.type==='custom'&&e.customType===ORIGINAL);}
  async recall(id:string){const r=await this.tools.get('context_recall').execute('recall',{id});return r.content[0].text as string;}
  async tool(toolName='bash',text=output,input:any={command:'npm test'}) {

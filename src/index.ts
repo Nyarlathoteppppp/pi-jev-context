@@ -22,10 +22,14 @@ export interface JevContextConfig {
     minHiddenShare: number;
     minSavedTokens: number;
     dedupeMaxAgeTokens: number;
+    /** Only reads since the latest user message count as dedupe evidence (default true). */
+    dedupeSameTurn: boolean;
     seen: SeenConfig;
     sieveConfig: SieveConfig;
 }
-export const DEFAULT_CONFIG: JevContextConfig = { mode: "on", dedupe: "on", sieve: "on", jevThreshold: 0.10, minHiddenShare: 0.30, minSavedTokens: 1000, dedupeMaxAgeTokens: DEFAULT_SEEN.dedupeMaxAgeTokens, seen: DEFAULT_SEEN, sieveConfig: DEFAULT_SIEVE };
+/** With nothing configured: local, model-free dedupe on; the Jev sieve off until the user opts in. */
+export const DEFAULT_LAYERS: Pick<JevContextConfig, "dedupe" | "sieve"> = { dedupe: "on", sieve: "off" };
+export const DEFAULT_CONFIG: JevContextConfig = { mode: "on", dedupe: "on", sieve: "off", jevThreshold: 0.10, minHiddenShare: 0.30, minSavedTokens: 1000, dedupeMaxAgeTokens: DEFAULT_SEEN.dedupeMaxAgeTokens, dedupeSameTurn: DEFAULT_SEEN.sameUserTurn, seen: DEFAULT_SEEN, sieveConfig: DEFAULT_SIEVE };
 export interface JevContextOptions { config?: Partial<JevContextConfig>; env?: NodeJS.ProcessEnv; settingsPath?: string; judge?: Judge; }
 export const ORIGINAL = "jev-context-original";
 export const LOG = "jev-context";
@@ -55,7 +59,7 @@ export function dedupeContextMessages(ctx: ExtensionContext): Message[] {
 function branch(ctx: ExtensionContext): Array<Record<string, any>> { return ctx.sessionManager.getBranch() as Array<Record<string, any>>; }
 const recallParams = () => Type.Object({ id: Type.Optional(Type.String({ description: "Original id, e.g. t3. Omit to search all originals on the active branch." })), query: Type.Optional(Type.String({ description: "Keywords or identifiers to search historical original chunks." })), budget: Type.Optional(Type.Integer({ minimum: 1, description: "Estimated tokens for whole search chunks, default 800. Navigation header is additional." })), offset: Type.Optional(Type.Integer({ minimum: 1, description: "1-based output line for id-only recall; 1-based ranked chunk for query pagination" })), limit: Type.Optional(Type.Integer({ minimum: 1, description: "Maximum number of lines (default 2000)" })) });
 type RecallDetails = { hits?: number; returned?: number; alias?: string; from?: number; to?: number; total?: number };
-interface Settings { mode?: Mode; dedupe?: DedupeMode; sieve?: SieveMode; jevThreshold?: number; minHiddenShare?: number; minSavedTokens?: number; dedupeMaxAgeTokens?: number; envFile?: string; }
+interface Settings { mode?: Mode; dedupe?: DedupeMode; sieve?: SieveMode; jevThreshold?: number; minHiddenShare?: number; minSavedTokens?: number; dedupeMaxAgeTokens?: number; dedupeSameTurn?: boolean; envFile?: string; }
 const numberInRange = (value: unknown, min: number, max: number): value is number => typeof value === "number" && Number.isFinite(value) && value >= min && value <= max;
 const parseEnvNumber = (value: string): number => value.trim() ? Number(value) : NaN;
 const nonNegative = (value: unknown): value is number => typeof value === "number" && Number.isFinite(value) && value >= 0 && value <= Number.MAX_SAFE_INTEGER;
@@ -74,6 +78,7 @@ export function readSettingsFile(path: string): Settings {
             minHiddenShare: numberInRange(raw.minHiddenShare, 0, 1) ? raw.minHiddenShare : undefined,
             minSavedTokens: nonNegative(raw.minSavedTokens) ? raw.minSavedTokens : undefined,
             dedupeMaxAgeTokens: validAgeTokens(raw.dedupeMaxAgeTokens) ? raw.dedupeMaxAgeTokens : undefined,
+            dedupeSameTurn: typeof raw.dedupeSameTurn === "boolean" ? raw.dedupeSameTurn : undefined,
             envFile: typeof raw.envFile === "string" ? raw.envFile : undefined,
         };
     } catch { return {}; }
@@ -85,12 +90,15 @@ export function createJevContext(pi: ExtensionAPI, options: JevContextOptions = 
     const env = options.env ?? process.env;
     const file = readSettingsFile(options.settingsPath ?? join(homedir(), ".pi", "agent", "pi-jev-context.json"));
     const envMode = env.PI_JEV_CONTEXT_MODE as Mode | undefined;
-    const baseMode = options.config?.mode ?? (envMode && MODES.includes(envMode) ? envMode : (file.mode ?? DEFAULT_CONFIG.mode));
+    const configuredMode = options.config?.mode ?? (envMode && MODES.includes(envMode) ? envMode : file.mode);
+    const baseMode = configuredMode ?? DEFAULT_CONFIG.mode;
+    // Nothing configured: local dedupe only. The sieve sends tool output to Jev, so it is opt-in.
+    const layerDefaults = configuredMode ? modeConfig(configuredMode) : DEFAULT_LAYERS;
     const startupDedupe = options.config?.dedupe ?? (bool(env.PI_JEV_CONTEXT_DEDUPE) ? env.PI_JEV_CONTEXT_DEDUPE : file.dedupe);
     const startupSieve = options.config?.sieve ?? (bool(env.PI_JEV_CONTEXT_SIEVE) ? env.PI_JEV_CONTEXT_SIEVE : file.sieve);
-    const config: JevContextConfig = { ...DEFAULT_CONFIG, ...modeConfig(baseMode), ...options.config, mode: baseMode };
-    config.dedupe = startupDedupe ?? modeConfig(baseMode).dedupe;
-    config.sieve = startupSieve ?? modeConfig(baseMode).sieve;
+    const config: JevContextConfig = { ...DEFAULT_CONFIG, ...layerDefaults, ...options.config, mode: baseMode };
+    config.dedupe = startupDedupe ?? layerDefaults.dedupe;
+    config.sieve = startupSieve ?? layerDefaults.sieve;
     const envThreshold = env.PI_JEV_CONTEXT_JEV_THRESHOLD === undefined ? undefined : parseEnvNumber(env.PI_JEV_CONTEXT_JEV_THRESHOLD);
     const envHiddenShare = env.PI_JEV_CONTEXT_MIN_HIDDEN_SHARE === undefined ? undefined : parseEnvNumber(env.PI_JEV_CONTEXT_MIN_HIDDEN_SHARE);
     const envSavedTokens = env.PI_JEV_CONTEXT_MIN_SAVED_TOKENS === undefined ? undefined : parseEnvNumber(env.PI_JEV_CONTEXT_MIN_SAVED_TOKENS);
@@ -101,7 +109,10 @@ export function createJevContext(pi: ExtensionAPI, options: JevContextOptions = 
     const selectedAgeTokens = options.config && Object.hasOwn(options.config, "dedupeMaxAgeTokens")
         ? options.config.dedupeMaxAgeTokens : envMaxAgeTokens ?? file.dedupeMaxAgeTokens;
     config.dedupeMaxAgeTokens = safeAgeTokens(selectedAgeTokens, DEFAULT_CONFIG.dedupeMaxAgeTokens);
-    config.seen = { ...DEFAULT_SEEN, ...config.seen, dedupeMaxAgeTokens: config.dedupeMaxAgeTokens };
+    const envSameTurn = env.PI_JEV_CONTEXT_DEDUPE_SAME_TURN === "true" ? true : env.PI_JEV_CONTEXT_DEDUPE_SAME_TURN === "false" ? false : undefined;
+    const optionSameTurn = typeof options.config?.dedupeSameTurn === "boolean" ? options.config.dedupeSameTurn : undefined;
+    config.dedupeSameTurn = optionSameTurn ?? envSameTurn ?? file.dedupeSameTurn ?? DEFAULT_CONFIG.dedupeSameTurn;
+    config.seen = { ...DEFAULT_SEEN, ...config.seen, dedupeMaxAgeTokens: config.dedupeMaxAgeTokens, sameUserTurn: config.dedupeSameTurn };
     const originals = new Map<string, Original>();
     const byCallId = new Map<string, string>();
     const judgedCallIds = new Set<string>();
@@ -199,7 +210,20 @@ export function createJevContext(pi: ExtensionAPI, options: JevContextOptions = 
     function report(ctx: ExtensionContext): string {
         const records = branch(ctx).filter((e) => e.customType === LOG).map((e) => e.data as LogRecord);
         const saved = (record: LogRecord) => (record.kind === "seen" || record.kind === "sieve") && record.acted ? Math.max(0, record.from - record.to) : 0;
-        return [`pi-jev-context: mode ${config.mode} · dedupe ${config.dedupe} (max age ${config.dedupeMaxAgeTokens} tok) · sieve ${config.sieve}`, `Collapsed: ${records.filter((r) => r.kind === "seen" && r.acted).length} reads; shortened: ${records.filter((r) => r.kind === "sieve" && r.acted).length} outputs · ~${records.reduce((n, r) => n + saved(r), 0)} tokens saved`, `Sieve evaluations: ${records.filter((r) => r.kind === "sieve").length} (includes pre-request skips; not HTTP calls)`, judge ? "Jev configured (connectivity not checked)" : "Jev unavailable: no configured judge/API key; sieve preserves full output", `Recalls: ${records.filter((r) => r.kind === "recall").length}`].join("\n");
+        const window = `${config.seen.sameUserTurn ? "since your last message, " : ""}within ${config.dedupeMaxAgeTokens} tokens`;
+        const lines = [
+            config.mode === "on" ? "pi-jev-context" : `pi-jev-context (compatibility mode ${config.mode})`,
+            config.dedupe === "on"
+                ? `Dedupe: on — local, no network. Folds file lines you already read ${window}.`
+                : "Dedupe: off. Enable with /context dedupe on.",
+            config.sieve === "on"
+                ? `Sieve: on — sends long test/build/lint logs to Jev (${judge ? "Jev configured, connectivity not checked" : "Jev unavailable: no API key found, outputs pass through unchanged"}).`
+                : "Sieve: off (opt-in). Enable with /context sieve on — it sends long test/build/lint logs to Jev.",
+            `Collapsed: ${records.filter((r) => r.kind === "seen" && r.acted).length} reads; shortened: ${records.filter((r) => r.kind === "sieve" && r.acted).length} outputs · ~${records.reduce((n, r) => n + saved(r), 0)} tokens kept out of context on this branch (estimate).`,
+        ];
+        if (config.sieve === "on") lines.push(`Sieve evaluations: ${records.filter((r) => r.kind === "sieve").length} (includes pre-request skips; not HTTP calls)`);
+        lines.push(`Recalls: ${records.filter((r) => r.kind === "recall").length}. Originals stay recallable with context_recall.`);
+        return lines.join("\n");
     }
     pi.registerCommand("context", { description: "pi-jev-context: status | report | mode <off|shadow|on> | dedupe <on|off> | sieve <on|off> | recalls | label <good|bad> [note]", getArgumentCompletions: (prefix) => ["status", "report", "mode", "dedupe", "sieve", "recalls", "label"].filter((s) => s.startsWith(prefix)).map((s) => ({ value: s, label: s })), handler: async (args, ctx) => {
         const [sub = "report", ...rest] = args.trim().split(/\s+/).filter(Boolean); const say = (message: string, level: "info" | "warning" = "info") => ctx.ui.notify(message, level);

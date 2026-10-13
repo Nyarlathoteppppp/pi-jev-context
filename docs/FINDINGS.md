@@ -382,3 +382,24 @@ read tokens; 0.2% of all tool-result tokens). Snapshot counts differ from earlie
 runs; no filtering-policy change was made. Benchmark is offline: no Jev calls or
 live model rerun in this closeout. The prior six-session live source-read experiment
 is retained with its limitations. Protected user result files remain unchanged.
+
+## F31 · v0.8 practicality pass: freshness sweep, opt-in sieve, user-facing docs (2026-10-13)
+
+- **Question:** For someone installing this today, what does it actually do, and are the defaults sensible?
+- **Freshness sweep** (offline, `bench/seen-replay.ts`, 24 local sessions, 3,492 reads, 6,206k tool-result tokens, Pi branch/compaction-aware replay):
+
+  | dedupe setting | reads shortened | read tokens saved | all tool tokens saved |
+  |---|---|---|---|
+  | default: same user turn, ≤ 12k | 19 | 0.5% | 0.2% |
+  | same user turn, ≤ 25k | 25 | 0.7% | 0.3% |
+  | any turn, ≤ 12k | 28 | 0.7% | 0.3% |
+  | any turn, ≤ 25k | 45 | 1.1% | 0.4% |
+  | any turn, ≤ 50k | 65 | 1.5% | 0.6% |
+  | any turn, ≤ 100k | 83 | 2.1% | 0.8% |
+  | any turn, no limit | 89 | 2.3% | 0.9% |
+
+- **Reading:** even without freshness limits, exact same-position dedupe tops out below 1% of tool-result tokens on this corpus. Relaxing freshness cannot make dedupe a large saving, so the conservative default stays. The user-turn boundary is now configurable (`dedupeSameTurn`, `PI_JEV_CONTEXT_DEDUPE_SAME_TURN`) for users who want the measured trade-off.
+- **Default change:** with nothing configured, the sieve is now **off**. Before, a fresh install with `OPENROUTER_API_KEY` or `TYPESAFE_API_KEY` in the environment sent long test/build logs to Jev without the user choosing it. An explicit `mode on` still enables both layers, so existing configured users are unaffected. Tests assert both the new default and the unchanged explicit-mode mapping.
+- **Docs:** the README is rewritten for users (what each layer does, realistic savings, what leaves the machine, defaults, configuration). The previous README is kept in full as `docs/REFERENCE.md`. The privacy section lists every field the sieve sends to Jev, checked against `src/sieve.ts`.
+- **Report:** `/context report` now says per layer whether it is on, whether it uses the network, and how to switch it.
+- **Validation:** 87 tests and typecheck pass.

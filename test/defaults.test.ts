@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { mkdtempSync, writeFileSync } from "node:fs";
+import { mkdtempSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { describe, it } from "node:test";
@@ -31,8 +31,12 @@ describe("defaults for a fresh install", () => {
 		assert.equal(make({ config: { sieve: "on" } }).config.sieve, "on");
 		assert.equal(make({ env: { PI_JEV_CONTEXT_SIEVE: "on" } }).config.sieve, "on");
 		const dir = mkdtempSync(join(tmpdir(), "jctx-defaults-"));
-		writeFileSync(join(dir, "s.json"), JSON.stringify({ sieve: "on" }));
-		assert.equal(make({ settingsPath: join(dir, "s.json") }).config.sieve, "on");
+		try {
+			writeFileSync(join(dir, "s.json"), JSON.stringify({ sieve: "on" }));
+			assert.equal(make({ settingsPath: join(dir, "s.json") }).config.sieve, "on");
+		} finally {
+			rmSync(dir, { recursive: true, force: true });
+		}
 	});
 });
 
@@ -43,10 +47,14 @@ describe("dedupeSameTurn", () => {
 		assert.equal(make({ env: { PI_JEV_CONTEXT_DEDUPE_SAME_TURN: "false" } }).config.seen.sameUserTurn, false);
 		assert.equal(make({ env: { PI_JEV_CONTEXT_DEDUPE_SAME_TURN: "nope" } }).config.seen.sameUserTurn, true);
 		const dir = mkdtempSync(join(tmpdir(), "jctx-sameturn-"));
-		writeFileSync(join(dir, "s.json"), JSON.stringify({ dedupeSameTurn: false }));
-		assert.equal(make({ settingsPath: join(dir, "s.json") }).config.seen.sameUserTurn, false);
-		writeFileSync(join(dir, "bad.json"), JSON.stringify({ dedupeSameTurn: "false" }));
-		assert.equal(make({ settingsPath: join(dir, "bad.json") }).config.seen.sameUserTurn, true);
+		try {
+			writeFileSync(join(dir, "s.json"), JSON.stringify({ dedupeSameTurn: false }));
+			assert.equal(make({ settingsPath: join(dir, "s.json") }).config.seen.sameUserTurn, false);
+			writeFileSync(join(dir, "bad.json"), JSON.stringify({ dedupeSameTurn: "false" }));
+			assert.equal(make({ settingsPath: join(dir, "bad.json") }).config.seen.sameUserTurn, true);
+		} finally {
+			rmSync(dir, { recursive: true, force: true });
+		}
 	});
 });
 

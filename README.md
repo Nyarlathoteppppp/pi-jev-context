@@ -36,6 +36,8 @@ pi install git:github.com/Nyarlathoteppppp/pi-jev-context
 
 Run `/reload` in an open Pi session. Dedupe starts working at once and needs no key.
 
+Tested with Pi 1.1.0 (live) and the Pi 1.2.0 SDK (type check and test suite). It should also load on 0.85.1 and later, which is the declared peer range.
+
 To turn on the sieve, set a Jev key (`TYPESAFE_API_KEY`, or `OPENROUTER_API_KEY`) and then:
 
 ```text

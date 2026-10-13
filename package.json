@@ -1,6 +1,6 @@
 {
 	"name": "pi-jev-context",
-	"version": "0.8.0",
+	"version": "0.8.1",
 	"private": false,
 	"description": "Performance-first Pi context extension: freshness-aware read dedupe, Jev log sieve, and searchable verbatim recall.",
 	"type": "module",
@@ -15,9 +15,9 @@
 		"test:archive": "node --test bench/archive/extension.test.ts"
 	},
 	"devDependencies": {
-		"@earendil-works/pi-coding-agent": "^0.85.1",
+		"@earendil-works/pi-coding-agent": "^1.2.0",
 		"@types/node": "^24.0.0",
-		"typebox": "^1.3.7",
+		"typebox": "^1.3.27",
 		"typescript": "^5.9.0"
 	},
 	"keywords": [

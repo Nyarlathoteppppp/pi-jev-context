@@ -403,3 +403,9 @@ is retained with its limitations. Protected user result files remain unchanged.
 - **Docs:** the README is rewritten for users (what each layer does, realistic savings, what leaves the machine, defaults, configuration). The previous README is kept in full as `docs/REFERENCE.md`. The privacy section lists every field the sieve sends to Jev, checked against `src/sieve.ts`.
 - **Report:** `/context report` now says per layer whether it is on, whether it uses the network, and how to switch it.
 - **Validation:** 87 tests and typecheck pass.
+
+## F32 · Compatibility with Pi 1.x (2026-10-13)
+
+- **Setup:** the installed Pi had moved to 1.1.0 and npm to 1.2.0, while development still pinned the 0.85.1 SDK.
+- **Result:** with the 1.2.0 SDK (plus `typebox` 1.3.27) the type check is clean and all 87 tests pass. A live run on Pi 1.1.0 (`pi -p -ne -e ./src/index.ts`, `xai/grok-4.6`) folded 101 of 161 overlapping lines on a second read in the same turn. The model answered both questions correctly (one line inside the folded range, one outside), and cache reads kept growing (5,504 → 8,960). There were no registration conflicts.
+- **Pitfall found on the way:** installing the 1.1.0 SDK into a project resolves `@earendil-works/pi-codemode` to 1.2.0 under `^1.1.0`. That version no longer exports `MCP_TYPESCRIPT_PREAMBLE`, so importing the 1.1.0 SDK fails. This is an upstream semver break, and the globally installed Pi ships the matching 1.1.0. Development therefore uses the self-consistent 1.2.0 set.

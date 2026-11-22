@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
-import { SessionManager } from "/opt/homebrew/lib/node_modules/@earendil-works/pi-coding-agent/dist/index.js";
+import { SessionManager } from "@earendil-works/pi-coding-agent";
 import { createJevContext, ORIGINAL, LOG, type JevContextOptions } from "../src/index.ts";
 import type { Answer, Judge } from "../src/jev.ts";
 const output = Array.from({length:500},(_,i)=>`routine test output ${i} with stable diagnostic padding`).join("\n")+"\nTests: 500 passed";

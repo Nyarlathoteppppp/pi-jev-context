@@ -1,8 +1,8 @@
-import { createAgentSession, DefaultResourceLoader, ModelRuntime, SessionManager, SettingsManager } from "/opt/homebrew/lib/node_modules/@earendil-works/pi-coding-agent/dist/index.js";
+import { createAgentSession, DefaultResourceLoader, ModelRuntime, SessionManager, SettingsManager } from "@earendil-works/pi-coding-agent";
 import { homedir } from "node:os";
 import { join } from "node:path";
 // SDK callers must perform the same HTTP initialization as Pi CLI (Node 26 + undici).
-const http = await import(new URL("./core/http-dispatcher.js", "file:///opt/homebrew/lib/node_modules/@earendil-works/pi-coding-agent/dist/index.js").href);
+const http = await import(new URL("./core/http-dispatcher.js", import.meta.resolve("@earendil-works/pi-coding-agent")).href);
 http.configureHttpDispatcher();
 export async function isolatedSession(cwd: string, sm = SessionManager.inMemory(cwd), extensions: string[] = [], tools: string[] = [], keepRecentTokens = 1024) {
  const agentDir = join(homedir(), ".pi/agent");

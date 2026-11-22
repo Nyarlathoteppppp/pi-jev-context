@@ -166,7 +166,8 @@ export function chooseHidden(need: ChoiceAnswer, userAsked: NoulAnswer, blocks: 
     const hidden = blocks.filter((b) => b.completeForJev && !b.hardKeep && !requestTerms.some((t) => b.text.toLowerCase().includes(t)) && (probabilities[b.id] ?? 1) < threshold);
     return hidden.length ? { hidden } : { hidden, skip: "no block passed hard guards and threshold" };
 }
-export async function planSieve(judge: Judge, context: Message[], result: FreshResult, alias: string, opts: { config?: SieveConfig; threshold?: number; minHiddenShare?: number; minSavedTokens?: number; timeoutMs?: number } = {}): Promise<SievePlan> {
+export async function planSieve(judge: Judge, context: Message[], result: FreshResult, alias: string, opts: { config?: SieveConfig; threshold?: number; minHiddenShare?: number; minSavedTokens?: number; timeoutMs?: number; signal?: AbortSignal } = {}): Promise<SievePlan> {
+    if (opts.signal?.aborted) return { blocks: [], hidden: [], visible: [], skip: "request cancelled" };
     const cfg = opts.config ?? DEFAULT_SIEVE;
     const blocks = splitSieveBlocks(result.text, cfg);
     if (!blocks) return { blocks: [], hidden: [], visible: [], skip: "uncertain block coverage" };
@@ -181,7 +182,8 @@ export async function planSieve(judge: Judge, context: Message[], result: FreshR
     for (const block of blocks) questions[block.id] = blockQuestion(block);
     const built = state(context, result, blocks);
     if (estimateTokens(JSON.stringify(built)) + estimateTokens(JSON.stringify(questions)) > cfg.maxRequestTokens) return { blocks, hidden: [], visible: blocks, skip: "request budget exceeded" };
-    const call = await judge.decide(built, questions, opts.timeoutMs ?? 2500);
+    const call = await judge.decide(built, questions, opts.timeoutMs ?? 2500, opts.signal);
+    if (opts.signal?.aborted) return { blocks, hidden: [], visible: blocks, call, skip: "request cancelled" };
     if (!call.answers) return { blocks, hidden: [], visible: blocks, call, skip: `jev unavailable: ${call.error ?? "unknown"}` };
     const need = call.answers.need as ChoiceAnswer | undefined;
     const userAsked = call.answers.user_asked as NoulAnswer | undefined;

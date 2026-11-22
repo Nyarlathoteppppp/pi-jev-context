@@ -219,7 +219,7 @@ describe("MVP lifecycle", () => {
  });
  it("does not start external judgments or handle old pruning events", async () => {
   const { pi } = setup();
-  assert.deepEqual([...pi.handlers.keys()].sort(), ["session_start", "session_tree", "tool_result"]);
+  assert.deepEqual([...pi.handlers.keys()].sort(), ["session_shutdown", "session_start", "session_tree", "tool_result"]);
   assert.equal((await pi.tool("bash", { command: "test" }, text)).patch, undefined);
  });
  it("rebuilds recall and statistics on resume and clears them on session switch", async () => {

@@ -34,7 +34,7 @@ The sieve does more where it applies. On two small synthetic tasks it hid 35 blo
 pi install git:github.com/Nyarlathoteppppp/pi-jev-context
 ```
 
-Run `/reload` in an open Pi session. Dedupe starts working at once and needs no key.
+Run `/reload` in an open Pi session. Dedupe starts working at once and needs no key. The sieve remains opt-in after startup, reload, and branch navigation.
 
 Tested with Pi 1.1.0 (live) and the Pi 1.2.0 SDK (type check and test suite). It should also load on 0.85.1 and later, which is the declared peer range.
 

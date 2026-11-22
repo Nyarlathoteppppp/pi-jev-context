@@ -13,8 +13,8 @@ import { join } from "node:path";
 import { parseArgs } from "node:util";
 import { SCENARIOS } from "./scenarios.ts";
 
-/** Absolute path, so a transient PATH lookup failure cannot abort the benchmark. */
-const PI_BIN = process.env.PI_BIN ?? "/opt/homebrew/bin/pi";
+/** Resolve the CLI through PATH, or set an explicit PI_BIN. */
+const PI_BIN = process.env.PI_BIN ?? "pi";
 
 const { values } = parseArgs({
 	options: {

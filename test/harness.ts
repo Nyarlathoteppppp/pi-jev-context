@@ -13,6 +13,7 @@ export class FakePi {
 	sent: string[] = [];
 	notes: string[] = [];
 	status: string | undefined;
+	signal: AbortSignal | undefined;
 	now = 1_700_000_000_000;
 	private seq = 0;
 
@@ -43,7 +44,7 @@ export class FakePi {
 	ctx() {
 		return {
 			hasUI: true,
-			signal: undefined,
+			signal: this.signal,
 			ui: { setStatus: (_k: string, v: string | undefined) => (this.status = v), notify: (m: string) => this.notes.push(m) },
 			sessionManager: { getBranch: () => this.entries, getEntries: () => this.entries, buildContextEntries: () => this.entries },
 			getContextUsage: () => undefined,

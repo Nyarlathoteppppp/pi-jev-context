@@ -4,7 +4,7 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { describe, it } from "node:test";
 import { createJevContext } from "../src/index.ts";
-import { FakePi } from "./harness.ts";
+import { FakePi, fakeJudge, choice, noul, setup } from "./harness.ts";
 
 const make = (opts: Parameters<typeof createJevContext>[1] = {}) => createJevContext(new FakePi().api(), { env: {}, settingsPath: "/nonexistent", ...opts });
 
@@ -19,6 +19,38 @@ describe("defaults for a fresh install", () => {
 		const { config } = make({ env: { OPENROUTER_API_KEY: "sk-test", TYPESAFE_API_KEY: "ts-test" } });
 		assert.equal(config.sieve, "off");
 	});
+
+	it("keeps sieve opt-in across startup, reload, resume, fork and navigation", async () => {
+        const judge = fakeJudge(key => key === "need" ? choice("specific_parts") : noul(0));
+        const { pi, ext } = setup({ judge, env: { TYPESAFE_API_KEY: "ts-test" } });
+        const output = Array.from({ length: 400 }, (_, i) => `routine test output ${i} with stable padding`).join("\n");
+        for (const reason of ["startup", "reload", "new", "resume", "fork"]) {
+            await pi.emit("session_start", { reason });
+            assert.equal(ext.config.sieve, "off", reason);
+            assert.equal((await pi.tool("bash", { command: "npm test" }, output)).patch, undefined);
+        }
+        await pi.emit("session_tree");
+        assert.equal(ext.config.sieve, "off");
+        assert.equal((await pi.tool("bash", { command: "npm test" }, output)).patch, undefined);
+        assert.equal(judge.calls.length, 0);
+    });
+
+    it("replays explicit opt-in only on branches with its config entry", async () => {
+        const { pi, ext } = setup();
+        await pi.command("/context sieve on");
+        const optedIn = structuredClone(pi.entries);
+        await pi.emit("session_start", { reason: "reload" });
+        assert.equal(ext.config.sieve, "on");
+        pi.entries = [];
+        await pi.emit("session_tree");
+        assert.equal(ext.config.sieve, "off");
+        pi.entries = structuredClone(optedIn);
+        await pi.emit("session_tree");
+        assert.equal(ext.config.sieve, "on");
+        pi.entries = [];
+        await pi.emit("session_start", { reason: "new" });
+        assert.equal(ext.config.sieve, "off");
+    });
 
 	it("an explicit mode keeps its meaning: on enables both, shadow logs dedupe only, off disables both", () => {
 		assert.deepEqual([make({ env: { PI_JEV_CONTEXT_MODE: "on" } }).config.dedupe, make({ env: { PI_JEV_CONTEXT_MODE: "on" } }).config.sieve], ["on", "on"]);

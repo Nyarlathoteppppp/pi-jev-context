@@ -117,19 +117,28 @@ export function createJevContext(pi: ExtensionAPI, options: JevContextOptions = 
     const byCallId = new Map<string, string>();
     const judgedCallIds = new Set<string>();
     const runtimeOverrides: { dedupe?: DedupeMode; sieve?: SieveMode } = { dedupe: startupDedupe, sieve: startupSieve };
+    // Every pending sieve decision is tied to its session, branch and settings.
+    let sieveGeneration = 0;
+    let sieveAbort = new AbortController();
+    function invalidateSieve() {
+        sieveGeneration++;
+        sieveAbort.abort();
+        sieveAbort = new AbortController();
+    }
     let stats = { trimmed: 0, savedTokens: 0 };
     const transport = options.judge ? undefined : resolveTransport(env, file.envFile);
     const judge = options.judge ?? (transport ? new Jev(transport) : undefined);
     const log = (record: LogRecord) => { try { pi.appendEntry(LOG, record); } catch { /* telemetry must not change visible output */ } };
     const status = (ctx: ExtensionContext) => { if (!ctx.hasUI) return; if (config.dedupe === "off" && config.sieve === "off") return ctx.ui.setStatus("jev-context", undefined); const saved = stats.savedTokens >= 1000 ? `${(stats.savedTokens / 1000).toFixed(1)}k` : String(stats.savedTokens); ctx.ui.setStatus("jev-context", `ctx:${config.mode}${stats.trimmed ? ` · ${stats.trimmed} trimmed, ${saved} tok saved` : ""}`); };
     function rebuild(ctx: ExtensionContext) {
+        invalidateSieve();
         originals.clear(); byCallId.clear(); judgedCallIds.clear(); stats = { trimmed: 0, savedTokens: 0 }; aliasSeq = 0;
         config.mode = baseMode;
         runtimeOverrides.dedupe = startupDedupe;
         runtimeOverrides.sieve = startupSieve;
-        const base = modeConfig(config.mode);
-        config.dedupe = runtimeOverrides.dedupe ?? base.dedupe;
-        config.sieve = runtimeOverrides.sieve ?? base.sieve;
+        // A default mode is not an opt-in to sending logs; explicit modes still replay below.
+        config.dedupe = runtimeOverrides.dedupe ?? layerDefaults.dedupe;
+        config.sieve = runtimeOverrides.sieve ?? layerDefaults.sieve;
         for (const entry of branch(ctx)) {
             if (entry.type === "custom" && entry.customType === ORIGINAL) { const original = entry.data as Original; originals.set(original.alias, original); byCallId.set(original.toolCallId, original.alias); aliasSeq = Math.max(aliasSeq, Number(original.alias.slice(1)) || 0); }
             else if (entry.type === "custom" && entry.customType === CONFIG) {
@@ -166,10 +175,15 @@ export function createJevContext(pi: ExtensionAPI, options: JevContextOptions = 
         if ((event.details as any)?.truncation?.truncated || /\[Showing [^\n]*Full output:/.test(text)) return;
         const category = eligibleFreshOutput(event.toolName, input, text, !!event.isError, config.sieveConfig);
         if (!category) return;
+        const contextSignal = ctx.signal;
+        if (contextSignal?.aborted) return;
+        const signal = contextSignal ? AbortSignal.any([contextSignal, sieveAbort.signal]) : sieveAbort.signal;
         const alias = nextAlias();
         judgedCallIds.add(event.toolCallId);
+        const generation = sieveGeneration;
         try {
-            const plan = await planSieve(judge, contextMessages(ctx), { toolCallId: event.toolCallId, toolName: event.toolName, input, text, isError: !!event.isError }, alias, { config: { ...config.sieveConfig, minTokens: config.sieveConfig.minTokens }, threshold: config.jevThreshold, minHiddenShare: config.minHiddenShare, minSavedTokens: config.minSavedTokens });
+            const plan = await planSieve(judge, contextMessages(ctx), { toolCallId: event.toolCallId, toolName: event.toolName, input, text, isError: !!event.isError }, alias, { config: { ...config.sieveConfig, minTokens: config.sieveConfig.minTokens }, threshold: config.jevThreshold, minHiddenShare: config.minHiddenShare, minSavedTokens: config.minSavedTokens, signal });
+            if (generation !== sieveGeneration || signal.aborted || config.sieve !== "on") return;
             const call = plan.call;
             if (!plan.hidden.length) { log({ kind: "sieve", mode: "on", acted: false, toolCallId: event.toolCallId, summary: summarizeCall(event.toolName, input), from: 0, to: 0, hiddenBlocks: 0, latencyMs: call?.ms ?? 0, inputTokens: call?.inputTokens, cost: call?.cost, skip: plan.skip, category, threshold: config.jevThreshold }); return; }
             const rendered = renderSieve(text, plan.blocks, plan.hidden, alias);
@@ -181,6 +195,7 @@ export function createJevContext(pi: ExtensionAPI, options: JevContextOptions = 
             stats.trimmed++; stats.savedTokens += rendered.hiddenTokens; status(ctx);
             return { content: [{ type: "text" as const, text: rendered.text }] };
         } catch (error) {
+            if (generation !== sieveGeneration || signal.aborted || config.sieve !== "on") return;
             log({ kind: "sieve", mode: "on", acted: false, toolCallId: event.toolCallId, summary: summarizeCall(event.toolName, input), from: 0, to: 0, hiddenBlocks: 0, latencyMs: 0, skip: `handler failure: ${String(error).slice(0, 120)}`, category, threshold: config.jevThreshold });
             return;
         }
@@ -207,6 +222,7 @@ export function createJevContext(pi: ExtensionAPI, options: JevContextOptions = 
     }});
     pi.on("session_start", (_event, ctx) => rebuild(ctx));
     pi.on("session_tree", (_event, ctx) => rebuild(ctx));
+    pi.on("session_shutdown", () => invalidateSieve());
     function report(ctx: ExtensionContext): string {
         const records = branch(ctx).filter((e) => e.customType === LOG).map((e) => e.data as LogRecord);
         const saved = (record: LogRecord) => (record.kind === "seen" || record.kind === "sieve") && record.acted ? Math.max(0, record.from - record.to) : 0;
@@ -232,6 +248,7 @@ export function createJevContext(pi: ExtensionAPI, options: JevContextOptions = 
             const mode = rest[0] as Mode;
             if (!MODES.includes(mode)) return say(`usage: /context mode <${MODES.join("|")}>`, "warning");
             pi.appendEntry(CONFIG, { mode });
+            invalidateSieve();
             config.mode = mode;
             const mapped = modeConfig(mode);
             if (runtimeOverrides.dedupe === undefined) config.dedupe = mapped.dedupe;
@@ -243,6 +260,7 @@ export function createJevContext(pi: ExtensionAPI, options: JevContextOptions = 
             const value = rest[0] as DedupeMode | SieveMode;
             if (value !== "on" && value !== "off") return say(`usage: /context ${sub} <on|off>`, "warning");
             pi.appendEntry(CONFIG, { [sub]: value });
+            if (sub === "sieve") invalidateSieve();
             runtimeOverrides[sub] = value;
             config[sub] = value;
             status(ctx);
